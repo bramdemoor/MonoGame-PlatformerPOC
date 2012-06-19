@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PlatformerPOC.Helpers;
@@ -20,10 +21,16 @@ namespace PlatformerPOC
 
         private int playerAnimationFrame = 0;
 
+        SoundEffect testSound;
+        SoundEffectInstance testSoundInstance;
+
         public PlatformGame() : base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics.PreferMultiSampling = true;
+            graphics.IsFullScreen = false;	
         }
 
         protected override void Initialize()
@@ -44,6 +51,10 @@ namespace PlatformerPOC
 
             playerSpriteSheet = new SpriteSheet(playerSpriteSheetTexture);
 
+            testSound = Content.Load<SoundEffect>("testsound");
+            testSoundInstance = testSound.CreateInstance();
+            testSound.Play();
+
             // Lame way of adding animation frames
             for (int i = 0; i < 8; i++)
             {
@@ -57,13 +68,26 @@ namespace PlatformerPOC
 
         protected override void Update(GameTime gameTime)
         {
+
+
+            if (testSoundInstance.State != SoundState.Playing)
+            {
+                testSoundInstance.Volume = 1f;
+
+                testSoundInstance.IsLooped = false;
+                testSoundInstance.Play();
+            }
+
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 Exit();
             }
 
             playerAnimationFrame++;
-            if (playerAnimationFrame == 7) playerAnimationFrame = 0;
+            if (playerAnimationFrame == 7)
+            {
+                playerAnimationFrame = 0;
+            }
             
             
             base.Update(gameTime);
@@ -84,9 +108,7 @@ namespace PlatformerPOC
             // Draw 1 image frame
             spriteBatch.Draw(playerSpriteSheetTexture, new Vector2(10, 100), playerSpriteSheet[playerAnimationFrame], Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
-            spriteBatch.End();
-
-            
+            spriteBatch.End();          
 
             base.Draw(gameTime);
         }
