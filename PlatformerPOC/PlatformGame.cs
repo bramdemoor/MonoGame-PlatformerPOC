@@ -13,6 +13,7 @@ namespace PlatformerPOC
         private Texture2D playerTexture;
         private Texture2D bgLayer1Texture;
         private Texture2D bgLayer2Texture;
+        private Texture2D tilesetTexture;
 
         public PlatformGame() : base()
         {
@@ -34,6 +35,7 @@ namespace PlatformerPOC
             playerTexture = Content.Load<Texture2D>("player");
             bgLayer1Texture = Content.Load<Texture2D>("parallax-layer1");
             bgLayer2Texture = Content.Load<Texture2D>("parallax-layer2");
+            tilesetTexture = Content.Load<Texture2D>("tileset");
         }
 
         protected override void UnloadContent()
@@ -57,6 +59,10 @@ namespace PlatformerPOC
             spriteBatch.Begin();
             spriteBatch.Draw(bgLayer1Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.Draw(bgLayer2Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+            // Draw 1 tile
+            spriteBatch.Draw(tilesetTexture, new Vector2(200, 200), new Rectangle(0, 0, 32, 32), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
             spriteBatch.Draw(playerTexture, new Vector2(10, 100), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.End();
 
