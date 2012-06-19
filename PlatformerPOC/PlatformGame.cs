@@ -10,6 +10,10 @@ namespace PlatformerPOC
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private Texture2D playerTexture;
+        private Texture2D bgLayer1Texture;
+        private Texture2D bgLayer2Texture;
+
         public PlatformGame() : base()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -26,6 +30,10 @@ namespace PlatformerPOC
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            playerTexture = Content.Load<Texture2D>("player");
+            bgLayer1Texture = Content.Load<Texture2D>("parallax-layer1");
+            bgLayer2Texture = Content.Load<Texture2D>("parallax-layer2");
         }
 
         protected override void UnloadContent()
@@ -45,6 +53,14 @@ namespace PlatformerPOC
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
+
+            spriteBatch.Begin();
+            spriteBatch.Draw(bgLayer1Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(bgLayer2Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(playerTexture, new Vector2(10, 100), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.End();
+
+            
 
             base.Draw(gameTime);
         }
