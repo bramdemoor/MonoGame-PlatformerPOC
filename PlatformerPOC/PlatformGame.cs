@@ -24,6 +24,8 @@ namespace PlatformerPOC
         SoundEffect testSound;
         SoundEffectInstance testSoundInstance;
 
+        private Vector2 playerPos = new Vector2(100, 100);
+
         public PlatformGame() : base()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -68,8 +70,6 @@ namespace PlatformerPOC
 
         protected override void Update(GameTime gameTime)
         {
-
-
             if (testSoundInstance.State != SoundState.Playing)
             {
                 testSoundInstance.Volume = 1f;
@@ -81,6 +81,16 @@ namespace PlatformerPOC
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 Exit();
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                playerPos.X -= 5;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                playerPos.X += 5;
             }
 
             playerAnimationFrame++;
@@ -106,7 +116,7 @@ namespace PlatformerPOC
             spriteBatch.Draw(tilesetTexture, new Vector2(200, 200), new Rectangle(0, 0, 32, 32), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             // Draw 1 image frame
-            spriteBatch.Draw(playerSpriteSheetTexture, new Vector2(10, 100), playerSpriteSheet[playerAnimationFrame], Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(playerSpriteSheetTexture, playerPos, playerSpriteSheet[playerAnimationFrame], Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             spriteBatch.End();          
 
