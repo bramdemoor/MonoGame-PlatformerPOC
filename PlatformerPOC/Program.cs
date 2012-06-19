@@ -11,7 +11,7 @@ namespace PlatformerPOC
     /// </summary>
     public static class Program
     {
-        private static Game1 game;
+        private static PlatformGame game;
 
         /// <summary>
         /// The main entry point for the application.
@@ -19,7 +19,7 @@ namespace PlatformerPOC
         [STAThread]
         static void Main()
         {
-            game = new Game1();
+            game = new PlatformGame();
             game.Run();
         }
     }
