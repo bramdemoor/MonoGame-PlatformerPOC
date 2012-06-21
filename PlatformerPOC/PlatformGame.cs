@@ -1,14 +1,24 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Net;
 using PlatformerPOC.Helpers;
+using PlatformerPOC.Network;
+using log4net;
+using log4net.Appender;
+using log4net.Core;
 
 
 namespace PlatformerPOC
 {
-    public class PlatformGame : Game
+    // Logging based on http://weblogs.asp.net/psteele/archive/2010/01/25/live-capture-of-log4net-logging.aspx
+
+    public class PlatformGame : Game, IAppender
     {
+        private ILog log;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -26,8 +36,13 @@ namespace PlatformerPOC
 
         private Vector2 playerPos = new Vector2(100, 100);
 
-        public PlatformGame() : base()
+        private INetworkManager networkManager;
+
+        public PlatformGame()
         {
+            log4net.Config.BasicConfigurator.Configure();
+            log = LogManager.GetLogger(typeof(PlatformGame));
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
@@ -37,7 +52,11 @@ namespace PlatformerPOC
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            log.Info("Initializing game...");
+
+            ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetLoggerRepository()).Root.AddAppender(this);
+
+            log.Info("Press H to host and J to join (localhost test only)");
 
             base.Initialize();
         }
@@ -93,12 +112,29 @@ namespace PlatformerPOC
                 playerPos.X += 5;
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.H))
+            {
+                networkManager = new ServerNetworkManager();
+                networkManager.Connect();
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.J))
+            {
+                networkManager = new ClientNetworkManager();
+                networkManager.Connect();
+            }
+
             playerAnimationFrame++;
             if (playerAnimationFrame == 7)
             {
                 playerAnimationFrame = 0;
             }
-            
+
+            if (networkManager != null)
+            {
+                networkManager.Send("I'm a client or a server");
+                networkManager.ReadMessage();                                
+            }    
             
             base.Update(gameTime);
         }
@@ -122,5 +158,17 @@ namespace PlatformerPOC
 
             base.Draw(gameTime);
         }
+
+        public void Close()
+        {
+            //
+        }
+
+        public void DoAppend(LoggingEvent loggingEvent)
+        {
+            Console.WriteLine("{2}: {0}: {1}\r\n", loggingEvent.Level.Name, loggingEvent.MessageObject, loggingEvent.LoggerName);
+        }
+
+        public string Name { get; set; }
     }
 }
