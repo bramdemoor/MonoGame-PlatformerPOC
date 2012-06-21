@@ -1,11 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Net;
 using PlatformerPOC.Domain;
-using PlatformerPOC.Helpers;
 using PlatformerPOC.Network;
 using log4net;
 using log4net.Appender;
@@ -18,27 +15,21 @@ namespace PlatformerPOC
 
     public class PlatformGame : Game, IAppender
     {
-        private ILog log;
+        private readonly ILog log;
 
-        GraphicsDeviceManager graphics;
+        readonly GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        
-        private Texture2D bgLayer1Texture;
-        private Texture2D bgLayer2Texture;
-        private Texture2D tilesetTexture;
-
-        SoundEffect testSound;
-        SoundEffectInstance testSoundInstance;
 
         private INetworkManager networkManager;
 
         private Player player;
+        private Domain.Level level;
 
         public PlatformGame()
         {
             log4net.Config.BasicConfigurator.Configure();
             log = LogManager.GetLogger(typeof(PlatformGame));
+            ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetLoggerRepository()).Root.AddAppender(this);
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -49,13 +40,10 @@ namespace PlatformerPOC
 
         protected override void Initialize()
         {
-            log.Info("Initializing game...");
+            // Remember: Executed BEFORE LoadContent!
 
-            ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetLoggerRepository()).Root.AddAppender(this);
-
+            log.Info("Initializing game...");            
             log.Info("Press H to host and J to join (localhost test only)");
-
-            player = new Player();
 
             base.Initialize();
         }
@@ -65,14 +53,11 @@ namespace PlatformerPOC
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Player.LoadContent(Content);
+            Domain.Level.LoadContent(Content);
 
-            bgLayer1Texture = Content.Load<Texture2D>("parallax-layer1");
-            bgLayer2Texture = Content.Load<Texture2D>("parallax-layer2");
-            tilesetTexture = Content.Load<Texture2D>("tileset");
-
-            testSound = Content.Load<SoundEffect>("testsound");
-            testSoundInstance = testSound.CreateInstance();
-            testSound.Play();
+            // Start game!
+            level = new Domain.Level();
+            player = new Player();
         }
 
         protected override void UnloadContent()
@@ -81,13 +66,7 @@ namespace PlatformerPOC
 
         protected override void Update(GameTime gameTime)
         {
-            if (testSoundInstance.State != SoundState.Playing)
-            {
-                testSoundInstance.Volume = 1f;
 
-                testSoundInstance.IsLooped = false;
-                testSoundInstance.Play();
-            }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
@@ -139,13 +118,8 @@ namespace PlatformerPOC
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(bgLayer1Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(bgLayer2Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-
-            // Draw 1 tile
-            spriteBatch.Draw(tilesetTexture, new Vector2(200, 200), new Rectangle(0, 0, 32, 32), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-
-            // Draw 1 image frame
+            level.Draw(spriteBatch);
+            
             player.Draw(spriteBatch);            
 
             spriteBatch.End();          

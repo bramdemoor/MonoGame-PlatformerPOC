@@ -39,11 +39,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Domain\Level.cs" />
     <Compile Include="Domain\Player.cs" />
     <Compile Include="Helpers\SpriteSheet.cs" />
     <Compile Include="Network\ClientNetworkManager.cs" />
     <Compile Include="Network\INetworkManager.cs" />
     <Compile Include="Network\Messages\IGameMessage.cs" />
+    <Compile Include="Network\Messages\UpdatePositionMessage .cs" />
     <Compile Include="Network\NetPeerConfigurationFactory.cs" />
     <Compile Include="Network\ServerNetworkManager.cs" />
     <Compile Include="PlatformGame.cs" />

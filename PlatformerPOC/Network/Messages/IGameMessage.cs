@@ -4,7 +4,7 @@ namespace PlatformerPOC.Network.Messages
 {
     public enum GameMessageTypes
     {
-        // Nothing here yet
+        UpdatePosition
     }
 
     public interface IGameMessage

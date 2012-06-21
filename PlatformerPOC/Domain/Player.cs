@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Helpers;
@@ -10,6 +11,9 @@ namespace PlatformerPOC.Domain
         // Same for all players
         private static Texture2D spriteSheetTexture;
         private static SpriteSheet spriteSheet;
+        private static SoundEffect spawnSound;
+
+        private SoundEffectInstance spawnSoundInstance;
 
         private int animationFrame = 0;
         private Vector2 position = new Vector2(100, 100);
@@ -24,10 +28,32 @@ namespace PlatformerPOC.Domain
             {
                 spriteSheet.AddSourceSprite(i, new Rectangle(i * 32, 0, 32, 32));
             }
+
+            spawnSound = content.Load<SoundEffect>("testsound");
+
+        }
+
+        public Player()
+        {
+            Spawn();
+        }
+
+        public void Spawn()
+        {
+            spawnSoundInstance = spawnSound.CreateInstance();
+            spawnSoundInstance.Play();            
         }
 
         public void Update()
         {
+            if (spawnSoundInstance.State != SoundState.Playing)
+            {
+                spawnSoundInstance.Volume = 1f;
+
+                spawnSoundInstance.IsLooped = false;
+                spawnSoundInstance.Play();
+            }
+
             animationFrame++;
             if (animationFrame == 7)
             {
