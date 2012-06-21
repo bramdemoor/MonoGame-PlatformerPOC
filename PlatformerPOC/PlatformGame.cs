@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Net;
+using PlatformerPOC.Domain;
 using PlatformerPOC.Helpers;
 using PlatformerPOC.Network;
 using log4net;
@@ -22,21 +23,17 @@ namespace PlatformerPOC
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private Texture2D playerSpriteSheetTexture;
+        
         private Texture2D bgLayer1Texture;
         private Texture2D bgLayer2Texture;
         private Texture2D tilesetTexture;
 
-        private SpriteSheet playerSpriteSheet;
-
-        private int playerAnimationFrame = 0;
-
         SoundEffect testSound;
         SoundEffectInstance testSoundInstance;
 
-        private Vector2 playerPos = new Vector2(100, 100);
-
         private INetworkManager networkManager;
+
+        private Player player;
 
         public PlatformGame()
         {
@@ -58,6 +55,8 @@ namespace PlatformerPOC
 
             log.Info("Press H to host and J to join (localhost test only)");
 
+            player = new Player();
+
             base.Initialize();
         }
 
@@ -65,22 +64,15 @@ namespace PlatformerPOC
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            playerSpriteSheetTexture = Content.Load<Texture2D>("player");
+            Player.LoadContent(Content);
+
             bgLayer1Texture = Content.Load<Texture2D>("parallax-layer1");
             bgLayer2Texture = Content.Load<Texture2D>("parallax-layer2");
             tilesetTexture = Content.Load<Texture2D>("tileset");
 
-            playerSpriteSheet = new SpriteSheet(playerSpriteSheetTexture);
-
             testSound = Content.Load<SoundEffect>("testsound");
             testSoundInstance = testSound.CreateInstance();
             testSound.Play();
-
-            // Lame way of adding animation frames
-            for (int i = 0; i < 8; i++)
-            {
-                playerSpriteSheet.AddSourceSprite(i, new Rectangle(i*32, 0, 32, 32));
-            }
         }
 
         protected override void UnloadContent()
@@ -104,12 +96,12 @@ namespace PlatformerPOC
 
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                playerPos.X -= 5;
+                player.MoveLeft();                
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                playerPos.X += 5;
+                player.MoveRight();
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.H))
@@ -124,11 +116,8 @@ namespace PlatformerPOC
                 networkManager.Connect();
             }
 
-            playerAnimationFrame++;
-            if (playerAnimationFrame == 7)
-            {
-                playerAnimationFrame = 0;
-            }
+            player.Update();
+
 
             if (networkManager != null)
             {
@@ -157,7 +146,7 @@ namespace PlatformerPOC
             spriteBatch.Draw(tilesetTexture, new Vector2(200, 200), new Rectangle(0, 0, 32, 32), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             // Draw 1 image frame
-            spriteBatch.Draw(playerSpriteSheetTexture, playerPos, playerSpriteSheet[playerAnimationFrame], Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            player.Draw(spriteBatch);            
 
             spriteBatch.End();          
 
