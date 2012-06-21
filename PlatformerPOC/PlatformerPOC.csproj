@@ -41,6 +41,9 @@
     <Compile Include="Config.cs" />
     <Compile Include="Domain\Level.cs" />
     <Compile Include="Domain\Player.cs" />
+    <Compile Include="Domain\PlayerKeyboardState.cs" />
+    <Compile Include="Domain\UI.cs" />
+    <Compile Include="Helpers\FPSCounterComponent.cs" />
     <Compile Include="Helpers\SpriteSheet.cs" />
     <Compile Include="Network\ClientNetworkManager.cs" />
     <Compile Include="Network\INetworkManager.cs" />
@@ -99,6 +102,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\spriteFont1.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

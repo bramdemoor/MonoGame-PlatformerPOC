@@ -61,19 +61,32 @@ namespace PlatformerPOC.Domain
             }
         }
 
-        public void MoveLeft()
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(spriteSheetTexture, position, spriteSheet[animationFrame], Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+        }
+
+        public void HandleInput(PlayerKeyboardState playerKeyboardState)
+        {
+            if (playerKeyboardState.IsMoveLeftPressed)
+            {
+                MoveLeft();
+            }
+
+            if (playerKeyboardState.IsMoveRightPressed)
+            {
+                MoveRight();
+            }
+        }
+
+        private void MoveLeft()
         {
             position.X -= 5;
         }
 
-        public void MoveRight()
+        private void MoveRight()
         {
             position.X += 5;
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(spriteSheetTexture, position, spriteSheet[animationFrame], Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
     }
 }
