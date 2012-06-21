@@ -6,32 +6,28 @@ namespace PlatformerPOC.Helpers
 {
     public class FPSCounterComponent : DrawableGameComponent
     {
-        SpriteBatch spriteBatch;
-        SpriteFont spriteFont;
+        readonly SpriteBatch spriteBatch;
+        readonly SpriteFont spriteFont;
 
-        int frameRate = 0;
-        int frameCounter = 0;
+        int frameRate ;
+        int frameCounter;
         TimeSpan elapsedTime = TimeSpan.Zero;
 
-
-        public FPSCounterComponent(Game game, SpriteBatch Batch, SpriteFont Font)
-            : base(game)
+        public FPSCounterComponent(Game game, SpriteBatch Batch, SpriteFont Font) : base(game)
         {
             spriteFont = Font;
             spriteBatch = Batch;
         }
 
-
         public override void Update(GameTime gameTime)
         {
             elapsedTime += gameTime.ElapsedGameTime;
 
-            if (elapsedTime > TimeSpan.FromSeconds(1))
-            {
-                elapsedTime -= TimeSpan.FromSeconds(1);
-                frameRate = frameCounter;
-                frameCounter = 0;
-            }
+            if (elapsedTime <= TimeSpan.FromSeconds(1)) return;
+
+            elapsedTime -= TimeSpan.FromSeconds(1);
+            frameRate = frameCounter;
+            frameCounter = 0;
         }
 
 
@@ -39,10 +35,9 @@ namespace PlatformerPOC.Helpers
         {
             frameCounter++;
 
-            string fps = string.Format("fps: {0} mem : {1}", frameRate, GC.GetTotalMemory(false));
+            var fps = string.Format("fps: {0} mem : {1}", frameRate, GC.GetTotalMemory(false));
 
-            spriteBatch.DrawString(spriteFont, fps, new Vector2(1, 1), Color.Black);
-            spriteBatch.DrawString(spriteFont, fps, new Vector2(0, 0), Color.White);
+            spriteBatch.DrawString(spriteFont, fps, new Vector2(40, 10), Color.Red);
         }
     }
 }

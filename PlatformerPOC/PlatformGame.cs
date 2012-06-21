@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using PlatformerPOC.Domain;
 using PlatformerPOC.Helpers;
 using PlatformerPOC.Network;
+using PlatformerPOC.Screens;
 using log4net;
 using log4net.Appender;
 using log4net.Core;
@@ -19,17 +20,25 @@ namespace PlatformerPOC
         private readonly ILog log;
 
         readonly GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+
+        public SpriteBatch spriteBatch { get; private set; }
 
         private INetworkManager networkManager;
 
-        private Player player;
-        private Domain.Level level;
-        private UI ui;
+        public Player player { get; private set; }
+        public Domain.Level level { get; private set; }
 
-        private bool IsHost;
+        public bool IsHost { get; private set; }
         private FPSCounterComponent fps;
 
+        public SpriteFont font { get; private set; }
+
+        private SimpleScreen activeScreen;
+
+        public bool IsConnected
+        {
+            get { return networkManager != null && networkManager.IsConnected; }
+        }
 
         public PlatformGame()
         {
@@ -48,8 +57,7 @@ namespace PlatformerPOC
         {
             // Remember: Executed BEFORE LoadContent!
 
-            log.Info("Initializing game...");            
-            log.Info("Press H to host and J to join (localhost test only)");
+            log.Info("Initializing game...");
 
             base.Initialize();
         }
@@ -58,17 +66,15 @@ namespace PlatformerPOC
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            UI.LoadContent(Content);
+            // Load resources
             Player.LoadContent(Content);
             Domain.Level.LoadContent(Content);
-
-            // Start game!
-            ui = new UI();
-            level = new Domain.Level();
-            player = new Player();
-
-            fps = new FPSCounterComponent(this, spriteBatch, UI.GetFont());
+            font = Content.Load<SpriteFont>("spriteFont1");
+             
+            fps = new FPSCounterComponent(this, spriteBatch, font);
             Components.Add(fps);
+
+            ShowMenuScreen();
         }
 
         protected override void UnloadContent()
@@ -76,32 +82,12 @@ namespace PlatformerPOC
         }
 
         protected override void Update(GameTime gameTime)
-        {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {
-                Exit();
-            }
-
-            player.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
-
-            if (Keyboard.GetState().IsKeyDown(Keys.H))
-            {
-                IsHost = true;
-                networkManager = new ServerNetworkManager();
-                networkManager.Connect();
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.J))
-            {
-                IsHost = false;
-                networkManager = new ClientNetworkManager();
-                networkManager.Connect();
-            }
-
-            player.Update();
+        {             
+            activeScreen.Update(gameTime);
 
             if (networkManager != null)
             {
+                // WHY: Network test
                 if (networkManager.IsConnected)
                 {
                     if(IsHost)
@@ -120,15 +106,18 @@ namespace PlatformerPOC
             base.Update(gameTime);
         }
 
+        public void ShowMenuScreen()
+        {
+            activeScreen = new LobbyScreen(this);
+        }
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
 
-            level.Draw(spriteBatch);            
-            player.Draw(spriteBatch);
-            ui.Draw(spriteBatch);
+            activeScreen.Draw(gameTime);
 
             spriteBatch.End();          
 
@@ -143,5 +132,45 @@ namespace PlatformerPOC
         public string Name { get; set; }
 
         public void Close() { }
+
+        public void ShutDown()
+        {
+            Exit();
+        }
+
+        public void InitializeAsHost()
+        {
+            networkManager = new ServerNetworkManager();
+            IsHost = true;
+            networkManager.Connect();
+        }
+
+        public void InitializeAsClient()
+        {
+            networkManager = new ClientNetworkManager();
+            IsHost = false;
+            networkManager.Connect();
+        }
+
+        public void StartGame()
+        {
+            level = new Domain.Level();
+            player = new Player();
+
+            activeScreen = new GameplayScreen(this);
+        }
+
+        public void Disconnect()
+        {
+            networkManager.Disconnect();
+        }
+
+        public void HostStartGame()
+        {
+            // TODO BDM: Check if really host, exc otherwise
+
+            // Naive try
+            StartGame();
+        }
     }
 }
