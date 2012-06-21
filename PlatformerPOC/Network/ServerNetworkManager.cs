@@ -9,7 +9,7 @@ namespace PlatformerPOC.Network
 {
     public class ServerNetworkManager : INetworkManager
     {
-        private static NetServer s_server;
+        private static NetServer netServer;
 
         private ILog log;
 
@@ -26,10 +26,17 @@ namespace PlatformerPOC.Network
 
         public void Send(string text)
         {
-            NetOutgoingMessage om = s_server.CreateMessage(text);
-            s_server.SendMessage(om, s_server.Connections, NetDeliveryMethod.ReliableOrdered, 1);
-            //s_server.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
-            //log.Info("Sending '" + text + "'");
+            NetOutgoingMessage om = netServer.CreateMessage(text);
+            netServer.SendToAll(om, NetDeliveryMethod.ReliableOrdered);            
+        }
+
+        public bool IsConnected
+        {
+            get
+            {
+                return netServer != null 
+                    && netServer.Status == NetPeerStatus.Running;
+            }
         }
 
         public void Dispose()
@@ -55,18 +62,13 @@ namespace PlatformerPOC.Network
 
             log.Info("Initializing server...");
 
-            //NetPeerConfigurationFactory.CreateForServer()
+            netServer = new NetServer(NetPeerConfigurationFactory.CreateForServer());
 
-            var config = new NetPeerConfiguration(Config.networkName);
-            config.MaximumConnections = Config.MaximumConnections;
-            config.Port = Config.port;
-            s_server = new NetServer(config);
+            netServer.Start();
 
-            s_server.Start();
-
-            if (s_server.Status == NetPeerStatus.Running)
+            if (netServer.Status == NetPeerStatus.Running)
             {
-                log.Info("Server started! Listening on port " + Config.port);
+                log.Info("Server started! Listening on port " + Config.Port);
             }
             else
             {
@@ -78,9 +80,9 @@ namespace PlatformerPOC.Network
         {
             log.Info("Stopping server...");
 
-            s_server.Shutdown("Requested by user");
+            netServer.Shutdown("Requested by user");
 
-            if (s_server.Status == NetPeerStatus.ShutdownRequested)
+            if (netServer.Status == NetPeerStatus.ShutdownRequested)
             {
                 log.Info("Server stopped!");
             }
@@ -90,10 +92,10 @@ namespace PlatformerPOC.Network
             }
         }
 
-        public void ReadMessage()
+        public void ReadMessages()
         {
             NetIncomingMessage im;
-            while ((im = s_server.ReadMessage()) != null)
+            while ((im = netServer.ReadMessage()) != null)
             {
                 switch (im.MessageType)
                 {
@@ -118,15 +120,15 @@ namespace PlatformerPOC.Network
                         log.Info("Broadcasting '" + chat + "'");
 
                         // broadcast this to all connections, except sender
-                        List<NetConnection> all = s_server.Connections; // get copy
+                        List<NetConnection> all = netServer.Connections; // get copy
                         all.Remove(im.SenderConnection);
 
                         if (all.Count > 0)
                         {
-                            NetOutgoingMessage om = s_server.CreateMessage();
+                            NetOutgoingMessage om = netServer.CreateMessage();
                             om.Write(NetUtility.ToHexString(im.SenderConnection.RemoteUniqueIdentifier) + " said: " +
                                      chat);
-                            s_server.SendMessage(om, all, NetDeliveryMethod.ReliableOrdered, 0);
+                            netServer.SendMessage(om, all, NetDeliveryMethod.ReliableOrdered, 0);
                         }
                         break;
                     default:
@@ -139,7 +141,7 @@ namespace PlatformerPOC.Network
 
         private void UpdateConnectionsList()
         {
-            foreach (NetConnection conn in s_server.Connections)
+            foreach (NetConnection conn in netServer.Connections)
             {
                 string str = NetUtility.ToHexString(conn.RemoteUniqueIdentifier) + " from " + conn.RemoteEndpoint.ToString() + " [" + conn.Status + "]";
                 log.Info(str);
@@ -148,12 +150,12 @@ namespace PlatformerPOC.Network
 
         public void Recycle(NetIncomingMessage im)
         {
-            s_server.Recycle(im);
+            netServer.Recycle(im);
         }
 
         public NetOutgoingMessage CreateMessage()
         {
-            return s_server.CreateMessage();
+            return netServer.CreateMessage();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace PlatformerPOC.Network
 {
     public class ClientNetworkManager : INetworkManager
     {
-        private static NetClient s_client;
+        private static NetClient netClient;
 
         private ILog log;
 
@@ -17,19 +17,15 @@ namespace PlatformerPOC.Network
 
             log.Info("Initializing client...");
 
-            //netClient = new NetClient(NetPeerConfigurationFactory.CreateForClient());
+            netClient  = new NetClient(NetPeerConfigurationFactory.CreateForClient());
 
-            var config = new NetPeerConfiguration(Config.networkName);
+            netClient.Start();
 
-            s_client = new NetClient(config);
-
-            s_client.Start();
-
-            NetOutgoingMessage hail = s_client.CreateMessage();
+            NetOutgoingMessage hail = netClient.CreateMessage();
 
             hail.Write("This is the hail message");
 
-            var connection = s_client.Connect(Config.defaultIp, Config.port, hail);
+            var connection = netClient.Connect(Config.DefaultIp, Config.Port, hail);
 
             if (connection.Status != NetConnectionStatus.Connected)
             {
@@ -43,14 +39,14 @@ namespace PlatformerPOC.Network
 
         public void Disconnect()
         {
-            s_client.Disconnect("Requested by user");
-            s_client.Shutdown("Requested by user");
+            netClient.Disconnect("Requested by user");
+            netClient.Shutdown("Requested by user");
         }
 
-        public void ReadMessage()
+        public void ReadMessages()
         {
             NetIncomingMessage im;
-            while ((im = s_client.ReadMessage()) != null)
+            while ((im = netClient.ReadMessage()) != null)
             {
                 switch (im.MessageType)
                 {
@@ -81,12 +77,12 @@ namespace PlatformerPOC.Network
 
         public void Recycle(NetIncomingMessage im)
         {
-            s_client.Recycle(im);
+            netClient.Recycle(im);
         }
 
         public NetOutgoingMessage CreateMessage()
         {
-            return s_client.CreateMessage();
+            return netClient.CreateMessage();
         }
 
         //public void SendMessage(IGameMessage gameMessage)
@@ -100,9 +96,19 @@ namespace PlatformerPOC.Network
 
         public void Send(string text)
         {
-            NetOutgoingMessage om = s_client.CreateMessage(text);
-            s_client.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
+            NetOutgoingMessage om = netClient.CreateMessage(text);
+            netClient.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
             //log.Info("Sending '" + text + "'");
+        }
+
+        public bool IsConnected
+        {
+            get
+            {
+                return netClient != null 
+                    && netClient.Status == NetPeerStatus.Running 
+                    && netClient.ConnectionStatus == NetConnectionStatus.Connected;
+            }
         }
 
         public void Dispose()

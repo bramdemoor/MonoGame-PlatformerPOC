@@ -132,10 +132,15 @@ namespace PlatformerPOC
 
             if (networkManager != null)
             {
-                networkManager.Send("I'm a client or a server");
-                networkManager.ReadMessage();                                
-            }    
-            
+                if (networkManager.IsConnected)
+                {
+                    networkManager.Send("I'm a client or a server");
+                    
+                }
+
+                networkManager.ReadMessages();
+            }
+
             base.Update(gameTime);
         }
 

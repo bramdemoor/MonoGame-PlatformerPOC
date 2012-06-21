@@ -11,12 +11,13 @@ namespace PlatformerPOC.Network
         void Connect();
         void Disconnect();
 
-        void ReadMessage();
+        void ReadMessages();
 
         void Recycle(NetIncomingMessage im);
 
         NetOutgoingMessage CreateMessage();
 
         void Send(string text);
+        bool IsConnected { get; }
     }
 }

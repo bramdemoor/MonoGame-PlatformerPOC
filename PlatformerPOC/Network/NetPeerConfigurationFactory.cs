@@ -8,7 +8,8 @@ namespace PlatformerPOC.Network
          {
              var configuration = CreateBasic();
 
-             configuration.Port = Config.port;
+             configuration.Port = Config.Port;
+             configuration.MaximumConnections = Config.MaximumConnections;
 
              return configuration;
          }
@@ -17,26 +18,16 @@ namespace PlatformerPOC.Network
         {
             var configuration = CreateBasic();
 
-            // TODO BDM: Results in socket conflict!
-            //configuration.Port = Config.port;
-
             return configuration;
         }
 
         private static NetPeerConfiguration CreateBasic()
          {
-             var config = new NetPeerConfiguration(Config.networkName)
+             var config = new NetPeerConfiguration(Config.NetworkName)
              {
                  SimulatedMinimumLatency = Config.SimulatedMinimumLatency,
                  SimulatedLoss = Config.SimulatedLoss
              };
-
-             config.EnableMessageType(NetIncomingMessageType.WarningMessage);
-             config.EnableMessageType(NetIncomingMessageType.VerboseDebugMessage);
-             config.EnableMessageType(NetIncomingMessageType.ErrorMessage);
-             config.EnableMessageType(NetIncomingMessageType.Error);
-             config.EnableMessageType(NetIncomingMessageType.DebugMessage);
-             config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
 
              return config;
          }
