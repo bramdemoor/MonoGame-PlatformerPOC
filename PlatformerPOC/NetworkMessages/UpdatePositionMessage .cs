@@ -1,6 +1,7 @@
-﻿using Lidgren.Network;
+﻿using GameEngine.Network;
+using Lidgren.Network;
 
-namespace PlatformerPOC.Network.Messages
+namespace PlatformerPOC.NetworkMessages
 {
     public class UpdatePositionMessage : IGameMessage
     {

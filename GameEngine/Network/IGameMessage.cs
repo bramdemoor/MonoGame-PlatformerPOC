@@ -1,6 +1,6 @@
 ﻿using Lidgren.Network;
 
-namespace PlatformerPOC.Network.Messages
+namespace GameEngine.Network
 {
     public enum GameMessageTypes
     {

@@ -1,6 +1,6 @@
 ﻿using Lidgren.Network;
 
-namespace PlatformerPOC.Network
+namespace GameEngine.Network
 {
     public static class NetPeerConfigurationFactory
     {
@@ -8,8 +8,8 @@ namespace PlatformerPOC.Network
          {
              var configuration = CreateBasic();
 
-             configuration.Port = Config.Port;
-             configuration.MaximumConnections = Config.MaximumConnections;
+             configuration.Port = CoreConfig.Port;
+             configuration.MaximumConnections = CoreConfig.MaximumConnections;
 
              return configuration;
          }
@@ -23,10 +23,10 @@ namespace PlatformerPOC.Network
 
         private static NetPeerConfiguration CreateBasic()
          {
-             var config = new NetPeerConfiguration(Config.NetworkName)
+             var config = new NetPeerConfiguration(CoreConfig.NetworkName)
              {
-                 SimulatedMinimumLatency = Config.SimulatedMinimumLatency,
-                 SimulatedLoss = Config.SimulatedLoss
+                 SimulatedMinimumLatency = CoreConfig.SimulatedMinimumLatency,
+                 SimulatedLoss = CoreConfig.SimulatedLoss
              };
 
              return config;

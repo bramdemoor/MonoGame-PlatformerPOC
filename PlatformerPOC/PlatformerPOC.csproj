@@ -39,23 +39,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
-    <Compile Include="Domain\Level.cs" />
-    <Compile Include="Domain\Player.cs" />
-    <Compile Include="Domain\PlayerKeyboardState.cs" />
-    <Compile Include="Helpers\FPSCounterComponent.cs" />
-    <Compile Include="Helpers\SpriteSheet.cs" />
-    <Compile Include="Network\ClientNetworkManager.cs" />
-    <Compile Include="Network\INetworkManager.cs" />
-    <Compile Include="Network\Messages\IGameMessage.cs" />
-    <Compile Include="Network\Messages\UpdatePositionMessage .cs" />
-    <Compile Include="Network\NetPeerConfigurationFactory.cs" />
-    <Compile Include="Network\ServerNetworkManager.cs" />
+    <Compile Include="GameObjects\Level.cs" />
     <Compile Include="PlatformGame.cs" />
+    <Compile Include="GameObjects\Player.cs" />
+    <Compile Include="GameObjects\PlayerKeyboardState.cs" />
+    <Compile Include="NetworkMessages\UpdatePositionMessage .cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\LobbyScreen.cs" />
-    <Compile Include="Screens\SimpleScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Lidgren.Network.Windows, Version=2011.3.12.0, Culture=neutral, processorArchitecture=MSIL">
@@ -108,6 +100,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameEngine\GameEngine.csproj">
+      <Project>{FC85B328-B30F-4C88-80C1-EFCA531165E2}</Project>
+      <Name>GameEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

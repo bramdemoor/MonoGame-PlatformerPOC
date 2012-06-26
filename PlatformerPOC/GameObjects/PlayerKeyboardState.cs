@@ -1,22 +1,19 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace PlatformerPOC.Domain
+namespace PlatformerPOC.GameObjects
 {
     public class PlayerKeyboardState
     {
         private KeyboardState _keyboardState;
 
-        private const Keys moveLeftKey = Keys.Left;
-        private const Keys moveRightKey = Keys.Right;
-
         public bool IsMoveLeftPressed
         {
-            get { return _keyboardState.IsKeyDown(moveLeftKey); }
+            get { return _keyboardState.IsKeyDown(Config.moveLeftKey); }
         }
 
         public bool IsMoveRightPressed
         {
-            get { return _keyboardState.IsKeyDown(moveRightKey); }
+            get { return _keyboardState.IsKeyDown(Config.moveRightKey); }
         }
 
         public PlayerKeyboardState(KeyboardState keyboardState)

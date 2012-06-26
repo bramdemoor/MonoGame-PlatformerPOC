@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Windows.Forms;
+﻿using System.Collections.Generic;
 using Lidgren.Network;
 using log4net;
 
-namespace PlatformerPOC.Network
+namespace GameEngine.Network
 {
     public class ServerNetworkManager : INetworkManager
     {
@@ -68,7 +65,7 @@ namespace PlatformerPOC.Network
 
             if (netServer.Status == NetPeerStatus.Running)
             {
-                log.Info("Server started! Listening on port " + Config.Port);
+                log.Info("Server started! Listening on port " + CoreConfig.Port);
             }
             else
             {

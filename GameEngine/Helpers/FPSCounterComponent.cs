@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PlatformerPOC.Helpers
+namespace GameEngine.Helpers
 {
     public class FPSCounterComponent : DrawableGameComponent
     {
@@ -13,7 +13,7 @@ namespace PlatformerPOC.Helpers
         int frameCounter;
         TimeSpan elapsedTime = TimeSpan.Zero;
 
-        public FPSCounterComponent(Game game, SpriteBatch Batch, SpriteFont Font) : base(game)
+        public FPSCounterComponent(Microsoft.Xna.Framework.Game game, SpriteBatch Batch, SpriteFont Font) : base(game)
         {
             spriteFont = Font;
             spriteBatch = Batch;

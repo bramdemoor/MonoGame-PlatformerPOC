@@ -1,28 +1,10 @@
-﻿#region Using Statements
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-
-#endregion
-
-namespace PlatformerPOC
+﻿namespace PlatformerPOC
 {
-    /// <summary>
-    /// The main class.
-    /// </summary>
-    public static class Program
+    public class Program
     {
-        private static PlatformGame game;
-
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        public static void Main(string[] args)
         {
-            game = new PlatformGame();
-            game.Run();
-        }
+            PlatformGame.Start();
+        } 
     }
 }

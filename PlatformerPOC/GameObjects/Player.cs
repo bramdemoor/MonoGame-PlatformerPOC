@@ -1,10 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine;
+using GameEngine.Helpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using PlatformerPOC.Helpers;
 
-namespace PlatformerPOC.Domain
+namespace PlatformerPOC.GameObjects
 {
     public class Player
     {
@@ -61,8 +62,10 @@ namespace PlatformerPOC.Domain
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
+            var spriteBatch = SimpleGameEngine.Instance.spriteBatch;
+
             spriteBatch.Draw(spriteSheetTexture, position, spriteSheet[animationFrame], Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 

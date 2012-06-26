@@ -1,36 +1,28 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine;
+using GameEngine.Helpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using PlatformerPOC.Domain;
+using PlatformerPOC.GameObjects;
 
 namespace PlatformerPOC.Screens
 {
-    public class GameplayScreen : SimpleScreen
+    public class GameplayScreen : SimpleScreenBase
     {
-        private readonly PlatformGame game;
-
-        public GameplayScreen(PlatformGame game)
-        {
-            this.game = game;
-        }
-
         public override void Draw(GameTime gameTime)
         {
-            game.level.Draw(game.spriteBatch);
-            game.player.Draw(game.spriteBatch);
-
-            //spriteBatch.DrawString(font, "This is a test", new Vector2(50, 40), Color.Red);
+            PlatformGame.Instance.Level.Draw();
+            PlatformGame.Instance.LocalPlayer.Draw();
         }
 
         public override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                game.ShowMenuScreen();
+                SimpleGameEngine.Instance.ActiveScreen = new LobbyScreen();                
             }
 
-            game.player.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
-
-            game.player.Update();
+            PlatformGame.Instance.LocalPlayer.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
+            PlatformGame.Instance.LocalPlayer.Update();
         }
     }
 }

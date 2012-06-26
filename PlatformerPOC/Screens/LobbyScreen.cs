@@ -1,38 +1,35 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine;
+using GameEngine.Helpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace PlatformerPOC.Screens
 {
-    public class LobbyScreen : SimpleScreen
+    public class LobbyScreen : SimpleScreenBase
     {
-        private PlatformGame game;
-
-        public LobbyScreen(PlatformGame game)
-        {
-            this.game = game;
-        }
-
         public override void Draw(GameTime gameTime)
         {
+            var spriteBatch = SimpleGameEngine.Instance.spriteBatch;
+
             //if(game.is)
 
-            game.spriteBatch.DrawString(game.font, "This is the lobby screen", new Vector2(50, 40), Color.Red);
+            spriteBatch.DrawString(PlatformGame.Instance.font, "This is the lobby screen", new Vector2(50, 40), Color.Red);
 
-            if(!game.IsConnected)
+            if(!SimpleGameEngine.Instance.IsConnected)
             {
-                game.spriteBatch.DrawString(game.font, "Press H to host and J to join (localhost test only)", new Vector2(50, 60), Color.Red);    
+                spriteBatch.DrawString(PlatformGame.Instance.font, "Press H to host and J to join (localhost test only)", new Vector2(50, 60), Color.Red);    
             }
             else
             {
-                game.spriteBatch.DrawString(game.font, "Connected. Press D to disconnect", new Vector2(50, 60), Color.Red);    
+                spriteBatch.DrawString(PlatformGame.Instance.font, "Connected. Press D to disconnect", new Vector2(50, 60), Color.Red);
 
-                if(game.IsHost)
+                if (SimpleGameEngine.Instance.IsHost)
                 {
-                    game.spriteBatch.DrawString(game.font, "Press S to start the game", new Vector2(50, 80), Color.Red);    
+                    spriteBatch.DrawString(PlatformGame.Instance.font, "Press S to start the game", new Vector2(50, 80), Color.Red);    
                 }
                 else
                 {
-                    game.spriteBatch.DrawString(game.font, "Waiting for the host to start the game", new Vector2(50, 80), Color.Red);    
+                    spriteBatch.DrawString(PlatformGame.Instance.font, "Waiting for the host to start the game", new Vector2(50, 80), Color.Red);    
                 }
             }         
         }
@@ -41,35 +38,35 @@ namespace PlatformerPOC.Screens
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                game.ShutDown();
+                SimpleGameEngine.Instance.ShutDown();
             }
 
 
-            if(!game.IsConnected)
+            if (!SimpleGameEngine.Instance.IsConnected)
             {
 
                 if (Keyboard.GetState().IsKeyDown(Keys.H))
                 {
-                    game.InitializeAsHost();
+                    SimpleGameEngine.Instance.InitializeAsHost();
                 }
 
                 if (Keyboard.GetState().IsKeyDown(Keys.J))
                 {
-                    game.InitializeAsClient();
+                    SimpleGameEngine.Instance.InitializeAsClient();
                 }                
             }
             else
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.D))
                 {
-                    game.Disconnect();
-                }  
+                    SimpleGameEngine.Instance.Disconnect();
+                }
 
-                if(game.IsHost)
+                if (SimpleGameEngine.Instance.IsHost)
                 {
                     if (Keyboard.GetState().IsKeyDown(Keys.S))
                     {
-                        game.HostStartGame();
+                        PlatformGame.Instance.HostStartGame();
                     }  
                 }
             }

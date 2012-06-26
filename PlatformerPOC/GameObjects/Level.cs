@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PlatformerPOC.Domain
+namespace PlatformerPOC.GameObjects
 {
     public class Level
     {
@@ -17,8 +18,10 @@ namespace PlatformerPOC.Domain
             tilesetTexture = content.Load<Texture2D>("tileset");
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
+            var spriteBatch = SimpleGameEngine.Instance.spriteBatch;
+
             spriteBatch.Draw(bgLayer1Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.Draw(bgLayer2Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 

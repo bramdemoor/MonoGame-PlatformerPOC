@@ -1,7 +1,7 @@
 ﻿using Lidgren.Network;
 using log4net;
 
-namespace PlatformerPOC.Network
+namespace GameEngine.Network
 {
     public class ClientNetworkManager : INetworkManager
     {
@@ -25,7 +25,7 @@ namespace PlatformerPOC.Network
 
             hail.Write("This is the hail message");
 
-            var connection = netClient.Connect(Config.DefaultIp, Config.Port, hail);
+            var connection = netClient.Connect(CoreConfig.DefaultIp, CoreConfig.Port, hail);
 
             if (connection.Status != NetConnectionStatus.Connected)
             {

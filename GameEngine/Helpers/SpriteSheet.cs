@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PlatformerPOC.Helpers
+namespace GameEngine.Helpers
 {
     /// <summary>
     /// Stores entries for individual sprites on a single texture.
