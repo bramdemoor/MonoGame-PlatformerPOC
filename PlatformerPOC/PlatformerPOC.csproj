@@ -39,11 +39,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="EventArgs\PlayerStateChangedArgs.cs" />
     <Compile Include="GameObjects\Level.cs" />
     <Compile Include="PlatformGame.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\PlayerKeyboardState.cs" />
     <Compile Include="NetworkMessages\UpdatePositionMessage .cs" />
+    <Compile Include="PlayerManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />

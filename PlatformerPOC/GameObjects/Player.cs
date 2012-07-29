@@ -1,4 +1,5 @@
 ﻿using GameEngine;
+using GameEngine.GameObjects;
 using GameEngine.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -7,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PlatformerPOC.GameObjects
 {
-    public class Player
+    public class Player : BaseGameObject 
     {
         // Same for all players
         private static Texture2D spriteSheetTexture;
@@ -17,7 +18,6 @@ namespace PlatformerPOC.GameObjects
         private SoundEffectInstance spawnSoundInstance;
 
         private int animationFrame = 0;
-        private Vector2 position = new Vector2(100, 100);
 
         public static void LoadContent(ContentManager content)
         {
@@ -34,7 +34,7 @@ namespace PlatformerPOC.GameObjects
 
         }
 
-        public Player()
+        public Player(long id, GameObjectState gameObjectState)
         {
             Spawn();
         }
@@ -42,7 +42,8 @@ namespace PlatformerPOC.GameObjects
         public void Spawn()
         {
             spawnSoundInstance = spawnSound.CreateInstance();
-            spawnSoundInstance.Play();            
+            spawnSoundInstance.Play();
+            Position = new Vector2(100, 100);
         }
 
         public void Update()
@@ -66,7 +67,7 @@ namespace PlatformerPOC.GameObjects
         {
             var spriteBatch = SimpleGameEngine.Instance.spriteBatch;
 
-            spriteBatch.Draw(spriteSheetTexture, position, spriteSheet[animationFrame], Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(spriteSheetTexture, Position, spriteSheet[animationFrame], Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         public void HandleInput(PlayerKeyboardState playerKeyboardState)
@@ -84,12 +85,12 @@ namespace PlatformerPOC.GameObjects
 
         private void MoveLeft()
         {
-            position.X -= 5;
+            Position = new Vector2(Position.X - 5, Position.Y);
         }
 
         private void MoveRight()
         {
-            position.X += 5;
+            Position = new Vector2(Position.X + 5, Position.Y);
         }
     }
 }

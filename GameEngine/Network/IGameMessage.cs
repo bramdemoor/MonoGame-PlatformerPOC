@@ -4,7 +4,8 @@ namespace GameEngine.Network
 {
     public enum GameMessageTypes
     {
-        UpdatePosition
+        UpdatePosition,
+        UpdatePlayerState
     }
 
     public interface IGameMessage

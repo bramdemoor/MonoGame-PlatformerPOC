@@ -13,7 +13,7 @@ namespace GameEngine.Helpers
         int frameCounter;
         TimeSpan elapsedTime = TimeSpan.Zero;
 
-        public FPSCounterComponent(Microsoft.Xna.Framework.Game game, SpriteBatch Batch, SpriteFont Font) : base(game)
+        public FPSCounterComponent(Game game, SpriteBatch Batch, SpriteFont Font) : base(game)
         {
             spriteFont = Font;
             spriteBatch = Batch;

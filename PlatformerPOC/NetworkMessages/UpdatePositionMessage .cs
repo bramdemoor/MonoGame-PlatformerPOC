@@ -1,41 +1,51 @@
 ﻿using GameEngine.Network;
 using Lidgren.Network;
+using Microsoft.Xna.Framework;
+using PlatformerPOC.GameObjects;
 
 namespace PlatformerPOC.NetworkMessages
 {
-    public class UpdatePositionMessage : IGameMessage
+    public class UpdatePlayerStateMessage : IGameMessage
     {
+        public long Id { get; set; }
+        public double MessageTime { get; set; }
+        public Vector2 Position { get; set; }
+        public Vector2 Velocity { get; set; }
+
         public GameMessageTypes MessageType
         {
-            get { return GameMessageTypes.UpdatePosition; }
+            get
+            {
+                return GameMessageTypes.UpdatePlayerState;
+            }
         }
 
         public void Decode(NetIncomingMessage im)
         {
-            //this.Id = im.ReadInt64();
-            //this.MessageTime = im.ReadDouble();
-            //this.Position = im.ReadVector2();
-            //this.Velocity = im.ReadVector2();
-            //this.Rotation = im.ReadSingle();
+            Id = im.ReadInt64();
+            MessageTime = im.ReadDouble();            
+            Position = im.ReadVector2();
+            Velocity = im.ReadVector2();
         }
 
         public void Encode(NetOutgoingMessage om)
         {
-            //om.Write(this.Id);
-            //om.Write(this.MessageTime);
-            //om.Write(this.Position);
-            //om.Write(this.Velocity);
-            //om.Write(this.Rotation);
+            om.Write(Id);
+            om.Write(MessageTime);
+            om.Write(Position);
+            om.Write(Velocity);
         }
 
-        public UpdatePositionMessage(NetIncomingMessage im)
+        public UpdatePlayerStateMessage(NetIncomingMessage im)
         {
             Decode(im);
         }
 
-        public UpdatePositionMessage()
+        public UpdatePlayerStateMessage(Player player)
         {
-            //this.MessageTime = NetTime.Now;
+            Position = player.Position;
+            Velocity = player.Velocity;
+            MessageTime = NetTime.Now;
         }
     }
 }

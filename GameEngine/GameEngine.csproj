@@ -60,6 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoreConfig.cs" />
+    <Compile Include="GameObjects\BaseGameObject.cs" />
+    <Compile Include="GameObjects\GameObjectState.cs" />
+    <Compile Include="GameTimer.cs" />
     <Compile Include="Helpers\FPSCounterComponent.cs" />
     <Compile Include="Helpers\SimpleScreenBase.cs" />
     <Compile Include="Helpers\SpriteSheet.cs" />
@@ -69,6 +72,7 @@
     <Compile Include="Network\INetworkManager.cs" />
     <Compile Include="Network\NetPeerConfigurationFactory.cs" />
     <Compile Include="Network\ServerNetworkManager.cs" />
+    <Compile Include="Network\XNAExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleGameEngine.cs" />
   </ItemGroup>
