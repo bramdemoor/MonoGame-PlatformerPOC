@@ -7,6 +7,9 @@ namespace PlatformerPOC.GameObjects
 {
     public class Level
     {
+        // TODO BDM: Put in config!
+        const int squareSize = 32;
+
         private static Texture2D bgLayer1Texture;
         private static Texture2D bgLayer2Texture;
         private static Texture2D tilesetTexture;
@@ -32,9 +35,25 @@ namespace PlatformerPOC.GameObjects
         }
 
         private static void DrawTile(Vector2 pos, int xtile, int ytile)
-        {
-            const int squareSize = 32;
+        {            
             SimpleGameEngine.Instance.spriteBatch.Draw(tilesetTexture, pos * squareSize, new Rectangle(xtile * squareSize, ytile * squareSize, squareSize, squareSize), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+        }
+
+        public bool IsInBoundsLeft(Vector2 position)
+        {
+            return position.X > 32;
+        }
+
+        public bool IsInBoundsRight(Vector2 position)
+        {
+            return position.X < (18 * squareSize);
+        }
+
+        public bool IsGroundBelow(Vector2 position)
+        {
+            // TODO BDM: Real collission check!
+
+            return position.Y >= (13*squareSize);
         }
     }
 }

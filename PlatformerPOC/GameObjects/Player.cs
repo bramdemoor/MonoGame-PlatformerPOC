@@ -47,6 +47,8 @@ namespace PlatformerPOC.GameObjects
 
         public void Update()
         {
+            ApplyGravity();
+
             if (spawnSoundInstance.State != SoundState.Playing)
             {
                 spawnSoundInstance.Volume = 1f;
@@ -60,6 +62,20 @@ namespace PlatformerPOC.GameObjects
             {
                 animationFrame = 0;
             }
+        }
+
+        private void ApplyGravity()
+        {
+            if(!PlatformGame.Instance.Level.IsGroundBelow(Position))
+            {
+                Velocity += new Vector2(0, 0.2f);                
+            }
+            else
+            {
+                if (Velocity.Y > 0) Velocity = Vector2.Zero;
+            }
+
+            Position = new Vector2(Position.X, Position.Y + Velocity.Y);
         }
 
         public override void Draw()
@@ -79,9 +95,22 @@ namespace PlatformerPOC.GameObjects
                 MoveRight();
             }
 
+            if (playerKeyboardState.IsMoveUpPressed)
+            {
+                Jump();
+            }
+
             if (playerKeyboardState.IsActionPressed)
             {
                 Shoot();
+            }
+        }
+
+        private void Jump()
+        {
+            if (PlatformGame.Instance.Level.IsGroundBelow(Position))
+            {
+                Velocity = new Vector2(0, -6f);
             }
         }
 
@@ -93,11 +122,15 @@ namespace PlatformerPOC.GameObjects
 
         private void MoveLeft()
         {
+            if(!PlatformGame.Instance.Level.IsInBoundsLeft(Position)) return;
+
             Position = new Vector2(Position.X - 5, Position.Y);
         }
 
         private void MoveRight()
         {
+            if (!PlatformGame.Instance.Level.IsInBoundsRight(Position)) return;
+
             Position = new Vector2(Position.X + 5, Position.Y);
         }
     }
