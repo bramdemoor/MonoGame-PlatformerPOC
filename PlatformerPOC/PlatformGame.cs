@@ -19,6 +19,7 @@ namespace PlatformerPOC
         public List<Player> Players { get; set; }
         public Player LocalPlayer { get; private set; }
         public Level Level { get; private set; }
+        public List<Bullet> Bullets { get; set; }
 
         public SpriteFont font { get; private set; }
 
@@ -34,12 +35,14 @@ namespace PlatformerPOC
         private PlatformGame()
         {
             Players = new List<Player>();
+            Bullets = new List<Bullet>();
         }
 
         public void LoadContent(ContentManager content)
         {            
             // Load resources
             Player.LoadContent(content);
+            Bullet.LoadContent(content);
             Level.LoadContent(content);
             font = content.Load<SpriteFont>("spriteFont1");
 

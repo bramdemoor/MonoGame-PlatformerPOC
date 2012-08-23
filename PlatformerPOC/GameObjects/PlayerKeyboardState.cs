@@ -16,6 +16,21 @@ namespace PlatformerPOC.GameObjects
             get { return _keyboardState.IsKeyDown(Config.moveRightKey); }
         }
 
+        public bool IsMoveDownPressed
+        {
+            get { return _keyboardState.IsKeyDown(Config.moveDownKey); }
+        }
+
+        public bool IsMoveUpPressed
+        {
+            get { return _keyboardState.IsKeyDown(Config.moveUpKey); }
+        }
+
+        public bool IsActionPressed
+        {
+            get { return _keyboardState.IsKeyDown(Config.actionKey); }
+        }
+
         public PlayerKeyboardState(KeyboardState keyboardState)
         {
             _keyboardState = keyboardState;

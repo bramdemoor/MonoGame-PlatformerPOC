@@ -12,6 +12,11 @@ namespace PlatformerPOC.Screens
         {
             PlatformGame.Instance.Level.Draw();
             PlatformGame.Instance.LocalPlayer.Draw();
+
+            foreach (var bullet in PlatformGame.Instance.Bullets)
+            {
+                bullet.Draw();
+            }
         }
 
         public override void Update(GameTime gameTime)
@@ -23,6 +28,11 @@ namespace PlatformerPOC.Screens
 
             PlatformGame.Instance.LocalPlayer.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
             PlatformGame.Instance.LocalPlayer.Update();
+
+            foreach (var bullet in PlatformGame.Instance.Bullets)
+            {
+                bullet.Update(gameTime);
+            }
         }
     }
 }

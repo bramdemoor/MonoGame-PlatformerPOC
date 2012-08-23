@@ -18,6 +18,8 @@ namespace GameEngine.GameObjects
         public GameObjectState DisplayState { get; set; }
         public GameObjectState SimulationState { get; set; }
 
+        public abstract void Draw();
+
         public virtual void Update(GameTime gameTime)
         {
             var elapsedSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;

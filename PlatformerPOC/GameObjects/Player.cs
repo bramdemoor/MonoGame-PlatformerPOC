@@ -31,7 +31,6 @@ namespace PlatformerPOC.GameObjects
             }
 
             spawnSound = content.Load<SoundEffect>("testsound");
-
         }
 
         public Player(long id, GameObjectState gameObjectState)
@@ -63,11 +62,9 @@ namespace PlatformerPOC.GameObjects
             }
         }
 
-        public void Draw()
+        public override void Draw()
         {
-            var spriteBatch = SimpleGameEngine.Instance.spriteBatch;
-
-            spriteBatch.Draw(spriteSheetTexture, Position, spriteSheet[animationFrame], Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            SimpleGameEngine.Instance.spriteBatch.Draw(spriteSheetTexture, Position, spriteSheet[animationFrame], Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         public void HandleInput(PlayerKeyboardState playerKeyboardState)
@@ -81,6 +78,17 @@ namespace PlatformerPOC.GameObjects
             {
                 MoveRight();
             }
+
+            if (playerKeyboardState.IsActionPressed)
+            {
+                Shoot();
+            }
+        }
+
+        private void Shoot()
+        {
+            var bullet = new Bullet(Position, 1);
+            PlatformGame.Instance.Bullets.Add(bullet);
         }
 
         private void MoveLeft()
