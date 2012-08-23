@@ -21,6 +21,8 @@ namespace PlatformerPOC.GameObjects
 
         private int horizontalDirection = 1;
 
+        private PlayerKeyboardState playerKeyboardState;
+
         public static void LoadContent(ContentManager content)
         {
             spriteSheetTexture = content.Load<Texture2D>("player");
@@ -49,6 +51,8 @@ namespace PlatformerPOC.GameObjects
 
         public void Update()
         {
+            ApplyMovement();
+
             ApplyGravity();
 
             if (spawnSoundInstance.State != SoundState.Playing)
@@ -64,6 +68,29 @@ namespace PlatformerPOC.GameObjects
             {
                 animationFrame = 0;
             }
+        }
+
+        private void ApplyMovement()
+        {
+            if (playerKeyboardState.IsMoveLeftPressed)
+            {
+                MoveLeft();
+            }
+
+            if (playerKeyboardState.IsMoveRightPressed)
+            {
+                MoveRight();
+            }
+
+            if (playerKeyboardState.IsMoveUpPressed)
+            {
+                Jump();
+            }
+
+            if (playerKeyboardState.IsActionPressed)
+            {
+                Shoot();
+            }            
         }
 
         private void ApplyGravity()
@@ -90,25 +117,7 @@ namespace PlatformerPOC.GameObjects
 
         public void HandleInput(PlayerKeyboardState playerKeyboardState)
         {
-            if (playerKeyboardState.IsMoveLeftPressed)
-            {
-                MoveLeft();
-            }
-
-            if (playerKeyboardState.IsMoveRightPressed)
-            {
-                MoveRight();
-            }
-
-            if (playerKeyboardState.IsMoveUpPressed)
-            {
-                Jump();
-            }
-
-            if (playerKeyboardState.IsActionPressed)
-            {
-                Shoot();
-            }
+            this.playerKeyboardState = playerKeyboardState;
         }
 
         private void Jump()
@@ -121,7 +130,7 @@ namespace PlatformerPOC.GameObjects
 
         private void Shoot()
         {
-            var bullet = new Bullet(Position, horizontalDirection);
+            var bullet = new Bullet(Position + new Vector2(20 * horizontalDirection, 12), horizontalDirection);
             PlatformGame.Instance.MarkGameObjectForAdd(bullet);            
         }
 

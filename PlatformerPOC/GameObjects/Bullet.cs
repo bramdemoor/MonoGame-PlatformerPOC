@@ -9,9 +9,9 @@ namespace PlatformerPOC.GameObjects
 {
     public class Bullet : BaseGameObject
     {
-        private const int horizontalMaxSpeed = 10;
+        private const int horizontalMaxSpeed = 15;
 
-        private int horizontalDirection;
+        private readonly int horizontalDirection;
 
         private static Texture2D texture;
 

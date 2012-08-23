@@ -16,11 +16,7 @@ namespace PlatformerPOC.GameObjects
         private static Texture2D tilesetTexture;
 
         // Hardcoded spawnpoints locations
-        private List<Vector2> spawnPointTiles = new List<Vector2>
-                                                    {
-                                                        new Vector2(3, 10),
-                                                        new Vector2(15, 10)
-                                                    };
+        private readonly List<Vector2> spawnPointTiles = new List<Vector2> { new Vector2(3, 10), new Vector2(15, 10) };
 
         public static void LoadContent(ContentManager content)
         {
@@ -61,22 +57,16 @@ namespace PlatformerPOC.GameObjects
 
         public bool IsInBoundsLeft(Vector2 position)
         {
-            // TODO BDM: Real check!
-
             return position.X > TilesToPixels(1);
         }
 
         public bool IsInBoundsRight(Vector2 position)
         {
-            // TODO BDM: Real check!
-
             return position.X < TilesToPixels(18);
         }
 
         public bool IsGroundBelow(Vector2 position)
         {
-            // TODO BDM: Real check!
-
             return position.Y >= TilesToPixels(13);
         }
 
