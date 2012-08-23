@@ -20,13 +20,21 @@ namespace PlatformerPOC.GameObjects
 
         public void Draw()
         {
-            var spriteBatch = SimpleGameEngine.Instance.spriteBatch;
+            SimpleGameEngine.Instance.spriteBatch.Draw(bgLayer1Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            SimpleGameEngine.Instance.spriteBatch.Draw(bgLayer2Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
-            spriteBatch.Draw(bgLayer1Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(bgLayer2Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            // Hardcoded map tiles!
 
-            // Draw 1 tile
-            spriteBatch.Draw(tilesetTexture, new Vector2(200, 200), new Rectangle(0, 0, 32, 32), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            for (int y = 0; y < 14; y++) DrawTile(new Vector2(0, y), 0, 1);        // Left border
+            for (int y = 0; y < 14; y++) DrawTile(new Vector2(19, y), 0, 1);        // Right border
+            for (int x = 0; x < 20; x++) DrawTile(new Vector2(x, 14), 0, 3);        // Floor
+
+        }
+
+        private static void DrawTile(Vector2 pos, int xtile, int ytile)
+        {
+            const int squareSize = 32;
+            SimpleGameEngine.Instance.spriteBatch.Draw(tilesetTexture, pos * squareSize, new Rectangle(xtile * squareSize, ytile * squareSize, squareSize, squareSize), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
     }
 }
