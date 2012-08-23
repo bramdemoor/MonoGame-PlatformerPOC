@@ -13,9 +13,9 @@ namespace PlatformerPOC.Screens
             PlatformGame.Instance.Level.Draw();
             PlatformGame.Instance.LocalPlayer.Draw();
 
-            foreach (var bullet in PlatformGame.Instance.Bullets)
+            foreach (var gameObject in PlatformGame.Instance.GameObjects)
             {
-                bullet.Draw();
+                gameObject.Draw();
             }
         }
 
@@ -29,10 +29,12 @@ namespace PlatformerPOC.Screens
             PlatformGame.Instance.LocalPlayer.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
             PlatformGame.Instance.LocalPlayer.Update();
 
-            foreach (var bullet in PlatformGame.Instance.Bullets)
+            foreach (var gameObject in PlatformGame.Instance.GameObjects)
             {
-                bullet.Update(gameTime);
+                gameObject.Update(gameTime);
             }
+
+            PlatformGame.Instance.DoHouseKeeping();
         }
     }
 }

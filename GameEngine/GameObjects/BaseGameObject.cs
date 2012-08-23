@@ -29,7 +29,11 @@ namespace GameEngine.GameObjects
             PrevDisplayState.Position += PrevDisplayState.Velocity * elapsedSeconds;
 
             ApplySmoothing(1 / 12f);
+        }
 
+        public void DestroyEntity()
+        {
+            SimpleGameEngine.Instance.Game.MarkGameObjectForDelete(this);
         }
 
         private void ApplySmoothing(float delta)

@@ -14,12 +14,11 @@ namespace PlatformerPOC
     /// <summary>
     /// Game-specific logic. Singleton.
     /// </summary>
-    public class PlatformGame : ISimpleGame
+    public class PlatformGame : SimpleGameBase
     {
         public List<Player> Players { get; set; }
         public Player LocalPlayer { get; private set; }
         public Level Level { get; private set; }
-        public List<Bullet> Bullets { get; set; }
 
         public SpriteFont font { get; private set; }
 
@@ -35,10 +34,9 @@ namespace PlatformerPOC
         private PlatformGame()
         {
             Players = new List<Player>();
-            Bullets = new List<Bullet>();
         }
 
-        public void LoadContent(ContentManager content)
+        public override void LoadContent(ContentManager content)
         {            
             // Load resources
             Player.LoadContent(content);

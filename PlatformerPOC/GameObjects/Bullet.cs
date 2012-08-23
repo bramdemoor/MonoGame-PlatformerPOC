@@ -33,9 +33,15 @@ namespace PlatformerPOC.GameObjects
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            Position = new Vector2(Position.X + (HorizontalDirection * horizontalMaxSpeed), Position.Y);
-        }
+            if(Position.X > 500)
+            {
+                DestroyEntity();
+                return;
+            }
 
-   
+
+
+            Position = new Vector2(Position.X + (HorizontalDirection * horizontalMaxSpeed), Position.Y);
+        }        
     }
 }

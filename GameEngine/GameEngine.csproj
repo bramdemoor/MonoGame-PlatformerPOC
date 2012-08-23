@@ -66,7 +66,7 @@
     <Compile Include="Helpers\FPSCounterComponent.cs" />
     <Compile Include="Helpers\SimpleScreenBase.cs" />
     <Compile Include="Helpers\SpriteSheet.cs" />
-    <Compile Include="ISimpleGame.cs" />
+    <Compile Include="SimpleGameBase.cs" />
     <Compile Include="Network\ClientNetworkManager.cs" />
     <Compile Include="Network\IGameMessage.cs" />
     <Compile Include="Network\INetworkManager.cs" />

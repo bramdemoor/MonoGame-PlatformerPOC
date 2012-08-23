@@ -88,7 +88,7 @@ namespace PlatformerPOC.GameObjects
         private void Shoot()
         {
             var bullet = new Bullet(Position, 1);
-            PlatformGame.Instance.Bullets.Add(bullet);
+            PlatformGame.Instance.MarkGameObjectForAdd(bullet);            
         }
 
         private void MoveLeft()

@@ -31,16 +31,16 @@ namespace GameEngine
 
         public static SimpleGameEngine Instance { get; private set; }
 
-        private ISimpleGame game;
+        public SimpleGameBase Game { get; private set; }
 
-        public static void InitializeEngine(ISimpleGame game)
+        public static void InitializeEngine(SimpleGameBase game)
         {
             Instance = new SimpleGameEngine(game);
         }
 
-        private SimpleGameEngine(ISimpleGame game)
+        private SimpleGameEngine(SimpleGameBase game)
         {
-            this.game = game;
+            this.Game = game;
 
             log4net.Config.BasicConfigurator.Configure();
             log = LogManager.GetLogger(typeof(SimpleGameEngine));
@@ -66,7 +66,7 @@ namespace GameEngine
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            game.LoadContent(Content);
+            Game.LoadContent(Content);
         }
 
         protected override void UnloadContent()
