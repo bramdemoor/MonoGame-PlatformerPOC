@@ -19,6 +19,8 @@ namespace PlatformerPOC.GameObjects
 
         private int animationFrame = 0;
 
+        private int horizontalDirection = 1;
+
         public static void LoadContent(ContentManager content)
         {
             spriteSheetTexture = content.Load<Texture2D>("player");
@@ -80,7 +82,10 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
-            SimpleGameEngine.Instance.spriteBatch.Draw(spriteSheetTexture, Position, spriteSheet[animationFrame], Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            var drawEffect = horizontalDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            SimpleGameEngine.Instance.spriteBatch.Draw(spriteSheetTexture, Position, spriteSheet[animationFrame], Color.White, 0f, Vector2.Zero, 1f, drawEffect, 0f);
+            SimpleGameEngine.Instance.spriteBatch.DrawString(PlatformGame.Instance.font, "player1", Position, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, -1f);
         }
 
         public void HandleInput(PlayerKeyboardState playerKeyboardState)
@@ -116,7 +121,7 @@ namespace PlatformerPOC.GameObjects
 
         private void Shoot()
         {
-            var bullet = new Bullet(Position, 1);
+            var bullet = new Bullet(Position, horizontalDirection);
             PlatformGame.Instance.MarkGameObjectForAdd(bullet);            
         }
 
@@ -125,6 +130,8 @@ namespace PlatformerPOC.GameObjects
             if(!PlatformGame.Instance.Level.IsInBoundsLeft(Position)) return;
 
             Position = new Vector2(Position.X - 5, Position.Y);
+
+            horizontalDirection = -1;
         }
 
         private void MoveRight()
@@ -132,6 +139,8 @@ namespace PlatformerPOC.GameObjects
             if (!PlatformGame.Instance.Level.IsInBoundsRight(Position)) return;
 
             Position = new Vector2(Position.X + 5, Position.Y);
+
+            horizontalDirection = 1;
         }
     }
 }

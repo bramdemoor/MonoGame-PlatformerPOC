@@ -41,19 +41,28 @@ namespace PlatformerPOC.GameObjects
 
         public bool IsInBoundsLeft(Vector2 position)
         {
+            // TODO BDM: Real check!
+
             return position.X > 32;
         }
 
         public bool IsInBoundsRight(Vector2 position)
         {
+            // TODO BDM: Real check!
+
             return position.X < (18 * squareSize);
         }
 
         public bool IsGroundBelow(Vector2 position)
         {
-            // TODO BDM: Real collission check!
+            // TODO BDM: Real check!
 
             return position.Y >= (13*squareSize);
+        }
+
+        public bool IsInBounds(Vector2 position)
+        {
+            return IsInBoundsLeft(position) && IsInBoundsRight(position);
         }
     }
 }
