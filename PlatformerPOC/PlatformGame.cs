@@ -3,6 +3,7 @@ using GameEngine;
 using GameEngine.GameObjects;
 using GameEngine.Helpers;
 using Lidgren.Network;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.GameObjects;

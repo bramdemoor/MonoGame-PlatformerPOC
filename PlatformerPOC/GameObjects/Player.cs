@@ -44,7 +44,7 @@ namespace PlatformerPOC.GameObjects
         {
             spawnSoundInstance = spawnSound.CreateInstance();
             spawnSoundInstance.Play();
-            Position = new Vector2(100, 100);
+            Position = PlatformGame.Instance.Level.GetNextFreeSpawnPoint();
         }
 
         public void Update()

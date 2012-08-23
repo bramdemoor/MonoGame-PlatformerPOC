@@ -11,6 +11,6 @@ namespace PlatformerPOC
         public const Keys moveRightKey = Keys.Right;
         public const Keys moveDownKey = Keys.Down;
         public const Keys moveUpKey = Keys.Up;
-        public const Keys actionKey = Keys.Space;
+        public const Keys actionKey = Keys.Space;        
     }
 }

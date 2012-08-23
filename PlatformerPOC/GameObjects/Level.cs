@@ -1,4 +1,6 @@
-﻿using GameEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using GameEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,12 +9,18 @@ namespace PlatformerPOC.GameObjects
 {
     public class Level
     {
-        // TODO BDM: Put in config!
-        const int squareSize = 32;
+        public const int SquareSize = 32;
 
         private static Texture2D bgLayer1Texture;
         private static Texture2D bgLayer2Texture;
         private static Texture2D tilesetTexture;
+
+        // Hardcoded spawnpoints locations
+        private List<Vector2> spawnPointTiles = new List<Vector2>
+                                                    {
+                                                        new Vector2(3, 10),
+                                                        new Vector2(15, 10)
+                                                    };
 
         public static void LoadContent(ContentManager content)
         {
@@ -34,35 +42,52 @@ namespace PlatformerPOC.GameObjects
 
         }
 
-        private static void DrawTile(Vector2 pos, int xtile, int ytile)
-        {            
-            SimpleGameEngine.Instance.spriteBatch.Draw(tilesetTexture, pos * squareSize, new Rectangle(xtile * squareSize, ytile * squareSize, squareSize, squareSize), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+        public int TilesToPixels(int tiles)
+        {
+            return tiles*SquareSize;
+        }
+
+        public Vector2 TilesToPixels(Vector2 tiles)
+        {
+            return tiles * SquareSize;
+        }
+
+        private void DrawTile(Vector2 pos, int xtile, int ytile)
+        {
+            var sourceRectangle = new Rectangle(xtile * SquareSize, ytile * SquareSize, SquareSize, SquareSize);
+
+            SimpleGameEngine.Instance.spriteBatch.Draw(tilesetTexture, TilesToPixels(pos) , sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         public bool IsInBoundsLeft(Vector2 position)
         {
             // TODO BDM: Real check!
 
-            return position.X > 32;
+            return position.X > TilesToPixels(1);
         }
 
         public bool IsInBoundsRight(Vector2 position)
         {
             // TODO BDM: Real check!
 
-            return position.X < (18 * squareSize);
+            return position.X < TilesToPixels(18);
         }
 
         public bool IsGroundBelow(Vector2 position)
         {
             // TODO BDM: Real check!
 
-            return position.Y >= (13*squareSize);
+            return position.Y >= TilesToPixels(13);
         }
 
         public bool IsInBounds(Vector2 position)
         {
             return IsInBoundsLeft(position) && IsInBoundsRight(position);
+        }
+
+        public Vector2 GetNextFreeSpawnPoint()
+        {
+            return TilesToPixels(spawnPointTiles.First());
         }
     }
 }
