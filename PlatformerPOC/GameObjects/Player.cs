@@ -10,6 +10,8 @@ namespace PlatformerPOC.GameObjects
 {
     public class Player : BaseGameObject 
     {
+        public string Name { get; set; }
+
         // Same for all players
         private static Texture2D spriteSheetTexture;
         private static SpriteSheet spriteSheet;
@@ -22,6 +24,8 @@ namespace PlatformerPOC.GameObjects
         private int horizontalDirection = 1;
 
         private PlayerKeyboardState playerKeyboardState;
+
+        public Rectangle RectangleCollisionBounds { get { return new Rectangle((int) Position.X,(int) Position.Y,32,32); } }
 
         public static void LoadContent(ContentManager content)
         {
@@ -37,15 +41,17 @@ namespace PlatformerPOC.GameObjects
             spawnSound = content.Load<SoundEffect>("testsound");
         }
 
-        public Player(long id, GameObjectState gameObjectState)
+        public Player(string name, long id, GameObjectState gameObjectState)
         {
+            this.Name = name;
+
             Spawn();
         }
 
         public void Spawn()
         {
-            spawnSoundInstance = spawnSound.CreateInstance();
-            spawnSoundInstance.Play();
+            //spawnSoundInstance = spawnSound.CreateInstance();
+            //spawnSoundInstance.Play();
             Position = PlatformGame.Instance.Level.GetNextFreeSpawnPoint();
         }
 
@@ -55,13 +61,13 @@ namespace PlatformerPOC.GameObjects
 
             ApplyGravity();
 
-            if (spawnSoundInstance.State != SoundState.Playing)
-            {
-                spawnSoundInstance.Volume = 1f;
+            //if (spawnSoundInstance.State != SoundState.Playing)
+            //{
+            //    spawnSoundInstance.Volume = 1f;
 
-                spawnSoundInstance.IsLooped = false;
-                spawnSoundInstance.Play();
-            }
+            //    spawnSoundInstance.IsLooped = false;
+            //    spawnSoundInstance.Play();
+            //}
 
             animationFrame++;
             if (animationFrame == 7)
@@ -112,7 +118,7 @@ namespace PlatformerPOC.GameObjects
             var drawEffect = horizontalDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             SimpleGameEngine.Instance.spriteBatch.Draw(spriteSheetTexture, Position, spriteSheet[animationFrame], Color.White, 0f, Vector2.Zero, 1f, drawEffect, 0f);
-            SimpleGameEngine.Instance.spriteBatch.DrawString(PlatformGame.Instance.font, "player1", Position, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, -1f);
+            SimpleGameEngine.Instance.spriteBatch.DrawString(PlatformGame.Instance.font, Name, Position, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, -1f);
         }
 
         public void HandleInput(PlayerKeyboardState playerKeyboardState)
@@ -130,7 +136,7 @@ namespace PlatformerPOC.GameObjects
 
         private void Shoot()
         {
-            var bullet = new Bullet(Position + new Vector2(20 * horizontalDirection, 12), horizontalDirection);
+            var bullet = new Bullet(this, Position + new Vector2(30 * horizontalDirection, 12), horizontalDirection);
             PlatformGame.Instance.MarkGameObjectForAdd(bullet);            
         }
 

@@ -84,8 +84,18 @@ namespace PlatformerPOC
         public void StartGame()
         {
             Level = new Level();
-            LocalPlayer = new Player(1, new GameObjectState());
+
+            LocalPlayer = new Player("Player 1", 1, new GameObjectState());
+
+            var otherPlayer = new Player("Player 2", 2, new GameObjectState());
+
+            // TODO BDM: Find better way of adding
+
             Players.Add(LocalPlayer);
+            Players.Add(otherPlayer);
+
+            MarkGameObjectForAdd(LocalPlayer);
+            MarkGameObjectForAdd(otherPlayer);
 
             SimpleGameEngine.Instance.ActiveScreen = new GameplayScreen();
         }

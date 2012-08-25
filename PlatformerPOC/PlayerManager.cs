@@ -33,7 +33,7 @@ namespace PlatformerPOC
                 return this.players[id];
             }
 
-            var player = new Player(id, state);
+            var player = new Player("p", id, state);
 
             this.players.Add(player.Id, player);
 

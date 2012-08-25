@@ -6,14 +6,18 @@ namespace GameEngine
 {
     public abstract class SimpleGameBase
     {
-        public List<BaseGameObject> GameObjects { get; set; }
+        private List<BaseGameObject> _gameObjects;
+        public IEnumerable<BaseGameObject> GameObjects
+        {
+            get { return _gameObjects; }
+        }
 
         private readonly List<BaseGameObject> gameObjectsToAdd = new List<BaseGameObject>();
         private readonly List<BaseGameObject> gameObjectsToDelete = new List<BaseGameObject>();
 
         public SimpleGameBase()
         {
-            GameObjects = new List<BaseGameObject>();
+            _gameObjects = new List<BaseGameObject>();
         }
 
         public abstract void LoadContent(ContentManager content);
@@ -32,14 +36,14 @@ namespace GameEngine
         {
             foreach (var baseGameObject in gameObjectsToAdd)
             {
-                GameObjects.Add(baseGameObject);
+                _gameObjects.Add(baseGameObject);
             }
 
             gameObjectsToAdd.Clear();
 
             foreach (var baseGameObject in gameObjectsToDelete)
             {
-                GameObjects.Remove(baseGameObject);
+                _gameObjects.Remove(baseGameObject);
             }
             
             gameObjectsToDelete.Clear();

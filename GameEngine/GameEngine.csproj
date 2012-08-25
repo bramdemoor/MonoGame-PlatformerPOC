@@ -63,6 +63,7 @@
     <Compile Include="GameObjects\BaseGameObject.cs" />
     <Compile Include="GameObjects\GameObjectState.cs" />
     <Compile Include="GameTimer.cs" />
+    <Compile Include="Helpers\CollisionHelper.cs" />
     <Compile Include="Helpers\FPSCounterComponent.cs" />
     <Compile Include="Helpers\SimpleScreenBase.cs" />
     <Compile Include="Helpers\SpriteSheet.cs" />

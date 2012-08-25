@@ -22,13 +22,13 @@ namespace GameEngine.GameObjects
 
         public virtual void Update(GameTime gameTime)
         {
-            var elapsedSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //var elapsedSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            SimulationState.Position += SimulationState.Velocity * elapsedSeconds;
+            //SimulationState.Position += SimulationState.Velocity * elapsedSeconds;
 
-            PrevDisplayState.Position += PrevDisplayState.Velocity * elapsedSeconds;
+            //PrevDisplayState.Position += PrevDisplayState.Velocity * elapsedSeconds;
 
-            ApplySmoothing(1 / 12f);
+            //ApplySmoothing(1 / 12f);
         }
 
         public void DestroyEntity()

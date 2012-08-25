@@ -11,7 +11,6 @@ namespace PlatformerPOC.Screens
         public override void Draw(GameTime gameTime)
         {
             PlatformGame.Instance.Level.Draw();
-            PlatformGame.Instance.LocalPlayer.Draw();
 
             foreach (var gameObject in PlatformGame.Instance.GameObjects)
             {
