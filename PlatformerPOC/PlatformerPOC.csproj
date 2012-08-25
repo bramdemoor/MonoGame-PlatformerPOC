@@ -42,6 +42,7 @@
     <Compile Include="EventArgs\PlayerStateChangedArgs.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="GameObjects\Level.cs" />
+    <Compile Include="GameObjects\Particle.cs" />
     <Compile Include="PlatformGame.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\PlayerKeyboardState.cs" />
@@ -79,6 +80,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bullet-impact.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\bullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

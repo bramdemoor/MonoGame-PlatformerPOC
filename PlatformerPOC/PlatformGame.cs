@@ -43,6 +43,7 @@ namespace PlatformerPOC
             Player.LoadContent(content);
             Bullet.LoadContent(content);
             Level.LoadContent(content);
+            Particle.LoadContent(content);
             font = content.Load<SpriteFont>("spriteFont1");
 
             // TODO BDM: Delegate!

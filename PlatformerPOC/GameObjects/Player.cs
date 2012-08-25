@@ -12,7 +12,7 @@ namespace PlatformerPOC.GameObjects
     {
         public string Name { get; set; }
 
-        // Same for all players
+        // Same for all entities
         private static Texture2D spriteSheetTexture;
         private static SpriteSheet spriteSheet;
         private static SoundEffect spawnSound;

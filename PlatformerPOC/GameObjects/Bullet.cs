@@ -51,6 +51,7 @@ namespace PlatformerPOC.GameObjects
             {
                 if(CollisionHelper.RectangleCollision(RectangleCollisionBounds, player.RectangleCollisionBounds))
                 {
+                    PlatformGame.Instance.MarkGameObjectForAdd(new Particle(new Vector2(Position.X + (horizontalDirection * 40), Position.Y), horizontalDirection));
                     DestroyEntity();
                     return;
                 }
