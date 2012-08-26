@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GameEngine;
+using GameEngine.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -54,17 +55,12 @@ namespace PlatformerPOC.GameObjects
 
         public bool IsInBoundsLeft(Vector2 position)
         {
-            return position.X > LevelTileConcept.TilesToPixels(1);
+            return position.X > LevelTileConcept.TilesToPixels(0);
         }
 
         public bool IsInBoundsRight(Vector2 position)
         {
-            return position.X < LevelTileConcept.TilesToPixels(18);
-        }
-
-        public bool IsGroundBelow(Vector2 position)
-        {
-            return position.Y >= LevelTileConcept.TilesToPixels(13);
+            return position.X < LevelTileConcept.TilesToPixels(19);
         }
 
         public bool IsInBounds(Vector2 position)
@@ -75,6 +71,34 @@ namespace PlatformerPOC.GameObjects
         public Vector2 GetNextFreeSpawnPoint()
         {
             return LevelTileConcept.TilesToPixels(spawnPointTiles.First());
+        }
+
+        //GetCollisionRectangle
+
+        public bool Get(Vector2 position)
+        {
+            foreach (var wall in PlatformGame.Instance.GameObjects.OfType<SolidWall>())
+            {
+                if (CollisionHelper.PointCollision(position, wall.RectangleCollisionBounds))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool IsPlaceFree(Rectangle collisionRectangle)
+        {
+            foreach (var wall in PlatformGame.Instance.GameObjects.OfType<SolidWall>())
+            {
+                if(CollisionHelper.RectangleCollision(collisionRectangle, wall.RectangleCollisionBounds))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

@@ -6,13 +6,13 @@ namespace PlatformerPOC.GameObjects
 {
     public class TileDefinition
     {
-        private readonly CustomTileSetDefinition tileSet;
+        public CustomTileSetDefinition TileSet { get; private set; }
 
         private readonly Rectangle graphicsRectangle;
 
         public TileDefinition(CustomTileSetDefinition tileSet, int x, int y)
         {
-            this.tileSet = tileSet;
+            this.TileSet = tileSet;
 
             graphicsRectangle = tileSet.GetGraphicsRectangle(x, y);
         }
@@ -20,7 +20,7 @@ namespace PlatformerPOC.GameObjects
 
         public void DrawTile(Vector2 pos)
         {
-            SimpleGameEngine.Instance.spriteBatch.Draw(tileSet.TilesetTexture, pos, graphicsRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            SimpleGameEngine.Instance.spriteBatch.Draw(TileSet.TilesetTexture, pos, graphicsRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
     }
 }

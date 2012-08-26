@@ -14,6 +14,8 @@ namespace GameEngine.Helpers
         private readonly List<Rectangle> sprites = new List<Rectangle>();
 
         public IEnumerable<Rectangle> Sprites { get { return sprites;  } }
+
+        public Rectangle SpriteDimensions { get; set; }
         
         // TODO BDM: Implement support for multi-row spritesheets.
 
@@ -21,13 +23,12 @@ namespace GameEngine.Helpers
         {
             SpriteCount = spriteCount;
             SpriteSheetTexture = content.Load<Texture2D>(spriteTextureName);
+            SpriteDimensions = spriteDimensions;
             
             for (int i = 0; i < spriteCount; i++)
             {
                 sprites.Add(new Rectangle(i * spriteDimensions.Width, 0, spriteDimensions.Width, spriteDimensions.Height));                
             }
-        }
-
-        
+        }        
     }
 }

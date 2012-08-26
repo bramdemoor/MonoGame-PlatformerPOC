@@ -10,6 +10,7 @@ namespace PlatformerPOC.GameObjects
     public class Player : PlatformGameObject
     {
         private const int MAX_LIFE = 100;
+        private const int MOVE_SPEED = 5;
 
         public string Name { get; set; }
 
@@ -20,11 +21,77 @@ namespace PlatformerPOC.GameObjects
             get { return Life > 0; }
         }
 
+        public bool IsStandingOnSolid
+        {
+            get
+            {
+                return !PlatformGame.Instance.Level.IsPlaceFree(BoundingBox_Bottom);
+            }
+        }
+
+        public Rectangle BoundingBox_Full
+        {
+            get
+            {
+                return new Rectangle((int) Position.X, (int) Position.Y, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Width, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Height);
+            }
+        }
+
+        public Rectangle BoundingBox_Top
+        {
+            get
+            {
+                // TODO BDM: Put velocity add elsewhere?
+                return new Rectangle(BoundingBox_Full.X, (int) (BoundingBox_Full.Top + Velocity.Y), BoundingBox_Full.Width, 1);
+            }
+        }
+
+        public Rectangle BoundingBox_Bottom
+        {
+            get
+            {
+                // TODO BDM: Put velocity add elsewhere?
+                return new Rectangle(BoundingBox_Full.X, (int) (BoundingBox_Full.Bottom + Velocity.Y), BoundingBox_Full.Width, 1);
+            }
+        }
+
+        public Rectangle BoundingBox_Left
+        {
+            get
+            {
+                return new Rectangle((int) (BoundingBox_Full.X + Velocity.X), BoundingBox_Full.Y, 1, BoundingBox_Full.Height);
+            }
+        }
+
+        public Rectangle BoundingBox_Right
+        {
+            get
+            {
+                return new Rectangle((int) (BoundingBox_Full.Right + Velocity.X), BoundingBox_Full.Y, 1, BoundingBox_Full.Height);
+            }
+        }
+
+        //public Vector2 DesiredNextPosition
+        //{
+        //    get { return Position + Velocity; }
+        //}
+
+        //public Rectangle DesiredNextPositionRectangle
+        //{
+        //    get { return new Rectangle((int)DesiredNextPosition.X, (int)DesiredNextPosition.Y, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Width, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Height); }
+        //}
+
         private readonly CustomSpriteSheetInstance spriteSheetInstance;
         
         private PlayerKeyboardState playerKeyboardState;
 
-        public Rectangle RectangleCollisionBounds { get { return new Rectangle((int) Position.X,(int) Position.Y,32,32); } }
+        public Rectangle RectangleCollisionBounds
+        {
+            get
+            {
+                return new Rectangle((int)Position.X, (int)Position.Y, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Width, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Height);
+            }
+        }
 
         private bool IsMovingHorizontally
         {
@@ -64,7 +131,15 @@ namespace PlatformerPOC.GameObjects
                 ApplyInput();
             }
 
-            ApplyGravity();
+            var rect = new Rectangle((int)(Position.X), (int)Position.Y, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Width, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Height);
+            if (!PlatformGame.Instance.Level.IsPlaceFree(rect))
+            {
+                Velocity = new Vector2(Velocity.X, 0);
+            }
+
+            VerticalMovement();
+            HorizontalMovement();
+            
 
             if (IsMovingHorizontally)
             {
@@ -72,16 +147,69 @@ namespace PlatformerPOC.GameObjects
             }            
         }
 
+        private void HorizontalMovement()
+        {
+            if(Velocity.X > 0)
+            {
+                if(PlatformGame.Instance.Level.IsPlaceFree(BoundingBox_Right))
+                {
+                    Position = new Vector2(Position.X + Velocity.X, Position.Y);
+                }
+            }
+
+            if (Velocity.X < 0)
+            {
+                if (PlatformGame.Instance.Level.IsPlaceFree(BoundingBox_Left))
+                {
+                    Position = new Vector2(Position.X + Velocity.X, Position.Y);
+                }
+            }        
+        }
+
+        private void VerticalMovement()
+        {
+            // TOP CHECK
+            if(Velocity.Y < 0)
+            {
+                if (!PlatformGame.Instance.Level.IsPlaceFree(BoundingBox_Top))
+                {
+                    Velocity = new Vector2(Velocity.X, 0);
+                }
+            }
+
+            if (!IsStandingOnSolid)
+            {
+                Velocity += new Vector2(0, 0.2f);
+            }
+            else
+            {
+                if (Velocity.Y > 0)
+                {
+                    Velocity = new Vector2(Velocity.X, 0);
+                }
+            }
+
+             Position = new Vector2(Position.X, Position.Y + Velocity.Y);
+        }
+
         private void ApplyInput()
         {
             if (playerKeyboardState.IsMoveLeftPressed)
             {
-                MoveLeft();
+                Velocity = new Vector2(- MOVE_SPEED, Velocity.Y);
+                HorizontalDirection = -1;
             }
-
-            if (playerKeyboardState.IsMoveRightPressed)
+            else
             {
-                MoveRight();
+                if (playerKeyboardState.IsMoveRightPressed)
+                {
+                    Velocity = new Vector2(MOVE_SPEED, Velocity.Y);
+                    HorizontalDirection = 1;
+                }
+                else
+                {
+                    Velocity = new Vector2(0, Velocity.Y);
+                }
             }
 
             if (playerKeyboardState.IsMoveUpPressed)
@@ -95,23 +223,10 @@ namespace PlatformerPOC.GameObjects
             }            
         }
 
-        private void ApplyGravity()
-        {
-            if(!PlatformGame.Instance.Level.IsGroundBelow(Position))
-            {
-                Velocity += new Vector2(0, 0.2f);                
-            }
-            else
-            {
-                if (Velocity.Y > 0) Velocity = Vector2.Zero;
-            }
-
-            Position = new Vector2(Position.X, Position.Y + Velocity.Y);
-        }
-
         public override void Draw()
         {
             spriteSheetInstance.Draw(Position, DrawEffect);
+
             SimpleGameEngine.Instance.spriteBatch.DrawString(ResourcesHelper.DefaultFont, Name, Position, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, -1f);
         }
 
@@ -122,9 +237,9 @@ namespace PlatformerPOC.GameObjects
 
         private void Jump()
         {
-            if (PlatformGame.Instance.Level.IsGroundBelow(Position))
+            if (IsStandingOnSolid)
             {
-                Velocity = new Vector2(0, -6f);
+                Velocity = new Vector2(Velocity.X, -6f);
             }
         }
 
@@ -132,24 +247,6 @@ namespace PlatformerPOC.GameObjects
         {
             var bullet = new Bullet(this, Position + new Vector2(30 * HorizontalDirection, 12), HorizontalDirection);
             PlatformGame.Instance.MarkGameObjectForAdd(bullet);            
-        }
-
-        private void MoveLeft()
-        {
-            if(!PlatformGame.Instance.Level.IsInBoundsLeft(Position)) return;
-
-            Position = new Vector2(Position.X - 5, Position.Y);
-
-            HorizontalDirection = -1;
-        }
-
-        private void MoveRight()
-        {
-            if (!PlatformGame.Instance.Level.IsInBoundsRight(Position)) return;
-
-            Position = new Vector2(Position.X + 5, Position.Y);
-
-            HorizontalDirection = 1;
         }
     }
 }

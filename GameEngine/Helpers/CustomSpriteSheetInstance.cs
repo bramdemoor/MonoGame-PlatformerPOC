@@ -6,28 +6,28 @@ namespace GameEngine.Helpers
 {
     public class CustomSpriteSheetInstance
     {
-        private readonly CustomSpriteSheetDefinition spriteSheetDefinition;
+        public CustomSpriteSheetDefinition SpriteSheetDefinition { get; private set; }
 
         private int animationFrame = 0;
 
         private Rectangle CurrentDrawRectangle
         {
-            get { return spriteSheetDefinition.Sprites.ElementAt(animationFrame); }
+            get { return SpriteSheetDefinition.Sprites.ElementAt(animationFrame); }
         }
 
         public bool IsOnLastFrame
         {
-            get { return animationFrame == spriteSheetDefinition.SpriteCount - 1; }
+            get { return animationFrame == SpriteSheetDefinition.SpriteCount - 1; }
         }
 
         public CustomSpriteSheetInstance(CustomSpriteSheetDefinition spriteSheetDefinition)
         {
-            this.spriteSheetDefinition = spriteSheetDefinition;
+            this.SpriteSheetDefinition = spriteSheetDefinition;
         }
 
         public virtual void Draw(Vector2 position, SpriteEffects drawEffect)
         {
-            SimpleGameEngine.Instance.spriteBatch.Draw(spriteSheetDefinition.SpriteSheetTexture, position, CurrentDrawRectangle, Color.White, 0f, Vector2.Zero, 1f, drawEffect, 0f);
+            SimpleGameEngine.Instance.spriteBatch.Draw(SpriteSheetDefinition.SpriteSheetTexture, position, CurrentDrawRectangle, Color.White, 0f, Vector2.Zero, 1f, drawEffect, 0f);
         }
 
         public void LoopUntilEnd()
