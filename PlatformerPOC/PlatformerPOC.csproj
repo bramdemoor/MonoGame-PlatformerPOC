@@ -41,9 +41,11 @@
     <Compile Include="Config.cs" />
     <Compile Include="EventArgs\PlayerStateChangedArgs.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
-    <Compile Include="Level.cs" />
+    <Compile Include="GameObjects\SolidWall.cs" />
+    <Compile Include="Level\Level.cs" />
     <Compile Include="GameObjects\Particle.cs" />
     <Compile Include="GameObjects\PlatformGameObject.cs" />
+    <Compile Include="Level\LevelTileConcept.cs" />
     <Compile Include="PlatformGame.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\PlayerKeyboardState.cs" />
