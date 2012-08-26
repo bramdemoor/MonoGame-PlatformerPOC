@@ -17,6 +17,11 @@ namespace PlatformerPOC.GameObjects
 
         public Rectangle RectangleCollisionBounds { get { return new Rectangle((int) Position.X,(int) Position.Y,32,32); } }
 
+        private bool IsMovingHorizontally
+        {
+            get { return playerKeyboardState.IsMoveLeftPressed || playerKeyboardState.IsMoveRightPressed; }
+        }
+
         public Player(string name, long id, GameObjectState gameObjectState)
         {
             spriteSheetInstance = new CustomSpriteSheetInstance(ResourcesHelper.PlayerSpriteSheet);
@@ -24,6 +29,7 @@ namespace PlatformerPOC.GameObjects
             this.Name = name;
 
             Spawn();
+            
         }
 
         public void Spawn()
@@ -39,7 +45,10 @@ namespace PlatformerPOC.GameObjects
 
             ApplyGravity();
 
-            spriteSheetInstance.LoopWithReverse();            
+            if (IsMovingHorizontally)
+            {
+                spriteSheetInstance.LoopWithReverse();
+            }            
         }
 
         private void ApplyMovement()
