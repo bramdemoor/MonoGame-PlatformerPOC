@@ -41,8 +41,9 @@
     <Compile Include="Config.cs" />
     <Compile Include="EventArgs\PlayerStateChangedArgs.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
-    <Compile Include="GameObjects\Level.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="GameObjects\Particle.cs" />
+    <Compile Include="GameObjects\PlatformGameObject.cs" />
     <Compile Include="PlatformGame.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\PlayerKeyboardState.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="PlayerManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourcesHelper.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\LobbyScreen.cs" />
   </ItemGroup>

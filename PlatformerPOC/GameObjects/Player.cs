@@ -3,46 +3,26 @@ using GameEngine.GameObjects;
 using GameEngine.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace PlatformerPOC.GameObjects
 {
-    public class Player : BaseGameObject 
+    public class Player : PlatformGameObject 
     {
         public string Name { get; set; }
 
-        // Same for all entities
-        private static Texture2D spriteSheetTexture;
-        private static SpriteSheet spriteSheet;
-        private static SoundEffect spawnSound;
-
+        private CustomSpriteSheetInstance spriteSheetInstance;
+        
         private SoundEffectInstance spawnSoundInstance;
-
-        private int animationFrame = 0;
-
-        private int horizontalDirection = 1;
 
         private PlayerKeyboardState playerKeyboardState;
 
         public Rectangle RectangleCollisionBounds { get { return new Rectangle((int) Position.X,(int) Position.Y,32,32); } }
 
-        public static void LoadContent(ContentManager content)
-        {
-            spriteSheetTexture = content.Load<Texture2D>("player");
-            spriteSheet = new SpriteSheet(spriteSheetTexture);
-
-            // Lame way of adding animation frames
-            for (int i = 0; i < 8; i++)
-            {
-                spriteSheet.AddSourceSprite(i, new Rectangle(i * 32, 0, 32, 32));
-            }
-
-            spawnSound = content.Load<SoundEffect>("testsound");
-        }
-
         public Player(string name, long id, GameObjectState gameObjectState)
         {
+            spriteSheetInstance = new CustomSpriteSheetInstance(ResourcesHelper.PlayerSpriteSheet);
+
             this.Name = name;
 
             Spawn();
@@ -69,11 +49,7 @@ namespace PlatformerPOC.GameObjects
             //    spawnSoundInstance.Play();
             //}
 
-            animationFrame++;
-            if (animationFrame == 7)
-            {
-                animationFrame = 0;
-            }
+            spriteSheetInstance.LoopWithReverse();            
         }
 
         private void ApplyMovement()
@@ -115,9 +91,7 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
-            var drawEffect = horizontalDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-            SimpleGameEngine.Instance.spriteBatch.Draw(spriteSheetTexture, Position, spriteSheet[animationFrame], Color.White, 0f, Vector2.Zero, 1f, drawEffect, 0f);
+            spriteSheetInstance.Draw(Position, DrawEffect);
             SimpleGameEngine.Instance.spriteBatch.DrawString(PlatformGame.Instance.font, Name, Position, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, -1f);
         }
 
@@ -136,7 +110,7 @@ namespace PlatformerPOC.GameObjects
 
         private void Shoot()
         {
-            var bullet = new Bullet(this, Position + new Vector2(30 * horizontalDirection, 12), horizontalDirection);
+            var bullet = new Bullet(this, Position + new Vector2(30 * HorizontalDirection, 12), HorizontalDirection);
             PlatformGame.Instance.MarkGameObjectForAdd(bullet);            
         }
 
@@ -146,7 +120,7 @@ namespace PlatformerPOC.GameObjects
 
             Position = new Vector2(Position.X - 5, Position.Y);
 
-            horizontalDirection = -1;
+            HorizontalDirection = -1;
         }
 
         private void MoveRight()
@@ -155,7 +129,7 @@ namespace PlatformerPOC.GameObjects
 
             Position = new Vector2(Position.X + 5, Position.Y);
 
-            horizontalDirection = 1;
+            HorizontalDirection = 1;
         }
     }
 }

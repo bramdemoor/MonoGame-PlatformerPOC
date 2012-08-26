@@ -1,42 +1,28 @@
 ﻿using System.Linq;
 using GameEngine;
-using GameEngine.GameObjects;
 using GameEngine.Helpers;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace PlatformerPOC.GameObjects
 {
-    public class Bullet : BaseGameObject
+    public class Bullet : PlatformGameObject
     {
         private const int horizontalMaxSpeed = 15;
 
         private readonly Player _shooter;
 
-        private readonly int horizontalDirection;
-
-        private static Texture2D texture;
-
-        public Rectangle RectangleCollisionBounds { get { return new Rectangle((int) Position.X, (int) Position.Y, texture.Bounds.Width, texture.Bounds.Height); } }
+        public Rectangle RectangleCollisionBounds { get { return new Rectangle((int)Position.X, (int)Position.Y, ResourcesHelper.BulletTexture.Bounds.Width, ResourcesHelper.BulletTexture.Bounds.Height); } }
 
         public Bullet(Player shooter, Vector2 position, int horizontalDirection)
         {
             Position = position;
             _shooter = shooter;
-            this.horizontalDirection = horizontalDirection;
-        }
-
-        public static void LoadContent(ContentManager content)
-        {
-            texture = content.Load<Texture2D>("bullet");
+            this.HorizontalDirection = horizontalDirection;
         }
 
         public override void Draw()
         {
-            var drawEffect = horizontalDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-            SimpleGameEngine.Instance.spriteBatch.Draw(texture, Position, null, Color.White, 0, Vector2.Zero, 1, drawEffect, 1f);            
+            SimpleGameEngine.Instance.spriteBatch.Draw(ResourcesHelper.BulletTexture, Position, null, Color.White, 0, Vector2.Zero, 1, DrawEffect, 1f);            
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
@@ -51,15 +37,13 @@ namespace PlatformerPOC.GameObjects
             {
                 if(CollisionHelper.RectangleCollision(RectangleCollisionBounds, player.RectangleCollisionBounds))
                 {
-                    PlatformGame.Instance.MarkGameObjectForAdd(new Particle(new Vector2(Position.X + (horizontalDirection * 40), Position.Y), horizontalDirection));
+                    PlatformGame.Instance.MarkGameObjectForAdd(new Particle(new Vector2(Position.X + (HorizontalDirection * 40), Position.Y), HorizontalDirection));
                     DestroyEntity();
                     return;
                 }
             }
 
-
-
-            Position = new Vector2(Position.X + (horizontalDirection * horizontalMaxSpeed), Position.Y);
+            Position = new Vector2(Position.X + (HorizontalDirection * horizontalMaxSpeed), Position.Y);
         }        
     }
 }

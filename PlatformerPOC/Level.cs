@@ -11,24 +11,13 @@ namespace PlatformerPOC.GameObjects
     {
         public const int SquareSize = 32;
 
-        private static Texture2D bgLayer1Texture;
-        private static Texture2D bgLayer2Texture;
-        private static Texture2D tilesetTexture;
-
-        // Hardcoded spawnpoints locations
+        // Hardcoded spawnpoint locations
         private readonly List<Vector2> spawnPointTiles = new List<Vector2> { new Vector2(3, 10), new Vector2(15, 10) };
-
-        public static void LoadContent(ContentManager content)
-        {
-            bgLayer1Texture = content.Load<Texture2D>("parallax-layer1");
-            bgLayer2Texture = content.Load<Texture2D>("parallax-layer2");
-            tilesetTexture = content.Load<Texture2D>("tileset");
-        }
 
         public void Draw()
         {
-            SimpleGameEngine.Instance.spriteBatch.Draw(bgLayer1Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            SimpleGameEngine.Instance.spriteBatch.Draw(bgLayer2Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            SimpleGameEngine.Instance.spriteBatch.Draw(ResourcesHelper.BgLayer1Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            SimpleGameEngine.Instance.spriteBatch.Draw(ResourcesHelper.BgLayer2Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             // Hardcoded map tiles!
 
@@ -52,7 +41,7 @@ namespace PlatformerPOC.GameObjects
         {
             var sourceRectangle = new Rectangle(xtile * SquareSize, ytile * SquareSize, SquareSize, SquareSize);
 
-            SimpleGameEngine.Instance.spriteBatch.Draw(tilesetTexture, TilesToPixels(pos) , sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            SimpleGameEngine.Instance.spriteBatch.Draw(ResourcesHelper.TilesetTexture, TilesToPixels(pos), sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         public bool IsInBoundsLeft(Vector2 position)
