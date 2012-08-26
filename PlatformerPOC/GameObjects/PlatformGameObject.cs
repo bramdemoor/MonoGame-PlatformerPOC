@@ -1,4 +1,5 @@
 ﻿using GameEngine.GameObjects;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace PlatformerPOC.GameObjects
@@ -20,6 +21,17 @@ namespace PlatformerPOC.GameObjects
             {
                 return HorizontalDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
+        }
+
+        public void PlaySound(SoundEffect spawnSound)
+        {
+            if (!Config.SoundEnabled) return;
+
+            SoundEffectInstance soundEffectInstance = spawnSound.CreateInstance();
+
+            soundEffectInstance.Volume = Config.SoundVolume;
+
+            soundEffectInstance.Play();
         }
     }
 }

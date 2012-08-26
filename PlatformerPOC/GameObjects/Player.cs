@@ -13,8 +13,6 @@ namespace PlatformerPOC.GameObjects
 
         private readonly CustomSpriteSheetInstance spriteSheetInstance;
         
-        private SoundEffectInstance spawnSoundInstance;
-
         private PlayerKeyboardState playerKeyboardState;
 
         public Rectangle RectangleCollisionBounds { get { return new Rectangle((int) Position.X,(int) Position.Y,32,32); } }
@@ -30,8 +28,8 @@ namespace PlatformerPOC.GameObjects
 
         public void Spawn()
         {
-            spawnSoundInstance = ResourcesHelper.SpawnSound.CreateInstance();
-            spawnSoundInstance.Play();
+            PlaySound(ResourcesHelper.SpawnSound);            
+
             Position = PlatformGame.Instance.Level.GetNextFreeSpawnPoint();
         }
 
