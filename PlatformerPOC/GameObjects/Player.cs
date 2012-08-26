@@ -11,7 +11,7 @@ namespace PlatformerPOC.GameObjects
     {
         public string Name { get; set; }
 
-        private CustomSpriteSheetInstance spriteSheetInstance;
+        private readonly CustomSpriteSheetInstance spriteSheetInstance;
         
         private SoundEffectInstance spawnSoundInstance;
 
@@ -30,8 +30,8 @@ namespace PlatformerPOC.GameObjects
 
         public void Spawn()
         {
-            //spawnSoundInstance = spawnSound.CreateInstance();
-            //spawnSoundInstance.Play();
+            spawnSoundInstance = ResourcesHelper.SpawnSound.CreateInstance();
+            spawnSoundInstance.Play();
             Position = PlatformGame.Instance.Level.GetNextFreeSpawnPoint();
         }
 
@@ -40,14 +40,6 @@ namespace PlatformerPOC.GameObjects
             ApplyMovement();
 
             ApplyGravity();
-
-            //if (spawnSoundInstance.State != SoundState.Playing)
-            //{
-            //    spawnSoundInstance.Volume = 1f;
-
-            //    spawnSoundInstance.IsLooped = false;
-            //    spawnSoundInstance.Play();
-            //}
 
             spriteSheetInstance.LoopWithReverse();            
         }
@@ -92,7 +84,7 @@ namespace PlatformerPOC.GameObjects
         public override void Draw()
         {
             spriteSheetInstance.Draw(Position, DrawEffect);
-            SimpleGameEngine.Instance.spriteBatch.DrawString(PlatformGame.Instance.font, Name, Position, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, -1f);
+            SimpleGameEngine.Instance.spriteBatch.DrawString(ResourcesHelper.DefaultFont, Name, Position, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, -1f);
         }
 
         public void HandleInput(PlayerKeyboardState playerKeyboardState)

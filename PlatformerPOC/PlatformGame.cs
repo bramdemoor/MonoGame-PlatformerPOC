@@ -19,9 +19,7 @@ namespace PlatformerPOC
     {
         public List<Player> Players { get; set; }
         public Player LocalPlayer { get; private set; }
-        public Level Level { get; private set; }
-
-        public SpriteFont font { get; private set; }
+        public Level Level { get; private set; }        
 
         public static PlatformGame Instance { get; private set; }
 
@@ -39,12 +37,10 @@ namespace PlatformerPOC
 
         public override void LoadContent(ContentManager content)
         {
-            ResourcesHelper.LoadContent(content);
-
-            font = content.Load<SpriteFont>("spriteFont1");
+            ResourcesHelper.LoadContent(content);            
 
             // TODO BDM: Delegate!
-            var fps = new FPSCounterComponent(SimpleGameEngine.Instance, SimpleGameEngine.Instance.spriteBatch, font);
+            var fps = new FPSCounterComponent(SimpleGameEngine.Instance, SimpleGameEngine.Instance.spriteBatch, ResourcesHelper.DefaultFont);
             SimpleGameEngine.Instance.Components.Add(fps);
 
             ShowMenuScreen();

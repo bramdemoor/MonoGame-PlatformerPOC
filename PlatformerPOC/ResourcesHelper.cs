@@ -19,6 +19,8 @@ namespace PlatformerPOC
         public static CustomSpriteSheetDefinition PlayerSpriteSheet { get; private set; }
         public static SoundEffect SpawnSound { get; private set; }
 
+        public static SpriteFont DefaultFont { get; private set; }
+
         public static void LoadContent(ContentManager content)
         {
             BulletImpactSpriteSheet = new CustomSpriteSheetDefinition(content, "bullet-impact", new Rectangle(0, 0, 42, 29), 6);
@@ -31,6 +33,8 @@ namespace PlatformerPOC
 
             PlayerSpriteSheet = new CustomSpriteSheetDefinition(content, "player", new Rectangle(0, 0, 32, 32), 8);
             SpawnSound = content.Load<SoundEffect>("testsound");
+
+            DefaultFont = content.Load<SpriteFont>("spriteFont1");
         }
     }
 }

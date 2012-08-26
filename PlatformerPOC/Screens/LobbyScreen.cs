@@ -13,23 +13,23 @@ namespace PlatformerPOC.Screens
 
             //if(game.is)
 
-            spriteBatch.DrawString(PlatformGame.Instance.font, "This is the lobby screen", new Vector2(50, 40), Color.Red);
+            spriteBatch.DrawString(ResourcesHelper.DefaultFont, "This is the lobby screen", new Vector2(50, 40), Color.Red);
 
             if(!SimpleGameEngine.Instance.IsConnected)
             {
-                spriteBatch.DrawString(PlatformGame.Instance.font, "Press H to host and J to join (localhost test only)", new Vector2(50, 60), Color.Red);    
+                spriteBatch.DrawString(ResourcesHelper.DefaultFont, "Press H to host and J to join (localhost test only)", new Vector2(50, 60), Color.Red);    
             }
             else
             {
-                spriteBatch.DrawString(PlatformGame.Instance.font, "Connected. Press D to disconnect", new Vector2(50, 60), Color.Red);
+                spriteBatch.DrawString(ResourcesHelper.DefaultFont, "Connected. Press D to disconnect", new Vector2(50, 60), Color.Red);
 
                 if (SimpleGameEngine.Instance.IsHost)
                 {
-                    spriteBatch.DrawString(PlatformGame.Instance.font, "Press S to start the game", new Vector2(50, 80), Color.Red);    
+                    spriteBatch.DrawString(ResourcesHelper.DefaultFont, "Press S to start the game", new Vector2(50, 80), Color.Red);    
                 }
                 else
                 {
-                    spriteBatch.DrawString(PlatformGame.Instance.font, "Waiting for the host to start the game", new Vector2(50, 80), Color.Red);    
+                    spriteBatch.DrawString(ResourcesHelper.DefaultFont, "Waiting for the host to start the game", new Vector2(50, 80), Color.Red);    
                 }
             }         
         }
