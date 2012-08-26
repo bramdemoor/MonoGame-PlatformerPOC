@@ -7,9 +7,18 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PlatformerPOC.GameObjects
 {
-    public class Player : PlatformGameObject 
+    public class Player : PlatformGameObject
     {
+        private const int MAX_LIFE = 100;
+
         public string Name { get; set; }
+
+        public int Life { get; set; }
+
+        public bool IsAlive
+        {
+            get { return Life > 0; }
+        }
 
         private readonly CustomSpriteSheetInstance spriteSheetInstance;
         
@@ -28,12 +37,21 @@ namespace PlatformerPOC.GameObjects
 
             this.Name = name;
 
-            Spawn();
-            
+            Spawn();            
+        }
+
+        public void DoDamage(int damage)
+        {
+            if(IsAlive)
+            {
+                Life -= damage;
+            }
         }
 
         public void Spawn()
         {
+            Life = MAX_LIFE;
+
             PlaySound(ResourcesHelper.SpawnSound);            
 
             Position = PlatformGame.Instance.Level.GetNextFreeSpawnPoint();
@@ -41,7 +59,10 @@ namespace PlatformerPOC.GameObjects
 
         public void Update()
         {
-            ApplyMovement();
+            if(IsAlive)
+            {
+                ApplyInput();
+            }
 
             ApplyGravity();
 
@@ -51,7 +72,7 @@ namespace PlatformerPOC.GameObjects
             }            
         }
 
-        private void ApplyMovement()
+        private void ApplyInput()
         {
             if (playerKeyboardState.IsMoveLeftPressed)
             {

@@ -33,17 +33,27 @@ namespace PlatformerPOC.GameObjects
                 return;
             }
 
-            foreach (var player in PlatformGame.Instance.Players.Where(p => p != _shooter))
-            {
-                if(CollisionHelper.RectangleCollision(RectangleCollisionBounds, player.RectangleCollisionBounds))
-                {
-                    PlatformGame.Instance.MarkGameObjectForAdd(new Particle(new Vector2(Position.X + (HorizontalDirection * 40), Position.Y), HorizontalDirection));
-                    DestroyEntity();
-                    return;
-                }
-            }
+            if (CheckPlayerCollision()) return;
 
             Position = new Vector2(Position.X + (HorizontalDirection * horizontalMaxSpeed), Position.Y);
-        }        
+        }
+
+        private bool CheckPlayerCollision()
+        {
+            foreach (var player in PlatformGame.Instance.Players.Where(p => p != _shooter))
+            {
+                if (CollisionHelper.RectangleCollision(RectangleCollisionBounds, player.RectangleCollisionBounds))
+                {
+                    PlatformGame.Instance.MarkGameObjectForAdd(new Particle(new Vector2(Position.X + (HorizontalDirection*40), Position.Y), HorizontalDirection));
+
+                    player.DoDamage(25);
+
+                    DestroyEntity();
+
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
