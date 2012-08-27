@@ -19,6 +19,7 @@ namespace PlatformerPOC
     {
         public List<Player> Players { get; set; }
         public Player LocalPlayer { get; private set; }
+        public Player DummyPlayer { get; private set; }
         public Level Level { get; private set; }        
 
         public static PlatformGame Instance { get; private set; }
@@ -81,15 +82,15 @@ namespace PlatformerPOC
 
             LocalPlayer = new Player("Player 1", 1, new GameObjectState());
 
-            var otherPlayer = new Player("Player 2", 2, new GameObjectState());
+            DummyPlayer = new Player("Player 2", 2, new GameObjectState());
 
             // TODO BDM: Find better way of adding
 
             Players.Add(LocalPlayer);
-            Players.Add(otherPlayer);
+            Players.Add(DummyPlayer);
 
             MarkGameObjectForAdd(LocalPlayer);
-            MarkGameObjectForAdd(otherPlayer);
+            MarkGameObjectForAdd(DummyPlayer);
 
             SimpleGameEngine.Instance.ActiveScreen = new GameplayScreen();
         }

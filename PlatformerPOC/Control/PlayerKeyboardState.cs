@@ -2,7 +2,7 @@
 
 namespace PlatformerPOC.GameObjects
 {
-    public class PlayerKeyboardState
+    public class PlayerKeyboardState : IPlayerControlState
     {
         private KeyboardState _keyboardState;
 

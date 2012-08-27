@@ -2,6 +2,7 @@
 using GameEngine.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using PlatformerPOC.AI;
 using PlatformerPOC.GameObjects;
 
 namespace PlatformerPOC.Screens
@@ -27,6 +28,8 @@ namespace PlatformerPOC.Screens
 
             PlatformGame.Instance.LocalPlayer.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
             PlatformGame.Instance.LocalPlayer.Update();
+            PlatformGame.Instance.DummyPlayer.HandleInput(new DummyAIController());
+            PlatformGame.Instance.DummyPlayer.Update();
 
             foreach (var gameObject in PlatformGame.Instance.GameObjects)
             {

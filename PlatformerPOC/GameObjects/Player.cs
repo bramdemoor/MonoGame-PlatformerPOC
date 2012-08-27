@@ -71,19 +71,9 @@ namespace PlatformerPOC.GameObjects
             }
         }
 
-        //public Vector2 DesiredNextPosition
-        //{
-        //    get { return Position + Velocity; }
-        //}
-
-        //public Rectangle DesiredNextPositionRectangle
-        //{
-        //    get { return new Rectangle((int)DesiredNextPosition.X, (int)DesiredNextPosition.Y, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Width, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Height); }
-        //}
-
         private readonly CustomSpriteSheetInstance spriteSheetInstance;
-        
-        private PlayerKeyboardState playerKeyboardState;
+
+        private IPlayerControlState playerInputState;
 
         public Rectangle RectangleCollisionBounds
         {
@@ -93,14 +83,14 @@ namespace PlatformerPOC.GameObjects
             }
         }
 
-        private bool IsMovingHorizontally
+        private bool WantsToMoveHorizontally
         {
-            get { return playerKeyboardState.IsMoveLeftPressed || playerKeyboardState.IsMoveRightPressed; }
+            get { return playerInputState.IsMoveLeftPressed || playerInputState.IsMoveRightPressed; }
         }
 
         public Player(string name, long id, GameObjectState gameObjectState)
         {
-            spriteSheetInstance = new CustomSpriteSheetInstance(ResourcesHelper.PlayerSpriteSheet);
+            spriteSheetInstance = new CustomSpriteSheetInstance(ResourcesHelper.PlayerSpriteSheet, 3);
 
             this.Name = name;
 
@@ -141,7 +131,7 @@ namespace PlatformerPOC.GameObjects
             HorizontalMovement();
             
 
-            if (IsMovingHorizontally)
+            if (IsAlive && WantsToMoveHorizontally)
             {
                 spriteSheetInstance.LoopWithReverse();
             }            
@@ -194,14 +184,14 @@ namespace PlatformerPOC.GameObjects
 
         private void ApplyInput()
         {
-            if (playerKeyboardState.IsMoveLeftPressed)
+            if (playerInputState.IsMoveLeftPressed)
             {
                 Velocity = new Vector2(- MOVE_SPEED, Velocity.Y);
                 HorizontalDirection = -1;
             }
             else
             {
-                if (playerKeyboardState.IsMoveRightPressed)
+                if (playerInputState.IsMoveRightPressed)
                 {
                     Velocity = new Vector2(MOVE_SPEED, Velocity.Y);
                     HorizontalDirection = 1;
@@ -212,17 +202,17 @@ namespace PlatformerPOC.GameObjects
                 }
             }
 
-            if (playerKeyboardState.IsMoveUpPressed)
+            if (playerInputState.IsMoveUpPressed)
             {
                 Jump();
             }
 
-            if(playerKeyboardState.IsMoveDownPressed)
+            if(playerInputState.IsMoveDownPressed)
             {
                 ReverseMidAir();
             }
 
-            if (playerKeyboardState.IsActionPressed)
+            if (playerInputState.IsActionPressed)
             {
                 Shoot();
             }            
@@ -243,9 +233,9 @@ namespace PlatformerPOC.GameObjects
             SimpleGameEngine.Instance.spriteBatch.DrawString(ResourcesHelper.DefaultFont, Name, Position, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, -1f);
         }
 
-        public void HandleInput(PlayerKeyboardState playerKeyboardState)
+        public void HandleInput(IPlayerControlState playerInputState)
         {
-            this.playerKeyboardState = playerKeyboardState;
+            this.playerInputState = playerInputState;
         }
 
         private void Jump()

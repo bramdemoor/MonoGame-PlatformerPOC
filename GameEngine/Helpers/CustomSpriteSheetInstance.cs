@@ -7,8 +7,11 @@ namespace GameEngine.Helpers
     public class CustomSpriteSheetInstance
     {
         public CustomSpriteSheetDefinition SpriteSheetDefinition { get; private set; }
+        public int FramesToSkip { get; private set; }
 
-        private int animationFrame = 0;
+        private int skipCounter;
+
+        private int animationFrame;
 
         private Rectangle CurrentDrawRectangle
         {
@@ -20,9 +23,10 @@ namespace GameEngine.Helpers
             get { return animationFrame == SpriteSheetDefinition.SpriteCount - 1; }
         }
 
-        public CustomSpriteSheetInstance(CustomSpriteSheetDefinition spriteSheetDefinition)
+        public CustomSpriteSheetInstance(CustomSpriteSheetDefinition spriteSheetDefinition, int framesToSkip)
         {
             this.SpriteSheetDefinition = spriteSheetDefinition;
+            FramesToSkip = framesToSkip;
         }
 
         public virtual void Draw(Vector2 position, SpriteEffects drawEffect)
@@ -38,7 +42,15 @@ namespace GameEngine.Helpers
             }
             else
             {
-                animationFrame++;
+                if(skipCounter >= FramesToSkip)
+                {
+                    skipCounter = 0;
+                    animationFrame++;
+                }
+                else
+                {
+                    skipCounter++;
+                }                
             }
         }
 
@@ -47,10 +59,19 @@ namespace GameEngine.Helpers
             if (IsOnLastFrame)
             {
                 animationFrame = 0;
+                skipCounter = 0;
             }
             else
             {
-                animationFrame++;
+                if (skipCounter >= FramesToSkip)
+                {
+                    skipCounter = 0;
+                    animationFrame++;
+                }
+                else
+                {
+                    skipCounter++;
+                }      
             }
         }
     }
