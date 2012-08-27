@@ -33,7 +33,7 @@ namespace PlatformerPOC.GameObjects
         {
             get
             {
-                return new Rectangle((int) Position.X, (int) Position.Y, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Width, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Height);
+                return new Rectangle((int) Position.X - 10 , (int) Position.Y + 6, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Width + 20, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Height - 6);
             }
         }
 
