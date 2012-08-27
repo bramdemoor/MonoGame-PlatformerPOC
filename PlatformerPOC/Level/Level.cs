@@ -40,6 +40,11 @@ namespace PlatformerPOC.GameObjects
             }
 
             AddTile(7, 12, ResourcesHelper.TileWall);
+            AddTile(8, 12, ResourcesHelper.TileWall);
+            AddTile(9, 12, ResourcesHelper.TileWall);
+
+            AddTile(8, 10, ResourcesHelper.TileWall);
+            AddTile(6, 8, ResourcesHelper.TileWall);
         }
 
         private static void AddTile(int x, int y, TileDefinition tileDefinition)
