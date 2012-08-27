@@ -54,8 +54,13 @@ namespace PlatformerPOC.GameObjects
 
         public void Draw()
         {
-            SimpleGameEngine.Instance.spriteBatch.Draw(ResourcesHelper.BgLayer1Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            SimpleGameEngine.Instance.spriteBatch.Draw(ResourcesHelper.BgLayer2Texture, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            var viewPort = PlatformGame.Instance.ViewPort;
+
+            var layer1Pos = new Vector2(-viewPort.ViewPos.X*0.6f, -viewPort.ViewPos.Y * 0.6f);
+            var layer2Pos = new Vector2(-viewPort.ViewPos.X*0.9f, -viewPort.ViewPos.Y * 0.9f);
+
+            SimpleGameEngine.Instance.spriteBatch.Draw(ResourcesHelper.BgLayer1Texture, layer1Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            SimpleGameEngine.Instance.spriteBatch.Draw(ResourcesHelper.BgLayer2Texture, layer2Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         public bool IsInBoundsLeft(Vector2 position)

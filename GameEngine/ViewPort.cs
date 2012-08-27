@@ -9,6 +9,14 @@ namespace GameEngine
     {
         public Rectangle ViewArea { get; set; }
 
+        public Vector2 ViewPos
+        {
+            get
+            {
+                return new Vector2(ViewArea.X, ViewArea.Y);
+            }
+        }
+
         public ViewPort()
         {
             // Test!
@@ -41,9 +49,7 @@ namespace GameEngine
 
         public void ScrollTo(Vector2 position)
         {
-            //position = GetRelativeCoords(position);
-
-            ViewArea = new Rectangle((int) position.X - 100, (int) position.Y - 100, ViewArea.Width, ViewArea.Height);
+            ViewArea = new Rectangle((int) position.X - 250, (int) position.Y - 300, ViewArea.Width, ViewArea.Height);
         }
     }
 }
