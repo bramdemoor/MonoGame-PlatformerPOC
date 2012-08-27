@@ -228,9 +228,14 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
-            spriteSheetInstance.Draw(Position, DrawEffect);
+            if (ViewPort.IsObjectInArea(RectangleCollisionBounds))
+            {
+                var relativePos = ViewPort.GetRelativeCoords(Position);
 
-            SimpleGameEngine.Instance.spriteBatch.DrawString(ResourcesHelper.DefaultFont, Name, Position, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, -1f);
+                spriteSheetInstance.Draw(relativePos, DrawEffect);
+
+                SimpleGameEngine.Instance.spriteBatch.DrawString(ResourcesHelper.DefaultFont, Name, relativePos, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, -1f);                
+            }            
         }
 
         public void HandleInput(IPlayerControlState playerInputState)

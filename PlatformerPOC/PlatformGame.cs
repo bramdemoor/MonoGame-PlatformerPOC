@@ -20,7 +20,10 @@ namespace PlatformerPOC
         public List<Player> Players { get; set; }
         public Player LocalPlayer { get; private set; }
         public Player DummyPlayer { get; private set; }
-        public Level Level { get; private set; }        
+        public Level Level { get; private set; }
+
+        // TODO BDM: Doesn't this belong on gameplayscreen?
+        public ViewPort ViewPort { get; set; }
 
         public static PlatformGame Instance { get; private set; }
 
@@ -34,6 +37,8 @@ namespace PlatformerPOC
         private PlatformGame()
         {
             Players = new List<Player>();
+
+            ViewPort = new ViewPort();
         }
 
         public override void LoadContent(ContentManager content)

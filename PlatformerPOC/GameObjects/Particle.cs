@@ -7,6 +7,14 @@ namespace PlatformerPOC.GameObjects
     {
         private readonly CustomSpriteSheetInstance spriteSheetInstance;
 
+        public Rectangle RectangleCollisionBounds
+        {
+            get
+            {
+                return new Rectangle((int)Position.X, (int)Position.Y, ResourcesHelper.BulletImpactSpriteSheet.SpriteDimensions.Width, ResourcesHelper.BulletImpactSpriteSheet.SpriteDimensions.Height);
+            }
+        }  
+
         public Particle(Vector2 position, int horizontalDirection)
         {
             spriteSheetInstance = new CustomSpriteSheetInstance(ResourcesHelper.BulletImpactSpriteSheet, 2);
@@ -27,7 +35,12 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
-            spriteSheetInstance.Draw(Position, DrawEffect);
+            if (ViewPort.IsObjectInArea(RectangleCollisionBounds))
+            {
+                var relativePos = ViewPort.GetRelativeCoords(Position);
+
+                spriteSheetInstance.Draw(relativePos, DrawEffect);
+            }    
         }
     }
 }

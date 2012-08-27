@@ -25,7 +25,10 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
-            TileDefinition.DrawTile(Position);            
+            if (ViewPort.IsObjectInArea(RectangleCollisionBounds))
+            {
+                TileDefinition.DrawTile(ViewPort.GetRelativeCoords(Position));
+            }            
         }
     }
 }

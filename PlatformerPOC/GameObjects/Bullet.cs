@@ -22,7 +22,10 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
-            SimpleGameEngine.Instance.spriteBatch.Draw(ResourcesHelper.BulletTexture, Position, null, Color.White, 0, Vector2.Zero, 1, DrawEffect, 1f);            
+            if (ViewPort.IsObjectInArea(RectangleCollisionBounds))
+            {
+                SpriteBatch.Draw(ResourcesHelper.BulletTexture, ViewPort.GetRelativeCoords(Position), null, Color.White, 0, Vector2.Zero, 1, DrawEffect, 1f);            
+            }            
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)

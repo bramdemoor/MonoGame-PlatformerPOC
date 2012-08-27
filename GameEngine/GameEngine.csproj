@@ -79,6 +79,7 @@
     <Compile Include="Network\XNAExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleGameEngine.cs" />
+    <Compile Include="ViewPort.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
