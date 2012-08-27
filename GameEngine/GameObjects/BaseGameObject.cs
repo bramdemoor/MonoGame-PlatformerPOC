@@ -34,7 +34,7 @@ namespace GameEngine.GameObjects
 
         public void DestroyEntity()
         {
-            SimpleGameEngine.Instance.Game.MarkGameObjectForDelete(this);
+            SimpleGameEngine.Instance.Game.DeleteObject(this);
         }
 
         private void ApplySmoothing(float delta)

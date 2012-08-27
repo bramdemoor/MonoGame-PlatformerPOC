@@ -36,6 +36,8 @@ namespace PlatformerPOC.Screens
                 gameObject.Update(gameTime);
             }
 
+            PlatformGame.Instance.GeneralUpdate();
+
             PlatformGame.Instance.DoHouseKeeping();
         }
     }

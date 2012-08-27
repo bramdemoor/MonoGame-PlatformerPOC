@@ -94,8 +94,8 @@ namespace PlatformerPOC
             Players.Add(LocalPlayer);
             Players.Add(DummyPlayer);
 
-            MarkGameObjectForAdd(LocalPlayer);
-            MarkGameObjectForAdd(DummyPlayer);
+            AddObject(LocalPlayer);
+            AddObject(DummyPlayer);
 
             SimpleGameEngine.Instance.ActiveScreen = new GameplayScreen();
         }
@@ -103,6 +103,11 @@ namespace PlatformerPOC
         public void ShowMenuScreen()
         {
             SimpleGameEngine.Instance.ActiveScreen = new LobbyScreen();
+        }
+
+        public void GeneralUpdate()
+        {
+            ViewPort.ScrollTo(LocalPlayer.Position);
         }
     }
 }

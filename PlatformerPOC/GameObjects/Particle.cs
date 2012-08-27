@@ -35,6 +35,8 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
+            // TODO BDM: Make check + coord conversion generic properties on (platform)gameobject. E.g.: ShouldDraw property and ScreenPosition readonly properties
+
             if (ViewPort.IsObjectInArea(RectangleCollisionBounds))
             {
                 var relativePos = ViewPort.GetRelativeCoords(Position);

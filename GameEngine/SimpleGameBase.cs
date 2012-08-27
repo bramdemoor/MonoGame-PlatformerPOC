@@ -22,16 +22,25 @@ namespace GameEngine
 
         public abstract void LoadContent(ContentManager content);
 
-        public void MarkGameObjectForAdd(BaseGameObject baseGameObject)
+        /// <summary>
+        /// Add object to the update/draw list
+        /// </summary>        
+        public void AddObject(BaseGameObject baseGameObject)
         {
             gameObjectsToAdd.Add(baseGameObject);
         }
 
-        public void MarkGameObjectForDelete(BaseGameObject baseGameObject)
+        /// <summary>
+        /// Delete object from the update/draw list
+        /// </summary>
+        public void DeleteObject(BaseGameObject baseGameObject)
         {
             gameObjectsToDelete.Add(baseGameObject);
         }
 
+        /// <summary>
+        /// Clean up objects to delete, and introduce new objects
+        /// </summary>
         public void DoHouseKeeping()
         {
             foreach (var baseGameObject in gameObjectsToAdd)

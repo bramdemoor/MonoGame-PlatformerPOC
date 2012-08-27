@@ -47,7 +47,7 @@ namespace PlatformerPOC.GameObjects
             {
                 if (CollisionHelper.RectangleCollision(RectangleCollisionBounds, player.RectangleCollisionBounds))
                 {
-                    PlatformGame.Instance.MarkGameObjectForAdd(new Particle(new Vector2(Position.X + (HorizontalDirection*40), Position.Y), HorizontalDirection));
+                    PlatformGame.Instance.AddObject(new Particle(new Vector2(Position.X + (HorizontalDirection*40), Position.Y), HorizontalDirection));
 
                     player.DoDamage(25);
 

@@ -254,7 +254,7 @@ namespace PlatformerPOC.GameObjects
         private void Shoot()
         {
             var bullet = new Bullet(this, Position + new Vector2(30 * HorizontalDirection, 12), HorizontalDirection);
-            PlatformGame.Instance.MarkGameObjectForAdd(bullet);            
+            PlatformGame.Instance.AddObject(bullet);            
         }
     }
 }

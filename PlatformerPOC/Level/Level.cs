@@ -49,7 +49,7 @@ namespace PlatformerPOC.GameObjects
 
         private static void AddTile(int x, int y, TileDefinition tileDefinition)
         {
-            PlatformGame.Instance.MarkGameObjectForAdd(new SolidWall(LevelTileConcept.TilesToPixels(x, y), tileDefinition));
+            PlatformGame.Instance.AddObject(new SolidWall(LevelTileConcept.TilesToPixels(x, y), tileDefinition));
         }
 
         public void Draw()
