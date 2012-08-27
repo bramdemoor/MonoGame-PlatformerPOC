@@ -217,10 +217,23 @@ namespace PlatformerPOC.GameObjects
                 Jump();
             }
 
+            if(playerKeyboardState.IsMoveDownPressed)
+            {
+                ReverseMidAir();
+            }
+
             if (playerKeyboardState.IsActionPressed)
             {
                 Shoot();
             }            
+        }
+
+        private void ReverseMidAir()
+        {
+            // New movement concept. "Stop jumping and go down"
+            // Alias: "brake mid-air"
+
+            if(Velocity.Y < 0) Velocity = new Vector2(Velocity.X, 0);
         }
 
         public override void Draw()
