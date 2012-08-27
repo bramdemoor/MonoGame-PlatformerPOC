@@ -10,6 +10,9 @@ namespace PlatformerPOC.GameObjects
 {
     public class Level
     {
+        private const float PARALLAX_LAYER1_SPEED = 0.6f;
+        private const float PARALLAX_LAYER2_SPEED = 0.9f;
+
         // TODO BDM: Make spawnpoints objects!
         // Hardcoded spawnpoint locations
         private readonly List<Vector2> spawnPointTiles = new List<Vector2> { new Vector2(3, 10), new Vector2(15, 10) };
@@ -56,8 +59,8 @@ namespace PlatformerPOC.GameObjects
         {
             var viewPort = PlatformGame.Instance.ViewPort;
 
-            var layer1Pos = new Vector2(-viewPort.ViewPos.X*0.6f, -viewPort.ViewPos.Y * 0.6f);
-            var layer2Pos = new Vector2(-viewPort.ViewPos.X*0.9f, -viewPort.ViewPos.Y * 0.9f);
+            var layer1Pos = new Vector2(-viewPort.ViewPos.X*PARALLAX_LAYER1_SPEED, -viewPort.ViewPos.Y * PARALLAX_LAYER1_SPEED);
+            var layer2Pos = new Vector2(-viewPort.ViewPos.X*PARALLAX_LAYER2_SPEED, -viewPort.ViewPos.Y * PARALLAX_LAYER2_SPEED);
 
             SimpleGameEngine.Instance.spriteBatch.Draw(ResourcesHelper.BgLayer1Texture, layer1Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             SimpleGameEngine.Instance.spriteBatch.Draw(ResourcesHelper.BgLayer2Texture, layer2Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
