@@ -30,5 +30,12 @@ namespace PlatformerPOC.GameObjects
                 TileDefinition.DrawTile(ViewPort.GetRelativeCoords(Position), LayerDepths.TILES);
             }            
         }
+
+        public override void DrawDebug()
+        {
+            var rel = ViewPort.GetRelativeCoords(RectangleCollisionBounds);
+
+            PlatformGame.Instance.DebugDrawHelper.DrawBorder(SpriteBatch, rel, 2, Color.DarkRed);
+        }
     }
 }
