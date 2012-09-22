@@ -11,41 +11,41 @@ namespace PlatformerPOC.GameObjects
 
         private readonly Player _shooter;
 
-        public Rectangle RectangleCollisionBounds { get { return new Rectangle((int)Position.X, (int)Position.Y, ResourcesHelper.BulletTexture.Bounds.Width, ResourcesHelper.BulletTexture.Bounds.Height); } }
-
         public Bullet(Player shooter, Vector2 position, int horizontalDirection)
         {
             Position = position;
             _shooter = shooter;
             this.HorizontalDirection = horizontalDirection;
+
+            BoundingBox = new CustomBoundingBox();
+            UpdateBoundingBox();
         }
 
-        public override void Draw()
+        public override void Update(GameTime gameTime)
         {
-            if (ViewPort.IsObjectInArea(RectangleCollisionBounds))
-            {
-                SpriteBatch.Draw(ResourcesHelper.BulletTexture, ViewPort.GetRelativeCoords(Position), null, Color.White, 0, Vector2.Zero, 1, DrawEffect, 1f);            
-            }            
-        }
-
-        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
-        {
-            if (!PlatformGame.Instance.Level.IsInBounds(Position))
+            if(!PlatformGame.Instance.Level.IsPlaceFree(BoundingBox.FullRectangle))
             {
                 DestroyEntity();
-                return;
+                return;                
             }
 
             if (CheckPlayerCollision()) return;
 
             Position = new Vector2(Position.X + (HorizontalDirection * horizontalMaxSpeed), Position.Y);
+
+            UpdateBoundingBox();
+        }
+
+        private void UpdateBoundingBox()
+        {
+            BoundingBox.SetFullRectangle(Position, ResourcesHelper.BulletTexture.Bounds, Velocity);
         }
 
         private bool CheckPlayerCollision()
         {
             foreach (var player in PlatformGame.Instance.Players.Where(p => p != _shooter))
             {
-                if (CollisionHelper.RectangleCollision(RectangleCollisionBounds, player.BoundingBox.FullRectangle))
+                if (CollisionHelper.RectangleCollision(BoundingBox.FullRectangle, player.BoundingBox.FullRectangle))
                 {
                     PlatformGame.Instance.AddObject(new Particle(new Vector2(Position.X + (HorizontalDirection*40), Position.Y), HorizontalDirection));
 
@@ -57,6 +57,14 @@ namespace PlatformerPOC.GameObjects
                 }
             }
             return false;
+        }
+
+        public override void Draw()
+        {
+            if (ViewPort.IsObjectInArea(BoundingBox.FullRectangle))
+            {
+                SpriteBatch.Draw(ResourcesHelper.BulletTexture, ViewPort.GetRelativeCoords(Position), null, Color.White, 0, Vector2.Zero, 1, DrawEffect, 1f);            
+            }            
         }
     }
 }

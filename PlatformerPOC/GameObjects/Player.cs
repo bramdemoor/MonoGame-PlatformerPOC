@@ -59,20 +59,17 @@ namespace PlatformerPOC.GameObjects
 
         public void Spawn()
         {
-
-
             Life = MAX_LIFE;
 
             PlaySound(ResourcesHelper.SpawnSound);            
 
             Position = PlatformGame.Instance.Level.GetNextFreeSpawnPoint();
+
             UpdateBoundingBox();
         }
 
         public void Update()
         {
-            
-
             if(IsAlive)
             {
                 ApplyInput();
