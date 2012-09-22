@@ -9,29 +9,30 @@ namespace PlatformerPOC.Screens
     {
         public override void Draw(GameTime gameTime)
         {
-            var spriteBatch = SimpleGameEngine.Instance.spriteBatch;
-
-            //if(game.is)
-
-            spriteBatch.DrawString(ResourcesHelper.DefaultFont, "This is the lobby screen", new Vector2(50, 40), Color.Red);
+            DrawText("This is the lobby screen", 40);
 
             if(!SimpleGameEngine.Instance.IsConnected)
             {
-                spriteBatch.DrawString(ResourcesHelper.DefaultFont, "Press H to host and J to join (localhost test only)", new Vector2(50, 60), Color.Red);    
+                DrawText("Press H to host and J to join (localhost test only)", 60);                
             }
             else
             {
-                spriteBatch.DrawString(ResourcesHelper.DefaultFont, "Connected. Press D to disconnect", new Vector2(50, 60), Color.Red);
+                DrawText("Connected. Press D to disconnect", 60);                
 
                 if (SimpleGameEngine.Instance.IsHost)
                 {
-                    spriteBatch.DrawString(ResourcesHelper.DefaultFont, "Press S to start the game", new Vector2(50, 80), Color.Red);    
+                    DrawText("Press S to start the game", 80);                    
                 }
                 else
                 {
-                    spriteBatch.DrawString(ResourcesHelper.DefaultFont, "Waiting for the host to start the game", new Vector2(50, 80), Color.Red);    
+                    DrawText("Waiting for the host to start the game", 80);                    
                 }
-            }         
+            }
+        }
+
+        private static void DrawText(string text, int y)
+        {
+            SimpleGameEngine.Instance.spriteBatch.DrawString(ResourcesHelper.DefaultFont, text, new Vector2(50, y), Color.White);
         }
 
         public override void Update(GameTime gameTime)
