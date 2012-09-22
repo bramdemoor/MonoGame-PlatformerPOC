@@ -232,9 +232,9 @@ namespace PlatformerPOC.GameObjects
             {
                 var relativePos = ViewPort.GetRelativeCoords(Position);
 
-                spriteSheetInstance.Draw(relativePos, DrawEffect, LayerDepths.LAYER_PLAYER);
+                spriteSheetInstance.Draw(relativePos, DrawEffect, LayerDepths.GAMEOBJECTS);
 
-                SimpleGameEngine.Instance.spriteBatch.DrawString(ResourcesHelper.DefaultFont, Name, relativePos, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.LAYER_PLAYER);
+                SimpleGameEngine.Instance.spriteBatch.DrawString(ResourcesHelper.DefaultFont, Name, relativePos, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.GAMEOBJECTS);
             }            
         }
 
