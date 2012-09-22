@@ -41,7 +41,7 @@ namespace PlatformerPOC.GameObjects
             {
                 var relativePos = ViewPort.GetRelativeCoords(Position);
 
-                spriteSheetInstance.Draw(relativePos, DrawEffect);
+                spriteSheetInstance.Draw(relativePos, DrawEffect, LayerDepths.FOREGROUND_PARTICLE);
             }    
         }
     }

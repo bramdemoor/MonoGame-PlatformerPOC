@@ -44,6 +44,7 @@
     <Compile Include="EventArgs\PlayerStateChangedArgs.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="GameObjects\SolidWall.cs" />
+    <Compile Include="LayerDepths.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="GameObjects\Particle.cs" />
     <Compile Include="GameObjects\PlatformGameObject.cs" />

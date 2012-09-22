@@ -20,10 +20,7 @@ namespace PlatformerPOC
         public List<Player> Players { get; set; }
         public Player LocalPlayer { get; private set; }
         public Player DummyPlayer { get; private set; }
-        public Level Level { get; private set; }
-
-        // TODO BDM: Doesn't this belong on gameplayscreen?
-        public ViewPort ViewPort { get; set; }
+        public Level Level { get; private set; }        
 
         public static PlatformGame Instance { get; private set; }
 
@@ -45,7 +42,7 @@ namespace PlatformerPOC
         {
             ResourcesHelper.LoadContent(content);            
 
-            // TODO BDM: Delegate!
+            // TODO BDM: Delegate!            
             var fps = new FPSCounterComponent(SimpleGameEngine.Instance, SimpleGameEngine.Instance.spriteBatch, ResourcesHelper.DefaultFont);
             SimpleGameEngine.Instance.Components.Add(fps);
 

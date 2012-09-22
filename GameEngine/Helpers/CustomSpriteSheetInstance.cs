@@ -29,9 +29,9 @@ namespace GameEngine.Helpers
             FramesToSkip = framesToSkip;
         }
 
-        public virtual void Draw(Vector2 position, SpriteEffects drawEffect)
+        public virtual void Draw(Vector2 position, SpriteEffects drawEffect, float layerDepth)
         {
-            SimpleGameEngine.Instance.spriteBatch.Draw(SpriteSheetDefinition.SpriteSheetTexture, position, CurrentDrawRectangle, Color.White, 0f, Vector2.Zero, 1f, drawEffect, 0f);
+            SimpleGameEngine.Instance.spriteBatch.Draw(SpriteSheetDefinition.SpriteSheetTexture, position, CurrentDrawRectangle, Color.White, 0f, Vector2.Zero, 1f, drawEffect, layerDepth);
         }
 
         public void LoopUntilEnd()

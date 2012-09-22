@@ -37,7 +37,7 @@ namespace GameEngine.Helpers
 
             var fps = string.Format("fps: {0} mem : {1}", frameRate, GC.GetTotalMemory(false));
 
-            spriteBatch.DrawString(spriteFont, fps, new Vector2(40, 10), Color.Red);
+            spriteBatch.DrawString(spriteFont, fps, new Vector2(40, 10), Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, -999);
         }
     }
 }

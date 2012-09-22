@@ -6,7 +6,7 @@ namespace GameEngine
 {
     public abstract class SimpleGameBase
     {
-        private List<BaseGameObject> _gameObjects;
+        private readonly List<BaseGameObject> _gameObjects;
         public IEnumerable<BaseGameObject> GameObjects
         {
             get { return _gameObjects; }
@@ -14,6 +14,8 @@ namespace GameEngine
 
         private readonly List<BaseGameObject> gameObjectsToAdd = new List<BaseGameObject>();
         private readonly List<BaseGameObject> gameObjectsToDelete = new List<BaseGameObject>();
+
+        public ViewPort ViewPort { get; set; }
 
         public SimpleGameBase()
         {

@@ -18,9 +18,9 @@ namespace PlatformerPOC.GameObjects
         }
 
 
-        public void DrawTile(Vector2 pos)
+        public void DrawTile(Vector2 pos, float depth)
         {
-            SimpleGameEngine.Instance.spriteBatch.Draw(TileSet.TilesetTexture, pos, graphicsRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            SimpleGameEngine.Instance.spriteBatch.Draw(TileSet.TilesetTexture, pos, graphicsRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
         }
     }
 }

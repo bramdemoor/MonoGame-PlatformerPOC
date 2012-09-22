@@ -27,7 +27,7 @@ namespace PlatformerPOC.GameObjects
         {
             if (ViewPort.IsObjectInArea(RectangleCollisionBounds))
             {
-                TileDefinition.DrawTile(ViewPort.GetRelativeCoords(Position));
+                TileDefinition.DrawTile(ViewPort.GetRelativeCoords(Position), LayerDepths.TILES);
             }            
         }
     }
