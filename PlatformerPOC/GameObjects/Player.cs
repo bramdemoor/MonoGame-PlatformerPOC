@@ -188,14 +188,11 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
-            if (ViewPort.IsObjectInArea(BoundingBox.FullRectangle))
-            {
-                var relativePos = ViewPort.GetRelativeCoords(Position);
+            if (!InView) return;
+                        
+                spriteSheetInstance.Draw(PositionRelativeToView, DrawEffect, LayerDepths.GAMEOBJECTS);
 
-                spriteSheetInstance.Draw(relativePos, DrawEffect, LayerDepths.GAMEOBJECTS);
-
-                SimpleGameEngine.Instance.spriteBatch.DrawString(ResourcesHelper.DefaultFont, Name, relativePos, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.GAMEOBJECTS);
-            }            
+                SimpleGameEngine.Instance.spriteBatch.DrawString(ResourcesHelper.DefaultFont, Name, PositionRelativeToView, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.GAMEOBJECTS);                        
         }
 
         public override void DrawDebug()

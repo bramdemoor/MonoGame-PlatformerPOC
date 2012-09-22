@@ -21,14 +21,15 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
-            if (ViewPort.IsObjectInArea(BoundingBox.FullRectangle))
-            {
-                TileDefinition.DrawTile(ViewPort.GetRelativeCoords(Position), LayerDepths.TILES);
-            }            
+            if(!InView) return;
+
+            TileDefinition.DrawTile(PositionRelativeToView, LayerDepths.TILES);                      
         }
 
         public override void DrawDebug()
         {
+            if (!InView) return;
+
             var rel = ViewPort.GetRelativeCoords(BoundingBox.FullRectangle);
 
             PlatformGame.Instance.DebugDrawHelper.DrawBorder(SpriteBatch, rel, 2, Color.DarkRed);

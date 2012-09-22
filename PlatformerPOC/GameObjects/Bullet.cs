@@ -61,16 +61,16 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
-            if (ViewPort.IsObjectInArea(BoundingBox.FullRectangle))
-            {
-                SpriteBatch.Draw(ResourcesHelper.BulletTexture, ViewPort.GetRelativeCoords(Position), null, Color.White, 0, Vector2.Zero, 1, DrawEffect, 1f);            
-            }            
+            if(!InView) return;
+
+            SpriteBatch.Draw(ResourcesHelper.BulletTexture, PositionRelativeToView, null, Color.White, 0, Vector2.Zero, 1, DrawEffect, 1f);                    
         }
 
         public override void DrawDebug()
         {
-            var rel = ViewPort.GetRelativeCoords(BoundingBox.FullRectangle);
+            if (!InView) return;
 
+            var rel = ViewPort.GetRelativeCoords(BoundingBox.FullRectangle);
             PlatformGame.Instance.DebugDrawHelper.DrawBorder(SpriteBatch, rel, 1, Color.Lime);
         }
     }

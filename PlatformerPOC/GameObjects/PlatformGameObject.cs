@@ -35,6 +35,16 @@ namespace PlatformerPOC.GameObjects
             get { return SimpleGameEngine.Instance.spriteBatch; }
         }
 
+        public bool InView
+        {
+            get { return ViewPort.IsObjectInArea(BoundingBox.FullRectangle); }
+        }
+
+        public Vector2 PositionRelativeToView
+        {
+            get { return ViewPort.GetRelativeCoords(Position); }
+        }
+
         public override void DrawDebug()
         {
 
