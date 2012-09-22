@@ -71,7 +71,7 @@ namespace PlatformerPOC.GameObjects
 
         public void Update()
         {
-            UpdateBoundingBox();
+            
 
             if(IsAlive)
             {
@@ -90,13 +90,14 @@ namespace PlatformerPOC.GameObjects
             if (IsAlive && WantsToMoveHorizontally)
             {
                 spriteSheetInstance.LoopWithReverse();
-            }            
+            }
+
+            UpdateBoundingBox();
         }
 
         private void UpdateBoundingBox()
         {
-            // TODO BDM: Refactor
-            BoundingBox.SetFullRectangle(new Rectangle((int)Position.X + 4, (int)Position.Y + 4, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Width - 8, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Height - 2), Velocity);
+            BoundingBox.SetFullRectangle(Position, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions, Velocity, 4, 4, 4, 0);
         }
 
         private void HorizontalMovement()
