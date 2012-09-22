@@ -238,16 +238,16 @@ namespace PlatformerPOC.GameObjects
             }            
         }
 
-        public void HandleInput(IPlayerControlState playerInputState)
-        {
-            this.playerInputState = playerInputState;
-        }
-
         public override void DrawDebug()
         {
             var rel = ViewPort.GetRelativeCoords(BoundingBox_Full);
 
             PlatformGame.Instance.DebugDrawHelper.DrawBorder(SpriteBatch, rel, 1, Color.Pink);
+        }
+
+        public void HandleInput(IPlayerControlState playerInputState)
+        {
+            this.playerInputState = playerInputState;
         }
 
         private void Jump()

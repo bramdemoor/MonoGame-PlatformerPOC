@@ -44,7 +44,7 @@ namespace GameEngine
         /// </summary>        
         public Rectangle GetRelativeCoords(Rectangle realWorldRectangle)
         {
-            return new Rectangle(realWorldRectangle.X + ViewArea.X, realWorldRectangle.Y + ViewArea.Y, realWorldRectangle.Width, realWorldRectangle.Height);
+            return new Rectangle(realWorldRectangle.X - ViewArea.X, realWorldRectangle.Y - ViewArea.Y, realWorldRectangle.Width, realWorldRectangle.Height);
         }
 
         public void ScrollTo(Vector2 position)
