@@ -19,13 +19,17 @@ namespace GameEngine
 
         public ViewPort()
         {
+            // TODO BDM: Remove hardcoded values
+
             // Test!
-            ViewArea = new Rectangle(20, 20, 600, 600);
+            ViewArea = new Rectangle(20, 20, 600, 400);
         }
 
         public void DrawDebug()
         {
-            SimpleGameEngine.Instance.Game.DebugDrawHelper.DrawBorder(SimpleGameEngine.Instance.spriteBatch, ViewArea, 5, Color.Yellow);
+            var rectangleToDraw = new Rectangle(0, 0, ViewArea.Width, ViewArea.Height);
+           
+            SimpleGameEngine.Instance.Game.DebugDrawHelper.DrawBorder(SimpleGameEngine.Instance.spriteBatch, rectangleToDraw, 5, Color.Yellow);
         }
 
         /// <summary>
@@ -33,7 +37,7 @@ namespace GameEngine
         /// </summary>
         public bool IsObjectInArea(Rectangle objectRectangle)
         {
-            return ViewArea.Intersects(GetRelativeCoords(objectRectangle));
+            return ViewArea.Intersects(objectRectangle);
         }
 
         /// <summary>
@@ -54,7 +58,13 @@ namespace GameEngine
 
         public void ScrollTo(Vector2 position)
         {
-            ViewArea = new Rectangle((int) position.X - 250, (int) position.Y - 300, ViewArea.Width, ViewArea.Height);
+            var potentialX = (int) position.X - (ViewArea.Width/2);
+
+            var potentialY = (int) position.Y - (ViewArea.Height/2);
+
+            // TODO BDM: Checks on 'level out of bounds'
+
+            ViewArea = new Rectangle(potentialX, potentialY, ViewArea.Width, ViewArea.Height);
         }
     }
 }
