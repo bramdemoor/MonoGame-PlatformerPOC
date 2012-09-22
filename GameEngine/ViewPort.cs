@@ -23,6 +23,11 @@ namespace GameEngine
             ViewArea = new Rectangle(20, 20, 600, 600);
         }
 
+        public void DrawDebug()
+        {
+            SimpleGameEngine.Instance.Game.DebugDrawHelper.DrawBorder(SimpleGameEngine.Instance.spriteBatch, ViewArea, 5, Color.Yellow);
+        }
+
         /// <summary>
         /// Simple check for objects
         /// </summary>

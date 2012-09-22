@@ -13,6 +13,8 @@ namespace PlatformerPOC.Screens
         {
             PlatformGame.Instance.Level.Draw();
 
+            PlatformGame.Instance.ViewPort.DrawDebug();
+
             foreach (var gameObject in PlatformGame.Instance.GameObjects)
             {
                 // TODO BDM: Debug mode switch!
