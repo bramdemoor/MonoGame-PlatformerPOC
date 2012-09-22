@@ -19,6 +19,8 @@ namespace GameEngine.GameObjects
         public GameObjectState DisplayState { get; set; }
         public GameObjectState SimulationState { get; set; }
 
+        public CustomBoundingBox BoundingBox { get; set; }
+
         public abstract void Draw();
 
         public abstract void DrawDebug();

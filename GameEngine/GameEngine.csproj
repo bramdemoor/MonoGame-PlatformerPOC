@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomBoundingBox.cs" />
     <Compile Include="CoreConfig.cs" />
     <Compile Include="GameObjects\BaseGameObject.cs" />
     <Compile Include="GameObjects\GameObjectState.cs" />

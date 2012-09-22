@@ -25,47 +25,7 @@ namespace PlatformerPOC.GameObjects
         {
             get
             {
-                return !PlatformGame.Instance.Level.IsPlaceFree(BoundingBox_Bottom);
-            }
-        }
-
-        public Rectangle BoundingBox_Full
-        {
-            get
-            {
-                return new Rectangle((int) Position.X + 4, (int) Position.Y + 4, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Width - 8, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Height - 2);
-            }
-        }
-
-        public Rectangle BoundingBox_Top
-        {
-            get
-            {
-                return new Rectangle(BoundingBox_Full.X, (int) (BoundingBox_Full.Top + Velocity.Y), BoundingBox_Full.Width, 1);
-            }
-        }
-
-        public Rectangle BoundingBox_Bottom
-        {
-            get
-            {
-                return new Rectangle(BoundingBox_Full.X, (int) (BoundingBox_Full.Bottom + Velocity.Y), BoundingBox_Full.Width, 1);
-            }
-        }
-
-        public Rectangle BoundingBox_Left
-        {
-            get
-            {
-                return new Rectangle((int) (BoundingBox_Full.X + Velocity.X ), BoundingBox_Full.Y, 1, BoundingBox_Full.Height);
-            }
-        }
-
-        public Rectangle BoundingBox_Right
-        {
-            get
-            {
-                return new Rectangle((int) (BoundingBox_Full.Right + Velocity.X), BoundingBox_Full.Y, 1, BoundingBox_Full.Height);
+                return !PlatformGame.Instance.Level.IsPlaceFree(BoundingBox.BottomRectangle);
             }
         }
 
@@ -80,6 +40,8 @@ namespace PlatformerPOC.GameObjects
 
         public Player(string name, long id, GameObjectState gameObjectState)
         {
+            BoundingBox = new CustomBoundingBox();
+            
             spriteSheetInstance = new CustomSpriteSheetInstance(ResourcesHelper.PlayerSpriteSheet, 3);
 
             this.Name = name;
@@ -97,21 +59,26 @@ namespace PlatformerPOC.GameObjects
 
         public void Spawn()
         {
+
+
             Life = MAX_LIFE;
 
             PlaySound(ResourcesHelper.SpawnSound);            
 
             Position = PlatformGame.Instance.Level.GetNextFreeSpawnPoint();
+            UpdateBoundingBox();
         }
 
         public void Update()
         {
+            UpdateBoundingBox();
+
             if(IsAlive)
             {
                 ApplyInput();
             }
             
-            if (!PlatformGame.Instance.Level.IsPlaceFree(BoundingBox_Full))
+            if (!PlatformGame.Instance.Level.IsPlaceFree(BoundingBox.FullRectangle))
             {
                 Velocity = new Vector2(Velocity.X, 0);
             }
@@ -126,11 +93,17 @@ namespace PlatformerPOC.GameObjects
             }            
         }
 
+        private void UpdateBoundingBox()
+        {
+            // TODO BDM: Refactor
+            BoundingBox.SetFullRectangle(new Rectangle((int)Position.X + 4, (int)Position.Y + 4, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Width - 8, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Height - 2), Velocity);
+        }
+
         private void HorizontalMovement()
         {
             if(Velocity.X > 0)
             {
-                if(PlatformGame.Instance.Level.IsPlaceFree(BoundingBox_Right))
+                if(PlatformGame.Instance.Level.IsPlaceFree(BoundingBox.RightRectangle))
                 {
                     Position = new Vector2(Position.X + Velocity.X, Position.Y);
                 }
@@ -138,7 +111,7 @@ namespace PlatformerPOC.GameObjects
 
             if (Velocity.X < 0)
             {
-                if (PlatformGame.Instance.Level.IsPlaceFree(BoundingBox_Left))
+                if (PlatformGame.Instance.Level.IsPlaceFree(BoundingBox.LeftRectangle))
                 {
                     Position = new Vector2(Position.X + Velocity.X, Position.Y);
                 }
@@ -150,7 +123,7 @@ namespace PlatformerPOC.GameObjects
             // TOP CHECK
             if(Velocity.Y < 0)
             {
-                if (!PlatformGame.Instance.Level.IsPlaceFree(BoundingBox_Top))
+                if (!PlatformGame.Instance.Level.IsPlaceFree(BoundingBox.TopRectangle))
                 {
                     Velocity = new Vector2(Velocity.X, 0);
                 }
@@ -217,7 +190,7 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
-            if (ViewPort.IsObjectInArea(BoundingBox_Full))
+            if (ViewPort.IsObjectInArea(BoundingBox.FullRectangle))
             {
                 var relativePos = ViewPort.GetRelativeCoords(Position);
 
@@ -229,7 +202,7 @@ namespace PlatformerPOC.GameObjects
 
         public override void DrawDebug()
         {
-            var rel = ViewPort.GetRelativeCoords(BoundingBox_Full);
+            var rel = ViewPort.GetRelativeCoords(BoundingBox.FullRectangle);
 
             PlatformGame.Instance.DebugDrawHelper.DrawBorder(SpriteBatch, rel, 1, Color.Pink);
         }
