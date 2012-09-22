@@ -45,7 +45,7 @@ namespace PlatformerPOC.GameObjects
         {
             foreach (var player in PlatformGame.Instance.Players.Where(p => p != _shooter))
             {
-                if (CollisionHelper.RectangleCollision(RectangleCollisionBounds, player.RectangleCollisionBounds))
+                if (CollisionHelper.RectangleCollision(RectangleCollisionBounds, player.BoundingBox_Full))
                 {
                     PlatformGame.Instance.AddObject(new Particle(new Vector2(Position.X + (HorizontalDirection*40), Position.Y), HorizontalDirection));
 

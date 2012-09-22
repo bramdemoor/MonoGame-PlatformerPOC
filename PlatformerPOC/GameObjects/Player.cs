@@ -33,7 +33,7 @@ namespace PlatformerPOC.GameObjects
         {
             get
             {
-                return new Rectangle((int) Position.X - 10 , (int) Position.Y + 6, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Width + 20, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Height - 6);
+                return new Rectangle((int) Position.X + 4, (int) Position.Y + 4, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Width - 8, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Height - 2);
             }
         }
 
@@ -41,7 +41,6 @@ namespace PlatformerPOC.GameObjects
         {
             get
             {
-                // TODO BDM: Put velocity add elsewhere?
                 return new Rectangle(BoundingBox_Full.X, (int) (BoundingBox_Full.Top + Velocity.Y), BoundingBox_Full.Width, 1);
             }
         }
@@ -50,7 +49,6 @@ namespace PlatformerPOC.GameObjects
         {
             get
             {
-                // TODO BDM: Put velocity add elsewhere?
                 return new Rectangle(BoundingBox_Full.X, (int) (BoundingBox_Full.Bottom + Velocity.Y), BoundingBox_Full.Width, 1);
             }
         }
@@ -59,7 +57,7 @@ namespace PlatformerPOC.GameObjects
         {
             get
             {
-                return new Rectangle((int) (BoundingBox_Full.X + Velocity.X), BoundingBox_Full.Y, 1, BoundingBox_Full.Height);
+                return new Rectangle((int) (BoundingBox_Full.X + Velocity.X ), BoundingBox_Full.Y, 1, BoundingBox_Full.Height);
             }
         }
 
@@ -74,14 +72,6 @@ namespace PlatformerPOC.GameObjects
         private readonly CustomSpriteSheetInstance spriteSheetInstance;
 
         private IPlayerControlState playerInputState;
-
-        public Rectangle RectangleCollisionBounds
-        {
-            get
-            {
-                return new Rectangle((int)Position.X, (int)Position.Y, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Width, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Height);
-            }
-        }
 
         private bool WantsToMoveHorizontally
         {
@@ -120,9 +110,8 @@ namespace PlatformerPOC.GameObjects
             {
                 ApplyInput();
             }
-
-            var rect = new Rectangle((int)(Position.X), (int)Position.Y, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Width, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions.Height);
-            if (!PlatformGame.Instance.Level.IsPlaceFree(rect))
+            
+            if (!PlatformGame.Instance.Level.IsPlaceFree(BoundingBox_Full))
             {
                 Velocity = new Vector2(Velocity.X, 0);
             }
@@ -228,7 +217,7 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
-            if (ViewPort.IsObjectInArea(RectangleCollisionBounds))
+            if (ViewPort.IsObjectInArea(BoundingBox_Full))
             {
                 var relativePos = ViewPort.GetRelativeCoords(Position);
 
