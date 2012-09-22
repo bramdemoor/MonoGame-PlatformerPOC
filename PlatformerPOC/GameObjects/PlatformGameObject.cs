@@ -11,8 +11,6 @@ namespace PlatformerPOC.GameObjects
     /// </summary>
     public abstract class PlatformGameObject : BaseGameObject
     {
-
-
         /// <summary>
         /// -1: left
         /// 1: right        

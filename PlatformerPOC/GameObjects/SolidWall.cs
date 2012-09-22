@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine;
+using Microsoft.Xna.Framework;
 
 namespace PlatformerPOC.GameObjects
 {
@@ -9,23 +10,18 @@ namespace PlatformerPOC.GameObjects
     {
         public TileDefinition TileDefinition { get; private set; }
 
-        public Rectangle RectangleCollisionBounds 
-        { 
-            get
-            {
-                return new Rectangle((int)Position.X, (int)Position.Y, TileDefinition.TileSet.TileSize.Width, TileDefinition.TileSet.TileSize.Height);
-            } 
-        }        
-
         public SolidWall(Vector2 position, TileDefinition tileDefinition)
         {
             Position = position;
             TileDefinition = tileDefinition;
+
+            BoundingBox = new CustomBoundingBox();
+            BoundingBox.SetFullRectangle(Position, TileDefinition.TileSet.TileSize, Vector2.Zero);
         }
 
         public override void Draw()
         {
-            if (ViewPort.IsObjectInArea(RectangleCollisionBounds))
+            if (ViewPort.IsObjectInArea(BoundingBox.FullRectangle))
             {
                 TileDefinition.DrawTile(ViewPort.GetRelativeCoords(Position), LayerDepths.TILES);
             }            
@@ -33,7 +29,7 @@ namespace PlatformerPOC.GameObjects
 
         public override void DrawDebug()
         {
-            var rel = ViewPort.GetRelativeCoords(RectangleCollisionBounds);
+            var rel = ViewPort.GetRelativeCoords(BoundingBox.FullRectangle);
 
             PlatformGame.Instance.DebugDrawHelper.DrawBorder(SpriteBatch, rel, 2, Color.DarkRed);
         }

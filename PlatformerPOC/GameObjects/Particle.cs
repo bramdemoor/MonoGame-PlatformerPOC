@@ -1,4 +1,5 @@
-﻿using GameEngine.Helpers;
+﻿using GameEngine;
+using GameEngine.Helpers;
 using Microsoft.Xna.Framework;
 
 namespace PlatformerPOC.GameObjects
@@ -7,20 +8,15 @@ namespace PlatformerPOC.GameObjects
     {
         private readonly CustomSpriteSheetInstance spriteSheetInstance;
 
-        public Rectangle RectangleCollisionBounds
-        {
-            get
-            {
-                return new Rectangle((int)Position.X, (int)Position.Y, ResourcesHelper.BulletImpactSpriteSheet.SpriteDimensions.Width, ResourcesHelper.BulletImpactSpriteSheet.SpriteDimensions.Height);
-            }
-        }  
-
         public Particle(Vector2 position, int horizontalDirection)
         {
             spriteSheetInstance = new CustomSpriteSheetInstance(ResourcesHelper.BulletImpactSpriteSheet, 2);
 
             Position = position;
             HorizontalDirection = horizontalDirection;
+
+            BoundingBox = new CustomBoundingBox();
+            UpdateBoundingBox();
         }
 
         public override void Update(GameTime gameTime)
@@ -31,13 +27,20 @@ namespace PlatformerPOC.GameObjects
             {
                 DestroyEntity();
             }
+
+            UpdateBoundingBox();
+        }
+
+        private void UpdateBoundingBox()
+        {
+            BoundingBox.SetFullRectangle(Position, ResourcesHelper.BulletImpactSpriteSheet.SpriteDimensions, Velocity);
         }
 
         public override void Draw()
         {
             // TODO BDM: Make check + coord conversion generic properties on (platform)gameobject. E.g.: ShouldDraw property and ScreenPosition readonly properties
 
-            if (ViewPort.IsObjectInArea(RectangleCollisionBounds))
+            if (ViewPort.IsObjectInArea(BoundingBox.FullRectangle))
             {
                 var relativePos = ViewPort.GetRelativeCoords(Position);
 

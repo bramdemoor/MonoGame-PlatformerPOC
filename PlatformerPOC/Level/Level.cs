@@ -86,13 +86,11 @@ namespace PlatformerPOC.GameObjects
             return LevelTileConcept.TilesToPixels(spawnPointTiles.First());
         }
 
-        //GetCollisionRectangle
-
         public bool Get(Vector2 position)
         {
             foreach (var wall in PlatformGame.Instance.GameObjects.OfType<SolidWall>())
             {
-                if (CollisionHelper.PointCollision(position, wall.RectangleCollisionBounds))
+                if (CollisionHelper.PointCollision(position, wall.BoundingBox.FullRectangle))
                 {
                     return true;
                 }
@@ -105,7 +103,7 @@ namespace PlatformerPOC.GameObjects
         {
             foreach (var wall in PlatformGame.Instance.GameObjects.OfType<SolidWall>())
             {
-                if(CollisionHelper.RectangleCollision(collisionRectangle, wall.RectangleCollisionBounds))
+                if(CollisionHelper.RectangleCollision(collisionRectangle, wall.BoundingBox.FullRectangle))
                 {
                     return false;
                 }
