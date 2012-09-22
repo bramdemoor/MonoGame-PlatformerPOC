@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameEngine.GameObjects;
+using GameEngine.Helpers;
 using Microsoft.Xna.Framework.Content;
 
 namespace GameEngine
@@ -15,14 +16,21 @@ namespace GameEngine
         private readonly List<BaseGameObject> gameObjectsToAdd = new List<BaseGameObject>();
         private readonly List<BaseGameObject> gameObjectsToDelete = new List<BaseGameObject>();
 
+        public DebugDrawHelper DebugDrawHelper { get; private set; }
+
         public ViewPort ViewPort { get; set; }
 
         public SimpleGameBase()
         {
             _gameObjects = new List<BaseGameObject>();
+
+            DebugDrawHelper = new DebugDrawHelper();
         }
 
-        public abstract void LoadContent(ContentManager content);
+        public virtual void LoadContent(ContentManager content)
+        {
+            DebugDrawHelper.LoadContent();
+        }
 
         /// <summary>
         /// Add object to the update/draw list

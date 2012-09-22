@@ -243,6 +243,13 @@ namespace PlatformerPOC.GameObjects
             this.playerInputState = playerInputState;
         }
 
+        public override void DrawDebug()
+        {
+            var rel = ViewPort.GetRelativeCoords(BoundingBox_Full);
+
+            PlatformGame.Instance.DebugDrawHelper.DrawBorder(SpriteBatch, rel, 1, Color.Pink);
+        }
+
         private void Jump()
         {
             if (IsStandingOnSolid)

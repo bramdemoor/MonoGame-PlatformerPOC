@@ -1,5 +1,6 @@
 ﻿using GameEngine;
 using GameEngine.GameObjects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -33,6 +34,13 @@ namespace PlatformerPOC.GameObjects
         {
             get { return SimpleGameEngine.Instance.spriteBatch; }
         }
+
+        public override void DrawDebug()
+        {
+
+        }
+
+
 
         public void PlaySound(SoundEffect spawnSound)
         {

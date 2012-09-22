@@ -21,6 +21,8 @@ namespace GameEngine.GameObjects
 
         public abstract void Draw();
 
+        public abstract void DrawDebug();
+
         public virtual void Update(GameTime gameTime)
         {
             //var elapsedSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;

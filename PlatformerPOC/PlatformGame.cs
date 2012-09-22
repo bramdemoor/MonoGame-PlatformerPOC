@@ -40,6 +40,9 @@ namespace PlatformerPOC
 
         public override void LoadContent(ContentManager content)
         {
+            // Important!
+            base.LoadContent(content);
+
             ResourcesHelper.LoadContent(content);            
 
             // TODO BDM: Delegate!            
