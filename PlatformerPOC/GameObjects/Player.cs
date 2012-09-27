@@ -70,6 +70,10 @@ namespace PlatformerPOC.GameObjects
 
         public void Update()
         {
+            // FYI: UpdateBoundingBox called multiple times to prevent some nasty bugs
+
+            UpdateBoundingBox();
+
             if(IsAlive)
             {
                 ApplyInput();
@@ -81,6 +85,9 @@ namespace PlatformerPOC.GameObjects
             }
 
             VerticalMovement();
+
+            UpdateBoundingBox();
+
             HorizontalMovement();
             
 
@@ -192,7 +199,7 @@ namespace PlatformerPOC.GameObjects
                         
                 spriteSheetInstance.Draw(PositionRelativeToView, DrawEffect, LayerDepths.GAMEOBJECTS);
 
-                SimpleGameEngine.Instance.spriteBatch.DrawString(ResourcesHelper.DefaultFont, Name, PositionRelativeToView, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.GAMEOBJECTS);                        
+                SimpleGameEngine.Instance.spriteBatch.DrawString(ResourcesHelper.DefaultFont, Name, PositionRelativeToView, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.TEXT);                        
         }
 
         public override void DrawDebug()

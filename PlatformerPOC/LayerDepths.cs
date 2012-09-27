@@ -12,5 +12,7 @@
 
         public const float OVERLAY = 20f;       // HUD
         public const float DEBUG_OVERLAY = -10f;
+
+        public const float TEXT = -20f;
     }
 }
