@@ -20,6 +20,8 @@ namespace PlatformerPOC.GameObjects
         public Level()
         {
             BuildHardcodedLevel();
+
+            PlatformGame.Instance.ViewPort.LevelArea = new Rectangle(0,0, 660, 450);
         }
 
         private void BuildHardcodedLevel()

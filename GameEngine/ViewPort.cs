@@ -9,6 +9,8 @@ namespace GameEngine
     {
         public Rectangle ViewArea { get; set; }
 
+        public Rectangle LevelArea { get; set; }
+
         public Vector2 ViewPos
         {
             get
@@ -22,7 +24,7 @@ namespace GameEngine
             // TODO BDM: Remove hardcoded values
 
             // Test!
-            ViewArea = new Rectangle(20, 20, 600, 400);
+            ViewArea = new Rectangle(0, 0, 650, 470);
         }
 
         public void DrawDebug()
@@ -61,6 +63,12 @@ namespace GameEngine
             var potentialX = (int) position.X - (ViewArea.Width/2);
 
             var potentialY = (int) position.Y - (ViewArea.Height/2);
+
+            if (potentialX < LevelArea.X) potentialX = LevelArea.X;
+            if (potentialX > LevelArea.Right - ViewArea.Width) potentialX = LevelArea.Right - ViewArea.Width;
+
+            if (potentialY < LevelArea.Y) potentialY = LevelArea.Y;
+            if (potentialY > LevelArea.Bottom - ViewArea.Height) potentialY = LevelArea.Bottom - ViewArea.Height;
 
             // TODO BDM: Checks on 'level out of bounds'
 

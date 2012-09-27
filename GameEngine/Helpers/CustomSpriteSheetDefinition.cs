@@ -17,8 +17,6 @@ namespace GameEngine.Helpers
 
         public Rectangle SpriteDimensions { get; set; }
         
-        // TODO BDM: Implement support for multi-row spritesheets.
-
         public CustomSpriteSheetDefinition(ContentManager content, string spriteTextureName, Rectangle spriteDimensions, int spriteCount)
         {
             SpriteCount = spriteCount;
