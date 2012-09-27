@@ -87,7 +87,7 @@ namespace PlatformerPOC
 
             LocalPlayer = new Player("Player 1", 1, new GameObjectState());
 
-            DummyPlayer = new Player("Player 2", 2, new GameObjectState());
+            DummyPlayer = new Player("Player 2 [Bot]", 2, new GameObjectState());
 
             // TODO BDM: Find better way of adding
 
