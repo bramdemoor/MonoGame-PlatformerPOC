@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using GameEngine;
 using GameEngine.Helpers;
 using Microsoft.Xna.Framework;
@@ -19,40 +21,47 @@ namespace PlatformerPOC.GameObjects
 
         public Level()
         {
-            BuildHardcodedLevel();
+            LoadDemoLevel();
+
 
             PlatformGame.Instance.ViewPort.LevelArea = new Rectangle(0,0, 660, 450);
         }
 
-        private void BuildHardcodedLevel()
+        private void LoadDemoLevel()
         {
-            for (int y = 0; y < 14; y++)
-            {
-                // Left border
-                AddTile(0, y, ResourcesHelper.TileWall);
-            }        
+            // Test for viewing all embedded resources:
+            var auxList = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames();
 
-            for (int y = 0; y < 14; y++)
+
+            int rowIndex = 0;
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("PlatformerPOC.Content.level.txt"))
+            using (var reader = new StreamReader(stream))
             {
-                // Right border
-                AddTile(19, y, ResourcesHelper.TileWall);                
-            }   
-     
-            for (int x = 0; x < 20; x++)
-            {
-                // Floor
-                AddTile(x, 14, ResourcesHelper.TileGround);
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var chars = line.ToCharArray();
+
+                    for (int colIndex = 0; colIndex < chars.Length; colIndex++)
+                    {
+                        var c = chars.ElementAt(colIndex);
+
+                        if (c == 'G')
+                        {
+                            AddTile(colIndex, rowIndex, ResourcesHelper.TileGround);
+                        }
+                        if (c == 'x')
+                        {
+                            AddTile(colIndex, rowIndex, ResourcesHelper.TileWall);
+                        }
+                    }
+
+                    rowIndex++;
+                }
             }
-
-            AddTile(7, 12, ResourcesHelper.TileWall);
-            AddTile(8, 12, ResourcesHelper.TileWall);
-            AddTile(9, 12, ResourcesHelper.TileWall);
-
-            AddTile(8, 10, ResourcesHelper.TileWall);
-            AddTile(6, 8, ResourcesHelper.TileWall);
         }
 
-        private static void AddTile(int x, int y, TileDefinition tileDefinition)
+        private void AddTile(int x, int y, TileDefinition tileDefinition)
         {
             PlatformGame.Instance.AddObject(new SolidWall(LevelTileConcept.TilesToPixels(x, y), tileDefinition));
         }
