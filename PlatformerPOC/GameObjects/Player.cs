@@ -211,7 +211,13 @@ namespace PlatformerPOC.GameObjects
         {
             if (IsStandingOnSolid)
             {
-                Velocity = new Vector2(Velocity.X, -6f);
+                // if enough space above to jump
+                //Offset(0,-10)
+                var newRect = new Rectangle(BoundingBox.TopRectangle.X, BoundingBox.TopRectangle.Y - 7, BoundingBox.TopRectangle.Width, 1);
+                if (PlatformGame.Instance.Level.IsPlaceFree(newRect))
+                {
+                    Velocity = new Vector2(Velocity.X, -6f);        
+                }
             }
         }
 
