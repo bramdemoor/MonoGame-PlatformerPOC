@@ -86,8 +86,10 @@ namespace PlatformerPOC
             Level = new Level();
 
             LocalPlayer = new Player("Player 1", 1, new GameObjectState());
+            LocalPlayer.Spawn();
 
             DummyPlayer = new Player("Player 2 [Bot]", 2, new GameObjectState());
+            DummyPlayer.Spawn();
 
             // TODO BDM: Find better way of adding
 

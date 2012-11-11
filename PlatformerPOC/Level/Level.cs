@@ -23,14 +23,13 @@ namespace PlatformerPOC.GameObjects
         {
             LoadDemoLevel();
 
-
             PlatformGame.Instance.ViewPort.LevelArea = new Rectangle(0,0, 660, 450);
         }
 
         private void LoadDemoLevel()
         {
             // Test for viewing all embedded resources:
-            var auxList = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames();
+            // var auxList = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames();
 
 
             int rowIndex = 0;
@@ -97,30 +96,9 @@ namespace PlatformerPOC.GameObjects
             return LevelTileConcept.TilesToPixels(spawnPointTiles.First());
         }
 
-        public bool Get(Vector2 position)
-        {
-            foreach (var wall in PlatformGame.Instance.GameObjects.OfType<SolidWall>())
-            {
-                if (CollisionHelper.PointCollision(position, wall.BoundingBox.FullRectangle))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         public bool IsPlaceFree(Rectangle collisionRectangle)
         {
-            foreach (var wall in PlatformGame.Instance.GameObjects.OfType<SolidWall>())
-            {
-                if(CollisionHelper.RectangleCollision(collisionRectangle, wall.BoundingBox.FullRectangle))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return PlatformGame.Instance.GameObjects.OfType<SolidWall>().All(wall => !CollisionHelper.RectangleCollision(collisionRectangle, wall.BoundingBox.FullRectangle));
         }
     }
 }

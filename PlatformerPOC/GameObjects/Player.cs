@@ -44,9 +44,7 @@ namespace PlatformerPOC.GameObjects
             
             spriteSheetInstance = new CustomSpriteSheetInstance(ResourcesHelper.PlayerSpriteSheet, 3);
 
-            this.Name = name;
-
-            Spawn();            
+            this.Name = name;           
         }
 
         public void DoDamage(int damage)
