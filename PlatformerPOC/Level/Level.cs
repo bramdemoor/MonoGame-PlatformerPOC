@@ -5,13 +5,15 @@ using System.Reflection;
 using GameEngine;
 using GameEngine.Helpers;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using PlatformerPOC.GameObjects;
 
-namespace PlatformerPOC.GameObjects
+namespace PlatformerPOC.Level
 {
     public class Level
     {
+        private PlatformGame game;
+
         private const float PARALLAX_LAYER1_SPEED = 0.6f;
         private const float PARALLAX_LAYER2_SPEED = 0.9f;
 
@@ -19,11 +21,14 @@ namespace PlatformerPOC.GameObjects
         // Hardcoded spawnpoint locations
         private readonly List<Vector2> spawnPointTiles = new List<Vector2> { new Vector2(3, 10), new Vector2(15, 10) };
 
-        public Level()
+        public Level(PlatformGame game)
         {
+
+            this.game = game;
+
             LoadDemoLevel();
 
-            PlatformGame.Instance.ViewPort.LevelArea = new Rectangle(0,0, 660, 450);
+            game.ViewPort.LevelArea = new Rectangle(0,0, 660, 450);
         }
 
         private void LoadDemoLevel()
@@ -47,11 +52,11 @@ namespace PlatformerPOC.GameObjects
 
                         if (c == 'G')
                         {
-                            AddTile(colIndex, rowIndex, ResourcesHelper.TileGround);
+                            AddTile(colIndex, rowIndex, game.ResourcesHelper.TileGround);
                         }
                         if (c == 'x')
                         {
-                            AddTile(colIndex, rowIndex, ResourcesHelper.TileWall);
+                            AddTile(colIndex, rowIndex, game.ResourcesHelper.TileWall);
                         }
                     }
 
@@ -62,18 +67,18 @@ namespace PlatformerPOC.GameObjects
 
         private void AddTile(int x, int y, TileDefinition tileDefinition)
         {
-            PlatformGame.Instance.AddObject(new SolidWall(LevelTileConcept.TilesToPixels(x, y), tileDefinition));
+            game.AddObject(new SolidWall(game, LevelTileConcept.TilesToPixels(x, y), tileDefinition));
         }
 
         public void Draw()
         {
-            var viewPort = PlatformGame.Instance.ViewPort;
+            var viewPort = game.ViewPort;
 
             var layer1Pos = new Vector2(-viewPort.ViewPos.X*PARALLAX_LAYER1_SPEED, -viewPort.ViewPos.Y * PARALLAX_LAYER1_SPEED);
             var layer2Pos = new Vector2(-viewPort.ViewPos.X*PARALLAX_LAYER2_SPEED, -viewPort.ViewPos.Y * PARALLAX_LAYER2_SPEED);
 
-            SimpleGameEngine.Instance.spriteBatch.Draw(ResourcesHelper.BgLayer1Texture, layer1Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.BG_PARALLAX_1);
-            SimpleGameEngine.Instance.spriteBatch.Draw(ResourcesHelper.BgLayer2Texture, layer2Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.BG_PARALLAX_2);
+            game.SpriteBatch.Draw(game.ResourcesHelper.BgLayer1Texture, layer1Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.BG_PARALLAX_1);
+            game.SpriteBatch.Draw(game.ResourcesHelper.BgLayer2Texture, layer2Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.BG_PARALLAX_2);
         }
 
         public bool IsInBoundsLeft(Vector2 position)
@@ -98,7 +103,7 @@ namespace PlatformerPOC.GameObjects
 
         public bool IsPlaceFree(Rectangle collisionRectangle)
         {
-            return PlatformGame.Instance.GameObjects.OfType<SolidWall>().All(wall => !CollisionHelper.RectangleCollision(collisionRectangle, wall.BoundingBox.FullRectangle));
+            return game.GameObjects.OfType<SolidWall>().All(wall => !CollisionHelper.RectangleCollision(collisionRectangle, wall.BoundingBox.FullRectangle));
         }
     }
 }

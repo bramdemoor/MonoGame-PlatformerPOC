@@ -1,4 +1,5 @@
 ﻿using GameEngine;
+using GameEngine.Helpers;
 using Microsoft.Xna.Framework;
 
 namespace PlatformerPOC.GameObjects
@@ -10,7 +11,7 @@ namespace PlatformerPOC.GameObjects
     {
         public TileDefinition TileDefinition { get; private set; }
 
-        public SolidWall(Vector2 position, TileDefinition tileDefinition)
+        public SolidWall(PlatformGame game, Vector2 position, TileDefinition tileDefinition) : base(game)
         {
             Position = position;
             TileDefinition = tileDefinition;
@@ -32,7 +33,7 @@ namespace PlatformerPOC.GameObjects
 
             var rel = ViewPort.GetRelativeCoords(BoundingBox.FullRectangle);
 
-            PlatformGame.Instance.DebugDrawHelper.DrawBorder(SpriteBatch, rel, 2, Color.DarkRed);
+            game.DebugDrawHelper.DrawBorder(SpriteBatch, rel, 2, Color.DarkRed);
         }
     }
 }

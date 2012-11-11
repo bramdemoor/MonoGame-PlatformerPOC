@@ -6,6 +6,8 @@ namespace GameEngine.Helpers
 {
     public class CustomSpriteSheetInstance
     {
+        private SimpleGame game;
+
         public CustomSpriteSheetDefinition SpriteSheetDefinition { get; private set; }
         public int FramesToSkip { get; private set; }
 
@@ -23,15 +25,16 @@ namespace GameEngine.Helpers
             get { return animationFrame == SpriteSheetDefinition.SpriteCount - 1; }
         }
 
-        public CustomSpriteSheetInstance(CustomSpriteSheetDefinition spriteSheetDefinition, int framesToSkip)
+        public CustomSpriteSheetInstance(SimpleGame game, CustomSpriteSheetDefinition spriteSheetDefinition, int framesToSkip)
         {
-            this.SpriteSheetDefinition = spriteSheetDefinition;
+            this.game = game;
+            SpriteSheetDefinition = spriteSheetDefinition;
             FramesToSkip = framesToSkip;
         }
 
         public virtual void Draw(Vector2 position, SpriteEffects drawEffect, float layerDepth)
         {
-            SimpleGameEngine.Instance.spriteBatch.Draw(SpriteSheetDefinition.SpriteSheetTexture, position, CurrentDrawRectangle, Color.White, 0f, Vector2.Zero, 1f, drawEffect, layerDepth);
+            game.SpriteBatch.Draw(SpriteSheetDefinition.SpriteSheetTexture, position, CurrentDrawRectangle, Color.White, 0f, Vector2.Zero, 1f, drawEffect, layerDepth);
         }
 
         public void LoopUntilEnd()

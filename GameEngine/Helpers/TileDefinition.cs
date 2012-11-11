@@ -1,17 +1,21 @@
-﻿using GameEngine;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PlatformerPOC;
 
-namespace PlatformerPOC.GameObjects
+namespace GameEngine.Helpers
 {
     public class TileDefinition
     {
+        private readonly SimpleGame game;
+
         public CustomTileSetDefinition TileSet { get; private set; }
 
         private readonly Rectangle graphicsRectangle;
 
-        public TileDefinition(CustomTileSetDefinition tileSet, int x, int y)
+        public TileDefinition(SimpleGame game, CustomTileSetDefinition tileSet, int x, int y)
         {
+            this.game = game;
+
             this.TileSet = tileSet;
 
             graphicsRectangle = tileSet.GetGraphicsRectangle(x, y);
@@ -20,7 +24,7 @@ namespace PlatformerPOC.GameObjects
 
         public void DrawTile(Vector2 pos, float depth)
         {
-            SimpleGameEngine.Instance.spriteBatch.Draw(TileSet.TilesetTexture, pos, graphicsRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
+            game.SpriteBatch.Draw(TileSet.TilesetTexture, pos, graphicsRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
         }
     }
 }

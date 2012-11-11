@@ -1,4 +1,5 @@
 ﻿using GameEngine.GameObjects;
+using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using PlatformerPOC.GameObjects;
 
@@ -10,8 +11,15 @@ namespace PlatformerPOC.Tests
         [Test]
         public void t()
         {
-            var p1 = new Player("Tester", 123, new GameObjectState());
+            var game = new PlatformGame();
+
+            var p1 = new Player(game, "Tester", 123, new GameObjectState());
             Assert.IsFalse(p1.IsAlive);
+
+
+            p1.Spawn(new Vector2(0,0));
+
+            Assert.IsTrue(p1.IsAlive);
         }
     }
 }

@@ -9,13 +9,20 @@ namespace PlatformerPOC.Screens
 {
     public class GameplayScreen : SimpleScreenBase
     {
+        private PlatformGame game;
+
+        public GameplayScreen(PlatformGame game)
+        {
+            this.game = game;
+        }
+
         public override void Draw(GameTime gameTime)
         {
-            PlatformGame.Instance.Level.Draw();
+            game.Level.Draw();
 
-            PlatformGame.Instance.ViewPort.DrawDebug();
+            game.ViewPort.DrawDebug();
 
-            foreach (var gameObject in PlatformGame.Instance.GameObjects)
+            foreach (var gameObject in game.GameObjects)
             {
                 // TODO BDM: Debug mode switch!
 
@@ -29,22 +36,22 @@ namespace PlatformerPOC.Screens
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                SimpleGameEngine.Instance.ActiveScreen = new LobbyScreen();                
+                game.SwitchScreen(new LobbyScreen(game));                
             }
 
-            PlatformGame.Instance.LocalPlayer.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
-            PlatformGame.Instance.LocalPlayer.Update();
-            PlatformGame.Instance.DummyPlayer.HandleInput(new DummyAIController());
-            PlatformGame.Instance.DummyPlayer.Update();
+            game.LocalPlayer.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
+            game.LocalPlayer.Update();
+            game.DummyPlayer.HandleInput(new DummyAIController());
+            game.DummyPlayer.Update();
 
-            foreach (var gameObject in PlatformGame.Instance.GameObjects)
+            foreach (var gameObject in game.GameObjects)
             {
                 gameObject.Update(gameTime);
             }
 
-            PlatformGame.Instance.GeneralUpdate();
+            game.GeneralUpdate();
 
-            PlatformGame.Instance.DoHouseKeeping();
+            game.DoHouseKeeping();
         }
     }
 }

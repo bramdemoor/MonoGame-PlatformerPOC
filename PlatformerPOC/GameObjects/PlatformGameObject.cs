@@ -11,6 +11,8 @@ namespace PlatformerPOC.GameObjects
     /// </summary>
     public abstract class PlatformGameObject : BaseGameObject
     {
+        protected readonly PlatformGame game;
+
         /// <summary>
         /// -1: left
         /// 1: right        
@@ -25,14 +27,19 @@ namespace PlatformerPOC.GameObjects
             }
         }
 
+        protected PlatformGameObject(PlatformGame game) : base(game)
+        {
+            this.game = game;
+        }
+
         public GameEngine.ViewPort ViewPort
         {
-            get { return PlatformGame.Instance.ViewPort; }
+            get { return game.ViewPort; }
         }
 
         public SpriteBatch SpriteBatch
         {
-            get { return SimpleGameEngine.Instance.spriteBatch; }
+            get { return game.SpriteBatch; }
         }
 
         public bool InView

@@ -8,6 +8,13 @@ namespace GameEngine.GameObjects
     /// </summary>
     public abstract class BaseGameObject
     {
+        private SimpleGame game;
+
+        public BaseGameObject(SimpleGame game)
+        {
+            this.game = game;
+        }
+
         public long Id { get; set; }
 
         public Vector2 Position { get; set; }
@@ -38,7 +45,7 @@ namespace GameEngine.GameObjects
 
         public void DestroyEntity()
         {
-            SimpleGameEngine.Instance.Game.DeleteObject(this);
+            game.DeleteObject(this);
         }
 
         private void ApplySmoothing(float delta)

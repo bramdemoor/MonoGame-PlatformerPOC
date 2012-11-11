@@ -9,24 +9,30 @@ namespace PlatformerPOC
 {
     public class ResourcesHelper
     {
-        public static CustomSpriteSheetDefinition BulletImpactSpriteSheet { get; private set; }
+        private PlatformGame game;
 
-        public static Texture2D BgLayer1Texture { get; private set; }
-        public static Texture2D BgLayer2Texture { get; private set; }        
+        public CustomSpriteSheetDefinition BulletImpactSpriteSheet { get; private set; }
 
-        public static Texture2D BulletTexture { get; private set; }
+        public Texture2D BgLayer1Texture { get; private set; }
+        public Texture2D BgLayer2Texture { get; private set; }        
 
-        public static CustomSpriteSheetDefinition PlayerSpriteSheet { get; private set; }
-        public static SoundEffect SpawnSound { get; private set; }
+        public Texture2D BulletTexture { get; private set; }
 
-        public static SpriteFont DefaultFont { get; private set; }
+        public CustomSpriteSheetDefinition PlayerSpriteSheet { get; private set; }
+        public SoundEffect SpawnSound { get; private set; }
 
-        public static CustomTileSetDefinition MainTileSet { get; private set; }
-        public static TileDefinition TileWall { get; private set; }
-        public static TileDefinition TileGround { get; private set; }
+        public SpriteFont DefaultFont { get; private set; }
 
+        public CustomTileSetDefinition MainTileSet { get; private set; }
+        public TileDefinition TileWall { get; private set; }
+        public TileDefinition TileGround { get; private set; }
 
-        public static void LoadContent(ContentManager content)
+        public ResourcesHelper(PlatformGame game)
+        {
+            this.game = game;
+        }
+
+        public void LoadContent(ContentManager content)
         {
             BulletImpactSpriteSheet = new CustomSpriteSheetDefinition(content, "bullet-impact", new Rectangle(0, 0, 42, 29), 6);
 
@@ -41,8 +47,8 @@ namespace PlatformerPOC
             DefaultFont = content.Load<SpriteFont>("spriteFont1");            
 
             MainTileSet = new CustomTileSetDefinition(content, "tileset", new Rectangle(0, 0, 32, 32));
-            TileWall = new TileDefinition(MainTileSet, 0, 1);
-            TileGround = new TileDefinition(MainTileSet, 0, 3);
+            TileWall = new TileDefinition(game, MainTileSet, 0, 1);
+            TileGround = new TileDefinition(game, MainTileSet, 0, 3);
         }
     }
 }

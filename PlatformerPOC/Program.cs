@@ -4,7 +4,10 @@
     {
         public static void Main(string[] args)
         {
-            PlatformGame.Start();
+            var platformGame = new PlatformGame();
+
+            platformGame.Run();
+            platformGame.StartGame(); 
         } 
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using GameEngine.GameObjects;
 using GameEngine.Helpers;
 using GameEngine.Network;
 using Microsoft.Xna.Framework;
@@ -9,18 +11,35 @@ using log4net.Core;
 
 namespace GameEngine
 {   
-    /// <summary>    
-    /// Manages the game infrastructure. Singleton.
-    /// </summary>
-    public class SimpleGameEngine : Game, IAppender
+    public interface ISimpleGame
     {
+        SpriteBatch SpriteBatch { get; }
+        void SwitchScreen(SimpleScreenBase screen);
+    }
+
+    /// <summary>    
+    /// Manages the game infrastructure
+    /// </summary>
+    public class SimpleGame : Game, IAppender, ISimpleGame
+    {
+        private readonly List<BaseGameObject> _gameObjects;
+
+        private readonly List<BaseGameObject> gameObjectsToAdd = new List<BaseGameObject>();
+        private readonly List<BaseGameObject> gameObjectsToDelete = new List<BaseGameObject>();
+
         private readonly ILog log;
 
         private INetworkManager networkManager;
         public bool IsHost { get; private set; }
 
         readonly GraphicsDeviceManager graphics;
-        public SpriteBatch spriteBatch { get; private set; }
+
+        public SpriteBatch SpriteBatch { get; private set; }
+
+        public void SwitchScreen(SimpleScreenBase screen)
+        {
+            ActiveScreen = screen;
+        }
 
         public SimpleScreenBase ActiveScreen { get; set; }
 
@@ -29,28 +48,30 @@ namespace GameEngine
             get { return networkManager != null && networkManager.IsConnected; }
         }
 
-        public static SimpleGameEngine Instance { get; private set; }
-
-        public SimpleGameBase Game { get; private set; }
-
-        public static void InitializeEngine(SimpleGameBase game)
+        public IEnumerable<BaseGameObject> GameObjects
         {
-            Instance = new SimpleGameEngine(game);
+            get { return _gameObjects; }
         }
 
-        private SimpleGameEngine(SimpleGameBase game)
-        {
-            this.Game = game;
+        public DebugDrawHelper DebugDrawHelper { get; private set; }
 
+        public ViewPort ViewPort { get; set; }
+
+        public SimpleGame()
+        {
             log4net.Config.BasicConfigurator.Configure();
-            log = LogManager.GetLogger(typeof(SimpleGameEngine));
+            log = LogManager.GetLogger(typeof(SimpleGame));
             ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetLoggerRepository()).Root.AddAppender(this);
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
             graphics.PreferMultiSampling = true;
-            graphics.IsFullScreen = false;	
+            graphics.IsFullScreen = false;
+
+            _gameObjects = new List<BaseGameObject>();
+
+            DebugDrawHelper = new DebugDrawHelper(this);
         }
 
         protected override void Initialize()
@@ -64,9 +85,9 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Game.LoadContent(Content);
+            DebugDrawHelper.LoadContent();
         }
 
         protected override void UnloadContent()
@@ -102,11 +123,11 @@ namespace GameEngine
         {
             GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
             ActiveScreen.Draw(gameTime);
 
-            spriteBatch.End();          
+            SpriteBatch.End();          
 
             base.Draw(gameTime);
         }
@@ -145,6 +166,42 @@ namespace GameEngine
         public void Disconnect()
         {
             networkManager.Disconnect();
+        }
+
+        /// <summary>
+        /// Add object to the update/draw list
+        /// </summary>        
+        public void AddObject(BaseGameObject baseGameObject)
+        {
+            gameObjectsToAdd.Add(baseGameObject);
+        }
+
+        /// <summary>
+        /// Delete object from the update/draw list
+        /// </summary>
+        public void DeleteObject(BaseGameObject baseGameObject)
+        {
+            gameObjectsToDelete.Add(baseGameObject);
+        }
+
+        /// <summary>
+        /// Clean up objects to delete, and introduce new objects
+        /// </summary>
+        public void DoHouseKeeping()
+        {
+            foreach (var baseGameObject in gameObjectsToAdd)
+            {
+                _gameObjects.Add(baseGameObject);
+            }
+
+            gameObjectsToAdd.Clear();
+
+            foreach (var baseGameObject in gameObjectsToDelete)
+            {
+                _gameObjects.Remove(baseGameObject);
+            }
+
+            gameObjectsToDelete.Clear();
         }
     }
 }

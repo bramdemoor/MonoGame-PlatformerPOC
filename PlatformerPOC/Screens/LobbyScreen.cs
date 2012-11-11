@@ -7,11 +7,18 @@ namespace PlatformerPOC.Screens
 {
     public class LobbyScreen : SimpleScreenBase
     {
+        private PlatformGame game;
+
+        public LobbyScreen(PlatformGame game)
+        {
+            this.game = game;
+        }
+
         public override void Draw(GameTime gameTime)
         {
             DrawText("This is the lobby screen", 40);
 
-            if(!SimpleGameEngine.Instance.IsConnected)
+            if(!game.IsConnected)
             {
                 DrawText("Press H to host and J to join (localhost test only)", 60);                
             }
@@ -19,7 +26,7 @@ namespace PlatformerPOC.Screens
             {
                 DrawText("Connected. Press D to disconnect", 60);                
 
-                if (SimpleGameEngine.Instance.IsHost)
+                if (game.IsHost)
                 {
                     DrawText("Press S to start the game", 80);                    
                 }
@@ -30,44 +37,44 @@ namespace PlatformerPOC.Screens
             }
         }
 
-        private static void DrawText(string text, int y)
+        private void DrawText(string text, int y)
         {
-            SimpleGameEngine.Instance.spriteBatch.DrawString(ResourcesHelper.DefaultFont, text, new Vector2(50, y), Color.White);
+            game.SpriteBatch.DrawString(game.ResourcesHelper.DefaultFont, text, new Vector2(50, y), Color.White);
         }
 
         public override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                SimpleGameEngine.Instance.ShutDown();
+                game.ShutDown();
             }
 
 
-            if (!SimpleGameEngine.Instance.IsConnected)
+            if (!game.IsConnected)
             {
 
                 if (Keyboard.GetState().IsKeyDown(Keys.H))
                 {
-                    SimpleGameEngine.Instance.InitializeAsHost();
+                    game.InitializeAsHost();
                 }
 
                 if (Keyboard.GetState().IsKeyDown(Keys.J))
                 {
-                    SimpleGameEngine.Instance.InitializeAsClient();
+                    game.InitializeAsClient();
                 }                
             }
             else
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.D))
                 {
-                    SimpleGameEngine.Instance.Disconnect();
+                    game.Disconnect();
                 }
 
-                if (SimpleGameEngine.Instance.IsHost)
+                if (game.IsHost)
                 {
                     if (Keyboard.GetState().IsKeyDown(Keys.S))
                     {
-                        PlatformGame.Instance.HostStartGame();
+                        game.HostStartGame();
                     }  
                 }
             }

@@ -15,39 +15,33 @@ namespace PlatformerPOC
     /// <summary>
     /// Game-specific logic. Singleton.
     /// </summary>
-    public class PlatformGame : SimpleGameBase
+    public class PlatformGame : SimpleGame
     {
         public List<Player> Players { get; set; }
         public Player LocalPlayer { get; private set; }
         public Player DummyPlayer { get; private set; }
-        public Level Level { get; private set; }        
+        public Level.Level Level { get; private set; }
+        public ResourcesHelper ResourcesHelper { get; private set; }
 
-        public static PlatformGame Instance { get; private set; }
-
-        public static void Start()
-        {
-            Instance = new PlatformGame();
-            SimpleGameEngine.InitializeEngine(Instance);
-            SimpleGameEngine.Instance.Run();
-        }
-
-        private PlatformGame()
+        public PlatformGame()
         {
             Players = new List<Player>();
 
-            ViewPort = new ViewPort();
+            ViewPort = new ViewPort(this);
+
+            ResourcesHelper = new ResourcesHelper(this);
         }
 
-        public override void LoadContent(ContentManager content)
+        protected override void LoadContent()
         {
             // Important!
-            base.LoadContent(content);
+            base.LoadContent();
 
-            ResourcesHelper.LoadContent(content);            
+            ResourcesHelper.LoadContent(Content);            
 
-            // TODO BDM: Delegate!            
-            var fps = new FPSCounterComponent(SimpleGameEngine.Instance, SimpleGameEngine.Instance.spriteBatch, ResourcesHelper.DefaultFont);
-            SimpleGameEngine.Instance.Components.Add(fps);
+            // TODO BDM: Recreate FPS counter (combine with debug view!)
+            //var fps = new FPSCounterComponent(engine, engine.spriteBatch, ResourcesHelper.DefaultFont);
+            //SimpleGameEngine.Instance.Components.Add(fps);
 
             ShowMenuScreen();
         }
@@ -77,19 +71,18 @@ namespace PlatformerPOC
         {
             // TODO BDM: Check if really host, exc otherwise
 
-            // Naive try
-            PlatformGame.Instance.StartGame();
+            StartGame();
         }
 
         public void StartGame()
         {
-            Level = new Level();
+            Level = new Level.Level(this);
 
-            LocalPlayer = new Player("Player 1", 1, new GameObjectState());
-            LocalPlayer.Spawn();
+            LocalPlayer = new Player(this, "Player 1", 1, new GameObjectState());
+            LocalPlayer.Spawn(Level.GetNextFreeSpawnPoint());
 
-            DummyPlayer = new Player("Player 2 [Bot]", 2, new GameObjectState());
-            DummyPlayer.Spawn();
+            DummyPlayer = new Player(this, "Player 2 [Bot]", 2, new GameObjectState());
+            DummyPlayer.Spawn(Level.GetNextFreeSpawnPoint());
 
             // TODO BDM: Find better way of adding
 
@@ -99,12 +92,12 @@ namespace PlatformerPOC
             AddObject(LocalPlayer);
             AddObject(DummyPlayer);
 
-            SimpleGameEngine.Instance.ActiveScreen = new GameplayScreen();
+            SwitchScreen(new GameplayScreen(this));
         }
 
         public void ShowMenuScreen()
         {
-            SimpleGameEngine.Instance.ActiveScreen = new LobbyScreen();
+            SwitchScreen(new LobbyScreen(this));
         }
 
         public void GeneralUpdate()

@@ -5,13 +5,18 @@ namespace GameEngine.Helpers
 {
     public class DebugDrawHelper
     {
-        // At the top of your class:
-        Texture2D pixel;      
+        private readonly SimpleGame game;
+
+        Texture2D pixel;
+
+        public DebugDrawHelper(SimpleGame game)
+        {
+            this.game = game;
+        }
 
         public void LoadContent()
         {
-            // Somewhere in your LoadContent() method:
-            pixel = new Texture2D(SimpleGameEngine.Instance.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            pixel = new Texture2D(game.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             pixel.SetData(new[] { Color.White }); // so that we can draw whatever color we want on top of it 
         }
 

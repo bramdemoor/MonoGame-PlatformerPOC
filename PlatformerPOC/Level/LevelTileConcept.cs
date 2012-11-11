@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace PlatformerPOC.GameObjects
+namespace PlatformerPOC.Level
 {
     public static class LevelTileConcept
     {
