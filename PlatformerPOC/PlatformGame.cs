@@ -7,7 +7,7 @@ using PlatformerPOC.Screens;
 namespace PlatformerPOC
 {
     /// <summary>
-    /// Game-specific logic. Singleton.
+    /// Game-specific logic.
     /// </summary>
     public class PlatformGame : SimpleGame
     {
@@ -15,6 +15,7 @@ namespace PlatformerPOC
 
         public Level.Level Level { get; private set; }
         public ResourcesHelper ResourcesHelper { get; private set; }
+        public int RoundCounter { get; set; }
 
         public PlatformGame()
         {
@@ -70,6 +71,8 @@ namespace PlatformerPOC
 
         public void StartGame()
         {
+            RoundCounter = 1;
+
             Level = new Level.Level(this);
 
             PlayerManager.CreatePlayers();
@@ -87,11 +90,11 @@ namespace PlatformerPOC
             ViewPort.ScrollTo(PlayerManager.LocalPlayer.Position);
         }
 
-        public void Restart()
+        public void StartNextRound()
         {
-            // TODO BDM: Improve cleanup!           
-
             PlayerManager.SpawnPlayers();
+
+            RoundCounter++;
         }
     }
 }

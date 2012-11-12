@@ -18,8 +18,11 @@ namespace PlatformerPOC.Screens
         {
             game.Level.Draw();
 
-            game.ViewPort.DrawDebug();
-
+            if (CoreConfig.DebugModeEnabled)
+            {
+                game.ViewPort.DrawDebug();                
+            }
+            
             foreach (var gameObject in game.GameObjects)
             {
                 if(CoreConfig.DebugModeEnabled)
@@ -29,6 +32,8 @@ namespace PlatformerPOC.Screens
 
                 gameObject.Draw();
             }
+
+            game.DebugDrawHelper.DrawDebugString("Round: " + game.RoundCounter);
         }
 
         public override void Update(GameTime gameTime)
@@ -59,14 +64,14 @@ namespace PlatformerPOC.Screens
             switch (alivePlayers)
             {
                 case 0:
-                    game.Restart();
+                    game.StartNextRound();
                     break;
                 case 1:
                     var winner = game.PlayerManager.Players.Single(p => p.IsAlive);
 
                     // TODO BDM: Do something with winner
 
-                    game.Restart();
+                    game.StartNextRound();
 
                     break;
                 default:
