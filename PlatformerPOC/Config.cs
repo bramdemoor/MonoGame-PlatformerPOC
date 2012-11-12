@@ -14,8 +14,6 @@ namespace PlatformerPOC
         public const Keys actionKey = Keys.Space;
 
         public const bool SoundEnabled = false;
-        public const float SoundVolume = 1f;
-
-        public const bool Debug = true;
+        public const float SoundVolume = 1f;        
     }
 }

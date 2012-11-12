@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using PlatformerPOC.Control;
 using PlatformerPOC.Control.AI;
 using PlatformerPOC.GameObjects;
+using System.Linq;
 
 namespace PlatformerPOC
 {
@@ -29,15 +30,24 @@ namespace PlatformerPOC
             LocalPlayer = new Player(game, "Player 1", 1, new GameObjectState());
             Players.Add(LocalPlayer);
             game.AddObject(LocalPlayer);
-            LocalPlayer.Spawn(game.Level.GetSpawnPointForPlayerIndex(1));
 
             for (int i = 2; i < 4; i++)
             {
                 var name = string.Format("Player {0} [Bot]", i);
                 var p = new Player(game, name, i, new GameObjectState());
-                p.Spawn(game.Level.GetSpawnPointForPlayerIndex(i));
                 Players.Add(p);
                 game.AddObject(p);                
+            }
+
+            SpawnPlayers();
+        }
+
+        public void SpawnPlayers()
+        {
+            for (int playerIndex = 0; playerIndex < Players.Count; playerIndex++)
+            {
+                var player = Players[playerIndex];
+                player.Spawn(game.Level.GetSpawnPointForPlayerIndex(playerIndex + 1));
             }
         }
 

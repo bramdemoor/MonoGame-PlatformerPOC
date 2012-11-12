@@ -86,5 +86,12 @@ namespace PlatformerPOC
         {
             ViewPort.ScrollTo(PlayerManager.LocalPlayer.Position);
         }
+
+        public void Restart()
+        {
+            // TODO BDM: Improve cleanup!           
+
+            PlayerManager.SpawnPlayers();
+        }
     }
 }

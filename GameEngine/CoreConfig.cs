@@ -10,6 +10,7 @@
         public static string DefaultIp = "127.0.0.1";
         public static int Port = 6666;
         public static float SimulatedMinimumLatency = 0.2f;
-        public static float SimulatedLoss = 0.1f; 
+        public static float SimulatedLoss = 0.1f;
+        public const bool DebugModeEnabled = false;
     }
 }

@@ -1,8 +1,7 @@
 ﻿using GameEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using PlatformerPOC.Control;
-using PlatformerPOC.Control.AI;
+using System.Linq;
 
 namespace PlatformerPOC.Screens
 {
@@ -23,9 +22,10 @@ namespace PlatformerPOC.Screens
 
             foreach (var gameObject in game.GameObjects)
             {
-                // TODO BDM: Debug mode switch!
-
-                gameObject.DrawDebug();
+                if(CoreConfig.DebugModeEnabled)
+                {
+                    gameObject.DrawDebug();
+                }
 
                 gameObject.Draw();
             }
@@ -47,7 +47,32 @@ namespace PlatformerPOC.Screens
 
             game.GeneralUpdate();
 
+            CheckGameState();
+
             game.DoHouseKeeping();
+        }
+
+        private void CheckGameState()
+        {
+            var alivePlayers = game.PlayerManager.Players.Count(p => p.IsAlive);
+
+            switch (alivePlayers)
+            {
+                case 0:
+                    game.Restart();
+                    break;
+                case 1:
+                    var winner = game.PlayerManager.Players.Single(p => p.IsAlive);
+
+                    // TODO BDM: Do something with winner
+
+                    game.Restart();
+
+                    break;
+                default:
+                    // continue game
+                    break;
+            }
         }
     }
 }
