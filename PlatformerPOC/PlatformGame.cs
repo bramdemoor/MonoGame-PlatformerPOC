@@ -74,7 +74,7 @@ namespace PlatformerPOC
 
             PlayerManager.CreatePlayers();
 
-            SwitchScreen(new GameplayScreen(this));
+            SwitchScreen(new GameplayScreen(this));            
         }
 
         public void ShowMenuScreen()

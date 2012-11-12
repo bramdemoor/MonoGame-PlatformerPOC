@@ -16,14 +16,11 @@ namespace PlatformerPOC.Level
 
         private const float PARALLAX_LAYER1_SPEED = 0.6f;
         private const float PARALLAX_LAYER2_SPEED = 0.9f;
-
-        // TODO BDM: Make spawnpoints objects!
-        // Hardcoded spawnpoint locations
-        private readonly List<Vector2> spawnPointTiles = new List<Vector2> { new Vector2(3, 10), new Vector2(15, 10) };
+        
+        private readonly List<Vector2> spawnPointPositions = new List<Vector2>();
 
         public Level(PlatformGame game)
         {
-
             this.game = game;
 
             LoadDemoLevel();
@@ -33,9 +30,10 @@ namespace PlatformerPOC.Level
 
         private void LoadDemoLevel()
         {
+            spawnPointPositions.Clear();
+
             // Test for viewing all embedded resources:
             // var auxList = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames();
-
 
             int rowIndex = 0;
             using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("PlatformerPOC.Content.level.txt"))
@@ -50,13 +48,19 @@ namespace PlatformerPOC.Level
                     {
                         var c = chars.ElementAt(colIndex);
 
+                        var levelPos = LevelTileConcept.TilesToPixels(colIndex, rowIndex);
+
                         if (c == 'G')
                         {
-                            AddTile(colIndex, rowIndex, game.ResourcesHelper.TileGround);
+                            AddTile(levelPos, game.ResourcesHelper.TileGround);
                         }
                         if (c == 'x')
                         {
-                            AddTile(colIndex, rowIndex, game.ResourcesHelper.TileWall);
+                            AddTile(levelPos, game.ResourcesHelper.TileWall);
+                        }
+                        if (c == 'S')
+                        {
+                            spawnPointPositions.Add(levelPos);
                         }
                     }
 
@@ -65,9 +69,9 @@ namespace PlatformerPOC.Level
             }
         }
 
-        private void AddTile(int x, int y, TileDefinition tileDefinition)
+        private void AddTile(Vector2 pos, TileDefinition tileDefinition)
         {
-            game.AddObject(new SolidWall(game, LevelTileConcept.TilesToPixels(x, y), tileDefinition));
+            game.AddObject(new SolidWall(game, pos, tileDefinition));
         }
 
         public void Draw()
@@ -98,7 +102,7 @@ namespace PlatformerPOC.Level
 
         public Vector2 GetNextFreeSpawnPoint()
         {
-            return LevelTileConcept.TilesToPixels(spawnPointTiles.First());
+            return spawnPointPositions.First();
         }
 
         public bool IsPlaceFreeOfWalls(Rectangle collisionRectangle)

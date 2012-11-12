@@ -35,8 +35,6 @@ namespace GameEngine
         {
             var rectangleToDraw = new Rectangle(0, 0, ViewArea.Width, ViewArea.Height);
 
-            // TODO BDM: Re-enable debug drawing
-            
              game.DebugDrawHelper.DrawBorder(rectangleToDraw, 5, Color.Yellow);
         }
 
