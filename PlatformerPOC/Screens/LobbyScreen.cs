@@ -6,7 +6,7 @@ namespace PlatformerPOC.Screens
 {
     public class LobbyScreen : SimpleScreenBase
     {
-        private PlatformGame game;
+        private readonly PlatformGame game;
 
         public LobbyScreen(PlatformGame game)
         {

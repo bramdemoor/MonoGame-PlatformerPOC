@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using GameEngine;
 using GameEngine.Collision;
 using Microsoft.Xna.Framework;
 
@@ -9,12 +8,12 @@ namespace PlatformerPOC.GameObjects
     {
         private const int horizontalMaxSpeed = 15;
 
-        private readonly Player _shooter;
+        private readonly Player shooter;
 
         public Bullet(PlatformGame game, Player shooter, Vector2 position, int horizontalDirection) : base(game)
         {
             Position = position;
-            _shooter = shooter;
+            this.shooter = shooter;
             HorizontalDirection = horizontalDirection;
 
             BoundingBox = new CustomBoundingBox();
@@ -23,7 +22,7 @@ namespace PlatformerPOC.GameObjects
 
         public override void Update(GameTime gameTime)
         {
-            if(!game.Level.IsPlaceFree(BoundingBox.FullRectangle))
+            if(!game.Level.IsPlaceFreeOfWalls(BoundingBox.FullRectangle))
             {
                 DestroyEntity();
                 return;                
@@ -31,9 +30,14 @@ namespace PlatformerPOC.GameObjects
 
             if (CheckPlayerCollision()) return;
 
-            Position = new Vector2(Position.X + (HorizontalDirection * horizontalMaxSpeed), Position.Y);
+            MoveHorizontal();
 
             UpdateBoundingBox();
+        }
+
+        private void MoveHorizontal()
+        {
+            Position = new Vector2(Position.X + (HorizontalDirection*horizontalMaxSpeed), Position.Y);
         }
 
         private void UpdateBoundingBox()
@@ -43,11 +47,11 @@ namespace PlatformerPOC.GameObjects
 
         private bool CheckPlayerCollision()
         {
-            foreach (var player in game.Players.Where(p => p != _shooter))
+            foreach (var player in game.Players.Where(p => p != shooter))
             {
                 if (CollisionHelper.RectangleCollision(BoundingBox.FullRectangle, player.BoundingBox.FullRectangle))
                 {
-                    game.AddObject(new Particle(game, new Vector2(Position.X + (HorizontalDirection*40), Position.Y), HorizontalDirection));
+                    SpawnBloodParticle();
 
                     player.DoDamage(25);
 
@@ -57,6 +61,11 @@ namespace PlatformerPOC.GameObjects
                 }
             }
             return false;
+        }
+
+        private void SpawnBloodParticle()
+        {
+            game.AddObject(new Particle(game, new Vector2(Position.X + (HorizontalDirection*40), Position.Y), HorizontalDirection));
         }
 
         public override void Draw()

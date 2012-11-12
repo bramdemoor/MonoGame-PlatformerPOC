@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using GameEngine;
 using GameEngine.Collision;
 using GameEngine.Tiles;
 using Microsoft.Xna.Framework;
@@ -13,7 +12,7 @@ namespace PlatformerPOC.Level
 {
     public class Level
     {
-        private PlatformGame game;
+        private readonly PlatformGame game;
 
         private const float PARALLAX_LAYER1_SPEED = 0.6f;
         private const float PARALLAX_LAYER2_SPEED = 0.9f;
@@ -102,7 +101,7 @@ namespace PlatformerPOC.Level
             return LevelTileConcept.TilesToPixels(spawnPointTiles.First());
         }
 
-        public bool IsPlaceFree(Rectangle collisionRectangle)
+        public bool IsPlaceFreeOfWalls(Rectangle collisionRectangle)
         {
             return game.GameObjects.OfType<SolidWall>().All(wall => !CollisionHelper.RectangleCollision(collisionRectangle, wall.BoundingBox.FullRectangle));
         }

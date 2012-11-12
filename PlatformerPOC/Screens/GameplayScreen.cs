@@ -3,13 +3,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using PlatformerPOC.Control;
 using PlatformerPOC.Control.AI;
-using PlatformerPOC.GameObjects;
 
 namespace PlatformerPOC.Screens
 {
     public class GameplayScreen : SimpleScreenBase
     {
-        private PlatformGame game;
+        private readonly PlatformGame game;
 
         public GameplayScreen(PlatformGame game)
         {

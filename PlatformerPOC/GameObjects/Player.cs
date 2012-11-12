@@ -1,9 +1,7 @@
-﻿using GameEngine;
-using GameEngine.Collision;
+﻿using GameEngine.Collision;
 using GameEngine.GameObjects;
 using GameEngine.Spritesheet;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Control;
 
@@ -27,7 +25,7 @@ namespace PlatformerPOC.GameObjects
         {
             get
             {
-                return !game.Level.IsPlaceFree(BoundingBox.BottomRectangle);
+                return !game.Level.IsPlaceFreeOfWalls(BoundingBox.BottomRectangle);
             }
         }
 
@@ -46,7 +44,7 @@ namespace PlatformerPOC.GameObjects
 
             spriteSheetInstance = new CustomSpriteSheetInstance(game, game.ResourcesHelper.PlayerSpriteSheet, 3);
 
-            this.Name = name;           
+            Name = name;           
         }
 
         public void DoDamage(int damage)
@@ -77,7 +75,7 @@ namespace PlatformerPOC.GameObjects
                 ApplyInput();
             }
             
-            if (!game.Level.IsPlaceFree(BoundingBox.FullRectangle))
+            if (!game.Level.IsPlaceFreeOfWalls(BoundingBox.FullRectangle))
             {
                 Velocity = new Vector2(Velocity.X, 0);
             }
@@ -106,7 +104,7 @@ namespace PlatformerPOC.GameObjects
         {
             if(Velocity.X > 0)
             {
-                if(game.Level.IsPlaceFree(BoundingBox.RightRectangle))
+                if(game.Level.IsPlaceFreeOfWalls(BoundingBox.RightRectangle))
                 {
                     Position = new Vector2(Position.X + Velocity.X, Position.Y);
                 }
@@ -114,7 +112,7 @@ namespace PlatformerPOC.GameObjects
 
             if (Velocity.X < 0)
             {
-                if (game.Level.IsPlaceFree(BoundingBox.LeftRectangle))
+                if (game.Level.IsPlaceFreeOfWalls(BoundingBox.LeftRectangle))
                 {
                     Position = new Vector2(Position.X + Velocity.X, Position.Y);
                 }
@@ -126,7 +124,7 @@ namespace PlatformerPOC.GameObjects
             // TOP CHECK
             if(Velocity.Y < 0)
             {
-                if (!game.Level.IsPlaceFree(BoundingBox.TopRectangle))
+                if (!game.Level.IsPlaceFreeOfWalls(BoundingBox.TopRectangle))
                 {
                     Velocity = new Vector2(Velocity.X, 0);
                 }
@@ -219,7 +217,7 @@ namespace PlatformerPOC.GameObjects
                 // if enough space above to jump
                 //Offset(0,-10)
                 var newRect = new Rectangle(BoundingBox.TopRectangle.X, BoundingBox.TopRectangle.Y - 7, BoundingBox.TopRectangle.Width, 1);
-                if (game.Level.IsPlaceFree(newRect))
+                if (game.Level.IsPlaceFreeOfWalls(newRect))
                 {
                     Velocity = new Vector2(Velocity.X, -6f);        
                 }

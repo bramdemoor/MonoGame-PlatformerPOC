@@ -1,5 +1,4 @@
-﻿using GameEngine;
-using GameEngine.GameObjects;
+﻿using GameEngine.GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;

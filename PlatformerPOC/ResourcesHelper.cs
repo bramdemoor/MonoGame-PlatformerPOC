@@ -4,13 +4,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using PlatformerPOC.GameObjects;
 
 namespace PlatformerPOC
 {
     public class ResourcesHelper
     {
-        private PlatformGame game;
+        private readonly PlatformGame game;
 
         public CustomSpriteSheetDefinition BulletImpactSpriteSheet { get; private set; }
 

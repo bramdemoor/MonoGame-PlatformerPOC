@@ -1,5 +1,4 @@
-﻿using GameEngine;
-using GameEngine.Collision;
+﻿using GameEngine.Collision;
 using GameEngine.Spritesheet;
 using Microsoft.Xna.Framework;
 
