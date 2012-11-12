@@ -11,6 +11,7 @@ namespace PlatformerPOC.GameObjects
     {
         private const int MAX_LIFE = 100;
         private const int MOVE_SPEED = 5;
+        private const float jumpForce = 6.2f;
 
         public string Name { get; set; }
 
@@ -222,7 +223,7 @@ namespace PlatformerPOC.GameObjects
                 var newRect = new Rectangle(BoundingBox.TopRectangle.X, BoundingBox.TopRectangle.Y - 7, BoundingBox.TopRectangle.Width, 1);
                 if (game.Level.IsPlaceFreeOfWalls(newRect))
                 {
-                    Velocity = new Vector2(Velocity.X, -6f);        
+                    Velocity = new Vector2(Velocity.X, -jumpForce);        
                 }
             }
         }
