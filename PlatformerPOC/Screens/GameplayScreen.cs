@@ -9,6 +9,8 @@ namespace PlatformerPOC.Screens
     {
         private readonly PlatformGame game;
 
+        private bool frozen = false;
+
         public GameplayScreen(PlatformGame game)
         {
             this.game = game;
@@ -35,7 +37,7 @@ namespace PlatformerPOC.Screens
 
             game.DebugDrawHelper.DrawDebugString("Round: " + game.RoundCounter);
         }
-
+        
         public override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -43,18 +45,21 @@ namespace PlatformerPOC.Screens
                 game.SwitchScreen(new LobbyScreen(game));                
             }
 
-            game.PlayerManager.HandleGameInput();
-
-            foreach (var gameObject in game.GameObjects)
+            if(!frozen)
             {
-                gameObject.Update(gameTime);
+                game.PlayerManager.HandleGameInput();
+
+                foreach (var gameObject in game.GameObjects)
+                {
+                    gameObject.Update(gameTime);
+                }
+
+                game.GeneralUpdate();
+
+                CheckGameState();
+
+                game.DoHouseKeeping();                
             }
-
-            game.GeneralUpdate();
-
-            CheckGameState();
-
-            game.DoHouseKeeping();
         }
 
         private void CheckGameState()
