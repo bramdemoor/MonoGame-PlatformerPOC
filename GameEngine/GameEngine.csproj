@@ -66,13 +66,12 @@
     <Compile Include="CoreConfig.cs" />
     <Compile Include="GameObjects\BaseGameObject.cs" />
     <Compile Include="GameObjects\GameObjectState.cs" />
-    <Compile Include="GameTimer.cs" />
     <Compile Include="Collision\CollisionHelper.cs" />
     <Compile Include="Spritesheet\CustomSpriteSheetDefinition.cs" />
     <Compile Include="Spritesheet\CustomSpriteSheetInstance.cs" />
     <Compile Include="Tiles\CustomTileSetDefinition.cs" />
     <Compile Include="Debug\DebugDrawHelper.cs" />
-    <Compile Include="Debug\FPSCounterComponent.cs" />
+    <Compile Include="Debug\FPSCounter.cs" />
     <Compile Include="SimpleScreenBase.cs" />
     <Compile Include="Tiles\TileDefinition.cs" />
     <Compile Include="Network\ClientNetworkManager.cs" />

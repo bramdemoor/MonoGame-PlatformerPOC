@@ -11,7 +11,7 @@ namespace GameEngine.Collision
         public Rectangle LeftRectangle { get; private set; }
         public Rectangle TopRectangle { get; private set; }
 
-        public void SetFullRectangle(Vector2 position, Rectangle spriteDimensions, Vector2 velocity, int cropLeft, int cropRight, int cropTop, int cropBottom)
+        public void SetFullRectangle(Vector2 position, Rectangle spriteDimensions, Vector2 velocity, int cropLeft = 0, int cropRight = 0, int cropTop = 0, int cropBottom = 0)
         {
             FullRectangle = new Rectangle((int) position.X + cropLeft, (int) position.Y + cropTop, spriteDimensions.Width - cropLeft - cropRight, spriteDimensions.Height - cropTop - cropBottom);
 
@@ -19,11 +19,6 @@ namespace GameEngine.Collision
             BottomRectangle = new Rectangle(FullRectangle.X, (int)(FullRectangle.Bottom + velocity.Y), FullRectangle.Width, 1);
             LeftRectangle = new Rectangle((int)(FullRectangle.X + velocity.X), FullRectangle.Y, 1, FullRectangle.Height);
             RightRectangle = new Rectangle((int)(FullRectangle.Right + velocity.X), FullRectangle.Y, 1, FullRectangle.Height);
-        }
-
-        public void SetFullRectangle(Vector2 position, Rectangle spriteDimensions, Vector2 velocity)
-        {
-            SetFullRectangle(position, spriteDimensions, velocity, 0, 0, 0, 0);
         }
     }
 }

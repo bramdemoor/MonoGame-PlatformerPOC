@@ -6,7 +6,7 @@ namespace GameEngine.Spritesheet
 {
     public class CustomSpriteSheetInstance
     {
-        private SimpleGame game;
+        private readonly SimpleGame game;
 
         public CustomSpriteSheetDefinition SpriteSheetDefinition { get; private set; }
         public int FramesToSkip { get; private set; }

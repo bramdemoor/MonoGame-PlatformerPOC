@@ -7,7 +7,7 @@ namespace GameEngine
     /// </summary>
     public class ViewPort
     {
-        private readonly SimpleGame _game;
+        private readonly SimpleGame game;
 
         public Rectangle ViewArea { get; set; }
 
@@ -23,7 +23,8 @@ namespace GameEngine
 
         public ViewPort(SimpleGame game)
         {
-            _game = game;
+            this.game = game;
+
             // TODO BDM: Remove hardcoded values
 
             // Test!
@@ -36,7 +37,7 @@ namespace GameEngine
 
             // TODO BDM: Re-enable debug drawing
             
-             _game.DebugDrawHelper.DrawBorder(rectangleToDraw, 5, Color.Yellow);
+             game.DebugDrawHelper.DrawBorder(rectangleToDraw, 5, Color.Yellow);
         }
 
         /// <summary>
