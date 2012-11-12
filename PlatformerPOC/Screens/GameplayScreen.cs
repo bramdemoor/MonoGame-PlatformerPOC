@@ -68,9 +68,7 @@ namespace PlatformerPOC.Screens
                     break;
                 case 1:
                     var winner = game.PlayerManager.Players.Single(p => p.IsAlive);
-
-                    // TODO BDM: Do something with winner
-
+                    winner.Wins++;
                     game.StartNextRound();
 
                     break;

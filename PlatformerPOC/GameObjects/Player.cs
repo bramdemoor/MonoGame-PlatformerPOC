@@ -15,11 +15,18 @@ namespace PlatformerPOC.GameObjects
 
         public string Name { get; set; }
 
-        public int Life { get; set; }
+        public int Life { get; private set; }
+        public int Wins { get; set; }
+        public int Deaths { get; set; }
 
         public bool IsAlive
         {
             get { return Life > 0; }
+        }
+
+        private Color TextColor
+        {
+            get { return IsAlive ? Color.White : Color.DarkGray; }
         }
 
         public bool IsStandingOnSolid
@@ -53,7 +60,17 @@ namespace PlatformerPOC.GameObjects
             if(IsAlive)
             {
                 Life -= damage;
+
+                if(!IsAlive)
+                {
+                    Die();
+                }
             }
+        }
+
+        private void Die()
+        {
+            Deaths++;
         }
 
         public void Spawn(Vector2 spawnPoint)
@@ -197,9 +214,11 @@ namespace PlatformerPOC.GameObjects
         {
             if (!InView) return;
                         
-                spriteSheetInstance.Draw(PositionRelativeToView, DrawEffect, LayerDepths.GAMEOBJECTS);
+            spriteSheetInstance.Draw(PositionRelativeToView, DrawEffect, LayerDepths.GAMEOBJECTS);
 
-                game.SpriteBatch.DrawString(game.ResourcesHelper.DefaultFont, Name, PositionRelativeToView, Color.White, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.TEXT);                        
+            var displayText = string.Format("{0} ({1}/{2})", Name, Wins, Deaths);
+
+            game.SpriteBatch.DrawString(game.ResourcesHelper.DefaultFont, displayText, PositionRelativeToView, TextColor, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.TEXT);                        
         }
 
         public override void DrawDebug()
