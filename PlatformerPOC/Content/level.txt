@@ -1,11 +1,11 @@
 x
-x
-x
-x  S
+x           S
+x                             S                    S
+x   
 x         xxxxx
 xxxxxx
 x
-x     xxxxx          S
+x     xxxxx             xxxxxxxxxxxxxx
 x                                                               x 
 xxxxx     xxxxxx    xxxx                                        x
 x                                                               x

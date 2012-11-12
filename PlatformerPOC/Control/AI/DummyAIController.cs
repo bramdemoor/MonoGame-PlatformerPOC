@@ -27,7 +27,7 @@
 
         public bool IsActionPressed
         {
-            get { return true; }
+            get { return false; }
         }
     }
 }

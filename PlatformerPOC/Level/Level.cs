@@ -24,12 +24,12 @@ namespace PlatformerPOC.Level
             this.game = game;
 
             LoadDemoLevel();
-
-            game.ViewPort.LevelArea = new Rectangle(0,0, 660, 450);
         }
 
         private void LoadDemoLevel()
         {
+            int maxWidth = 0;
+
             spawnPointPositions.Clear();
 
             // Test for viewing all embedded resources:
@@ -62,11 +62,17 @@ namespace PlatformerPOC.Level
                         {
                             spawnPointPositions.Add(levelPos);
                         }
-                    }
 
+                        if (colIndex > maxWidth) maxWidth = colIndex;
+                    }
+                    
                     rowIndex++;
                 }
             }
+
+            var levelDimensions = LevelTileConcept.TilesToPixels(maxWidth, rowIndex);
+
+            game.ViewPort.LevelArea = new Rectangle(0, 0, (int) levelDimensions.X, (int) levelDimensions.Y);
         }
 
         private void AddTile(Vector2 pos, TileDefinition tileDefinition)
@@ -100,9 +106,9 @@ namespace PlatformerPOC.Level
             return IsInBoundsLeft(position) && IsInBoundsRight(position);
         }
 
-        public Vector2 GetNextFreeSpawnPoint()
+        public Vector2 GetSpawnPointForPlayerIndex(int i)
         {
-            return spawnPointPositions.First();
+            return spawnPointPositions.ElementAtOrDefault(i - 1);
         }
 
         public bool IsPlaceFreeOfWalls(Rectangle collisionRectangle)

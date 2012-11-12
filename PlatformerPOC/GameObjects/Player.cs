@@ -84,9 +84,12 @@ namespace PlatformerPOC.GameObjects
 
             UpdateBoundingBox();
 
-            HorizontalMovement();
-            
 
+            if (IsAlive)
+            {
+                HorizontalMovement();
+            }
+            
             if (IsAlive && WantsToMoveHorizontally)
             {
                 spriteSheetInstance.LoopWithReverse();

@@ -16,7 +16,6 @@ namespace PlatformerPOC
 
         public List<Player> Players { get; set; }
         public Player LocalPlayer { get; private set; }
-        public Player DummyPlayer { get; private set; }
 
         public PlayerManagerNew(PlatformGame game)
         {
@@ -28,26 +27,33 @@ namespace PlatformerPOC
         public void CreatePlayers()
         {
             LocalPlayer = new Player(game, "Player 1", 1, new GameObjectState());
-            LocalPlayer.Spawn(game.Level.GetNextFreeSpawnPoint());
-
-            DummyPlayer = new Player(game, "Player 2 [Bot]", 2, new GameObjectState());
-            DummyPlayer.Spawn(game.Level.GetNextFreeSpawnPoint());
-
-            // TODO BDM: Find better way of adding
-
             Players.Add(LocalPlayer);
-            Players.Add(DummyPlayer);
-
             game.AddObject(LocalPlayer);
-            game.AddObject(DummyPlayer);
+            LocalPlayer.Spawn(game.Level.GetSpawnPointForPlayerIndex(1));
+
+            for (int i = 2; i < 4; i++)
+            {
+                var name = string.Format("Player {0} [Bot]", i);
+                var p = new Player(game, name, i, new GameObjectState());
+                p.Spawn(game.Level.GetSpawnPointForPlayerIndex(i));
+                Players.Add(p);
+                game.AddObject(p);                
+            }
         }
 
         public void HandleGameInput()
         {
             LocalPlayer.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
             LocalPlayer.Update();
-            DummyPlayer.HandleInput(new DummyAIController());
-            DummyPlayer.Update();
+
+            foreach (var player in Players)
+            {
+                if(player != LocalPlayer)
+                {
+                    player.HandleInput(new DummyAIController());
+                    player.Update();                    
+                }
+            }
         }
     }
 }
