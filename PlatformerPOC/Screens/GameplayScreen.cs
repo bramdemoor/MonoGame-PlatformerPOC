@@ -1,8 +1,8 @@
 ﻿using GameEngine;
-using GameEngine.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using PlatformerPOC.AI;
+using PlatformerPOC.Control;
+using PlatformerPOC.Control.AI;
 using PlatformerPOC.GameObjects;
 
 namespace PlatformerPOC.Screens

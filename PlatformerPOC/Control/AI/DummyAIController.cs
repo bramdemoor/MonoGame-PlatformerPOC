@@ -1,6 +1,4 @@
-﻿using PlatformerPOC.GameObjects;
-
-namespace PlatformerPOC.AI
+﻿namespace PlatformerPOC.Control.AI
 {
     /// <summary>
     /// Stupid AI that runs around randomly and fires at will.

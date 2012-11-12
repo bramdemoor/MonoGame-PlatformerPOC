@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace GameEngine.Helpers
+namespace GameEngine
 {
     public abstract class SimpleScreenBase
     {

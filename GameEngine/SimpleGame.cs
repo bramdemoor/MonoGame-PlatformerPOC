@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameEngine.Debug;
 using GameEngine.GameObjects;
-using GameEngine.Helpers;
 using GameEngine.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

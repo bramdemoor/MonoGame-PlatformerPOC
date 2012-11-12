@@ -1,5 +1,6 @@
 ﻿using GameEngine;
-using GameEngine.Helpers;
+using GameEngine.Collision;
+using GameEngine.Tiles;
 using Microsoft.Xna.Framework;
 
 namespace PlatformerPOC.GameObjects

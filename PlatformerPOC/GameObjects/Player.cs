@@ -1,9 +1,11 @@
 ﻿using GameEngine;
+using GameEngine.Collision;
 using GameEngine.GameObjects;
-using GameEngine.Helpers;
+using GameEngine.Spritesheet;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using PlatformerPOC.Control;
 
 namespace PlatformerPOC.GameObjects
 {

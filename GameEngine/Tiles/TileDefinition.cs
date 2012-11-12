@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PlatformerPOC;
 
-namespace GameEngine.Helpers
+namespace GameEngine.Tiles
 {
     public class TileDefinition
     {

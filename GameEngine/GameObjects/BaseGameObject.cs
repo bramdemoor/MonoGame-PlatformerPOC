@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Collision;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.GameObjects

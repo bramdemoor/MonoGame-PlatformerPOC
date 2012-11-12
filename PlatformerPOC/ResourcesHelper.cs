@@ -1,4 +1,5 @@
-﻿using GameEngine.Helpers;
+﻿using GameEngine.Spritesheet;
+using GameEngine.Tiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;

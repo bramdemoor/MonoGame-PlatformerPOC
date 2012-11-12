@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace GameEngine.Helpers
+namespace GameEngine.Collision
 {
     public static class CollisionHelper
     {

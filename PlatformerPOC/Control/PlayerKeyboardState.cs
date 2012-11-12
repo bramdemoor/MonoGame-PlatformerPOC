@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace PlatformerPOC.GameObjects
+namespace PlatformerPOC.Control
 {
     public class PlayerKeyboardState : IPlayerControlState
     {
