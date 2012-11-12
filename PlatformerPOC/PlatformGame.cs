@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using GameEngine;
 using GameEngine.GameObjects;
-using GameEngine.Helpers;
 using Lidgren.Network;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.GameObjects;
 using PlatformerPOC.NetworkMessages;
@@ -32,16 +29,17 @@ namespace PlatformerPOC
             ResourcesHelper = new ResourcesHelper(this);
         }
 
+        public override SpriteFont DefaultFont
+        {
+            get { return ResourcesHelper.DefaultFont; }
+        }
+
         protected override void LoadContent()
         {
             // Important!
             base.LoadContent();
 
-            ResourcesHelper.LoadContent(Content);            
-
-            // TODO BDM: Recreate FPS counter (combine with debug view!)
-            //var fps = new FPSCounterComponent(engine, engine.spriteBatch, ResourcesHelper.DefaultFont);
-            //SimpleGameEngine.Instance.Components.Add(fps);
+            ResourcesHelper.LoadContent(Content);
 
             ShowMenuScreen();
         }

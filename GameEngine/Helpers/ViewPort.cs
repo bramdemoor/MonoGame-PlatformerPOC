@@ -7,8 +7,7 @@ namespace GameEngine
     /// </summary>
     public class ViewPort
     {
-
-        private ISimpleGame engine;
+        private readonly SimpleGame _game;
 
         public Rectangle ViewArea { get; set; }
 
@@ -22,10 +21,9 @@ namespace GameEngine
             }
         }
 
-        public ViewPort(ISimpleGame engine)
+        public ViewPort(SimpleGame game)
         {
-            this.engine = engine;
-
+            _game = game;
             // TODO BDM: Remove hardcoded values
 
             // Test!
@@ -37,7 +35,8 @@ namespace GameEngine
             var rectangleToDraw = new Rectangle(0, 0, ViewArea.Width, ViewArea.Height);
 
             // TODO BDM: Re-enable debug drawing
-            // SimpleGameEngine.Instance.Game.DebugDrawHelper.DrawBorder(engine.SpriteBatch, rectangleToDraw, 5, Color.Yellow);
+            
+             _game.DebugDrawHelper.DrawBorder(rectangleToDraw, 5, Color.Yellow);
         }
 
         /// <summary>

@@ -71,8 +71,8 @@
     <Compile Include="Helpers\CustomSpriteSheetDefinition.cs" />
     <Compile Include="Helpers\CustomSpriteSheetInstance.cs" />
     <Compile Include="Helpers\CustomTileSetDefinition.cs" />
-    <Compile Include="Helpers\DebugDrawHelper.cs" />
-    <Compile Include="Helpers\FPSCounterComponent.cs" />
+    <Compile Include="Helpers\Debug\DebugDrawHelper.cs" />
+    <Compile Include="Helpers\Debug\FPSCounterComponent.cs" />
     <Compile Include="Helpers\SimpleScreenBase.cs" />
     <Compile Include="Helpers\TileDefinition.cs" />
     <Compile Include="Network\ClientNetworkManager.cs" />

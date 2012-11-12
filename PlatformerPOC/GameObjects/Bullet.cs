@@ -71,7 +71,7 @@ namespace PlatformerPOC.GameObjects
             if (!InView) return;
 
             var rel = ViewPort.GetRelativeCoords(BoundingBox.FullRectangle);
-            game.DebugDrawHelper.DrawBorder(SpriteBatch, rel, 1, Color.Lime);
+            game.DebugDrawHelper.DrawBorder(rel, 1, Color.Lime);
         }
     }
 }

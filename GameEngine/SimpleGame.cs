@@ -11,17 +11,15 @@ using log4net.Core;
 
 namespace GameEngine
 {   
-    public interface ISimpleGame
-    {
-        SpriteBatch SpriteBatch { get; }
-        void SwitchScreen(SimpleScreenBase screen);
-    }
-
     /// <summary>    
     /// Manages the game infrastructure
     /// </summary>
-    public class SimpleGame : Game, IAppender, ISimpleGame
+    public abstract class SimpleGame : Game, IAppender
     {
+        public DebugDrawHelper DebugDrawHelper { get; private set; }
+        public ViewPort ViewPort { get; set; }
+        public abstract SpriteFont DefaultFont { get; }
+
         private readonly List<BaseGameObject> _gameObjects;
 
         private readonly List<BaseGameObject> gameObjectsToAdd = new List<BaseGameObject>();
@@ -36,11 +34,6 @@ namespace GameEngine
 
         public SpriteBatch SpriteBatch { get; private set; }
 
-        public void SwitchScreen(SimpleScreenBase screen)
-        {
-            ActiveScreen = screen;
-        }
-
         public SimpleScreenBase ActiveScreen { get; set; }
 
         public bool IsConnected
@@ -52,10 +45,6 @@ namespace GameEngine
         {
             get { return _gameObjects; }
         }
-
-        public DebugDrawHelper DebugDrawHelper { get; private set; }
-
-        public ViewPort ViewPort { get; set; }
 
         public SimpleGame()
         {
@@ -95,7 +84,9 @@ namespace GameEngine
         }
 
         protected override void Update(GameTime gameTime)
-        {             
+        {   
+            DebugDrawHelper.Update(gameTime);
+       
             ActiveScreen.Update(gameTime);
 
             if (networkManager != null)
@@ -127,9 +118,16 @@ namespace GameEngine
 
             ActiveScreen.Draw(gameTime);
 
+            DebugDrawHelper.DrawFps();
+
             SpriteBatch.End();          
 
             base.Draw(gameTime);
+        }
+
+        public void SwitchScreen(SimpleScreenBase screen)
+        {
+            ActiveScreen = screen;
         }
 
         /// <summary>

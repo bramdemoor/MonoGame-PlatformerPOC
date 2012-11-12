@@ -202,7 +202,7 @@ namespace PlatformerPOC.GameObjects
         {
             var rel = ViewPort.GetRelativeCoords(BoundingBox.FullRectangle);
 
-            game.DebugDrawHelper.DrawBorder(SpriteBatch, rel, 1, Color.Pink);
+            game.DebugDrawHelper.DrawBorder(rel, 1, Color.Pink);
         }
 
         public void HandleInput(IPlayerControlState playerInputState)
