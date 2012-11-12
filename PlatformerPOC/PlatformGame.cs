@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using GameEngine;
-using GameEngine.GameObjects;
+﻿using GameEngine;
 using Lidgren.Network;
 using Microsoft.Xna.Framework.Graphics;
-using PlatformerPOC.GameObjects;
 using PlatformerPOC.NetworkMessages;
 using PlatformerPOC.Screens;
 
@@ -14,15 +11,14 @@ namespace PlatformerPOC
     /// </summary>
     public class PlatformGame : SimpleGame
     {
-        public List<Player> Players { get; set; }
-        public Player LocalPlayer { get; private set; }
-        public Player DummyPlayer { get; private set; }
+        public PlayerManagerNew PlayerManager { get; private set; }
+
         public Level.Level Level { get; private set; }
         public ResourcesHelper ResourcesHelper { get; private set; }
 
         public PlatformGame()
         {
-            Players = new List<Player>();
+            PlayerManager = new PlayerManagerNew(this);
 
             ViewPort = new ViewPort(this);
 
@@ -76,19 +72,7 @@ namespace PlatformerPOC
         {
             Level = new Level.Level(this);
 
-            LocalPlayer = new Player(this, "Player 1", 1, new GameObjectState());
-            LocalPlayer.Spawn(Level.GetNextFreeSpawnPoint());
-
-            DummyPlayer = new Player(this, "Player 2 [Bot]", 2, new GameObjectState());
-            DummyPlayer.Spawn(Level.GetNextFreeSpawnPoint());
-
-            // TODO BDM: Find better way of adding
-
-            Players.Add(LocalPlayer);
-            Players.Add(DummyPlayer);
-
-            AddObject(LocalPlayer);
-            AddObject(DummyPlayer);
+            PlayerManager.CreatePlayers();
 
             SwitchScreen(new GameplayScreen(this));
         }
@@ -100,7 +84,7 @@ namespace PlatformerPOC
 
         public void GeneralUpdate()
         {
-            ViewPort.ScrollTo(LocalPlayer.Position);
+            ViewPort.ScrollTo(PlayerManager.LocalPlayer.Position);
         }
     }
 }

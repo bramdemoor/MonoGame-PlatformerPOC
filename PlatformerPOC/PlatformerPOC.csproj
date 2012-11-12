@@ -83,7 +83,7 @@
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="Control\PlayerKeyboardState.cs" />
     <Compile Include="NetworkMessages\UpdatePositionMessage .cs" />
-    <Compile Include="PlayerManager.cs" />
+    <Compile Include="PlayerManagerNew.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourcesHelper.cs" />

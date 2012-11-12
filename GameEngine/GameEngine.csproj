@@ -82,6 +82,7 @@
     <Compile Include="Network\XNAExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleGame.cs" />
+    <Compile Include="Timing\GameTimer.cs" />
     <Compile Include="ViewPort.cs" />
   </ItemGroup>
   <ItemGroup>

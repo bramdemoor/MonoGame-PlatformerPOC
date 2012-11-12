@@ -38,10 +38,7 @@ namespace PlatformerPOC.Screens
                 game.SwitchScreen(new LobbyScreen(game));                
             }
 
-            game.LocalPlayer.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
-            game.LocalPlayer.Update();
-            game.DummyPlayer.HandleInput(new DummyAIController());
-            game.DummyPlayer.Update();
+            game.PlayerManager.HandleGameInput();
 
             foreach (var gameObject in game.GameObjects)
             {

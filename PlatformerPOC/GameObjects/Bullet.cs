@@ -47,7 +47,7 @@ namespace PlatformerPOC.GameObjects
 
         private bool CheckPlayerCollision()
         {
-            foreach (var player in game.Players.Where(p => p != shooter))
+            foreach (var player in game.PlayerManager.Players.Where(p => p != shooter))
             {
                 if (CollisionHelper.RectangleCollision(BoundingBox.FullRectangle, player.BoundingBox.FullRectangle))
                 {
