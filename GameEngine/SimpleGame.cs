@@ -58,8 +58,8 @@ namespace GameEngine
             Content.RootDirectory = "Content";
 
             graphics.PreferMultiSampling = true;
-            graphics.PreferredBackBufferHeight = 600;
-            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferWidth = 720;
+            graphics.PreferredBackBufferHeight = 500;            
             graphics.IsFullScreen = false;
             
             gameObjects = new List<BaseGameObject>();

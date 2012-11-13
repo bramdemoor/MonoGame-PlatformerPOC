@@ -9,11 +9,14 @@ namespace PlatformerPOC.Screens
     {
         private readonly PlatformGame game;
 
+        private readonly Hud.Hud hud;
+
         private bool frozen = false;
 
         public GameplayScreen(PlatformGame game)
         {
             this.game = game;
+            hud = new Hud.Hud(game);
         }
 
         public override void Draw(GameTime gameTime)
@@ -35,7 +38,7 @@ namespace PlatformerPOC.Screens
                 gameObject.Draw();
             }
 
-            game.DebugDrawHelper.DrawDebugString("Round: " + game.RoundCounter);
+            hud.Draw();            
         }
         
         public override void Update(GameTime gameTime)
