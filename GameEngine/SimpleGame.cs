@@ -20,7 +20,7 @@ namespace GameEngine
         public ViewPort ViewPort { get; set; }
         public abstract SpriteFont DefaultFont { get; }
 
-        private readonly List<BaseGameObject> _gameObjects;
+        private readonly List<BaseGameObject> gameObjects;
 
         private readonly List<BaseGameObject> gameObjectsToAdd = new List<BaseGameObject>();
         private readonly List<BaseGameObject> gameObjectsToDelete = new List<BaseGameObject>();
@@ -31,8 +31,6 @@ namespace GameEngine
         public bool IsHost { get; private set; }
 
         readonly GraphicsDeviceManager graphics;
-
-        //public DebugManager DebugManager { get; private set; }
 
         public DebugCommandUI DebugCommandUI { get; private set; }
 
@@ -47,7 +45,7 @@ namespace GameEngine
 
         public IEnumerable<BaseGameObject> GameObjects
         {
-            get { return _gameObjects; }
+            get { return gameObjects; }
         }
 
         public SimpleGame()
@@ -60,9 +58,11 @@ namespace GameEngine
             Content.RootDirectory = "Content";
 
             graphics.PreferMultiSampling = true;
+            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 800;
             graphics.IsFullScreen = false;
-
-            _gameObjects = new List<BaseGameObject>();
+            
+            gameObjects = new List<BaseGameObject>();
 
             DebugDrawHelper = new DebugDrawHelper(this);
         }
@@ -77,7 +77,10 @@ namespace GameEngine
 
             DebugCommandUI.RegisterCommand("toggle-debug", "Turn debug mode on or off", CoreCommands.ToggleDebugCommand);
             DebugCommandUI.RegisterCommand("toggle-sound", "Turn sound on or off", CoreCommands.ToggleSoundCommand);
+            RegisterConsoleCommands();
         }
+
+        protected abstract void RegisterConsoleCommands();
 
         protected override void LoadContent()
         {
@@ -199,14 +202,14 @@ namespace GameEngine
         {
             foreach (var baseGameObject in gameObjectsToAdd)
             {
-                _gameObjects.Add(baseGameObject);
+                gameObjects.Add(baseGameObject);
             }
 
             gameObjectsToAdd.Clear();
 
             foreach (var baseGameObject in gameObjectsToDelete)
             {
-                _gameObjects.Remove(baseGameObject);
+                gameObjects.Remove(baseGameObject);
             }
 
             gameObjectsToDelete.Clear();

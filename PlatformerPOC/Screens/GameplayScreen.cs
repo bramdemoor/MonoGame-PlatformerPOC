@@ -60,6 +60,11 @@ namespace PlatformerPOC.Screens
 
                 game.DoHouseKeeping();                
             }
+
+            if(Config.EditMode)
+            {
+                game.LevelEditor.Update();
+            }
         }
 
         private void CheckGameState()

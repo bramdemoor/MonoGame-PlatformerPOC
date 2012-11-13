@@ -71,6 +71,7 @@
     <Compile Include="Control\AI\DummyAIController.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Control\IPlayerControlState.cs" />
+    <Compile Include="Editor\Editor.cs" />
     <Compile Include="EventArgs\PlayerStateChangedArgs.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="GameObjects\SolidWall.cs" />
@@ -158,6 +159,7 @@
       <Name>GameEngine</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

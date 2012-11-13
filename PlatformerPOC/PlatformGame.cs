@@ -1,6 +1,7 @@
 ﻿using GameEngine;
 using Lidgren.Network;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using PlatformerPOC.NetworkMessages;
 using PlatformerPOC.Screens;
 
@@ -16,6 +17,8 @@ namespace PlatformerPOC
         public Level.Level Level { get; private set; }
         public ResourcesHelper ResourcesHelper { get; private set; }
         public int RoundCounter { get; set; }
+
+        public Editor.Editor LevelEditor { get; set; }
 
         public PlatformGame()
         {
@@ -38,7 +41,14 @@ namespace PlatformerPOC
             // Important!
             base.LoadContent();
 
+            LevelEditor = new Editor.Editor(this);
+
             ShowMenuScreen();
+        }
+
+        protected override void RegisterConsoleCommands()
+        {
+            DebugCommandUI.RegisterCommand("toggle-edit", "Turn level editor mode on or off", LevelEditor.ToggleEditModeCommand);
         }
 
         private void HandleUpdatePlayerStateMessage(NetIncomingMessage im)
