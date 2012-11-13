@@ -1,4 +1,5 @@
-﻿using GameEngine.Collision;
+﻿using System;
+using GameEngine.Collision;
 using GameEngine.GameObjects;
 using GameEngine.Spritesheet;
 using Microsoft.Xna.Framework;
@@ -7,8 +8,17 @@ using PlatformerPOC.Control;
 
 namespace PlatformerPOC.GameObjects
 {
+    public enum PlayerTeams
+    {
+        NotSet = -1,
+        Red = 1,
+        Blue = 2
+    }
+
     public class Player : PlatformGameObject
     {
+        #region Data
+
         private const int MAX_LIFE = 100;
         private const int MOVE_SPEED = 5;
         private const float jumpForce = 6.2f;
@@ -18,6 +28,39 @@ namespace PlatformerPOC.GameObjects
         public int Life { get; private set; }
         public int Wins { get; set; }
         public int Deaths { get; set; }
+        public PlayerTeams Team { get; set; }
+
+        public Color TeamColor
+        {
+            get
+            {
+                switch (Team)
+                {
+                    case PlayerTeams.Red:
+                        return Color.Red;
+                    case PlayerTeams.Blue:
+                        return Color.Blue;
+                    default:
+                        return Color.White;
+                }
+            }
+        }
+
+        public Color TeamColorDark
+        {
+            get
+            {
+                switch (Team)
+                {
+                    case PlayerTeams.Red:
+                        return Color.DarkRed;
+                    case PlayerTeams.Blue:
+                        return Color.DarkBlue;
+                    default:
+                        return Color.DarkGray;
+                }
+            }
+        }
 
         public bool IsAlive
         {
@@ -26,15 +69,12 @@ namespace PlatformerPOC.GameObjects
 
         private Color TextColor
         {
-            get { return IsAlive ? Color.White : Color.DarkGray; }
+            get { return IsAlive ? TeamColor : TeamColorDark; }
         }
 
         public bool IsStandingOnSolid
         {
-            get
-            {
-                return !game.Level.IsPlaceFreeOfWalls(BoundingBox.BottomRectangle);
-            }
+            get { return !game.Level.IsPlaceFreeOfWalls(BoundingBox.BottomRectangle); }
         }
 
         private readonly CustomSpriteSheetInstance spriteSheetInstance;
@@ -46,6 +86,9 @@ namespace PlatformerPOC.GameObjects
             get { return playerInputState.IsMoveLeftPressed || playerInputState.IsMoveRightPressed; }
         }
 
+        #endregion
+
+
         public Player(PlatformGame game, string name, long id, GameObjectState gameObjectState): base(game)
         {
             BoundingBox = new CustomBoundingBox();
@@ -55,13 +98,16 @@ namespace PlatformerPOC.GameObjects
             Name = name;           
         }
 
+
+        #region Lifecycle
+
         public void DoDamage(int damage)
         {
-            if(IsAlive)
+            if (IsAlive)
             {
                 Life -= damage;
 
-                if(!IsAlive)
+                if (!IsAlive)
                 {
                     Die();
                 }
@@ -82,17 +128,22 @@ namespace PlatformerPOC.GameObjects
             PlaySound(game.ResourcesHelper.SpawnSound);
         }
 
+        #endregion
+
+
+        #region Loop
+
         public void Update()
         {
             // FYI: UpdateBoundingBox called multiple times to prevent some nasty bugs
 
             UpdateBoundingBox();
 
-            if(IsAlive)
+            if (IsAlive)
             {
                 ApplyInput();
             }
-            
+
             if (!game.Level.IsPlaceFreeOfWalls(BoundingBox.FullRectangle))
             {
                 Velocity = new Vector2(Velocity.X, 0);
@@ -107,7 +158,7 @@ namespace PlatformerPOC.GameObjects
             {
                 HorizontalMovement();
             }
-            
+
             if (IsAlive && WantsToMoveHorizontally)
             {
                 spriteSheetInstance.LoopWithReverse();
@@ -118,14 +169,15 @@ namespace PlatformerPOC.GameObjects
 
         private void UpdateBoundingBox()
         {
-            BoundingBox.SetFullRectangle(Position, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions, Velocity, 4, 4, 4, 0);
+            BoundingBox.SetFullRectangle(Position, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions, Velocity,
+                                         4, 4, 4, 0);
         }
 
         private void HorizontalMovement()
         {
-            if(Velocity.X > 0)
+            if (Velocity.X > 0)
             {
-                if(game.Level.IsPlaceFreeOfWalls(BoundingBox.RightRectangle))
+                if (game.Level.IsPlaceFreeOfWalls(BoundingBox.RightRectangle))
                 {
                     Position = new Vector2(Position.X + Velocity.X, Position.Y);
                 }
@@ -137,13 +189,13 @@ namespace PlatformerPOC.GameObjects
                 {
                     Position = new Vector2(Position.X + Velocity.X, Position.Y);
                 }
-            }        
+            }
         }
 
         private void VerticalMovement()
         {
             // TOP CHECK
-            if(Velocity.Y < 0)
+            if (Velocity.Y < 0)
             {
                 if (!game.Level.IsPlaceFreeOfWalls(BoundingBox.TopRectangle))
                 {
@@ -163,7 +215,17 @@ namespace PlatformerPOC.GameObjects
                 }
             }
 
-             Position = new Vector2(Position.X, Position.Y + Velocity.Y);
+            Position = new Vector2(Position.X, Position.Y + Velocity.Y);
+        }
+
+        #endregion
+
+
+        #region Input
+
+        public void HandleInput(IPlayerControlState playerInputState)
+        {
+            this.playerInputState = playerInputState;
         }
 
         private void ApplyInput()
@@ -191,7 +253,7 @@ namespace PlatformerPOC.GameObjects
                 Jump();
             }
 
-            if(playerInputState.IsMoveDownPressed)
+            if (playerInputState.IsMoveDownPressed)
             {
                 ReverseMidAir();
             }
@@ -199,26 +261,23 @@ namespace PlatformerPOC.GameObjects
             if (playerInputState.IsActionPressed)
             {
                 Shoot();
-            }            
+            }
         }
 
-        private void ReverseMidAir()
-        {
-            // New movement concept. "Stop jumping and go down"
-            // Alias: "brake mid-air"
+        #endregion
 
-            if(Velocity.Y < 0) Velocity = new Vector2(Velocity.X, 0);
-        }
+
+        #region Drawing
 
         public override void Draw()
         {
             if (!InView) return;
-                        
+
             spriteSheetInstance.Draw(PositionRelativeToView, DrawEffect, LayerDepths.GAMEOBJECTS);
 
             var displayText = string.Format("{0} ({1}/{2})", Name, Wins, Deaths);
 
-            game.SpriteBatch.DrawString(game.ResourcesHelper.DefaultFont, displayText, PositionRelativeToView, TextColor, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.TEXT);                        
+            game.SpriteBatch.DrawString(game.ResourcesHelper.DefaultFont, displayText, PositionRelativeToView, TextColor, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.TEXT);
         }
 
         public override void DrawDebug()
@@ -228,10 +287,10 @@ namespace PlatformerPOC.GameObjects
             game.DebugDrawHelper.DrawBorder(rel, 1, Color.Pink);
         }
 
-        public void HandleInput(IPlayerControlState playerInputState)
-        {
-            this.playerInputState = playerInputState;
-        }
+        #endregion
+
+
+        #region Actions
 
         private void Jump()
         {
@@ -239,18 +298,30 @@ namespace PlatformerPOC.GameObjects
             {
                 // if enough space above to jump
                 //Offset(0,-10)
-                var newRect = new Rectangle(BoundingBox.TopRectangle.X, BoundingBox.TopRectangle.Y - 7, BoundingBox.TopRectangle.Width, 1);
+                var newRect = new Rectangle(BoundingBox.TopRectangle.X, BoundingBox.TopRectangle.Y - 7,
+                                            BoundingBox.TopRectangle.Width, 1);
                 if (game.Level.IsPlaceFreeOfWalls(newRect))
                 {
-                    Velocity = new Vector2(Velocity.X, -jumpForce);        
+                    Velocity = new Vector2(Velocity.X, -jumpForce);
                 }
             }
         }
 
+        private void ReverseMidAir()
+        {
+            // New movement concept. "Stop jumping and go down"
+            // Alias: "brake mid-air"
+
+            if (Velocity.Y < 0) Velocity = new Vector2(Velocity.X, 0);
+        }
+
         private void Shoot()
         {
-            var bullet = new Bullet(game, this, Position + new Vector2(30 * HorizontalDirection, 12), HorizontalDirection);
-            game.AddObject(bullet);            
+            var bullet = new Bullet(game, this, Position + new Vector2(30*HorizontalDirection, 12), HorizontalDirection);
+            game.AddObject(bullet);
         }
+
+        #endregion
+
     }
 }
