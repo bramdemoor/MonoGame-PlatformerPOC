@@ -1,4 +1,5 @@
-﻿using GameEngine.GameObjects;
+﻿using GameEngine;
+using GameEngine.GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -58,11 +59,11 @@ namespace PlatformerPOC.GameObjects
 
         public void PlaySound(SoundEffect spawnSound)
         {
-            if (!Config.SoundEnabled) return;
+            if (!CoreConfig.SoundEnabled) return;
 
             SoundEffectInstance soundEffectInstance = spawnSound.CreateInstance();
 
-            soundEffectInstance.Volume = Config.SoundVolume;
+            soundEffectInstance.Volume = CoreConfig.SoundVolume;
 
             soundEffectInstance.Play();
         }

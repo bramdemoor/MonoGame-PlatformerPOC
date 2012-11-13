@@ -76,6 +76,7 @@ namespace GameEngine
             base.Initialize();
 
             DebugCommandUI.RegisterCommand("toggle-debug", "Turn debug mode on or off", CoreCommands.ToggleDebugCommand);
+            DebugCommandUI.RegisterCommand("toggle-sound", "Turn sound on or off", CoreCommands.ToggleSoundCommand);
         }
 
         protected override void LoadContent()

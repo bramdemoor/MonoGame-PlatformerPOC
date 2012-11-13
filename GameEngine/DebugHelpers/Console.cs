@@ -236,7 +236,7 @@ namespace GameEngine.DebugHelpers
 
             command = command.TrimStart(spaceChars);
 
-            List<string> args = new List<string>(command.Split(spaceChars));
+            var args = new List<string>(command.Split(spaceChars));
             string cmdText = args[0];
             args.RemoveAt(0);
 
@@ -246,7 +246,7 @@ namespace GameEngine.DebugHelpers
                 try
                 {
                     // Call registered command delegate.
-                    cmd.callback(this, command, args);
+                    cmd.callback(this, command, args.ToArray());
                 }
                 catch (Exception e)
                 {
