@@ -33,10 +33,10 @@ namespace PlatformerPOC
 
         protected override void LoadContent()
         {
+            ResourcesHelper.LoadContent(Content);
+
             // Important!
             base.LoadContent();
-
-            ResourcesHelper.LoadContent(Content);
 
             ShowMenuScreen();
         }

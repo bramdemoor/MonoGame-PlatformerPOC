@@ -63,6 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collision\CustomBoundingBox.cs" />
+    <Compile Include="Debug\Console.cs" />
+    <Compile Include="Debug\IDebugCommandHost.cs" />
+    <Compile Include="Debug\KeyboardUtils.cs" />
     <Compile Include="CoreConfig.cs" />
     <Compile Include="GameObjects\BaseGameObject.cs" />
     <Compile Include="GameObjects\GameObjectState.cs" />
@@ -88,6 +91,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
