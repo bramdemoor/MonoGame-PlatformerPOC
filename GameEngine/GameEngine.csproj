@@ -63,9 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collision\CustomBoundingBox.cs" />
-    <Compile Include="Debug\Console.cs" />
-    <Compile Include="Debug\IDebugCommandHost.cs" />
-    <Compile Include="Debug\KeyboardUtils.cs" />
+    <Compile Include="DebugHelpers\Console.cs" />
+    <Compile Include="DebugHelpers\CoreCommands.cs" />
+    <Compile Include="DebugHelpers\IDebugCommandHost.cs" />
+    <Compile Include="DebugHelpers\KeyboardUtils.cs" />
     <Compile Include="CoreConfig.cs" />
     <Compile Include="GameObjects\BaseGameObject.cs" />
     <Compile Include="GameObjects\GameObjectState.cs" />
@@ -73,8 +74,8 @@
     <Compile Include="Spritesheet\CustomSpriteSheetDefinition.cs" />
     <Compile Include="Spritesheet\CustomSpriteSheetInstance.cs" />
     <Compile Include="Tiles\CustomTileSetDefinition.cs" />
-    <Compile Include="Debug\DebugDrawHelper.cs" />
-    <Compile Include="Debug\FPSCounter.cs" />
+    <Compile Include="DebugHelpers\DebugDrawHelper.cs" />
+    <Compile Include="DebugHelpers\FPSCounter.cs" />
     <Compile Include="SimpleScreenBase.cs" />
     <Compile Include="Tiles\TileDefinition.cs" />
     <Compile Include="Network\ClientNetworkManager.cs" />

@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameEngine.Debug
+namespace GameEngine.DebugHelpers
 {
     /// <summary>
     /// Command Window class for Debug purpose.
@@ -197,18 +197,15 @@ namespace GameEngine.Debug
 
         #region IDebugCommandHostinterface implemenration
 
-        public void RegisterCommand(
-            string command, string description, DebugCommandExecute callback)
+        public void RegisterCommand(string command, string description, DebugCommandExecute callback)
         {
             string lowerCommand = command.ToLower();
             if (commandTable.ContainsKey(lowerCommand))
             {
-                throw new InvalidOperationException(
-                    String.Format("Command \"{0}\" is already registered.", command));
+                throw new InvalidOperationException(String.Format("Command \"{0}\" is already registered.", command));
             }
 
-            commandTable.Add(
-                lowerCommand, new CommandInfo(command, description, callback));
+            commandTable.Add(lowerCommand, new CommandInfo(command, description, callback));
         }
 
         public void UnregisterCommand(string command)

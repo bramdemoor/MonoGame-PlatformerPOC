@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace GameEngine.Debug
+namespace GameEngine.DebugHelpers
 {
     public class FPSCounter
     {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using GameEngine.Debug;
+using GameEngine.DebugHelpers;
 using GameEngine.GameObjects;
 using GameEngine.Network;
 using Microsoft.Xna.Framework;
@@ -76,7 +75,7 @@ namespace GameEngine
 
             base.Initialize();
 
-            DebugCommandUI.RegisterCommand("pos", "set position", PosCommand);
+            DebugCommandUI.RegisterCommand("toggle-debug", "Turn debug mode on or off", CoreCommands.ToggleDebugCommand);
         }
 
         protected override void LoadContent()
@@ -210,31 +209,6 @@ namespace GameEngine
             }
 
             gameObjectsToDelete.Clear();
-        }
-
-        // Position for debug command test.
-        Vector2 debugPos = new Vector2(100, 100);
-
-
-        /// <summary>
-        /// This method is called from DebugCommandHost when the user types the 'pos'
-        /// command into the command prompt. This is registered with the command prompt
-        /// through the DebugCommandUI.RegisterCommand method we called in Initialize.
-        /// </summary>
-        void PosCommand(IDebugCommandHost host, string command, IList<string> arguments)
-        {
-            // if we got two arguments from the command
-            if (arguments.Count == 2)
-            {
-                // process text "pos xPos yPos" by parsing our two arguments
-                debugPos.X = Single.Parse(arguments[0], CultureInfo.InvariantCulture);
-                debugPos.Y = Single.Parse(arguments[1], CultureInfo.InvariantCulture);
-            }
-            else
-            {
-                // if we didn't get two arguments, we echo the current position of the cat
-                host.Echo(String.Format("Pos={0},{1}", debugPos.X, debugPos.Y));
-            }
         }
     }
 }

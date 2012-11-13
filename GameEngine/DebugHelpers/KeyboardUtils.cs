@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
-namespace GameEngine.Debug
+namespace GameEngine.DebugHelpers
 {
     /// <summary>
     /// Helper class for keyboard input.

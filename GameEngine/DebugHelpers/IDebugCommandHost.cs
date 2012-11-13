@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 
-namespace GameEngine.Debug
+namespace GameEngine.DebugHelpers
 {
     /// <summary>
     /// Message types for debug command.
