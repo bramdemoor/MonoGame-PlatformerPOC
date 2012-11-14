@@ -28,15 +28,15 @@ namespace PlatformerPOC.Level
 
         private void LoadDemoLevel()
         {
-            int maxWidth = 0;
+            var maxWidth = 0;
 
             spawnPointPositions.Clear();
 
             // Test for viewing all embedded resources:
             // var auxList = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames();
 
-            int rowIndex = 0;
-            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("PlatformerPOC.Content.level.txt"))
+            var rowIndex = 0;
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("PlatformerPOC.Content.level.txt"))
             using (var reader = new StreamReader(stream))
             {
                 while (!reader.EndOfStream)
@@ -44,7 +44,7 @@ namespace PlatformerPOC.Level
                     var line = reader.ReadLine();
                     var chars = line.ToCharArray();
 
-                    for (int colIndex = 0; colIndex < chars.Length; colIndex++)
+                    for (var colIndex = 0; colIndex < chars.Length; colIndex++)
                     {
                         var c = chars.ElementAt(colIndex);
 

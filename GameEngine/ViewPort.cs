@@ -55,6 +55,14 @@ namespace GameEngine
         }
 
         /// <summary>
+        /// Converts view coordinates into world coordinates
+        /// </summary>        
+        public Vector2 GetWorldCoords(Vector2 viewCoords)
+        {
+            return new Vector2(viewCoords.X + ViewArea.X, viewCoords.Y + ViewArea.Y);
+        }      
+
+        /// <summary>
         /// Converts world rectangle into view rectangle
         /// </summary>        
         public Rectangle GetRelativeCoords(Rectangle realWorldRectangle)

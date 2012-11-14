@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace PlatformerPOC.Level
 {
@@ -19,6 +20,11 @@ namespace PlatformerPOC.Level
         public static Vector2 TilesToPixels(Vector2 tiles)
         {
             return tiles * SquareSize;
-        } 
+        }
+
+        public static Vector2 PixelsToTiles(Vector2 worldCoords)
+        {
+            return new Vector2((float)Math.Floor(worldCoords.X / SquareSize), (float)Math.Floor(worldCoords.Y / SquareSize));
+        }
     }
 }

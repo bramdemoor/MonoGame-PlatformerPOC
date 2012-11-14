@@ -1,11 +1,16 @@
 ﻿using GameEngine.DebugHelpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using PlatformerPOC.Level;
 
 namespace PlatformerPOC.Editor
 {
     public class Editor
     {
-        private PlatformGame game;
+        private MouseState mouseStatePrevious;
+        private MouseState mouseStateCurrent;
+
+        private readonly PlatformGame game;
 
         public Editor(PlatformGame platformGame)
         {
@@ -30,13 +35,19 @@ namespace PlatformerPOC.Editor
 
         public void Update()
         {
-            // Get current mouseState
-            var mouseStateCurrent = Mouse.GetState();
+            mouseStatePrevious = mouseStateCurrent;
 
-            // Left MouseClick
-            if (mouseStateCurrent.LeftButton == ButtonState.Pressed)
+            mouseStateCurrent = Mouse.GetState();
+
+            if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
             {
-                game.DebugCommandUI.Echo("FYI: Left mouse pressed");
+                var pos = new Vector2(mouseStateCurrent.X, mouseStateCurrent.Y);
+
+                var worldCoords = game.ViewPort.GetWorldCoords(pos);
+
+                var tiles = LevelTileConcept.PixelsToTiles(worldCoords);                
+
+                game.DebugCommandUI.Echo(string.Format("FYI: Tile modify at {0}", tiles));
             }            
         }
 
