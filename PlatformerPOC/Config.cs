@@ -14,5 +14,7 @@ namespace PlatformerPOC
         public const Keys actionKey = Keys.Space;
 
         public static bool EditMode = false;
+
+        public const int MaxPlayers = 16;
     }
 }

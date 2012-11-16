@@ -91,10 +91,6 @@ namespace PlatformerPOC.Level
             game.SpriteBatch.Draw(game.ResourcesHelper.BgLayer1Texture, layer1Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.BG_PARALLAX_1);
             game.SpriteBatch.Draw(game.ResourcesHelper.BgLayer2Texture, layer2Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.BG_PARALLAX_2);
 
-
-            var white = Color.White * 0.5f;
-            game.SpriteBatch.Draw(game.ResourcesHelper.HudText, new Vector2(1000, 0), null, white, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
-
             if(CoreConfig.DebugModeEnabled)
             {
                 game.DebugDrawHelper.DrawDebugString(string.Format("L1: {0}", layer1Pos), new Vector2(640, 30));

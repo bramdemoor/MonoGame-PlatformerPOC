@@ -16,7 +16,7 @@ namespace GameEngine.Graphics
             graphics.PreferMultiSampling = true;
             graphics.PreferredBackBufferWidth = CoreConfig.ScreenResolutionWidth;
             graphics.PreferredBackBufferHeight = CoreConfig.ScreenResolutionHeight;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
         }
 
