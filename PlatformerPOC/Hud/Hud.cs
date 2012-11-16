@@ -16,13 +16,14 @@ namespace PlatformerPOC.Hud
         {
             var str = "Round: " + _game.RoundCounter;
 
-            _game.SpriteBatch.DrawString(_game.DefaultFont, str, new Vector2(440, 30), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
-
+            _game.SpriteBatch.DrawString(_game.DefaultFont, str, new Vector2(1040, 30), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
 
             for (int index = 0; index < _game.PlayerManager.Players.Count; index++)
             {
                 var player = _game.PlayerManager.Players[index];
-                _game.SpriteBatch.DrawString(_game.DefaultFont, player.Name, new Vector2(440, 60 + (index * 30)), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
+                _game.SpriteBatch.DrawString(_game.DefaultFont, player.Name, new Vector2(1040, 160 + (index * 18)), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
+                _game.SpriteBatch.DrawString(_game.DefaultFont, player.Wins.ToString(), new Vector2(1170, 160 + (index * 18)), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
+                _game.SpriteBatch.DrawString(_game.DefaultFont, player.Deaths.ToString(), new Vector2(1200, 160 + (index * 18)), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
             }
 
             // healthbar

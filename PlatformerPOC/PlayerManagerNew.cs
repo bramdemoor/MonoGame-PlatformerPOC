@@ -31,7 +31,7 @@ namespace PlatformerPOC
             Players.Add(LocalPlayer);
             game.AddObject(LocalPlayer);
 
-            for (int i = 2; i < 4; i++)
+            for (int i = 2; i < 17; i++)
             {
                 var name = string.Format("Player {0} [Bot]", i);
                 var p = new Player(game, name, i, new GameObjectState());

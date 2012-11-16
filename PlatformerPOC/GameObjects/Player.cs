@@ -275,7 +275,7 @@ namespace PlatformerPOC.GameObjects
 
             spriteSheetInstance.Draw(PositionRelativeToView, DrawEffect, LayerDepths.GAMEOBJECTS);
 
-            var displayText = string.Format("{0} ({1}/{2})", Name, Wins, Deaths);
+            var displayText = string.Format("{0}", Name);
 
             game.SpriteBatch.DrawString(game.ResourcesHelper.DefaultFont, displayText, PositionRelativeToView, TextColor, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.TEXT);
         }

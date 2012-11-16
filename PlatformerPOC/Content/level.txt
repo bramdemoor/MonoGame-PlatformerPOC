@@ -2,12 +2,12 @@ x
 x           S
 x                             S                    S
 x   
-x         xxxxx
+x         xxxxx                          S
 xxxxxx
 x
 x     xxxxx             xxxxxxxxxxxxxx
 x                                                               x 
-xxxxx     xxxxxx    xxxx                                        x
+xxxxx     xxxxxx    xxxx          S    S               S        x
 x                                                               x
 x       xxxx  xxxxxxxx                        xxxxxx            x
 xxxxx                                                           x
