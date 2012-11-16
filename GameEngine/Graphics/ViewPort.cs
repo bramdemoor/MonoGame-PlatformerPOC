@@ -25,14 +25,13 @@ namespace GameEngine
         {
             this.game = game;
 
-            // TODO BDM: Remove hardcoded values
+            // TODO BDM: Move magic number out of here (doesn't belong in engine!)
 
-            // Test!
-            ViewArea = new Rectangle(0, 0, CoreConfig.ScreenResolutionWidth, CoreConfig.ScreenResolutionHeight);
+            ViewArea = new Rectangle(0, 0, CoreConfig.ScreenResolutionWidth - 280, CoreConfig.ScreenResolutionHeight);
         }
 
         public void DrawDebug()
-        {
+        {            
             var rectangleToDraw = new Rectangle(0, 0, ViewArea.Width, ViewArea.Height);
 
              game.DebugDrawHelper.DrawBorder(rectangleToDraw, 5, Color.Yellow);

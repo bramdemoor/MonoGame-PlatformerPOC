@@ -57,7 +57,7 @@ namespace PlatformerPOC.GameObjects
                     case PlayerTeams.Blue:
                         return Color.DarkBlue;
                     default:
-                        return Color.DarkGray;
+                        return Color.FromNonPremultiplied(30, 30, 30, 255);
                 }
             }
         }
@@ -67,7 +67,7 @@ namespace PlatformerPOC.GameObjects
             get { return Life > 0; }
         }
 
-        private Color TextColor
+        public Color TextColor
         {
             get { return IsAlive ? TeamColor : TeamColorDark; }
         }

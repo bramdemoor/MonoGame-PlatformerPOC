@@ -38,15 +38,15 @@ namespace PlatformerPOC.Hud
             for (int index = 0; index < _game.PlayerManager.Players.Count; index++)
             {
                 var player = _game.PlayerManager.Players[index];
-                _game.SpriteBatch.DrawString(_game.DefaultFont, player.Name, new Vector2(leftTextStart, playersStart + (index * vTextSpace)), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
-                _game.SpriteBatch.DrawString(_game.DefaultFont, player.Wins.ToString(), new Vector2(1170, playersStart + (index * vTextSpace)), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
-                _game.SpriteBatch.DrawString(_game.DefaultFont, player.Deaths.ToString(), new Vector2(1200, playersStart + (index * vTextSpace)), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
+                _game.SpriteBatch.DrawString(_game.DefaultFont, player.Name, new Vector2(leftTextStart, playersStart + (index * vTextSpace)),player.TextColor, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
+                _game.SpriteBatch.DrawString(_game.DefaultFont, player.Wins.ToString(), new Vector2(1170, playersStart + (index * vTextSpace)), player.TextColor, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
+                _game.SpriteBatch.DrawString(_game.DefaultFont, player.Deaths.ToString(), new Vector2(1200, playersStart + (index * vTextSpace)), player.TextColor, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
             }
 
-            // healthbar
-
-
-            // weapon info
+            // player info section
+            _game.SpriteBatch.DrawString(_game.DefaultFont, "Player 1", new Vector2(leftTextStart, 550), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
+            _game.SpriteBatch.Draw(_game.ResourcesHelper.Pistol, new Vector2(1068, 662), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
+            _game.SpriteBatch.Draw(_game.ResourcesHelper.PlayerAvatar, new Vector2(1058, 582), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
         }
     }
 }

@@ -18,6 +18,9 @@ namespace PlatformerPOC
         public Texture2D BgLayer2Texture { get; private set; }
         public Texture2D HudText { get; private set; }
         public Texture2D HudMsg { get; private set; }        
+        public Texture2D PlayerAvatar { get; private set; }        
+
+        public Texture2D Pistol { get; private set; }        
 
         public Texture2D BulletTexture { get; private set; }
 
@@ -43,6 +46,9 @@ namespace PlatformerPOC
             BgLayer2Texture = content.Load<Texture2D>("parallax-layer2");
             HudText = content.Load<Texture2D>("hud");
             HudMsg = content.Load<Texture2D>("hud-msg");
+            PlayerAvatar = content.Load<Texture2D>("player-avatar");
+
+            Pistol = content.Load<Texture2D>("pistol");
             
             BulletTexture = content.Load<Texture2D>("bullet");
 
