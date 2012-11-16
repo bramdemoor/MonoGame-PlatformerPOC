@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using PlatformerPOC.Level;
 
 namespace PlatformerPOC
 {
@@ -46,7 +47,7 @@ namespace PlatformerPOC
             PlayerSpriteSheet = new CustomSpriteSheetDefinition(content, "player", new Rectangle(0, 0, 32, 32), 8);
             SpawnSound = content.Load<SoundEffect>("testsound");
 
-            DefaultFont = content.Load<SpriteFont>("spriteFont1");            
+            DefaultFont = content.Load<SpriteFont>("spriteFont1");
 
             MainTileSet = new CustomTileSetDefinition(content, "tileset", new Rectangle(0, 0, 32, 32));
             TileWall = new TileDefinition(game, MainTileSet, 0, 1);

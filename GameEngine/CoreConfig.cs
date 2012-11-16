@@ -14,5 +14,7 @@
         public static bool DebugModeEnabled = false;
         public static bool SoundEnabled = false;
         public static float SoundVolume = 1f;
+        public static int ScreenResolutionWidth = 1280;
+        public static int ScreenResolutionHeight = 720;
     }
 }

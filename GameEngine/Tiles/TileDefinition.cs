@@ -15,14 +15,13 @@ namespace GameEngine.Tiles
         {
             this.game = game;
 
-            this.TileSet = tileSet;
+            TileSet = tileSet;
 
             graphicsRectangle = tileSet.GetGraphicsRectangle(x, y);
         }
 
-
         public void DrawTile(Vector2 pos, float depth)
-        {
+        {                        
             game.SpriteBatch.Draw(TileSet.TilesetTexture, pos, graphicsRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
         }
     }

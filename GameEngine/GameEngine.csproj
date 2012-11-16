@@ -71,6 +71,7 @@
     <Compile Include="GameObjects\BaseGameObject.cs" />
     <Compile Include="GameObjects\GameObjectState.cs" />
     <Compile Include="Collision\CollisionHelper.cs" />
+    <Compile Include="Graphics\GraphicsHelper.cs" />
     <Compile Include="Spritesheet\CustomSpriteSheetDefinition.cs" />
     <Compile Include="Spritesheet\CustomSpriteSheetInstance.cs" />
     <Compile Include="Tiles\CustomTileSetDefinition.cs" />
@@ -87,7 +88,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleGame.cs" />
     <Compile Include="Timing\GameTimer.cs" />
-    <Compile Include="ViewPort.cs" />
+    <Compile Include="Graphics\ViewPort.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

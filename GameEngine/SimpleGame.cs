@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GameEngine.DebugHelpers;
 using GameEngine.GameObjects;
+using GameEngine.Graphics;
 using GameEngine.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,6 +21,8 @@ namespace GameEngine
         public ViewPort ViewPort { get; set; }
         public abstract SpriteFont DefaultFont { get; }
 
+        private GraphicsHelper graphicsHelper;
+
         private readonly List<BaseGameObject> gameObjects;
 
         private readonly List<BaseGameObject> gameObjectsToAdd = new List<BaseGameObject>();
@@ -28,9 +31,7 @@ namespace GameEngine
         private readonly ILog log;
 
         private INetworkManager networkManager;
-        public bool IsHost { get; private set; }
-
-        readonly GraphicsDeviceManager graphics;
+        public bool IsHost { get; private set; }        
 
         public DebugCommandUI DebugCommandUI { get; private set; }
 
@@ -54,14 +55,10 @@ namespace GameEngine
             log = LogManager.GetLogger(typeof(SimpleGame));
             ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetLoggerRepository()).Root.AddAppender(this);
 
-            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferMultiSampling = true;
-            graphics.PreferredBackBufferWidth = 720;
-            graphics.PreferredBackBufferHeight = 500;            
-            graphics.IsFullScreen = false;
-            
+            graphicsHelper = new GraphicsHelper(this);
+
             gameObjects = new List<BaseGameObject>();
 
             DebugDrawHelper = new DebugDrawHelper(this);
@@ -125,15 +122,13 @@ namespace GameEngine
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
-
-            SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            graphicsHelper.StartDrawing();
 
             ActiveScreen.Draw(gameTime);
 
             DebugDrawHelper.DrawFps();
 
-            SpriteBatch.End();          
+            graphicsHelper.EndDrawing();
 
             base.Draw(gameTime);
         }

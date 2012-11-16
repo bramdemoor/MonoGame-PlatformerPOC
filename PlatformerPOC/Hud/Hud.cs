@@ -24,6 +24,11 @@ namespace PlatformerPOC.Hud
                 var player = _game.PlayerManager.Players[index];
                 _game.SpriteBatch.DrawString(_game.DefaultFont, player.Name, new Vector2(440, 60 + (index * 30)), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
             }
+
+            // healthbar
+
+
+            // weapon info
         }
     }
 }
