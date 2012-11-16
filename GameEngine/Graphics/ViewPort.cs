@@ -28,7 +28,7 @@ namespace GameEngine
             // TODO BDM: Remove hardcoded values
 
             // Test!
-            ViewArea = new Rectangle(0, 0, 650, 470);
+            ViewArea = new Rectangle(0, 0, CoreConfig.ScreenResolutionWidth, CoreConfig.ScreenResolutionHeight);
         }
 
         public void DrawDebug()

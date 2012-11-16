@@ -37,7 +37,7 @@ namespace GameEngine.DebugHelpers
             {
                 var fps = string.Format("fps: {0} mem : {1}", fpsCounter.frameRate, GC.GetTotalMemory(false));
 
-                game.SpriteBatch.DrawString(game.DefaultFont, fps, new Vector2(40, 10), Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, -999);                
+                game.SpriteBatch.DrawString(game.DefaultFont, fps, new Vector2(40, 10), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, -999);                
             }            
         }
 
@@ -62,9 +62,9 @@ namespace GameEngine.DebugHelpers
             game.SpriteBatch.Draw(pixel, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y + rectangleToDraw.Height - thicknessOfBorder, rectangleToDraw.Width, thicknessOfBorder), borderColor);
         }
 
-        public void DrawDebugString(string s)
+        public void DrawDebugString(string s, Vector2 pos)
         {
-            game.SpriteBatch.DrawString(game.DefaultFont, s, new Vector2(440, 30), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);   
+            game.SpriteBatch.DrawString(game.DefaultFont, s, pos, Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);   
         }
     }
 }

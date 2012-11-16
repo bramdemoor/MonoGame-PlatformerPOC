@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using GameEngine;
 using GameEngine.Collision;
 using GameEngine.Tiles;
 using Microsoft.Xna.Framework;
@@ -84,15 +85,21 @@ namespace PlatformerPOC.Level
         {
             var viewPort = game.ViewPort;
 
-            var layer1Pos = new Vector2(-viewPort.ViewPos.X*PARALLAX_LAYER1_SPEED, -viewPort.ViewPos.Y * PARALLAX_LAYER1_SPEED);
-            var layer2Pos = new Vector2(-viewPort.ViewPos.X*PARALLAX_LAYER2_SPEED, -viewPort.ViewPos.Y * PARALLAX_LAYER2_SPEED);
+            var layer1Pos = new Vector2(-viewPort.ViewPos.X*PARALLAX_LAYER1_SPEED, 0);
+            var layer2Pos = new Vector2(-viewPort.ViewPos.X*PARALLAX_LAYER2_SPEED, 0);
 
             game.SpriteBatch.Draw(game.ResourcesHelper.BgLayer1Texture, layer1Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.BG_PARALLAX_1);
             game.SpriteBatch.Draw(game.ResourcesHelper.BgLayer2Texture, layer2Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.BG_PARALLAX_2);
 
 
             var white = Color.White * 0.5f;
-            game.SpriteBatch.Draw(game.ResourcesHelper.HudText, new Vector2(400, 0), null, white, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
+            game.SpriteBatch.Draw(game.ResourcesHelper.HudText, new Vector2(1000, 0), null, white, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
+
+            if(CoreConfig.DebugModeEnabled)
+            {
+                game.DebugDrawHelper.DrawDebugString(string.Format("L1: {0}", layer1Pos), new Vector2(640, 30));
+                game.DebugDrawHelper.DrawDebugString(string.Format("L2: {0}", layer2Pos), new Vector2(640, 50));
+            }
         }
 
         public bool IsInBoundsLeft(Vector2 position)

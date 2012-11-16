@@ -21,10 +21,10 @@ namespace GameEngine
         public ViewPort ViewPort { get; set; }
         public abstract SpriteFont DefaultFont { get; }
 
-        private GraphicsHelper graphicsHelper;
+        private readonly GraphicsHelper graphicsHelper;
 
+        // TODO BDM: Delegate game object management to a "GameObjectManager"
         private readonly List<BaseGameObject> gameObjects;
-
         private readonly List<BaseGameObject> gameObjectsToAdd = new List<BaseGameObject>();
         private readonly List<BaseGameObject> gameObjectsToDelete = new List<BaseGameObject>();
 
