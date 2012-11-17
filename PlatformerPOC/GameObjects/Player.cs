@@ -1,4 +1,5 @@
-﻿using GameEngine.Collision;
+﻿using System.Linq;
+using GameEngine.Collision;
 using GameEngine.GameObjects;
 using GameEngine.Spritesheet;
 using Microsoft.Xna.Framework;
@@ -22,6 +23,7 @@ namespace PlatformerPOC.GameObjects
         public int Wins { get; private set; }
         public int Deaths { get; private set; }
         public Team Team { get; private set; }
+        public Character Character { get; set; }
 
         public bool IsAlive
         {
@@ -47,11 +49,13 @@ namespace PlatformerPOC.GameObjects
         {
             BoundingBox = new CustomBoundingBox();
 
-            spriteSheetInstance = new CustomSpriteSheetInstance(game, game.ResourcesHelper.PlayerSpriteSheet, 3);
-
             Name = name;
 
             Team = new Team(PlayerTeams.NotSet);
+
+            Character = game.ResourcesHelper.Characters.First();
+
+            spriteSheetInstance = new CustomSpriteSheetInstance(game, Character.PlayerSpriteSheet, 3);
         }
 
 

@@ -74,6 +74,8 @@
     <Compile Include="Editor\Editor.cs" />
     <Compile Include="EventArgs\PlayerStateChangedArgs.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
+    <Compile Include="GameObjects\Character.cs" />
+    <Compile Include="GameObjects\GameMode.cs" />
     <Compile Include="GameObjects\Pistol.cs" />
     <Compile Include="GameObjects\SolidWall.cs" />
     <Compile Include="GameObjects\Team.cs" />
@@ -131,6 +133,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Content\Levels\doubleforest.txt" />
+    <Content Include="Content\Characters\player-blue.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Characters\player-pink.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Characters\player-yellow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\hud-msg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -147,10 +158,7 @@
     <Content Include="Content\pistol.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\player-avatar.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\player.png">
+    <Content Include="Content\Characters\player-avatar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\tileset.png">

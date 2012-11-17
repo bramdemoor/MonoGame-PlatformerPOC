@@ -16,7 +16,10 @@ namespace GameEngine.Graphics
             graphics.PreferMultiSampling = true;
             graphics.PreferredBackBufferWidth = CoreConfig.ScreenResolutionWidth;
             graphics.PreferredBackBufferHeight = CoreConfig.ScreenResolutionHeight;
-            graphics.IsFullScreen = true;
+
+            // WHY: Debugger sucks when in fullscreen
+            graphics.IsFullScreen = !CoreConfig.DebugModeEnabled;
+
             graphics.ApplyChanges();
         }
 

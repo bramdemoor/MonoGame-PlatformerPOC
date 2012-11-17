@@ -46,7 +46,7 @@ namespace PlatformerPOC.Hud
             // player info section
             _game.SpriteBatch.DrawString(_game.DefaultFont, "Player 1", new Vector2(leftTextStart, 550), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
             _game.SpriteBatch.Draw(_game.ResourcesHelper.Pistol, new Vector2(1068, 662), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
-            _game.SpriteBatch.Draw(_game.ResourcesHelper.PlayerAvatar, new Vector2(1058, 582), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
+            //_game.SpriteBatch.Draw(_game.ResourcesHelper.PlayerAvatar, new Vector2(1058, 582), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
         }
     }
 }
