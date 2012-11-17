@@ -37,36 +37,43 @@ namespace PlatformerPOC.Level
             // var auxList = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames();
 
             var rowIndex = 0;
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("PlatformerPOC.Content.level.txt"))
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("PlatformerPOC.Content.Levels.doubleforest.txt"))
             using (var reader = new StreamReader(stream))
             {
                 while (!reader.EndOfStream)
                 {
-                    var line = reader.ReadLine();
-                    var chars = line.ToCharArray();
-
-                    for (var colIndex = 0; colIndex < chars.Length; colIndex++)
+                    if(rowIndex == 0)
                     {
-                        var c = chars.ElementAt(colIndex);
-
-                        var levelPos = LevelTileConcept.TilesToPixels(colIndex, rowIndex);
-
-                        if (c == 'G')
-                        {
-                            AddTile(levelPos, game.ResourcesHelper.TileGround);
-                        }
-                        if (c == 'x')
-                        {
-                            AddTile(levelPos, game.ResourcesHelper.TileWall);
-                        }
-                        if (c == 'S')
-                        {
-                            spawnPointPositions.Add(levelPos);
-                        }
-
-                        if (colIndex > maxWidth) maxWidth = colIndex;
+                        // Meta-line
                     }
-                    
+                    else
+                    {
+                        var line = reader.ReadLine();
+                        var chars = line.ToCharArray();
+
+                        for (var colIndex = 0; colIndex < chars.Length; colIndex++)
+                        {
+                            var c = chars.ElementAt(colIndex);
+
+                            var levelPos = LevelTileConcept.TilesToPixels(colIndex, rowIndex);
+
+                            if (c == 'G')
+                            {
+                                AddTile(levelPos, game.ResourcesHelper.TileGround);
+                            }
+                            if (c == 'x')
+                            {
+                                AddTile(levelPos, game.ResourcesHelper.TileWall);
+                            }
+                            if (c == 'S')
+                            {
+                                spawnPointPositions.Add(levelPos);
+                            }
+
+                            if (colIndex > maxWidth) maxWidth = colIndex;
+                        }                        
+                    }
+
                     rowIndex++;
                 }
             }

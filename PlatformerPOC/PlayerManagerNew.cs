@@ -18,6 +18,11 @@ namespace PlatformerPOC
         public List<Player> Players { get; set; }
         public Player LocalPlayer { get; private set; }
 
+        public IEnumerable<Player> AlivePlayers
+        {
+            get { return Players.Where(p => p.IsAlive); }
+        }
+
         public PlayerManagerNew(PlatformGame game)
         {
             this.game = game;
