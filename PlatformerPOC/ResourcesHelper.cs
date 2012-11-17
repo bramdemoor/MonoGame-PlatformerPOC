@@ -44,30 +44,33 @@ namespace PlatformerPOC
 
         public void LoadContent(ContentManager content)
         {
-            BulletImpactSpriteSheet = new CustomSpriteSheetDefinition(content, "bullet-impact", new Rectangle(0, 0, 42, 29), 6);
+            // Weapons
+            Pistol = content.Load<Texture2D>("Weapons/pistol");
+            BulletImpactSpriteSheet = new CustomSpriteSheetDefinition(content, "Weapons/bullet-impact", new Rectangle(0, 0, 42, 29), 6);
+            BulletTexture = content.Load<Texture2D>("Weapons/bullet");
 
-            BgLayer1Texture = content.Load<Texture2D>("parallax-layer1");
-            BgLayer2Texture = content.Load<Texture2D>("parallax-layer2");
-            HudText = content.Load<Texture2D>("hud");
-            HudMsg = content.Load<Texture2D>("hud-msg");
+            // Level
+            BgLayer1Texture = content.Load<Texture2D>("Levels/parallax-layer1");
+            BgLayer2Texture = content.Load<Texture2D>("Levels/parallax-layer2");
+            MainTileSet = new CustomTileSetDefinition(content, "Levels/forest-tileset", new Rectangle(0, 0, 32, 32));
+            TileWall = new TileDefinition(game, MainTileSet, 0, 1);
+            TileGround = new TileDefinition(game, MainTileSet, 0, 3);
+
+            // Hud
+            HudText = content.Load<Texture2D>("Hud/hud");
+            HudMsg = content.Load<Texture2D>("Hud/hud-msg");
 
             Characters.Add(Character.Create(content, CharacterKeys.Blue));
             Characters.Add(Character.Create(content, CharacterKeys.Pink));
             Characters.Add(Character.Create(content, CharacterKeys.Yellow));            
-
-            Pistol = content.Load<Texture2D>("pistol");
             
-            BulletTexture = content.Load<Texture2D>("bullet");
+            // Sounds
+            SpawnSound = content.Load<SoundEffect>("Sound/testsound");
 
-            
-            
-            SpawnSound = content.Load<SoundEffect>("testsound");
+            // Fonts
+            DefaultFont = content.Load<SpriteFont>("Fonts/spriteFont1");
 
-            DefaultFont = content.Load<SpriteFont>("spriteFont1");
 
-            MainTileSet = new CustomTileSetDefinition(content, "tileset", new Rectangle(0, 0, 32, 32));
-            TileWall = new TileDefinition(game, MainTileSet, 0, 1);
-            TileGround = new TileDefinition(game, MainTileSet, 0, 3);
         }
     }
 }
