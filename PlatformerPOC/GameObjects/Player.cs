@@ -1,5 +1,4 @@
-﻿using System;
-using GameEngine.Collision;
+﻿using GameEngine.Collision;
 using GameEngine.GameObjects;
 using GameEngine.Spritesheet;
 using Microsoft.Xna.Framework;
@@ -8,61 +7,21 @@ using PlatformerPOC.Control;
 
 namespace PlatformerPOC.GameObjects
 {
-    public enum PlayerTeams
-    {
-        NotSet = -1,
-        Red = 1,
-        Blue = 2
-    }
-
     public class Player : PlatformGameObject
     {
-        #region Data
-
         private const int MAX_LIFE = 100;
         private const int MOVE_SPEED = 5;
-        private const float jumpForce = 6.2f;
-
-        public string Name { get; set; }
-
-        public int Life { get; private set; }
-        public int Wins { get; set; }
-        public int Deaths { get; set; }
-        public PlayerTeams Team { get; set; }
+        private const float JUMP_FORCE = 6.2f;
 
         private Pistol weapon;
+        private readonly CustomSpriteSheetInstance spriteSheetInstance;
+        private IPlayerControlState playerInputState;
 
-        public Color TeamColor
-        {
-            get
-            {
-                switch (Team)
-                {
-                    case PlayerTeams.Red:
-                        return Color.Red;
-                    case PlayerTeams.Blue:
-                        return Color.Blue;
-                    default:
-                        return Color.White;
-                }
-            }
-        }
-
-        public Color TeamColorDark
-        {
-            get
-            {
-                switch (Team)
-                {
-                    case PlayerTeams.Red:
-                        return Color.DarkRed;
-                    case PlayerTeams.Blue:
-                        return Color.DarkBlue;
-                    default:
-                        return Color.FromNonPremultiplied(30, 30, 30, 255);
-                }
-            }
-        }
+        public string Name { get; set; }
+        public int Life { get; private set; }
+        public int Wins { get; private set; }
+        public int Deaths { get; private set; }
+        public Team Team { get; private set; }
 
         public bool IsAlive
         {
@@ -71,7 +30,7 @@ namespace PlatformerPOC.GameObjects
 
         public Color TextColor
         {
-            get { return IsAlive ? TeamColor : TeamColorDark; }
+            get { return IsAlive ? Team.TeamColor : Team.TeamColorDark; }
         }
 
         public bool IsStandingOnSolid
@@ -79,17 +38,10 @@ namespace PlatformerPOC.GameObjects
             get { return !game.Level.IsPlaceFreeOfWalls(BoundingBox.BottomRectangle); }
         }
 
-        private readonly CustomSpriteSheetInstance spriteSheetInstance;
-
-        private IPlayerControlState playerInputState;
-
         private bool WantsToMoveHorizontally
         {
             get { return playerInputState.IsMoveLeftPressed || playerInputState.IsMoveRightPressed; }
         }
-
-        #endregion
-
 
         public Player(PlatformGame game, string name, long id, GameObjectState gameObjectState): base(game)
         {
@@ -97,7 +49,9 @@ namespace PlatformerPOC.GameObjects
 
             spriteSheetInstance = new CustomSpriteSheetInstance(game, game.ResourcesHelper.PlayerSpriteSheet, 3);
 
-            Name = name;           
+            Name = name;
+
+            Team = new Team(PlayerTeams.NotSet);
         }
 
 
@@ -116,20 +70,24 @@ namespace PlatformerPOC.GameObjects
 
         public void DoDamage(int damage)
         {
-            if (IsAlive)
-            {
-                Life -= damage;
+            if (!IsAlive) return;
 
-                if (!IsAlive)
-                {
-                    Die();
-                }
+            Life -= damage;
+
+            if (!IsAlive)
+            {
+                Die();
             }
         }
 
         private void Die()
         {
             Deaths++;
+        }
+
+        public void MarkWin()
+        {
+            Wins++;
         }
 
         #endregion
@@ -156,7 +114,6 @@ namespace PlatformerPOC.GameObjects
             VerticalMovement();
 
             UpdateBoundingBox();
-
 
             if (IsAlive)
             {
@@ -304,7 +261,7 @@ namespace PlatformerPOC.GameObjects
                                             BoundingBox.TopRectangle.Width, 1);
                 if (game.Level.IsPlaceFreeOfWalls(newRect))
                 {
-                    Velocity = new Vector2(Velocity.X, -jumpForce);
+                    Velocity = new Vector2(Velocity.X, -JUMP_FORCE);
                 }
             }
         }
