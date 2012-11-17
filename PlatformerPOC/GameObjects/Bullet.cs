@@ -70,15 +70,11 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
-            if(!InView) return;
-
             SpriteBatch.Draw(game.ResourcesHelper.BulletTexture, PositionRelativeToView, null, Color.White, 0, Vector2.Zero, 1, DrawEffect, 1f);                    
         }
 
         public override void DrawDebug()
         {
-            if (!InView) return;
-
             var rel = ViewPort.GetRelativeCoords(BoundingBox.FullRectangle);
             game.DebugDrawHelper.DrawBorder(rel, 1, Color.Lime);
         }

@@ -8,7 +8,7 @@ namespace GameEngine.GameObjects
     /// </summary>
     public abstract class BaseGameObject
     {
-        private SimpleGame game;
+        private readonly SimpleGame game;
 
         public BaseGameObject(SimpleGame game)
         {
@@ -27,6 +27,8 @@ namespace GameEngine.GameObjects
         public GameObjectState SimulationState { get; set; }
 
         public CustomBoundingBox BoundingBox { get; set; }
+
+        public abstract bool InView { get; }
 
         public abstract void Draw();
 

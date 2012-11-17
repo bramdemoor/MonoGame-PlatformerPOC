@@ -30,12 +30,16 @@ namespace PlatformerPOC.Screens
             
             foreach (var gameObject in game.GameObjects)
             {
-                if(CoreConfig.DebugModeEnabled)
+                if(gameObject.InView)
                 {
-                    gameObject.DrawDebug();
-                }
+                    gameObject.Draw();
 
-                gameObject.Draw();
+                    if (CoreConfig.DebugModeEnabled)
+                    {
+                        gameObject.DrawDebug();
+                    }
+
+                }                
             }
 
             hud.Draw();            

@@ -42,9 +42,13 @@ namespace PlatformerPOC.GameObjects
             get { return game.SpriteBatch; }
         }
 
-        public bool InView
+        public override bool InView
         {
-            get { return ViewPort.IsObjectInArea(BoundingBox.FullRectangle); }
+            get
+            {
+                if (BoundingBox == null) return false;
+                return ViewPort.IsObjectInArea(BoundingBox.FullRectangle);
+            }
         }
 
         public Vector2 PositionRelativeToView

@@ -38,8 +38,6 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
-            if (!InView) return;
-
             spriteSheetInstance.Draw(PositionRelativeToView, DrawEffect, LayerDepths.FOREGROUND_PARTICLE);               
         }
     }

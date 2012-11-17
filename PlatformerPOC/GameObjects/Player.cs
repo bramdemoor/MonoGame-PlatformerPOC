@@ -30,6 +30,8 @@ namespace PlatformerPOC.GameObjects
         public int Deaths { get; set; }
         public PlayerTeams Team { get; set; }
 
+        private Pistol weapon;
+
         public Color TeamColor
         {
             get
@@ -101,6 +103,17 @@ namespace PlatformerPOC.GameObjects
 
         #region Lifecycle
 
+        public void Spawn(Vector2 spawnPoint)
+        {
+            Position = spawnPoint;
+
+            weapon = new Pistol(game, this);
+
+            Life = MAX_LIFE;
+
+            PlaySound(game.ResourcesHelper.SpawnSound);
+        }
+
         public void DoDamage(int damage)
         {
             if (IsAlive)
@@ -117,15 +130,6 @@ namespace PlatformerPOC.GameObjects
         private void Die()
         {
             Deaths++;
-        }
-
-        public void Spawn(Vector2 spawnPoint)
-        {
-            Position = spawnPoint;
-
-            Life = MAX_LIFE;
-
-            PlaySound(game.ResourcesHelper.SpawnSound);
         }
 
         #endregion
@@ -260,7 +264,7 @@ namespace PlatformerPOC.GameObjects
 
             if (playerInputState.IsActionPressed)
             {
-                Shoot();
+                weapon.Shoot();
             }
         }
 
@@ -271,8 +275,6 @@ namespace PlatformerPOC.GameObjects
 
         public override void Draw()
         {
-            if (!InView) return;
-
             spriteSheetInstance.Draw(PositionRelativeToView, DrawEffect, LayerDepths.GAMEOBJECTS);
 
             var displayText = string.Format("{0}", Name);
@@ -313,12 +315,6 @@ namespace PlatformerPOC.GameObjects
             // Alias: "brake mid-air"
 
             if (Velocity.Y < 0) Velocity = new Vector2(Velocity.X, 0);
-        }
-
-        private void Shoot()
-        {
-            var bullet = new Bullet(game, this, Position + new Vector2(30*HorizontalDirection, 12), HorizontalDirection);
-            game.AddObject(bullet);
         }
 
         #endregion
