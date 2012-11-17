@@ -27,11 +27,8 @@ namespace PlatformerPOC.Hud
             const int topSTart = 60;
             var str = "Round: " + _game.RoundCounter;            
             _game.SpriteBatch.DrawString(_game.DefaultFont, str, new Vector2(leftTextStart, topSTart), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
-
-            _game.SpriteBatch.DrawString(_game.DefaultFont, "10:00", new Vector2(leftTextStart, topSTart + vTextSpace), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
-            _game.SpriteBatch.DrawString(_game.DefaultFont, "Score limit: 10", new Vector2(leftTextStart, topSTart + vTextSpace + vTextSpace), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
-            _game.SpriteBatch.DrawString(_game.DefaultFont, "Map: Forestbridge 1", new Vector2(leftTextStart, topSTart + (vTextSpace * 3)), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
-            _game.SpriteBatch.DrawString(_game.DefaultFont, "Gamemode: Elimination", new Vector2(leftTextStart, topSTart + (vTextSpace * 4)), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
+            _game.SpriteBatch.DrawString(_game.DefaultFont, "Elimination in Forestbridge 1", new Vector2(leftTextStart, topSTart + vTextSpace), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
+            _game.SpriteBatch.DrawString(_game.DefaultFont, "Score limit: 10 | Time limit: 10:00", new Vector2(leftTextStart, topSTart + vTextSpace + vTextSpace), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);            
 
             const int playersStart = 220;
             // Players section
@@ -44,7 +41,7 @@ namespace PlatformerPOC.Hud
 
             // player info section
             _game.SpriteBatch.DrawString(_game.DefaultFont, "Player 1", new Vector2(leftTextStart, 550), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
-            _game.SpriteBatch.Draw(_game.ResourcesHelper.Pistol, new Vector2(1068, 662), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
+            _game.SpriteBatch.Draw(_game.ResourcesHelper.Pistol, new Vector2(1068, 662), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, -999);
             //_game.SpriteBatch.Draw(_game.ResourcesHelper.PlayerAvatar, new Vector2(1058, 582), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
         }
     }
