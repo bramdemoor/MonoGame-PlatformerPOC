@@ -20,9 +20,8 @@ namespace PlatformerPOC.GameObjects
 
         public string Name { get; set; }
         public int Life { get; private set; }
-        public int Wins { get; private set; }
-        public int Deaths { get; private set; }
         public Team Team { get; private set; }
+        public Score Score { get; private set; }
         public Character Character { get; set; }
 
         public bool IsAlive
@@ -51,6 +50,7 @@ namespace PlatformerPOC.GameObjects
 
             Name = name;
 
+            Score = new Score();
             Team = new Team(PlayerTeams.NotSet);
 
             Character = game.ResourcesHelper.Characters.First();
@@ -86,12 +86,7 @@ namespace PlatformerPOC.GameObjects
 
         private void Die()
         {
-            Deaths++;
-        }
-
-        public void MarkWin()
-        {
-            Wins++;
+            Score.MarkDeath();
         }
 
         #endregion
