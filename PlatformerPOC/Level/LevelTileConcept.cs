@@ -26,5 +26,10 @@ namespace PlatformerPOC.Level
         {
             return new Vector2((float)Math.Floor(worldCoords.X / SquareSize), (float)Math.Floor(worldCoords.Y / SquareSize));
         }
+
+        public static Rectangle TilesToPixels(Rectangle tilesRectangle)
+        {
+            return new Rectangle(TilesToPixels(tilesRectangle.X), TilesToPixels(tilesRectangle.Y), TilesToPixels(tilesRectangle.Width), TilesToPixels(tilesRectangle.Height));
+        }
     }
 }

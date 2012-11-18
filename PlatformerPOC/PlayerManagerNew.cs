@@ -52,7 +52,7 @@ namespace PlatformerPOC
             for (int playerIndex = 0; playerIndex < Players.Count; playerIndex++)
             {
                 var player = Players[playerIndex];
-                player.Spawn(game.Level.GetSpawnPointForPlayerIndex(playerIndex + 1));
+                player.Spawn(game.LevelManager.CurrentLevel.GetSpawnPointForPlayerIndex(playerIndex + 1));
             }
         }
 

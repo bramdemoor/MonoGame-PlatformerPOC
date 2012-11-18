@@ -36,7 +36,7 @@ namespace PlatformerPOC.GameObjects
 
         public bool IsStandingOnSolid
         {
-            get { return !game.Level.IsPlaceFreeOfWalls(BoundingBox.BottomRectangle); }
+            get { return !game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(BoundingBox.BottomRectangle); }
         }
 
         private bool WantsToMoveHorizontally
@@ -105,7 +105,7 @@ namespace PlatformerPOC.GameObjects
                 ApplyInput();
             }
 
-            if (!game.Level.IsPlaceFreeOfWalls(BoundingBox.FullRectangle))
+            if (!game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(BoundingBox.FullRectangle))
             {
                 Velocity = new Vector2(Velocity.X, 0);
             }
@@ -137,7 +137,7 @@ namespace PlatformerPOC.GameObjects
         {
             if (Velocity.X > 0)
             {
-                if (game.Level.IsPlaceFreeOfWalls(BoundingBox.RightRectangle))
+                if (game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(BoundingBox.RightRectangle))
                 {
                     Position = new Vector2(Position.X + Velocity.X, Position.Y);
                 }
@@ -145,7 +145,7 @@ namespace PlatformerPOC.GameObjects
 
             if (Velocity.X < 0)
             {
-                if (game.Level.IsPlaceFreeOfWalls(BoundingBox.LeftRectangle))
+                if (game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(BoundingBox.LeftRectangle))
                 {
                     Position = new Vector2(Position.X + Velocity.X, Position.Y);
                 }
@@ -157,7 +157,7 @@ namespace PlatformerPOC.GameObjects
             // TOP CHECK
             if (Velocity.Y < 0)
             {
-                if (!game.Level.IsPlaceFreeOfWalls(BoundingBox.TopRectangle))
+                if (!game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(BoundingBox.TopRectangle))
                 {
                     Velocity = new Vector2(Velocity.X, 0);
                 }
@@ -258,7 +258,7 @@ namespace PlatformerPOC.GameObjects
                 //Offset(0,-10)
                 var newRect = new Rectangle(BoundingBox.TopRectangle.X, BoundingBox.TopRectangle.Y - 7,
                                             BoundingBox.TopRectangle.Width, 1);
-                if (game.Level.IsPlaceFreeOfWalls(newRect))
+                if (game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(newRect))
                 {
                     Velocity = new Vector2(Velocity.X, -JUMP_FORCE);
                 }

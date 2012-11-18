@@ -21,7 +21,7 @@ namespace PlatformerPOC.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            game.Level.Draw();
+            game.LevelManager.CurrentLevel.Draw();
 
             if (CoreConfig.DebugModeEnabled)
             {

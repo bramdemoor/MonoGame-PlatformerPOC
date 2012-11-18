@@ -1,12 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using GameEngine;
 using GameEngine.Collision;
 using GameEngine.Tiles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.GameObjects;
 
 namespace PlatformerPOC.Level
@@ -15,93 +11,50 @@ namespace PlatformerPOC.Level
     {
         private readonly PlatformGame game;
 
-        private const float PARALLAX_LAYER1_SPEED = 0.6f;
-        private const float PARALLAX_LAYER2_SPEED = 0.9f;
+        private readonly List<BgLayer> bgLayers = new List<BgLayer>();
         
         private readonly List<Vector2> spawnPointPositions = new List<Vector2>();
+
+        private char[,] tiles;
+
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public string Author { get; private set; }
+
+        public Rectangle TilesArea
+        {
+            get
+            {
+                return new Rectangle(0, 0, tiles.GetUpperBound(0), tiles.GetUpperBound(1));
+            }
+        }
 
         public Level(PlatformGame game)
         {
             this.game = game;
-
-            LoadDemoLevel();
         }
 
-        private void LoadDemoLevel()
+        public void SetMetaInformation(string name, string description, string size, string author)
         {
-            var maxWidth = 0;
-
-            spawnPointPositions.Clear();
-
-            // Test for viewing all embedded resources:
-            // var auxList = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames();
-
-            var rowIndex = 0;
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("PlatformerPOC.Content.Levels.doubleforest.txt"))
-            using (var reader = new StreamReader(stream))
+            Name = name;
+            Description = description;
+            Author = author;
+            
+            if(size == "1x1")
             {
-                while (!reader.EndOfStream)
-                {
-                    if(rowIndex == 0)
-                    {
-                        // Meta-line
-                    }
-                    else
-                    {
-                        var line = reader.ReadLine();
-                        var chars = line.ToCharArray();
-
-                        for (var colIndex = 0; colIndex < chars.Length; colIndex++)
-                        {
-                            var c = chars.ElementAt(colIndex);
-
-                            var levelPos = LevelTileConcept.TilesToPixels(colIndex, rowIndex);
-
-                            if (c == 'G')
-                            {
-                                AddTile(levelPos, game.ResourcesHelper.TileGround);
-                            }
-                            if (c == 'x')
-                            {
-                                AddTile(levelPos, game.ResourcesHelper.TileWall);
-                            }
-                            if (c == 'S')
-                            {
-                                spawnPointPositions.Add(levelPos);
-                            }
-
-                            if (colIndex > maxWidth) maxWidth = colIndex;
-                        }                        
-                    }
-
-                    rowIndex++;
-                }
+                tiles = new char[33, 25];
             }
-
-            var levelDimensions = LevelTileConcept.TilesToPixels(maxWidth, rowIndex);
-
-            game.ViewPort.LevelArea = new Rectangle(0, 0, (int) levelDimensions.X, (int) levelDimensions.Y);
-        }
-
-        private void AddTile(Vector2 pos, TileDefinition tileDefinition)
-        {
-            game.AddObject(new SolidWall(game, pos, tileDefinition));
+            else if (size == "2x1")
+            {
+                tiles = new char[65, 25];
+            } 
         }
 
         public void Draw()
         {
-            var viewPort = game.ViewPort;
-
-            var layer1Pos = new Vector2(-viewPort.ViewPos.X*PARALLAX_LAYER1_SPEED, 0);
-            var layer2Pos = new Vector2(-viewPort.ViewPos.X*PARALLAX_LAYER2_SPEED, 0);
-
-            game.SpriteBatch.Draw(game.ResourcesHelper.BgLayer1Texture, layer1Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.BG_PARALLAX_1);
-            game.SpriteBatch.Draw(game.ResourcesHelper.BgLayer2Texture, layer2Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.BG_PARALLAX_2);
-
-            if(CoreConfig.DebugModeEnabled)
+            foreach (var bgLayer in bgLayers)
             {
-                game.DebugDrawHelper.DrawDebugString(string.Format("L1: {0}", layer1Pos), new Vector2(640, 30));
-                game.DebugDrawHelper.DrawDebugString(string.Format("L2: {0}", layer2Pos), new Vector2(640, 50));
+                bgLayer.Draw();
             }
         }
 
@@ -128,6 +81,54 @@ namespace PlatformerPOC.Level
         public bool IsPlaceFreeOfWalls(Rectangle collisionRectangle)
         {
             return game.GameObjects.OfType<SolidWall>().All(wall => !CollisionHelper.RectangleCollision(collisionRectangle, wall.BoundingBox.FullRectangle));
+        }
+
+        private void AddTile(Vector2 pos, TileDefinition tileDefinition)
+        {
+            game.AddObject(new SolidWall(game, pos, tileDefinition));
+        }
+
+        public void Clear()
+        {
+            spawnPointPositions.Clear();
+        }
+
+        public void CompleteLoad()
+        {
+            for (int x = 0; x < tiles.GetUpperBound(0); x++)
+            {
+                for (int y = 0; y < tiles.GetUpperBound(1); y++)
+                {
+                    var levelPos = LevelTileConcept.TilesToPixels(x, y);
+                    var c = tiles[x, y];
+
+                    if (c == 'G')
+                    {
+                        AddTile(levelPos, game.ResourcesHelper.TileGround);
+                    }
+                    if (c == 'x')
+                    {
+                        AddTile(levelPos, game.ResourcesHelper.TileWall);
+                    }
+                    if (c == 'S')
+                    {
+                        spawnPointPositions.Add(levelPos);
+                    }                    
+                }
+            }
+        }
+
+        public void SetBgLayers()
+        {
+            bgLayers.Add(new BgLayer(game, LayerType.First, game.ResourcesHelper.BgLayer1Texture));
+            bgLayers.Add(new BgLayer(game, LayerType.Second, game.ResourcesHelper.BgLayer2Texture));
+        }
+
+        public void SetTile(int x, int y, char c)
+        {
+            tiles[x, y] = c;
+
+
         }
     }
 }

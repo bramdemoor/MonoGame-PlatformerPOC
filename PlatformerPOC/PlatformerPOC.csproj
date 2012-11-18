@@ -82,9 +82,11 @@
     <Compile Include="GameObjects\Team.cs" />
     <Compile Include="Hud\Hud.cs" />
     <Compile Include="LayerDepths.cs" />
+    <Compile Include="Level\BgLayer.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="GameObjects\Particle.cs" />
     <Compile Include="GameObjects\PlatformGameObject.cs" />
+    <Compile Include="Level\LevelManager.cs" />
     <Compile Include="Level\LevelTileConcept.cs" />
     <Compile Include="PlatformGame.cs" />
     <Compile Include="GameObjects\Player.cs" />

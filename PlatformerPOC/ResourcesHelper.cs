@@ -6,12 +6,13 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.GameObjects;
-using PlatformerPOC.Level;
 
 namespace PlatformerPOC
 {
     public class ResourcesHelper
     {
+        public const string levelResourceString = "PlatformerPOC.Content.Levels.{0}.txt";
+
         private readonly PlatformGame game;
 
         public CustomSpriteSheetDefinition BulletImpactSpriteSheet { get; private set; }
@@ -34,6 +35,12 @@ namespace PlatformerPOC
         public CustomTileSetDefinition MainTileSet { get; private set; }
         public TileDefinition TileWall { get; private set; }
         public TileDefinition TileGround { get; private set; }
+
+        public IEnumerable<string> GetAllLevelFilenames()
+        {
+            yield return "miniforest";
+            yield return "doubleforest";
+        }
 
         public ResourcesHelper(PlatformGame game)
         {

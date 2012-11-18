@@ -1,4 +1,4 @@
-|Mini forest|!A small map, suitable for up to eight players.|1x1|BDM
+Mini forest|A small map, suitable for up to eight players.|1x1|BDM
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 x                             x
 x                             x 

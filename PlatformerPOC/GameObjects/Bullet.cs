@@ -22,7 +22,7 @@ namespace PlatformerPOC.GameObjects
 
         public override void Update(GameTime gameTime)
         {
-            if(!game.Level.IsPlaceFreeOfWalls(BoundingBox.FullRectangle))
+            if (!game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(BoundingBox.FullRectangle))
             {
                 DestroyEntity();
                 return;                

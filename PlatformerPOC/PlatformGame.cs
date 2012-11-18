@@ -1,7 +1,7 @@
 ﻿using GameEngine;
 using Lidgren.Network;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using PlatformerPOC.Level;
 using PlatformerPOC.NetworkMessages;
 using PlatformerPOC.Screens;
 
@@ -14,8 +14,10 @@ namespace PlatformerPOC
     {
         public PlayerManagerNew PlayerManager { get; private set; }
 
-        public Level.Level Level { get; private set; }
         public ResourcesHelper ResourcesHelper { get; private set; }
+
+        public LevelManager LevelManager { get; private set; }
+
         public int RoundCounter { get; set; }
 
         public Editor.Editor LevelEditor { get; set; }
@@ -23,6 +25,8 @@ namespace PlatformerPOC
         public PlatformGame()
         {
             PlayerManager = new PlayerManagerNew(this);
+
+            LevelManager = new LevelManager(this);
 
             ViewPort = new ViewPort(this);
 
@@ -35,8 +39,10 @@ namespace PlatformerPOC
         }
 
         protected override void LoadContent()
-        {
+        {            
             ResourcesHelper.LoadContent(Content);
+
+            LevelManager.PreloadLevels();
 
             // Important!
             base.LoadContent();
@@ -83,7 +89,7 @@ namespace PlatformerPOC
         {
             RoundCounter = 1;
 
-            Level = new Level.Level(this);
+            LevelManager.StartLevel();
 
             PlayerManager.CreatePlayers();
 
