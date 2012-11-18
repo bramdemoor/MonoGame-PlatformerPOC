@@ -68,18 +68,20 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Concept\Gamemodes\EliminationGameMode.cs" />
+    <Compile Include="Concept\Gamemodes\TeamEliminationGameMode.cs" />
     <Compile Include="Control\AI\DummyAIController.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Control\IPlayerControlState.cs" />
     <Compile Include="Editor\Editor.cs" />
     <Compile Include="EventArgs\PlayerStateChangedArgs.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
-    <Compile Include="GameObjects\Character.cs" />
-    <Compile Include="GameObjects\GameMode.cs" />
+    <Compile Include="Concept\Character.cs" />
+    <Compile Include="Concept\Gamemodes\GameMode.cs" />
     <Compile Include="GameObjects\Pistol.cs" />
-    <Compile Include="GameObjects\Score.cs" />
+    <Compile Include="Concept\Score.cs" />
     <Compile Include="GameObjects\SolidWall.cs" />
-    <Compile Include="GameObjects\Team.cs" />
+    <Compile Include="Concept\Teams\Team.cs" />
     <Compile Include="Hud\Hud.cs" />
     <Compile Include="LayerDepths.cs" />
     <Compile Include="Level\BgLayer.cs" />

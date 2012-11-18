@@ -74,7 +74,7 @@ namespace PlatformerPOC.Level
 
         public void StartLevel()
         {
-            CurrentLevel = allLevels.First();
+            CurrentLevel = allLevels.ElementAt(1);
             CurrentLevel.CompleteLoad();
         }
     }

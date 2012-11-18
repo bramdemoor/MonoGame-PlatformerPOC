@@ -1,4 +1,4 @@
-﻿namespace PlatformerPOC.GameObjects
+﻿namespace PlatformerPOC.Concept
 {
     public class Score
     {

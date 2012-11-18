@@ -2,6 +2,7 @@
 using GameEngine.GameObjects;
 using GameEngine.Timing;
 using Microsoft.Xna.Framework.Input;
+using PlatformerPOC.Concept;
 using PlatformerPOC.Control;
 using PlatformerPOC.Control.AI;
 using PlatformerPOC.GameObjects;
@@ -32,17 +33,47 @@ namespace PlatformerPOC
 
         public void CreatePlayers()
         {
-            LocalPlayer = new Player(game, "Player 1", 1, new GameObjectState());
-            Players.Add(LocalPlayer);
-            game.AddObject(LocalPlayer);
-
-            for (int i = 2; i < 17; i++)
+            if(game.GameMode is EliminationGameMode)
             {
-                var name = string.Format("Player {0} [Bot]", i);
-                var p = new Player(game, name, i, new GameObjectState());
-                Players.Add(p);
-                game.AddObject(p);                
+                LocalPlayer = new Player(game, "Player 1", 1, new GameObjectState());
+                Players.Add(LocalPlayer);
+                game.AddObject(LocalPlayer);
+
+                for (int i = 2; i < 17; i++)
+                {
+                    var name = string.Format("Player {0} [Bot]", i);
+                    var p = new Player(game, name, i, new GameObjectState());
+                    Players.Add(p);
+                    game.AddObject(p);
+                }                
             }
+            else
+            {
+                LocalPlayer = new Player(game, "Player 1", 1, new GameObjectState());
+                LocalPlayer.SwitchTeam(new RedTeam());
+                Players.Add(LocalPlayer);
+                game.AddObject(LocalPlayer);
+
+                for (int i = 2; i < 9; i++)
+                {
+                    var name = string.Format("Player {0} [Bot]", i);
+                    var p = new Player(game, name, i, new GameObjectState());
+                    p.SwitchTeam(new RedTeam());
+                    Players.Add(p);
+                    game.AddObject(p);
+                }
+                for (int i = 9; i < 17; i++)
+                {
+                    var name = string.Format("Player {0} [Bot]", i);
+                    var p = new Player(game, name, i, new GameObjectState());
+                    p.SwitchTeam(new BlueTeam());
+                    Players.Add(p);
+                    game.AddObject(p);
+                }  
+            }
+
+
+
 
             SpawnPlayers();
         }

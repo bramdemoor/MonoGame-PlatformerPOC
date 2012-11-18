@@ -4,6 +4,7 @@ using GameEngine.GameObjects;
 using GameEngine.Spritesheet;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PlatformerPOC.Concept;
 using PlatformerPOC.Control;
 
 namespace PlatformerPOC.GameObjects
@@ -51,7 +52,7 @@ namespace PlatformerPOC.GameObjects
             Name = name;
 
             Score = new Score();
-            Team = new Team(PlayerTeams.NotSet);
+            Team = new NeutralTeam();
 
             Character = game.ResourcesHelper.Characters.First();
 
@@ -271,6 +272,16 @@ namespace PlatformerPOC.GameObjects
             // Alias: "brake mid-air"
 
             if (Velocity.Y < 0) Velocity = new Vector2(Velocity.X, 0);
+        }
+
+        #endregion
+
+
+        #region Meta actions
+
+        public void SwitchTeam(Team newTeam)
+        {
+            Team = newTeam;
         }
 
         #endregion

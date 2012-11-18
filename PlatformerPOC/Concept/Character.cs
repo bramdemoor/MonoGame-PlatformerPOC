@@ -1,10 +1,9 @@
-﻿using System;
-using GameEngine.Spritesheet;
+﻿using GameEngine.Spritesheet;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PlatformerPOC.GameObjects
+namespace PlatformerPOC.Concept
 {
     public enum CharacterKeys
     {

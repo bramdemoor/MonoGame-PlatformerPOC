@@ -14,6 +14,10 @@ namespace PlatformerPOC.Hud
 
         public void Draw()
         {
+            var str = string.Format("Round: {0}", _game.RoundCounter);
+            string modeAndLevelText = string.Format("{0} in {1}", "Elimination", _game.LevelManager.CurrentLevel.Name);
+            string limitsText = "Score limit: 10 | Time limit: 10:00";
+
             const int leftTextStart = 1020;
             const int vTextSpace = 18;
 
@@ -25,10 +29,10 @@ namespace PlatformerPOC.Hud
             _game.SpriteBatch.Draw(_game.ResourcesHelper.HudText, new Vector2(1000, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
 
             const int topSTart = 60;
-            var str = "Round: " + _game.RoundCounter;            
-            _game.SpriteBatch.DrawString(_game.DefaultFont, str, new Vector2(leftTextStart, topSTart), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
-            _game.SpriteBatch.DrawString(_game.DefaultFont, "Elimination in Forestbridge 1", new Vector2(leftTextStart, topSTart + vTextSpace), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);
-            _game.SpriteBatch.DrawString(_game.DefaultFont, "Score limit: 10 | Time limit: 10:00", new Vector2(leftTextStart, topSTart + vTextSpace + vTextSpace), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);            
+            
+            _game.SpriteBatch.DrawString(_game.DefaultFont, str, new Vector2(leftTextStart, topSTart), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);            
+            _game.SpriteBatch.DrawString(_game.DefaultFont, modeAndLevelText, new Vector2(leftTextStart, topSTart + vTextSpace), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);            
+            _game.SpriteBatch.DrawString(_game.DefaultFont, limitsText, new Vector2(leftTextStart, topSTart + vTextSpace + vTextSpace), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, -999);            
 
             const int playersStart = 220;
             // Players section

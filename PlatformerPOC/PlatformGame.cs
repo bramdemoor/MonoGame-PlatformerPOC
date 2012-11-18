@@ -1,6 +1,7 @@
 ﻿using GameEngine;
 using Lidgren.Network;
 using Microsoft.Xna.Framework.Graphics;
+using PlatformerPOC.Concept;
 using PlatformerPOC.Level;
 using PlatformerPOC.NetworkMessages;
 using PlatformerPOC.Screens;
@@ -22,15 +23,15 @@ namespace PlatformerPOC
 
         public Editor.Editor LevelEditor { get; set; }
 
+        public GameMode GameMode { get; set; }
+
         public PlatformGame()
         {
-            PlayerManager = new PlayerManagerNew(this);
-
-            LevelManager = new LevelManager(this);
-
-            ViewPort = new ViewPort(this);
-
             ResourcesHelper = new ResourcesHelper(this);
+            PlayerManager = new PlayerManagerNew(this);
+            LevelManager = new LevelManager(this);
+            ViewPort = new ViewPort(this);
+            GameMode = new TeamEliminationGameMode();
         }
 
         public override SpriteFont DefaultFont
