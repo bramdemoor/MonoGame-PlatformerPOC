@@ -13,12 +13,12 @@ x           S                 x
 x                           S x
 x   S                         x
 x         xxxxx       S       x
-xxxxxx                        x
+xxxxxx                   *    x
 xx     xxxxx    S   xxxxxxx   x
-x                             x 
+x          *                  x 
 xxxxx     xxxxxx    xxxx     Sx
-x   S                         x
+x   S     *                   x
 x       xxxx  xxxxxxxx        x
 xxxxx                     S   x
-x               x xxx         x
+x         *     x xxx         x
 GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG

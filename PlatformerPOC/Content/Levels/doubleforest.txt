@@ -9,15 +9,15 @@ x
 x                                                            x
 x           S                                                x
 x                             S                    S         x
-x                                                            x
+x            *                                               x
 x         xxxxx       S      S       S       S        S      x
 xxxxxx                                                       x
 x                                                            x
 x     xxxxx    S     S      xxxxxxxxxxxxxx        S          x
 x                                                            x
-xxxxx     xxxxxx    xxxx          S    S               S     x
+xxxxx     xxxxxx    xxxx          S    S        *      S     x
 x                                                            x
 x       xxxx  xxxxxxxx      S                 xxxxxx         x
 xxxxx     S                                                  x
-x               x xxx               xx                       x
+x               x xxx        *      xx           ****        x
 GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG

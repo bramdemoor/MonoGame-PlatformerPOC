@@ -80,6 +80,8 @@
     <Compile Include="Concept\Gamemodes\GameMode.cs" />
     <Compile Include="GameObjects\Pistol.cs" />
     <Compile Include="Concept\Score.cs" />
+    <Compile Include="GameObjects\Powerup\BasePowerup.cs" />
+    <Compile Include="GameObjects\Powerup\Coin.cs" />
     <Compile Include="GameObjects\SolidWall.cs" />
     <Compile Include="Concept\Teams\Team.cs" />
     <Compile Include="Hud\Hud.cs" />
@@ -158,6 +160,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Characters\player-avatar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Powerup\coin.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Weapons\bullet-impact.png">

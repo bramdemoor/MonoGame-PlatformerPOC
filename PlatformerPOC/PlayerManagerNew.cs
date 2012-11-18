@@ -72,9 +72,6 @@ namespace PlatformerPOC
                 }  
             }
 
-
-
-
             SpawnPlayers();
         }
 

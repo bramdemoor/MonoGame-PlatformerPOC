@@ -46,7 +46,7 @@ namespace PlatformerPOC.GameObjects
         {
             get
             {
-                if (BoundingBox == null) return false;
+                if (BoundingBox == null) return true;   // Otherwise, objects without bounding box can never be drawn!
                 return ViewPort.IsObjectInArea(BoundingBox.FullRectangle);
             }
         }

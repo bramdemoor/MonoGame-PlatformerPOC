@@ -4,6 +4,7 @@ using GameEngine.Collision;
 using GameEngine.Tiles;
 using Microsoft.Xna.Framework;
 using PlatformerPOC.GameObjects;
+using PlatformerPOC.GameObjects.Powerup;
 
 namespace PlatformerPOC.Level
 {
@@ -83,11 +84,6 @@ namespace PlatformerPOC.Level
             return game.GameObjects.OfType<SolidWall>().All(wall => !CollisionHelper.RectangleCollision(collisionRectangle, wall.BoundingBox.FullRectangle));
         }
 
-        private void AddTile(Vector2 pos, TileDefinition tileDefinition)
-        {
-            game.AddObject(new SolidWall(game, pos, tileDefinition));
-        }
-
         public void Clear()
         {
             spawnPointPositions.Clear();
@@ -104,16 +100,20 @@ namespace PlatformerPOC.Level
 
                     if (c == 'G')
                     {
-                        AddTile(levelPos, game.ResourcesHelper.TileGround);
+                        game.AddObject(new SolidWall(game, levelPos, game.ResourcesHelper.TileGround));
                     }
-                    if (c == 'x')
+                    else if (c == 'x')
                     {
-                        AddTile(levelPos, game.ResourcesHelper.TileWall);
+                        game.AddObject(new SolidWall(game, levelPos, game.ResourcesHelper.TileWall));
                     }
-                    if (c == 'S')
+                    else if (c == 'S')
                     {
                         spawnPointPositions.Add(levelPos);
-                    }                    
+                    }
+                    else if(c == '*')
+                    {
+                        game.AddObject(new Coin(game, levelPos));
+                    }
                 }
             }
         }
@@ -127,8 +127,6 @@ namespace PlatformerPOC.Level
         public void SetTile(int x, int y, char c)
         {
             tiles[x, y] = c;
-
-
         }
     }
 }

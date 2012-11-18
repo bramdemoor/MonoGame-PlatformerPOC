@@ -36,6 +36,7 @@ namespace PlatformerPOC
         public CustomTileSetDefinition MainTileSet { get; private set; }
         public TileDefinition TileWall { get; private set; }
         public TileDefinition TileGround { get; private set; }
+        public Texture2D Coin { get; set; }
 
         public IEnumerable<string> GetAllLevelFilenames()
         {
@@ -63,6 +64,9 @@ namespace PlatformerPOC
             MainTileSet = new CustomTileSetDefinition(content, "Levels/forest-tileset", new Rectangle(0, 0, 32, 32));
             TileWall = new TileDefinition(game, MainTileSet, 0, 1);
             TileGround = new TileDefinition(game, MainTileSet, 0, 3);
+
+            // Powerups
+            Coin = content.Load<Texture2D>("Powerup/coin"); 
 
             // Hud
             HudText = content.Load<Texture2D>("Hud/hud");
