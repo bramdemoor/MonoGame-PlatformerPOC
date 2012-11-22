@@ -50,7 +50,8 @@ namespace PlatformerPOC
 
             LevelEditor = new Editor.Editor(this);
 
-            ShowMenuScreen();
+            //ShowMenuScreen();
+            StartGame();
         }
 
         protected override void RegisterConsoleCommands()
@@ -94,7 +95,7 @@ namespace PlatformerPOC
 
             PlayerManager.CreatePlayers();
 
-            SwitchScreen(new GameplayScreen(this));            
+            SwitchScreen(new GameplayScreen(this));
         }
 
         public void ShowMenuScreen()

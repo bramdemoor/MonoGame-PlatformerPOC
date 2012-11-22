@@ -45,10 +45,5 @@ namespace GameEngine.Graphics
 
             game.SpriteBatch.End();
         }
-
-        public void Screen()
-        {
-
-        }
     }
 }
