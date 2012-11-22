@@ -24,9 +24,9 @@ namespace GameEngine.Network
         private static NetPeerConfiguration CreateBasic()
          {
              var config = new NetPeerConfiguration(CoreConfig.NetworkName)
-             {
-                 SimulatedMinimumLatency = CoreConfig.SimulatedMinimumLatency,
-                 SimulatedLoss = CoreConfig.SimulatedLoss
+             {                
+                 //SimulatedMinimumLatency = CoreConfig.SimulatedMinimumLatency,
+                 //SimulatedLoss = CoreConfig.SimulatedLoss
              };
 
              return config;

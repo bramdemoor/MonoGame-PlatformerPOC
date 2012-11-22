@@ -13,7 +13,9 @@ namespace GameEngine.Graphics
             this.game = game;
 
             graphics = new GraphicsDeviceManager(game);
-            graphics.PreferMultiSampling = true;
+            graphics.PreferMultiSampling = false;
+            graphics.SynchronizeWithVerticalRetrace = true;
+            
             graphics.PreferredBackBufferWidth = CoreConfig.ScreenResolutionWidth;
             graphics.PreferredBackBufferHeight = CoreConfig.ScreenResolutionHeight;
 
@@ -30,7 +32,8 @@ namespace GameEngine.Graphics
             var screenscale = graphics.GraphicsDevice.Viewport.Width / (float)CoreConfig.ScreenResolutionWidth;
             var SpriteScale = Matrix.CreateScale(screenscale, screenscale, 1);
 
-            game.SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, SpriteScale);
+            game.SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.LinearClamp, null, RasterizerState.CullNone, null, SpriteScale);
+            //game.SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
         }
 
         public void EndDrawing()
@@ -41,6 +44,11 @@ namespace GameEngine.Graphics
             }
 
             game.SpriteBatch.End();
+        }
+
+        public void Screen()
+        {
+
         }
     }
 }
