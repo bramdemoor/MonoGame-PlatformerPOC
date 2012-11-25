@@ -52,7 +52,7 @@ namespace GameEngine
             get { return gameObjects; }
         }
 
-        public SimpleGame()
+        protected SimpleGame()
         {
             log4net.Config.BasicConfigurator.Configure();
             log = LogManager.GetLogger(typeof(SimpleGame));
@@ -65,6 +65,8 @@ namespace GameEngine
             gameObjects = new List<BaseGameObject>();
 
             DebugDrawHelper = new DebugDrawHelper(this);
+
+            IsMouseVisible = CoreConfig.DebugModeEnabled;
         }
 
         protected override void Initialize()
@@ -155,6 +157,9 @@ namespace GameEngine
 
         public void ShutDown()
         {
+            // Test
+            Disconnect();
+
             Exit();
         }
 

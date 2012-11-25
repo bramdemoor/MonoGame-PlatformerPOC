@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Lidgren.Network;
 using log4net;
 
@@ -93,11 +94,38 @@ namespace GameEngine.Network
                     case NetIncomingMessageType.ErrorMessage:
                     case NetIncomingMessageType.WarningMessage:
                     case NetIncomingMessageType.VerboseDebugMessage:
-                        string text = im.ReadString();
-                        log.Info(text);
+                        log.Info(im.ReadString());
                         break;
                     case NetIncomingMessageType.StatusChanged:
                         var status = (NetConnectionStatus)im.ReadByte();
+
+                        switch (status)
+                        {
+                            case NetConnectionStatus.None:
+                                break;
+                            case NetConnectionStatus.InitiatedConnect:
+                                break;
+                            case NetConnectionStatus.RespondedConnect:
+                                break;
+                            case NetConnectionStatus.Connected:
+                                break;
+                            case NetConnectionStatus.Disconnecting:
+
+                                var uid2 = im.SenderConnection.Peer.UniqueIdentifier;
+                                log.Info("DISCONNECTING !!! => " + uid2);
+
+                                break;
+                            case NetConnectionStatus.Disconnected:
+                                // TODO BDM: Handle Disconnect
+
+                                var uid = im.SenderConnection.Peer.UniqueIdentifier;
+                                log.Info("DISCONNECTED!!! => " + uid);
+
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+
                         string reason = im.ReadString();
                         log.Info(string.Format("{0} {1}: {2}", NetUtility.ToHexString(im.SenderConnection.RemoteUniqueIdentifier), status, reason));
 

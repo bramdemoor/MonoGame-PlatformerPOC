@@ -16,20 +16,12 @@ namespace GameEngine.Network
 
         public static NetPeerConfiguration CreateForClient()
         {
-            var configuration = CreateBasic();
-
-            return configuration;
+            return CreateBasic();
         }
 
         private static NetPeerConfiguration CreateBasic()
          {
-             var config = new NetPeerConfiguration(CoreConfig.NetworkName)
-             {                
-                 //SimulatedMinimumLatency = CoreConfig.SimulatedMinimumLatency,
-                 //SimulatedLoss = CoreConfig.SimulatedLoss
-             };
-
-             return config;
+            return new NetPeerConfiguration(CoreConfig.NetworkName);
          }
     }
 }
