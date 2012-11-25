@@ -60,6 +60,22 @@ namespace PlatformerPOC.Concept
     {
         public abstract Color TeamColor { get; }
         public abstract Color TeamColorDark { get; }
-        public abstract string TeamName { get; }        
+        public abstract string TeamName { get; } 
+       
+        static Team()
+        {
+            Red = new RedTeam();
+            Blue = new BlueTeam();
+            Neutral = new RedTeam();
+        }
+
+        protected Team()
+        {
+            
+        }
+
+        public static Team Red { get; private set; }
+        public static Team Blue { get; private set; }
+        public static Team Neutral { get; private set; }
     }
 }

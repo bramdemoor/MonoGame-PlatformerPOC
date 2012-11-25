@@ -16,6 +16,8 @@ namespace PlatformerPOC
 
         private GameTimer hearbeatTimer;
 
+        private AINameHelper AINameHelper;
+
         public List<Player> Players { get; set; }
         public Player LocalPlayer { get; private set; }
 
@@ -29,50 +31,54 @@ namespace PlatformerPOC
             this.game = game;
 
             Players = new List<Player>();
+
+            AINameHelper = new AINameHelper();
         }
 
         public void CreatePlayers()
         {
+            AINameHelper.Reset();
+
             if(game.GameMode is EliminationGameMode)
             {
-                LocalPlayer = new Player(game, "Player 1", 1, new GameObjectState());
-                Players.Add(LocalPlayer);
-                game.AddObject(LocalPlayer);
+                AddLocalPlayer(Team.Neutral);
 
-                //for (int i = 2; i < 17; i++)
-                //{
-                //    var name = string.Format("Player {0} [Bot]", i);
-                //    var p = new Player(game, name, i, new GameObjectState());
-                //    Players.Add(p);
-                //    game.AddObject(p);
-                //}                
+                for (int i = 2; i < 17; i++)
+                {
+                    AddBot(i, Team.Neutral);
+                }                
             }
             else
             {
-                LocalPlayer = new Player(game, "Player 1", 1, new GameObjectState());
-                LocalPlayer.SwitchTeam(new RedTeam());
-                Players.Add(LocalPlayer);
-                game.AddObject(LocalPlayer);
+                AddLocalPlayer(Team.Red);
 
-                //for (int i = 2; i < 9; i++)
-                //{
-                //    var name = string.Format("Player {0} [Bot]", i);
-                //    var p = new Player(game, name, i, new GameObjectState());
-                //    p.SwitchTeam(new RedTeam());
-                //    Players.Add(p);
-                //    game.AddObject(p);
-                //}
-                //for (int i = 9; i < 17; i++)
-                //{
-                //    var name = string.Format("Player {0} [Bot]", i);
-                //    var p = new Player(game, name, i, new GameObjectState());
-                //    p.SwitchTeam(new BlueTeam());
-                //    Players.Add(p);
-                //    game.AddObject(p);
-                //}  
+                for (int i = 2; i < 9; i++)
+                {
+                    AddBot(i,Team.Red);
+                }
+                for (int i = 9; i < 17; i++)
+                {
+                    AddBot(i, Team.Blue);
+                }  
             }
 
             SpawnPlayers();
+        }
+
+        private void AddLocalPlayer(Team team)
+        {
+            LocalPlayer = new Player(game, "Player 1", 1, new GameObjectState());
+            LocalPlayer.SwitchTeam(team);
+            Players.Add(LocalPlayer);
+            game.AddObject(LocalPlayer);
+        }
+
+        private void AddBot(int i, Team team)
+        {
+            var botPlayer = new Player(game, string.Format("{0} [Bot]", AINameHelper.GetRandomName()), i, new GameObjectState());
+            botPlayer.SwitchTeam(team);
+            Players.Add(botPlayer);
+            game.AddObject(botPlayer);
         }
 
         public void SpawnPlayers()

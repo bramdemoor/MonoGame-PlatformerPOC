@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Concept\Gamemodes\EliminationGameMode.cs" />
     <Compile Include="Concept\Gamemodes\TeamEliminationGameMode.cs" />
+    <Compile Include="Control\AI\AINameHelper.cs" />
     <Compile Include="Control\AI\DummyAIController.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Control\IPlayerControlState.cs" />
