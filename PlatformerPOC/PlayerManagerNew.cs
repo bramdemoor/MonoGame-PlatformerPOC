@@ -39,13 +39,13 @@ namespace PlatformerPOC
                 Players.Add(LocalPlayer);
                 game.AddObject(LocalPlayer);
 
-                for (int i = 2; i < 17; i++)
-                {
-                    var name = string.Format("Player {0} [Bot]", i);
-                    var p = new Player(game, name, i, new GameObjectState());
-                    Players.Add(p);
-                    game.AddObject(p);
-                }                
+                //for (int i = 2; i < 17; i++)
+                //{
+                //    var name = string.Format("Player {0} [Bot]", i);
+                //    var p = new Player(game, name, i, new GameObjectState());
+                //    Players.Add(p);
+                //    game.AddObject(p);
+                //}                
             }
             else
             {
@@ -54,22 +54,22 @@ namespace PlatformerPOC
                 Players.Add(LocalPlayer);
                 game.AddObject(LocalPlayer);
 
-                for (int i = 2; i < 9; i++)
-                {
-                    var name = string.Format("Player {0} [Bot]", i);
-                    var p = new Player(game, name, i, new GameObjectState());
-                    p.SwitchTeam(new RedTeam());
-                    Players.Add(p);
-                    game.AddObject(p);
-                }
-                for (int i = 9; i < 17; i++)
-                {
-                    var name = string.Format("Player {0} [Bot]", i);
-                    var p = new Player(game, name, i, new GameObjectState());
-                    p.SwitchTeam(new BlueTeam());
-                    Players.Add(p);
-                    game.AddObject(p);
-                }  
+                //for (int i = 2; i < 9; i++)
+                //{
+                //    var name = string.Format("Player {0} [Bot]", i);
+                //    var p = new Player(game, name, i, new GameObjectState());
+                //    p.SwitchTeam(new RedTeam());
+                //    Players.Add(p);
+                //    game.AddObject(p);
+                //}
+                //for (int i = 9; i < 17; i++)
+                //{
+                //    var name = string.Format("Player {0} [Bot]", i);
+                //    var p = new Player(game, name, i, new GameObjectState());
+                //    p.SwitchTeam(new BlueTeam());
+                //    Players.Add(p);
+                //    game.AddObject(p);
+                //}  
             }
 
             SpawnPlayers();

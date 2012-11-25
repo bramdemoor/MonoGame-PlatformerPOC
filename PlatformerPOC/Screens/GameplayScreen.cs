@@ -76,15 +76,16 @@ namespace PlatformerPOC.Screens
 
         private void CheckGameState()
         {
-            var alivePlayers = game.PlayerManager.Players.Count(p => p.IsAlive);
-
-            switch (alivePlayers)
+            switch (game.PlayerManager.AlivePlayers.Count())
             {
                 case 0:
                     game.StartNextRound();
                     break;
                 case 1:
-                    var winner = game.PlayerManager.Players.Single(p => p.IsAlive);
+                    // Only 1 player? Don't do the checks.
+                    if (game.PlayerManager.Players.Count() == 1) return;
+
+                    var winner = game.PlayerManager.AlivePlayers.Single();
                     winner.Score.MarkWin();
                     game.StartNextRound();
 

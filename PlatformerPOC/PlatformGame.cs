@@ -1,5 +1,6 @@
 ﻿using GameEngine;
 using Lidgren.Network;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Concept;
 using PlatformerPOC.Level;
@@ -105,7 +106,10 @@ namespace PlatformerPOC
 
         public void GeneralUpdate()
         {
-            ViewPort.ScrollTo(PlayerManager.LocalPlayer.Position);
+            var pos = PlayerManager.LocalPlayer.Position;
+
+            // WHY: Block V scrolling
+            ViewPort.ScrollTo(new Vector2(pos.X, 0));
         }
 
         public void StartNextRound()

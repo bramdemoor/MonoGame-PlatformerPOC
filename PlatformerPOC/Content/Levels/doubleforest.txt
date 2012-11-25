@@ -1,5 +1,6 @@
 Double forest|!A medium map, suitable for up to sixteen players.|2x1|BDM
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+x
+x
 x
 x
 x
@@ -17,7 +18,7 @@ x     xxxxx    S     S      xxxxxxxxxxxxxx        S          x
 x                                                            x
 xxxxx     xxxxxx    xxxx          S    S        *      S     x
 x                                                            x
-x       xxxx  xxxxxxxx      S                 xxxxxx         x
-xxxxx     S                                                  x
+x       xxxx  xxxxxxxx      S        S        xxxxxx         x
+xxxxx                                                        x
 x               x xxx        *      xx           ****        x
 GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG

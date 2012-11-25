@@ -59,7 +59,7 @@ namespace PlatformerPOC.Level
 
                         for (var colIndex = 0; colIndex < chars.Length; colIndex++)
                         {
-                            level.SetTile(colIndex, rowIndex, chars.ElementAt(colIndex));
+                            level.SetTile(colIndex, rowIndex - 1, chars.ElementAt(colIndex));
                         }
                     }
 
