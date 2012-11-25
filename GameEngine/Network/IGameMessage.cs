@@ -2,10 +2,13 @@
 
 namespace GameEngine.Network
 {
+    // TODO BDM: Move out of core engine!
+
     public enum GameMessageTypes
     {
         UpdatePosition,
-        UpdatePlayerState
+        UpdatePlayerState,
+        ServerStartGame
     }
 
     public interface IGameMessage

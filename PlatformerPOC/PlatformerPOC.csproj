@@ -92,10 +92,12 @@
     <Compile Include="GameObjects\PlatformGameObject.cs" />
     <Compile Include="Level\LevelManager.cs" />
     <Compile Include="Level\LevelTileConcept.cs" />
+    <Compile Include="Network\MessageDistributor.cs" />
+    <Compile Include="Network\Messages\HostStartGameMessage.cs" />
     <Compile Include="PlatformGame.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="Control\PlayerKeyboardState.cs" />
-    <Compile Include="NetworkMessages\UpdatePositionMessage .cs" />
+    <Compile Include="Network\Messages\UpdatePositionMessage .cs" />
     <Compile Include="PlayerManagerNew.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

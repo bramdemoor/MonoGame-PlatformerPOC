@@ -3,7 +3,7 @@ using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using PlatformerPOC.GameObjects;
 
-namespace PlatformerPOC.NetworkMessages
+namespace PlatformerPOC.Network.Messages
 {
     public class UpdatePlayerStateMessage : IGameMessage
     {

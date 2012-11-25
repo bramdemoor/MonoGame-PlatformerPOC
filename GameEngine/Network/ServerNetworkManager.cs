@@ -12,40 +12,33 @@ namespace GameEngine.Network
 
         private bool isDisposed;
 
-        //public void SendMessage(IGameMessage gameMessage)
-        //{
-        //    NetOutgoingMessage om = netServer.CreateMessage();
-        //    om.Write((byte)gameMessage.MessageType);
-        //    gameMessage.Encode(om);
-
-        //    netServer.SendToAll(om, NetDeliveryMethod.ReliableUnordered);
-        //}
-
-        public void Send(string text)
-        {
-            NetOutgoingMessage om = netServer.CreateMessage(text);
-            netServer.SendToAll(om, NetDeliveryMethod.ReliableOrdered);            
-        }
-
         public bool IsConnected
         {
             get
             {
-                return netServer != null 
-                    && netServer.Status == NetPeerStatus.Running;
+                return netServer != null && netServer.Status == NetPeerStatus.Running;
             }
+        }
+
+        public void Send(IGameMessage message)
+        {
+            var outgoing = netServer.CreateMessage();
+
+            message.Encode(outgoing);
+
+            if (CoreConfig.VerboseDebugOutput)
+            {
+                log.InfoFormat("Sending: {0}", message);
+            }
+
+            netServer.SendToAll(outgoing, NetDeliveryMethod.ReliableOrdered);            
         }
 
         public void Dispose()
         {
-            Dispose(true);
-        }
-
-        public void Dispose(bool disposing)
-        {
             if (isDisposed) return;
 
-            if (disposing)
+            if (true)
             {
                 Disconnect();
             }
@@ -104,32 +97,29 @@ namespace GameEngine.Network
                         log.Info(text);
                         break;
                     case NetIncomingMessageType.StatusChanged:
-                        NetConnectionStatus status = (NetConnectionStatus)im.ReadByte();
+                        var status = (NetConnectionStatus)im.ReadByte();
                         string reason = im.ReadString();
-                        log.Info(NetUtility.ToHexString(im.SenderConnection.RemoteUniqueIdentifier) + " " + status + ": " + reason);
+                        log.Info(string.Format("{0} {1}: {2}", NetUtility.ToHexString(im.SenderConnection.RemoteUniqueIdentifier), status, reason));
 
                         UpdateConnectionsList();
                         break;
                     case NetIncomingMessageType.Data:
-                        // incoming chat message from a client
                         string chat = im.ReadString();
 
                         log.Info("Broadcasting '" + chat + "'");
-
-                        // broadcast this to all connections, except sender
-                        List<NetConnection> all = netServer.Connections; // get copy
+                        
+                        var all = netServer.Connections; // broadcast this to all connections, except sender (get copy and remove)
                         all.Remove(im.SenderConnection);
 
                         if (all.Count > 0)
                         {
-                            NetOutgoingMessage om = netServer.CreateMessage();
-                            om.Write(NetUtility.ToHexString(im.SenderConnection.RemoteUniqueIdentifier) + " said: " +
-                                     chat);
+                            var om = netServer.CreateMessage();
+                            om.Write(string.Format("{0} said: {1}", NetUtility.ToHexString(im.SenderConnection.RemoteUniqueIdentifier), chat));
                             netServer.SendMessage(om, all, NetDeliveryMethod.ReliableOrdered, 0);
                         }
                         break;
                     default:
-                        log.Info("Unhandled type: " + im.MessageType + " " + im.LengthBytes + " bytes " + im.DeliveryMethod + "|" + im.SequenceChannel);
+                        log.Info(string.Format("Unhandled type: {0} {1} bytes {2}|{3}", im.MessageType, im.LengthBytes, im.DeliveryMethod, im.SequenceChannel));
                         break;
                 }
 
@@ -138,21 +128,11 @@ namespace GameEngine.Network
 
         private void UpdateConnectionsList()
         {
-            foreach (NetConnection conn in netServer.Connections)
+            foreach (var conn in netServer.Connections)
             {
-                string str = NetUtility.ToHexString(conn.RemoteUniqueIdentifier) + " from " + conn.RemoteEndpoint.ToString() + " [" + conn.Status + "]";
+                string str = string.Format("{0} from {1} [{2}]", NetUtility.ToHexString(conn.RemoteUniqueIdentifier), conn.RemoteEndpoint.ToString(), conn.Status);
                 log.Info(str);
             }
-        }
-
-        public void Recycle(NetIncomingMessage im)
-        {
-            netServer.Recycle(im);
-        }
-
-        public NetOutgoingMessage CreateMessage()
-        {
-            return netServer.CreateMessage();
         }
     }
 }

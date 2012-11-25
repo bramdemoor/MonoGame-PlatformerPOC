@@ -72,6 +72,7 @@
     <Compile Include="GameObjects\GameObjectState.cs" />
     <Compile Include="Collision\CollisionHelper.cs" />
     <Compile Include="Graphics\GraphicsHelper.cs" />
+    <Compile Include="Network\IMessageDistributor.cs" />
     <Compile Include="Spritesheet\CustomSpriteSheetDefinition.cs" />
     <Compile Include="Spritesheet\CustomSpriteSheetInstance.cs" />
     <Compile Include="Tiles\CustomTileSetDefinition.cs" />

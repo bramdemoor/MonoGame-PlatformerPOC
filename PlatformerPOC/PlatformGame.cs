@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Concept;
 using PlatformerPOC.Level;
-using PlatformerPOC.NetworkMessages;
+using PlatformerPOC.Network;
+using PlatformerPOC.Network.Messages;
 using PlatformerPOC.Screens;
 
 namespace PlatformerPOC
@@ -28,6 +29,7 @@ namespace PlatformerPOC
 
         public PlatformGame()
         {
+            MessageDistributor = new MessageDistributor(this);
             ResourcesHelper = new ResourcesHelper(this);
             PlayerManager = new PlayerManagerNew(this);
             LevelManager = new LevelManager(this);
@@ -51,8 +53,8 @@ namespace PlatformerPOC
 
             LevelEditor = new Editor.Editor(this);
 
-            //ShowMenuScreen();
-            StartGame();
+            ShowMenuScreen();
+            //StartGame();
         }
 
         protected override void RegisterConsoleCommands()
@@ -83,8 +85,10 @@ namespace PlatformerPOC
 
         public void HostStartGame()
         {
-            // TODO BDM: Check if really host, exc otherwise
+            if(!IsHost) return;
 
+            networkManager.Send(new HostStartGameMessage());
+            
             StartGame();
         }
 

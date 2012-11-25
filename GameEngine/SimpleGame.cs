@@ -30,7 +30,10 @@ namespace GameEngine
 
         private readonly ILog log;
 
-        private INetworkManager networkManager;
+        // Network
+        protected INetworkManager networkManager;
+        public IMessageDistributor MessageDistributor;
+
         public bool IsHost { get; private set; }        
 
         public DebugCommandUI DebugCommandUI { get; private set; }
@@ -104,14 +107,14 @@ namespace GameEngine
                 // WHY: Network test
                 if (networkManager.IsConnected)
                 {
-                    if(IsHost)
-                    {
-                        networkManager.Send("Hello from server");    
-                    }
-                    else
-                    {
-                        networkManager.Send("Hello from client");    
-                    }
+                    //if(IsHost)
+                    //{
+                    //    networkManager.Send("Hello from server");    
+                    //}
+                    //else
+                    //{
+                    //    networkManager.Send("Hello from client");    
+                    //}
                 }
 
                 networkManager.ReadMessages();
@@ -164,7 +167,7 @@ namespace GameEngine
 
         public void InitializeAsClient()
         {
-            networkManager = new ClientNetworkManager();
+            networkManager = new ClientNetworkManager(this);
             IsHost = false;
             networkManager.Connect();
         }

@@ -1,4 +1,5 @@
-﻿using Lidgren.Network;
+﻿using System;
+using Lidgren.Network;
 using log4net;
 
 namespace GameEngine.Network
@@ -11,6 +12,21 @@ namespace GameEngine.Network
 
         private bool isDisposed;
 
+        private SimpleGame game;
+
+        public bool IsConnected
+        {
+            get
+            {
+                return netClient != null && netClient.Status == NetPeerStatus.Running && netClient.ConnectionStatus == NetConnectionStatus.Connected;
+            }
+        }
+
+        public ClientNetworkManager(SimpleGame game)
+        {
+            this.game = game;
+        }
+
         public void Connect()
         {
             log = LogManager.GetLogger(typeof(ClientNetworkManager));
@@ -21,7 +37,7 @@ namespace GameEngine.Network
 
             netClient.Start();
 
-            NetOutgoingMessage hail = netClient.CreateMessage();
+            var hail = netClient.CreateMessage();
 
             hail.Write("This is the hail message");
 
@@ -54,73 +70,46 @@ namespace GameEngine.Network
                     case NetIncomingMessageType.ErrorMessage:
                     case NetIncomingMessageType.WarningMessage:
                     case NetIncomingMessageType.VerboseDebugMessage:
-                        string text = im.ReadString();
-                        log.Info(text);
+                        if(CoreConfig.VerboseDebugOutput)
+                        {
+                            var text = im.ReadString();
+                            log.Info(text);                            
+                        }                        
                         break;
                     case NetIncomingMessageType.StatusChanged:
                         var status = (NetConnectionStatus)im.ReadByte();
-
                         string reason = im.ReadString();
-                        log.Info(status.ToString() + ": " + reason);
-
+                        log.Info(string.Format("{0}: {1}", status.ToString(), reason));
                         break;
                     case NetIncomingMessageType.Data:
-                        string chat = im.ReadString();
-                        log.Info(chat);
+                        game.MessageDistributor.Handle(im);
                         break;
                     default:
-                        log.Info("Unhandled type: " + im.MessageType + " " + im.LengthBytes + " bytes");
+                        log.Info(string.Format("Unhandled type: {0} {1} bytes", im.MessageType, im.LengthBytes));
                         break;
                 }
             }
         }
 
-        public void Recycle(NetIncomingMessage im)
+        public void Send(IGameMessage message)
         {
-            netClient.Recycle(im);
-        }
+            var outgoing = netClient.CreateMessage();
 
-        public NetOutgoingMessage CreateMessage()
-        {
-            return netClient.CreateMessage();
-        }
+            message.Encode(outgoing);
 
-        //public void SendMessage(IGameMessage gameMessage)
-        //{
-        //    NetOutgoingMessage om = netClient.CreateMessage();
-        //    om.Write((byte)gameMessage.MessageType);
-        //    gameMessage.Encode(om);
-
-        //    netClient.SendMessage(om, NetDeliveryMethod.ReliableUnordered);
-        //}
-
-        public void Send(string text)
-        {
-            NetOutgoingMessage om = netClient.CreateMessage(text);
-            netClient.SendMessage(om, NetDeliveryMethod.ReliableOrdered);
-            //log.Info("Sending '" + text + "'");
-        }
-
-        public bool IsConnected
-        {
-            get
+            if (CoreConfig.VerboseDebugOutput)
             {
-                return netClient != null 
-                    && netClient.Status == NetPeerStatus.Running 
-                    && netClient.ConnectionStatus == NetConnectionStatus.Connected;
-            }
-        }
+                log.InfoFormat("Sending: {0}", message);
+            } 
 
+            netClient.SendMessage(outgoing, NetDeliveryMethod.ReliableOrdered);                                   
+        }
+        
         public void Dispose()
-        {
-            Dispose(true);
-        }
-
-        public void Dispose(bool disposing)
         {
             if (isDisposed) return;
 
-            if (disposing)
+            if (true)
             {
                 Disconnect();
             }
