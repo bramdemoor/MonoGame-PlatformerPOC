@@ -52,6 +52,8 @@ namespace PlatformerPOC.GameObjects
 
         public Player(PlatformGame game, string name, long id, GameObjectState gameObjectState, Character character): base(game)
         {
+            HorizontalDirection = 1;
+
             BoundingBox = new CustomBoundingBox();
 
             Name = name;
