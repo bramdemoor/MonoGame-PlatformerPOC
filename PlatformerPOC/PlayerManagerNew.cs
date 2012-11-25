@@ -99,7 +99,7 @@ namespace PlatformerPOC
             {
                 if(player != LocalPlayer)
                 {
-                    player.HandleInput(new DummyAIController());
+                    player.HandleInput(new DummyAIController(player.Position, LocalPlayer.Position));
                     player.Update();                    
                 }
             }

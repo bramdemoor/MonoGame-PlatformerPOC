@@ -66,7 +66,7 @@ namespace PlatformerPOC.Concept
         {
             Red = new RedTeam();
             Blue = new BlueTeam();
-            Neutral = new RedTeam();
+            Neutral = new NeutralTeam();
         }
 
         protected Team()

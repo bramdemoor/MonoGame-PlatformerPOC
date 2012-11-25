@@ -34,7 +34,7 @@ namespace PlatformerPOC
             PlayerManager = new PlayerManagerNew(this);
             LevelManager = new LevelManager(this);
             ViewPort = new ViewPort(this);
-            GameMode = new TeamEliminationGameMode();
+            GameMode = new EliminationGameMode();
         }
 
         public override SpriteFont DefaultFont
