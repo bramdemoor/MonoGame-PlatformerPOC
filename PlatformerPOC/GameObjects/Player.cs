@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Concept;
 using PlatformerPOC.Control;
+using PlatformerPOC.Control.AI;
 
 namespace PlatformerPOC.GameObjects
 {
@@ -17,13 +18,17 @@ namespace PlatformerPOC.GameObjects
 
         private Pistol weapon;
         private readonly CustomSpriteSheetInstance spriteSheetInstance;
-        private IPlayerControlState playerInputState;
-
+        
         public string Name { get; set; }
         public int Life { get; private set; }
         public Team Team { get; private set; }
         public Score Score { get; private set; }
         public Character Character { get; set; }
+
+        // Optional. An AI controller attached to this player instance, for bots only.
+        public DummyAIController AI { get; set; }
+
+        private IPlayerControlState playerInputState;
 
         public bool IsAlive
         {

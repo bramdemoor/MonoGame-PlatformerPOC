@@ -77,6 +77,7 @@ namespace PlatformerPOC
         {
             var botPlayer = new Player(game, string.Format("{0} [Bot]", AINameHelper.GetRandomName()), i, new GameObjectState());
             botPlayer.SwitchTeam(team);
+            botPlayer.AI = new DummyAIController();            
             Players.Add(botPlayer);
             game.AddObject(botPlayer);
         }
@@ -93,15 +94,16 @@ namespace PlatformerPOC
         public void HandleGameInput()
         {
             LocalPlayer.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
-            LocalPlayer.Update();
 
             foreach (var player in Players)
             {
-                if(player != LocalPlayer)
+                if(player.AI != null)
                 {
-                    player.HandleInput(new DummyAIController(player.Position, LocalPlayer.Position));
-                    player.Update();                    
+                    player.AI.Evaluate(player.Position, LocalPlayer.Position);
+                    player.HandleInput(player.AI);
                 }
+
+                player.Update();    
             }
         }
 

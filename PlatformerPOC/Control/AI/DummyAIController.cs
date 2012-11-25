@@ -8,52 +8,41 @@ namespace PlatformerPOC.Control.AI
     /// </summary>
     public class DummyAIController : IPlayerControlState
     {
+        public bool IsMoveLeftPressed { get; private set; }
+        public bool IsMoveRightPressed { get; private set; }
+        public bool IsMoveDownPressed { get; private set; }
+        public bool IsMoveUpPressed { get; private set; }
+        public bool IsActionPressed { get; private set; }
+
         private Vector2 ownPosition;
         private Vector2 playerPosition;
 
+        private readonly Random random = new Random();
+
+        private int skipLimit = 9;
+        private int skipCounter;
+
         // Test passing some 'environment' info to the ai mind
 
-        public DummyAIController(Vector2 ownPosition, Vector2 playerPosition)
+        public void Evaluate(Vector2 ownPosition, Vector2 playerPosition)
         {
+            if (skipCounter < skipLimit)
+            {
+                skipCounter++;
+                return;
+            }
+
             this.ownPosition = ownPosition;
             this.playerPosition = playerPosition;
-        }
 
-        public bool IsMoveLeftPressed
-        {
-            get
-            {
-                return ownPosition.X > playerPosition.X;
-            }
-        }
+            IsMoveLeftPressed = ownPosition.X > playerPosition.X;
+            IsMoveRightPressed = ownPosition.X < playerPosition.X;
+            IsMoveDownPressed = ownPosition.Y < playerPosition.Y;
+            IsMoveUpPressed = ownPosition.Y > playerPosition.Y;
+            IsActionPressed = Math.Abs((playerPosition - ownPosition).Length()) < 200;
 
-        public bool IsMoveRightPressed
-        {
-            get
-            {
-                return ownPosition.X < playerPosition.X;
-            }
-        }
-
-        public bool IsMoveDownPressed
-        {
-            get
-            {
-                return ownPosition.Y < playerPosition.Y;
-            }
-        }
-
-        public bool IsMoveUpPressed
-        {
-            get
-            {
-                return ownPosition.Y > playerPosition.Y;
-            }
-        }
-
-        public bool IsActionPressed
-        {
-            get { return Math.Abs((playerPosition - ownPosition).Length()) < 200; }
+            skipCounter = 0;
+            skipLimit = random.Next(99);
         }
     }
 }
