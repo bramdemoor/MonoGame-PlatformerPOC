@@ -14,26 +14,18 @@ namespace PlatformerPOC.Control.AI
         public bool IsMoveUpPressed { get; private set; }
         public bool IsActionPressed { get; private set; }
 
-        private Vector2 ownPosition;
-        private Vector2 playerPosition;
-
-        private readonly Random random = new Random();
-
         private int skipLimit = 9;
         private int skipCounter;
 
         // Test passing some 'environment' info to the ai mind
 
-        public void Evaluate(Vector2 ownPosition, Vector2 playerPosition)
+        public void Evaluate(Vector2 ownPosition, Vector2 playerPosition, Random random)
         {
             if (skipCounter < skipLimit)
             {
                 skipCounter++;
                 return;
             }
-
-            this.ownPosition = ownPosition;
-            this.playerPosition = playerPosition;
 
             IsMoveLeftPressed = ownPosition.X > playerPosition.X;
             IsMoveRightPressed = ownPosition.X < playerPosition.X;

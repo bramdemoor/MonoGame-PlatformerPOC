@@ -13,7 +13,7 @@ namespace PlatformerPOC.Tests
         {
             var game = new PlatformGame();
 
-            var p1 = new Player(game, "Tester", 123, new GameObjectState());
+            var p1 = new Player(game, "Tester", 123, new GameObjectState(), null);
             Assert.IsFalse(p1.IsAlive);
 
 

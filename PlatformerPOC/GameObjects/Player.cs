@@ -50,7 +50,7 @@ namespace PlatformerPOC.GameObjects
             get { return playerInputState.IsMoveLeftPressed || playerInputState.IsMoveRightPressed; }
         }
 
-        public Player(PlatformGame game, string name, long id, GameObjectState gameObjectState): base(game)
+        public Player(PlatformGame game, string name, long id, GameObjectState gameObjectState, Character character): base(game)
         {
             BoundingBox = new CustomBoundingBox();
 
@@ -59,7 +59,7 @@ namespace PlatformerPOC.GameObjects
             Score = new Score();
             Team = new NeutralTeam();
 
-            Character = game.ResourcesHelper.Characters.First();
+            Character = character;
 
             spriteSheetInstance = new CustomSpriteSheetInstance(game, Character.PlayerSpriteSheet, 3);
         }

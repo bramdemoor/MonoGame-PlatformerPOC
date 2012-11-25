@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GameEngine.Helpers;
 
 namespace PlatformerPOC.Control.AI
 {
-    public class AINameHelper
+    public class AIHelper
     {
         private readonly string[] aiNames = new []
                                        {
@@ -13,9 +14,13 @@ namespace PlatformerPOC.Control.AI
 
         private List<string> AvailableNames = new List<string>();
 
-        public AINameHelper()
+        public Random Randomizer { get; private set; }
+
+        public AIHelper()
         {
             Reset();
+
+            Randomizer = new Random();
         }
 
         /// <summary>

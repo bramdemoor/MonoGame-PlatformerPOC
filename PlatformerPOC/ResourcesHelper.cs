@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using GameEngine.GameObjects;
 using GameEngine.Spritesheet;
 using GameEngine.Tiles;
 using Microsoft.Xna.Framework;
@@ -6,7 +8,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Concept;
-using PlatformerPOC.GameObjects;
+using System.Linq;
 
 namespace PlatformerPOC
 {
@@ -37,6 +39,8 @@ namespace PlatformerPOC
         public TileDefinition TileWall { get; private set; }
         public TileDefinition TileGround { get; private set; }
         public Texture2D Coin { get; set; }
+
+        private Random random = new Random();
 
         public IEnumerable<string> GetAllLevelFilenames()
         {
@@ -81,8 +85,11 @@ namespace PlatformerPOC
 
             // Fonts
             DefaultFont = content.Load<SpriteFont>("Fonts/spriteFont1");
+        }
 
-
+        public Character GetRandomCharacter()
+        {
+            return Characters.ElementAt(random.Next(Characters.Count));
         }
     }
 }

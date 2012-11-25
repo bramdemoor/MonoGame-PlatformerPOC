@@ -16,7 +16,7 @@ namespace PlatformerPOC
 
         private GameTimer hearbeatTimer;
 
-        private AINameHelper AINameHelper;
+        private readonly AIHelper _aiHelper;
 
         public List<Player> Players { get; set; }
         public Player LocalPlayer { get; private set; }
@@ -32,12 +32,12 @@ namespace PlatformerPOC
 
             Players = new List<Player>();
 
-            AINameHelper = new AINameHelper();
+            _aiHelper = new AIHelper();
         }
 
         public void CreatePlayers()
         {
-            AINameHelper.Reset();
+            _aiHelper.Reset();
 
             if(game.GameMode is EliminationGameMode)
             {
@@ -67,7 +67,7 @@ namespace PlatformerPOC
 
         private void AddLocalPlayer(Team team)
         {
-            LocalPlayer = new Player(game, "Player 1", 1, new GameObjectState());
+            LocalPlayer = new Player(game, "Player 1", 1, new GameObjectState(), game.ResourcesHelper.Characters.First());
             LocalPlayer.SwitchTeam(team);
             Players.Add(LocalPlayer);
             game.AddObject(LocalPlayer);
@@ -75,7 +75,7 @@ namespace PlatformerPOC
 
         private void AddBot(int i, Team team)
         {
-            var botPlayer = new Player(game, string.Format("{0} [Bot]", AINameHelper.GetRandomName()), i, new GameObjectState());
+            var botPlayer = new Player(game, string.Format("{0} [Bot]", _aiHelper.GetRandomName()), i, null, game.ResourcesHelper.GetRandomCharacter());
             botPlayer.SwitchTeam(team);
             botPlayer.AI = new DummyAIController();            
             Players.Add(botPlayer);
@@ -99,7 +99,7 @@ namespace PlatformerPOC
             {
                 if(player.AI != null)
                 {
-                    player.AI.Evaluate(player.Position, LocalPlayer.Position);
+                    player.AI.Evaluate(player.Position, LocalPlayer.Position, _aiHelper.Randomizer);
                     player.HandleInput(player.AI);
                 }
 
@@ -109,7 +109,7 @@ namespace PlatformerPOC
 
         public void AddPlayer(string name)
         {
-            Players.Add(new Player(game, name, 989, null));
+            Players.Add(new Player(game, name, 989, null, game.ResourcesHelper.Characters.First()));
         }
     }
 }
