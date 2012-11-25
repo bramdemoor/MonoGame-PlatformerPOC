@@ -98,5 +98,10 @@ namespace PlatformerPOC
                 }
             }
         }
+
+        public void AddPlayer(string name)
+        {
+            Players.Add(new Player(game, name, 989, null));
+        }
     }
 }

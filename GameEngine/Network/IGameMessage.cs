@@ -8,7 +8,8 @@ namespace GameEngine.Network
     {
         UpdatePosition,
         UpdatePlayerState,
-        ServerStartGame
+        ServerStartGame,
+        ClientJoinGame
     }
 
     public interface IGameMessage

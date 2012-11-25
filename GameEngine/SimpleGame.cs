@@ -31,7 +31,7 @@ namespace GameEngine
         private readonly ILog log;
 
         // Network
-        protected INetworkManager networkManager;
+        public INetworkManager networkManager;
         public IMessageDistributor MessageDistributor;
 
         public bool IsHost { get; private set; }        
@@ -165,14 +165,14 @@ namespace GameEngine
 
         public void InitializeAsHost()
         {
-            networkManager = new ServerNetworkManager();
+            networkManager = new ServerNetworkManager(this);
             IsHost = true;
             networkManager.Connect();
         }
 
         public void InitializeAsClient()
         {
-            networkManager = new ClientNetworkManager(this);
+            networkManager = new ClientNetworkManager(this);            
             IsHost = false;
             networkManager.Connect();
         }

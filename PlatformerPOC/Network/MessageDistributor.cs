@@ -29,6 +29,11 @@ namespace PlatformerPOC.Network
                     msg.Decode(im);
                     Game.StartGame();
                     break;
+                case GameMessageTypes.ClientJoinGame:
+                    var msg2 = new JoinGameMessage();
+                    msg2.Decode(im);
+                    Game.PlayerManager.AddPlayer(msg2.Name);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

@@ -1,12 +1,15 @@
 ﻿using GameEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using PlatformerPOC.Network.Messages;
 
 namespace PlatformerPOC.Screens
 {
     public class LobbyScreen : SimpleScreenBase
     {
         private readonly PlatformGame game;
+
+        private bool nameSent = false;
 
         public LobbyScreen(PlatformGame game)
         {
@@ -48,7 +51,6 @@ namespace PlatformerPOC.Screens
                 game.ShutDown();
             }
 
-
             if (!game.IsConnected)
             {
 
@@ -64,6 +66,12 @@ namespace PlatformerPOC.Screens
             }
             else
             {
+                if (!nameSent)
+                {
+                    game.networkManager.Send(new JoinGameMessage("Testclient"));
+                    nameSent = true;
+                }
+
                 if (Keyboard.GetState().IsKeyDown(Keys.D))
                 {
                     game.Disconnect();

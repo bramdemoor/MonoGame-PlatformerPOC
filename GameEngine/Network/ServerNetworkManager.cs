@@ -13,12 +13,19 @@ namespace GameEngine.Network
 
         private bool isDisposed;
 
+        private SimpleGame game;
+
         public bool IsConnected
         {
             get
             {
                 return netServer != null && netServer.Status == NetPeerStatus.Running;
             }
+        }
+
+        public ServerNetworkManager(SimpleGame game)
+        {
+            this.game = game;
         }
 
         public void Send(IGameMessage message)
@@ -132,19 +139,9 @@ namespace GameEngine.Network
                         UpdateConnectionsList();
                         break;
                     case NetIncomingMessageType.Data:
-                        string chat = im.ReadString();
+                        game.MessageDistributor.Handle(im);
 
-                        log.Info("Broadcasting '" + chat + "'");
-                        
-                        var all = netServer.Connections; // broadcast this to all connections, except sender (get copy and remove)
-                        all.Remove(im.SenderConnection);
-
-                        if (all.Count > 0)
-                        {
-                            var om = netServer.CreateMessage();
-                            om.Write(string.Format("{0} said: {1}", NetUtility.ToHexString(im.SenderConnection.RemoteUniqueIdentifier), chat));
-                            netServer.SendMessage(om, all, NetDeliveryMethod.ReliableOrdered, 0);
-                        }
+                        //BroadCast(dqtq, im);
                         break;
                     default:
                         log.Info(string.Format("Unhandled type: {0} {1} bytes {2}|{3}", im.MessageType, im.LengthBytes, im.DeliveryMethod, im.SequenceChannel));
@@ -152,6 +149,22 @@ namespace GameEngine.Network
                 }
 
             }
+        }
+
+        private void BroadCast(string chat, NetIncomingMessage im)
+        {
+            //log.Info("Broadcasting '" + chat + "'");
+
+            //// broadcast this to all connections, except sender (get copy and remove)
+            //var all = netServer.Connections;
+            //all.Remove(im.SenderConnection);
+
+            //if (all.Count > 0)
+            //{
+            //    var om = netServer.CreateMessage();
+            //    om.Write(string.Format("{0} said: {1}", NetUtility.ToHexString(im.SenderConnection.RemoteUniqueIdentifier), chat));
+            //    netServer.SendMessage(om, all, NetDeliveryMethod.ReliableOrdered, 0);
+            //}
         }
 
         private void UpdateConnectionsList()

@@ -94,6 +94,7 @@
     <Compile Include="Level\LevelTileConcept.cs" />
     <Compile Include="Network\MessageDistributor.cs" />
     <Compile Include="Network\Messages\HostStartGameMessage.cs" />
+    <Compile Include="Network\Messages\JoinGameMessage.cs" />
     <Compile Include="PlatformGame.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="Control\PlayerKeyboardState.cs" />

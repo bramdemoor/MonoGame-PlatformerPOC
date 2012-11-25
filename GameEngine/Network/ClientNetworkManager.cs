@@ -24,7 +24,7 @@ namespace GameEngine.Network
 
         public ClientNetworkManager(SimpleGame game)
         {
-            this.game = game;
+            this.game = game;            
         }
 
         public void Connect()
