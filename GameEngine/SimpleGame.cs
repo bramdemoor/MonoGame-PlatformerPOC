@@ -158,6 +158,7 @@ namespace GameEngine
         public void ShutDown()
         {
             // Test
+
             Disconnect();
 
             Exit();
@@ -179,7 +180,8 @@ namespace GameEngine
 
         public void Disconnect()
         {
-            networkManager.Disconnect();
+            if(networkManager != null && networkManager.IsConnected)
+                networkManager.Disconnect();
         }
 
         /// <summary>

@@ -53,8 +53,8 @@ namespace PlatformerPOC
 
             LevelEditor = new Editor.Editor(this);
 
-            ShowMenuScreen();
-            //StartGame();
+            //ShowMenuScreen();
+            StartGame();
         }
 
         protected override void RegisterConsoleCommands()
