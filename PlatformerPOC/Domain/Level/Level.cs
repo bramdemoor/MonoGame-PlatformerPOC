@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using PlatformerPOC.Domain;
 using PlatformerPOC.Domain.Powerup;
 using PlatformerPOC.Helpers;
 
-namespace PlatformerPOC.Level
+namespace PlatformerPOC.Domain.Level
 {
     public class Level
     {

@@ -32,7 +32,7 @@ namespace PlatformerPOC.Drawing
             var screenscale = graphics.GraphicsDevice.Viewport.Width / (float)Config.ScreenResolutionWidth;
             var SpriteScale = Matrix.CreateScale(screenscale, screenscale, 1);
 
-            game.SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.LinearClamp, null, RasterizerState.CullNone, null, SpriteScale);            
+            game.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, RasterizerState.CullNone, null, SpriteScale);            
         }
 
         public void EndDrawing()

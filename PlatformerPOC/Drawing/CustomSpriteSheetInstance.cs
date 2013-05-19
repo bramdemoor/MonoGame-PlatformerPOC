@@ -34,6 +34,7 @@ namespace PlatformerPOC.Drawing
 
         public virtual void Draw(Vector2 position, SpriteEffects drawEffect, float layerDepth)
         {
+            layerDepth = 0;     // TODO BDM: Remove hack!
             game.SpriteBatch.Draw(SpriteSheetDefinition.SpriteSheetTexture, position, CurrentDrawRectangle, Color.White, 0f, Vector2.Zero, 1f, drawEffect, layerDepth);
         }
 

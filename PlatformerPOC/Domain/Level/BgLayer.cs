@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PlatformerPOC.Level
+namespace PlatformerPOC.Domain.Level
 {
     public enum LayerType
     {
@@ -65,6 +65,7 @@ namespace PlatformerPOC.Level
 
         public void Draw()
         {
+            // TODO BDM: Remove layerdepth hack!
             game.SpriteBatch.Draw(texture, Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepth);
 
             // TODO BDM (Backlog): Fix debug drawing for bg layers

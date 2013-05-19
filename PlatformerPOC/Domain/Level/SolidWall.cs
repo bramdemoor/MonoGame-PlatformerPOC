@@ -2,7 +2,7 @@
 using PlatformerPOC.Drawing;
 using PlatformerPOC.Helpers;
 
-namespace PlatformerPOC.Domain
+namespace PlatformerPOC.Domain.Level
 {
     /// <summary>
     /// "Solid" object (wall, floor,...)
@@ -22,7 +22,8 @@ namespace PlatformerPOC.Domain
 
         public override void Draw()
         {
-            TileDefinition.DrawTile(PositionRelativeToView, LayerDepths.TILES);                      
+            // TODO BDM: Remove layerdepth hack!
+            TileDefinition.DrawTile(PositionRelativeToView, 0);                      
         }
 
         public override void DrawDebug()

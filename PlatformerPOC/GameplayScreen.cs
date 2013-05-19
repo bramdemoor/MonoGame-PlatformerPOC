@@ -41,7 +41,7 @@ namespace PlatformerPOC
                 }                
             }
 
-            hud.Draw();            
+            hud.Draw();       
         }
         
         public void Update(GameTime gameTime)

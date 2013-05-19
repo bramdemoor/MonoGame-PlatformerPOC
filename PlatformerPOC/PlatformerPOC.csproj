@@ -97,7 +97,7 @@
     <Compile Include="Domain\Weapon\Pistol.cs" />
     <Compile Include="Domain\Score.cs" />
     <Compile Include="Domain\Powerup\Coin.cs" />
-    <Compile Include="Domain\SolidWall.cs" />
+    <Compile Include="Domain\Level\SolidWall.cs" />
     <Compile Include="Domain\Teams\Team.cs" />
     <Compile Include="Helpers\CollisionHelper.cs" />
     <Compile Include="Helpers\Console.cs" />
@@ -111,11 +111,11 @@
     <Compile Include="Helpers\KeyboardUtils.cs" />
     <Compile Include="Hud\Hud.cs" />
     <Compile Include="LayerDepths.cs" />
-    <Compile Include="Level\BgLayer.cs" />
-    <Compile Include="Level\Level.cs" />
+    <Compile Include="Domain\Level\BgLayer.cs" />
+    <Compile Include="Domain\Level\Level.cs" />
     <Compile Include="Domain\Particle.cs" />
-    <Compile Include="Level\LevelManager.cs" />
-    <Compile Include="Level\LevelTileConcept.cs" />
+    <Compile Include="Domain\Level\LevelManager.cs" />
+    <Compile Include="Domain\Level\LevelTileConcept.cs" />
     <Compile Include="Helpers\XNAExtensions.cs" />
     <Compile Include="PlatformGame.cs" />
     <Compile Include="Domain\Player.cs" />

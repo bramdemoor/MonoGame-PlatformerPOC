@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Domain;
 using PlatformerPOC.Domain.Gamemodes;
+using PlatformerPOC.Domain.Level;
 using PlatformerPOC.Drawing;
 using PlatformerPOC.Helpers;
-using PlatformerPOC.Level;
 using log4net;
 using log4net.Appender;
 using log4net.Core;
@@ -156,11 +156,6 @@ namespace PlatformerPOC
         protected void RegisterConsoleCommands()
         {
             DebugCommandUI.RegisterCommand("toggle-edit", "Turn level editor mode on or off", LevelEditor.ToggleEditModeCommand);
-        }
-
-        public void HostStartGame()
-        {
-            StartGame();
         }
 
         public void StartGame()

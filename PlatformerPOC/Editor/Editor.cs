@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using PlatformerPOC.Domain.Level;
 using PlatformerPOC.Helpers;
-using PlatformerPOC.Level;
 
 namespace PlatformerPOC.Editor
 {
