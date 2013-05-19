@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace PlatformerPOC.GameObjects.Powerup
+namespace PlatformerPOC.Domain.Powerup
 {
-    public class Coin : BasePowerup
+    public class Coin : BaseGameObject
     {
         public Coin(PlatformGame game, Vector2 pos) : base(game)
         {

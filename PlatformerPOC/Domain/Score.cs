@@ -1,4 +1,4 @@
-﻿namespace PlatformerPOC.Concept
+﻿namespace PlatformerPOC.Domain
 {
     public class Score
     {

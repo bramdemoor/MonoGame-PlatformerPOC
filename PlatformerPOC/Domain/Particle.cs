@@ -2,9 +2,9 @@
 using PlatformerPOC.Drawing;
 using PlatformerPOC.Helpers;
 
-namespace PlatformerPOC.GameObjects
+namespace PlatformerPOC.Domain
 {
-    public class Particle : PlatformGameObject
+    public class Particle : BaseGameObject
     {
         private readonly CustomSpriteSheetInstance spriteSheetInstance;
 

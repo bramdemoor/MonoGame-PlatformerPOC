@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using System.Linq;
 
-namespace PlatformerPOC.Screens
+namespace PlatformerPOC
 {
     public class GameplayScreen
     {

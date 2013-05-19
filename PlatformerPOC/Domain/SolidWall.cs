@@ -2,12 +2,12 @@
 using PlatformerPOC.Drawing;
 using PlatformerPOC.Helpers;
 
-namespace PlatformerPOC.GameObjects
+namespace PlatformerPOC.Domain
 {
     /// <summary>
     /// "Solid" object (wall, floor,...)
     /// </summary>
-    public class SolidWall : PlatformGameObject
+    public class SolidWall : BaseGameObject
     {
         public TileDefinition TileDefinition { get; private set; }
 

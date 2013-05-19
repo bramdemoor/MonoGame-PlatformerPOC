@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace PlatformerPOC.Control.AI
+namespace PlatformerPOC.Control
 {
     /// <summary>
     /// Stupid AI that runs around randomly and fires at will.

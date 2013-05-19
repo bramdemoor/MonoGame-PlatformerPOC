@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PlatformerPOC.Concept.Gamemodes;
+using PlatformerPOC.Domain;
+using PlatformerPOC.Domain.Gamemodes;
 using PlatformerPOC.Drawing;
-using PlatformerPOC.GameObjects;
 using PlatformerPOC.Helpers;
 using PlatformerPOC.Level;
-using PlatformerPOC.Screens;
 using log4net;
 using log4net.Appender;
 using log4net.Core;

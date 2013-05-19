@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace PlatformerPOC.GameObjects
+namespace PlatformerPOC.Domain.Weapon
 {
-    public class Pistol : PlatformGameObject
+    public class Pistol : BaseGameObject
     {
         private readonly Player owner;
 

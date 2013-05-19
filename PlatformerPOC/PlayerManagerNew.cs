@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
-using PlatformerPOC.Concept.Gamemodes;
-using PlatformerPOC.Concept.Teams;
 using PlatformerPOC.Control;
-using PlatformerPOC.Control.AI;
-using PlatformerPOC.GameObjects;
 using System.Linq;
+using PlatformerPOC.Domain;
+using PlatformerPOC.Domain.Gamemodes;
+using PlatformerPOC.Domain.Teams;
 
 namespace PlatformerPOC
 {

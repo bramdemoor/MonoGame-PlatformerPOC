@@ -2,15 +2,23 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Drawing;
+using PlatformerPOC.Helpers;
 
-namespace PlatformerPOC.GameObjects
+namespace PlatformerPOC.Domain
 {
     /// <summary>
-    /// Defines some common behaviour for our platform game objects
-    /// </summary>
-    public abstract class PlatformGameObject : BaseGameObject
+    /// Base Game object    
+    /// </summary>public abstract void Draw();
+    public abstract class BaseGameObject
     {
         protected readonly PlatformGame game;
+
+        public long Id { get; set; }
+
+        public Vector2 Position { get; set; }
+        public Vector2 Velocity { get; set; }
+
+        public CustomBoundingBox BoundingBox { get; set; }
 
         /// <summary>
         /// -1: left
@@ -26,10 +34,6 @@ namespace PlatformerPOC.GameObjects
             }
         }
 
-        protected PlatformGameObject(PlatformGame game) : base(game)
-        {
-            this.game = game;
-        }
 
         public ViewPort ViewPort
         {
@@ -41,7 +45,7 @@ namespace PlatformerPOC.GameObjects
             get { return game.SpriteBatch; }
         }
 
-        public override bool InView
+        public bool InView
         {
             get
             {
@@ -53,9 +57,24 @@ namespace PlatformerPOC.GameObjects
         public Vector2 PositionRelativeToView
         {
             get { return ViewPort.GetRelativeCoords(Position); }
+        }       
+
+        public BaseGameObject(PlatformGame game)
+        {
+            this.game = game;
         }
 
-        public override void DrawDebug()
+        public virtual void Update(GameTime gameTime)
+        {
+        }
+
+        public void DestroyEntity()
+        {
+            game.DeleteObject(this);
+        }
+
+
+        public virtual void DrawDebug()
         {
 
         }
@@ -70,5 +89,7 @@ namespace PlatformerPOC.GameObjects
 
             soundEffectInstance.Play();
         }
+
+        public abstract void Draw();
     }
 }

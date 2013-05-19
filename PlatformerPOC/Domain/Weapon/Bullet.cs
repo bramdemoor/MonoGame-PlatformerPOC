@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using PlatformerPOC.Helpers;
 
-namespace PlatformerPOC.GameObjects
+namespace PlatformerPOC.Domain.Weapon
 {
-    public class Bullet : PlatformGameObject
+    public class Bullet : BaseGameObject
     {
         private const int horizontalMaxSpeed = 15;
 

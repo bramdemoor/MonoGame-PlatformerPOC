@@ -1,7 +1,7 @@
 ﻿using Lidgren.Network;
 using Microsoft.Xna.Framework;
 
-namespace PlatformerPOC.Network
+namespace PlatformerPOC.Helpers
 {
     /// <summary>
     /// Allows writing and reading XNA-specific value types over the network stream

@@ -77,10 +77,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Concept\Gamemodes\EliminationGameMode.cs" />
-    <Compile Include="Concept\Gamemodes\TeamEliminationGameMode.cs" />
-    <Compile Include="Control\AI\AIHelper.cs" />
-    <Compile Include="Control\AI\DummyAIController.cs" />
+    <Compile Include="Domain\Gamemodes\EliminationGameMode.cs" />
+    <Compile Include="Domain\Gamemodes\TeamEliminationGameMode.cs" />
+    <Compile Include="Control\AIHelper.cs" />
+    <Compile Include="Control\DummyAIController.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Control\IPlayerControlState.cs" />
     <Compile Include="Drawing\CustomSpriteSheetDefinition.cs" />
@@ -90,16 +90,15 @@
     <Compile Include="Drawing\TileDefinition.cs" />
     <Compile Include="Drawing\ViewPort.cs" />
     <Compile Include="Editor\Editor.cs" />
-    <Compile Include="GameObjects\BaseGameObject.cs" />
-    <Compile Include="GameObjects\Bullet.cs" />
-    <Compile Include="Concept\Character.cs" />
-    <Compile Include="Concept\Gamemodes\GameMode.cs" />
-    <Compile Include="GameObjects\Pistol.cs" />
-    <Compile Include="Concept\Score.cs" />
-    <Compile Include="GameObjects\Powerup\BasePowerup.cs" />
-    <Compile Include="GameObjects\Powerup\Coin.cs" />
-    <Compile Include="GameObjects\SolidWall.cs" />
-    <Compile Include="Concept\Teams\Team.cs" />
+    <Compile Include="Domain\BaseGameObject.cs" />
+    <Compile Include="Domain\Weapon\Bullet.cs" />
+    <Compile Include="Domain\Character.cs" />
+    <Compile Include="Domain\Gamemodes\GameMode.cs" />
+    <Compile Include="Domain\Weapon\Pistol.cs" />
+    <Compile Include="Domain\Score.cs" />
+    <Compile Include="Domain\Powerup\Coin.cs" />
+    <Compile Include="Domain\SolidWall.cs" />
+    <Compile Include="Domain\Teams\Team.cs" />
     <Compile Include="Helpers\CollisionHelper.cs" />
     <Compile Include="Helpers\Console.cs" />
     <Compile Include="Helpers\CoreCommands.cs" />
@@ -114,13 +113,12 @@
     <Compile Include="LayerDepths.cs" />
     <Compile Include="Level\BgLayer.cs" />
     <Compile Include="Level\Level.cs" />
-    <Compile Include="GameObjects\Particle.cs" />
-    <Compile Include="GameObjects\PlatformGameObject.cs" />
+    <Compile Include="Domain\Particle.cs" />
     <Compile Include="Level\LevelManager.cs" />
     <Compile Include="Level\LevelTileConcept.cs" />
     <Compile Include="Helpers\XNAExtensions.cs" />
     <Compile Include="PlatformGame.cs" />
-    <Compile Include="GameObjects\Player.cs" />
+    <Compile Include="Domain\Player.cs" />
     <Compile Include="Control\PlayerKeyboardState.cs" />
     <Compile Include="PlayerManagerNew.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -133,7 +131,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\WindowsGL\MonoGame.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />

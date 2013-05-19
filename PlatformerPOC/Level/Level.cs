@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using PlatformerPOC.GameObjects;
-using PlatformerPOC.GameObjects.Powerup;
+using PlatformerPOC.Domain;
+using PlatformerPOC.Domain.Powerup;
 using PlatformerPOC.Helpers;
 
 namespace PlatformerPOC.Level

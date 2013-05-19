@@ -23,7 +23,7 @@ namespace PlatformerPOC
         public static int Port = 6666;
         public static float SimulatedMinimumLatency = 0.2f;
         public static float SimulatedLoss = 0.1f;
-        public static bool DebugModeEnabled = false;
+        public static bool DebugModeEnabled = true;
         public static bool VerboseDebugOutput = true;
         public static bool SoundEnabled = false;
         public static float SoundVolume = 1f;

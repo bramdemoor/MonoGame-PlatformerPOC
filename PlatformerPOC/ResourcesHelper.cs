@@ -4,8 +4,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using PlatformerPOC.Concept;
 using System.Linq;
+using PlatformerPOC.Domain;
 using PlatformerPOC.Drawing;
 
 namespace PlatformerPOC

@@ -1,16 +1,14 @@
-﻿using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PlatformerPOC.Concept;
-using PlatformerPOC.Concept.Teams;
 using PlatformerPOC.Control;
-using PlatformerPOC.Control.AI;
+using PlatformerPOC.Domain.Teams;
+using PlatformerPOC.Domain.Weapon;
 using PlatformerPOC.Drawing;
 using PlatformerPOC.Helpers;
 
-namespace PlatformerPOC.GameObjects
+namespace PlatformerPOC.Domain
 {
-    public class Player : PlatformGameObject
+    public class Player : BaseGameObject
     {
         private const int MAX_LIFE = 100;
         private const int MOVE_SPEED = 5;

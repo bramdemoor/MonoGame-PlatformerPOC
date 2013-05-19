@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace PlatformerPOC.Concept.Teams
+namespace PlatformerPOC.Domain.Teams
 {
     public class RedTeam : Team
     {

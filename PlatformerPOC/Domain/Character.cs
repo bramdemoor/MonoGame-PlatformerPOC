@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Drawing;
 
-namespace PlatformerPOC.Concept
+namespace PlatformerPOC.Domain
 {
     public enum CharacterKeys
     {
