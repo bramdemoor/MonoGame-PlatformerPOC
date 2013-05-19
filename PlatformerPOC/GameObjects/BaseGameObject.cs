@@ -8,9 +8,9 @@ namespace PlatformerPOC.GameObjects
     /// </summary>
     public abstract class BaseGameObject
     {
-        private readonly SimpleGame game;
+        private readonly PlatformGame game;
 
-        public BaseGameObject(SimpleGame game)
+        public BaseGameObject(PlatformGame game)
         {
             this.game = game;
         }

@@ -48,7 +48,7 @@ namespace PlatformerPOC.Screens
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                game.SwitchScreen(new LobbyScreen(game));                
+                game.ShutDown();                
             }
 
             if(!frozen)

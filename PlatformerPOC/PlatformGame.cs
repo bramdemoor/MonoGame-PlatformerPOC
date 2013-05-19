@@ -1,20 +1,39 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Concept;
 using PlatformerPOC.Concept.Gamemodes;
 using PlatformerPOC.Drawing;
+using PlatformerPOC.GameObjects;
+using PlatformerPOC.Helpers;
 using PlatformerPOC.Level;
-using PlatformerPOC.Network;
-using PlatformerPOC.Network.Messages;
 using PlatformerPOC.Screens;
+using log4net;
+using log4net.Appender;
+using log4net.Core;
 
 namespace PlatformerPOC
 {
-    /// <summary>
-    /// Game-specific logic.
-    /// </summary>
-    public class PlatformGame : SimpleGame
+    public class PlatformGame : Game, IAppender
     {
+         public DebugDrawHelper DebugDrawHelper { get; private set; }
+        public ViewPort ViewPort { get; set; }
+        
+        private readonly GraphicsHelper graphicsHelper;
+
+        private readonly List<BaseGameObject> gameObjects;
+        private readonly List<BaseGameObject> gameObjectsToAdd = new List<BaseGameObject>();
+        private readonly List<BaseGameObject> gameObjectsToDelete = new List<BaseGameObject>();
+
+        private readonly ILog log;                
+
+        public DebugCommandUI DebugCommandUI { get; private set; }
+
+        public SpriteBatch SpriteBatch { get; private set; }
+
+        public SimpleScreenBase ActiveScreen { get; set; }
+
         public PlayerManagerNew PlayerManager { get; private set; }
 
         public ResourcesHelper ResourcesHelper { get; private set; }
@@ -26,24 +45,61 @@ namespace PlatformerPOC
         public Editor.Editor LevelEditor { get; set; }
 
         public GameMode GameMode { get; set; }
+        public IEnumerable<BaseGameObject> GameObjects
+        {
+            get { return gameObjects; }
+        }
+
+        public SpriteFont DefaultFont
+        {
+            get { return ResourcesHelper.DefaultFont; }
+        }
 
         public PlatformGame()
         {
-            MessageDistributor = new MessageDistributor(this);
             ResourcesHelper = new ResourcesHelper(this);
             PlayerManager = new PlayerManagerNew(this);
             LevelManager = new LevelManager(this);
             ViewPort = new ViewPort(this);
             GameMode = new EliminationGameMode();
+
+            log4net.Config.BasicConfigurator.Configure();
+            log = LogManager.GetLogger(typeof(PlatformGame));
+            ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetLoggerRepository()).Root.AddAppender(this);
+
+            Content.RootDirectory = "Content";
+
+            graphicsHelper = new GraphicsHelper(this);
+
+            gameObjects = new List<BaseGameObject>();
+
+            DebugDrawHelper = new DebugDrawHelper(this);
+
+            IsMouseVisible = CoreConfig.DebugModeEnabled;
         }
 
-        public override SpriteFont DefaultFont
+        protected override void Initialize()
         {
-            get { return ResourcesHelper.DefaultFont; }
+            // Remember: Executed BEFORE LoadContent!
+
+            log.Info("Initializing game engine...");
+
+            base.Initialize();
+
+            DebugCommandUI.RegisterCommand("toggle-debug", "Turn debug mode on or off", CoreCommands.ToggleDebugCommand);
+            DebugCommandUI.RegisterCommand("toggle-sound", "Turn sound on or off", CoreCommands.ToggleSoundCommand);
+            RegisterConsoleCommands();
         }
 
         protected override void LoadContent()
-        {            
+        {
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
+
+            DebugDrawHelper.LoadContent();
+
+            DebugCommandUI = new DebugCommandUI(this, DefaultFont);
+            Components.Add(DebugCommandUI);
+
             ResourcesHelper.LoadContent(Content);
 
             LevelManager.PreloadLevels();
@@ -57,17 +113,61 @@ namespace PlatformerPOC
             StartGame();
         }
 
-        protected override void RegisterConsoleCommands()
+        protected override void UnloadContent()
+        {
+        }
+
+        protected override void Update(GameTime gameTime)
+        {   
+            DebugDrawHelper.Update(gameTime);
+       
+            ActiveScreen.Update(gameTime);
+
+            base.Update(gameTime);
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            graphicsHelper.StartDrawing();
+
+            ActiveScreen.Draw(gameTime);
+
+            DebugDrawHelper.DrawFps();
+
+            graphicsHelper.EndDrawing();
+
+            base.Draw(gameTime);
+        }
+
+        public void SwitchScreen(SimpleScreenBase screen)
+        {
+            ActiveScreen = screen;
+        }
+
+        /// <summary>
+        /// Logging based on http://weblogs.asp.net/psteele/archive/2010/01/25/live-capture-of-log4net-logging.aspx
+        /// </summary>        
+        public void DoAppend(LoggingEvent loggingEvent)
+        {
+            Console.WriteLine("{2}: {0}: {1}\r\n", loggingEvent.Level.Name, loggingEvent.MessageObject, loggingEvent.LoggerName);
+        }
+
+        public string Name { get; set; }
+
+        public void Close() { }
+
+        public void ShutDown()
+        {
+            Exit();
+        }
+
+        protected void RegisterConsoleCommands()
         {
             DebugCommandUI.RegisterCommand("toggle-edit", "Turn level editor mode on or off", LevelEditor.ToggleEditModeCommand);
         }
 
         public void HostStartGame()
         {
-            if(!IsHost) return;
-
-            networkManager.Send(new HostStartGameMessage());
-            
             StartGame();
         }
 
@@ -80,12 +180,7 @@ namespace PlatformerPOC
             PlayerManager.CreatePlayers();
 
             SwitchScreen(new GameplayScreen(this));
-        }
-
-        public void ShowMenuScreen()
-        {
-            SwitchScreen(new LobbyScreen(this));
-        }
+        }        
 
         public void GeneralUpdate()
         {
@@ -100,6 +195,42 @@ namespace PlatformerPOC
             PlayerManager.SpawnPlayers();
 
             RoundCounter++;
+        }
+
+        /// <summary>
+        /// Add object to the update/draw list
+        /// </summary>        
+        public void AddObject(BaseGameObject baseGameObject)
+        {
+            gameObjectsToAdd.Add(baseGameObject);
+        }
+
+        /// <summary>
+        /// Delete object from the update/draw list
+        /// </summary>
+        public void DeleteObject(BaseGameObject baseGameObject)
+        {
+            gameObjectsToDelete.Add(baseGameObject);
+        }
+
+        /// <summary>
+        /// Clean up objects to delete, and introduce new objects
+        /// </summary>
+        public void DoHouseKeeping()
+        {
+            foreach (var baseGameObject in gameObjectsToAdd)
+            {
+                gameObjects.Add(baseGameObject);
+            }
+
+            gameObjectsToAdd.Clear();
+
+            foreach (var baseGameObject in gameObjectsToDelete)
+            {
+                gameObjects.Remove(baseGameObject);
+            }
+
+            gameObjectsToDelete.Clear();
         }
     }
 }

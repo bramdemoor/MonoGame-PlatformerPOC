@@ -6,9 +6,9 @@ namespace PlatformerPOC.Drawing
     public class GraphicsHelper
     {
         private readonly GraphicsDeviceManager graphics;
-        private readonly SimpleGame game;
+        private readonly PlatformGame game;
 
-        public GraphicsHelper(SimpleGame game)
+        public GraphicsHelper(PlatformGame game)
         {
             this.game = game;
 

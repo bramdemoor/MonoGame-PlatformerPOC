@@ -6,7 +6,7 @@ namespace PlatformerPOC.Drawing
 {
     public class CustomSpriteSheetInstance
     {
-        private readonly SimpleGame game;
+        private readonly PlatformGame game;
 
         public CustomSpriteSheetDefinition SpriteSheetDefinition { get; private set; }
         public int FramesToSkip { get; private set; }
@@ -25,7 +25,7 @@ namespace PlatformerPOC.Drawing
             get { return animationFrame == SpriteSheetDefinition.SpriteCount - 1; }
         }
 
-        public CustomSpriteSheetInstance(SimpleGame game, CustomSpriteSheetDefinition spriteSheetDefinition, int framesToSkip)
+        public CustomSpriteSheetInstance(PlatformGame game, CustomSpriteSheetDefinition spriteSheetDefinition, int framesToSkip)
         {
             this.game = game;
             SpriteSheetDefinition = spriteSheetDefinition;

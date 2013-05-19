@@ -126,10 +126,9 @@ namespace PlatformerPOC.Helpers
 
         // Key repeat duration in seconds after the first key press.
         private float keyRepeatDuration = 0.03f;
-        private Texture2D WhiteTexture
-            ;
+        private Texture2D WhiteTexture;
 
-        protected SimpleGame SimpleGame { get; set; }
+        protected PlatformGame SimpleGame { get; set; }
 
         public SpriteFont Font { get; set; }
 
@@ -139,7 +138,7 @@ namespace PlatformerPOC.Helpers
         /// <summary>
         /// Constructor
         /// </summary>
-        public DebugCommandUI(SimpleGame game, SpriteFont font) : base(game)
+        public DebugCommandUI(PlatformGame game, SpriteFont font): base(game)
         {
             Font = font;
             SimpleGame = game;

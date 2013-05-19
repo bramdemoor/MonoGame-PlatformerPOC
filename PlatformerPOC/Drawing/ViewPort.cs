@@ -7,7 +7,7 @@ namespace PlatformerPOC.Drawing
     /// </summary>
     public class ViewPort
     {
-        private readonly SimpleGame game;
+        private readonly PlatformGame game;
 
         public Rectangle ViewArea { get; set; }
 
@@ -21,11 +21,9 @@ namespace PlatformerPOC.Drawing
             }
         }
 
-        public ViewPort(SimpleGame game)
+        public ViewPort(PlatformGame game)
         {
             this.game = game;
-
-            // TODO BDM: Move magic number out of here (doesn't belong in engine!)
 
             ViewArea = new Rectangle(0, 0, CoreConfig.ScreenResolutionWidth - 280, CoreConfig.ScreenResolutionHeight);
         }

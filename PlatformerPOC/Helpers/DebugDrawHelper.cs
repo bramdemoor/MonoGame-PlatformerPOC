@@ -6,12 +6,12 @@ namespace PlatformerPOC.Helpers
 {
     public class DebugDrawHelper
     {
-        private readonly SimpleGame game;
+        private readonly PlatformGame game;
         private readonly FPSCounter fpsCounter;
 
         Texture2D pixel;
 
-        public DebugDrawHelper(SimpleGame game)
+        public DebugDrawHelper(PlatformGame game)
         {
             this.game = game;
 

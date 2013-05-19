@@ -5,13 +5,13 @@ namespace PlatformerPOC.Drawing
 {
     public class TileDefinition
     {
-        private readonly SimpleGame game;
+        private readonly PlatformGame game;
 
         public CustomTileSetDefinition TileSet { get; private set; }
 
         private readonly Rectangle graphicsRectangle;
 
-        public TileDefinition(SimpleGame game, CustomTileSetDefinition tileSet, int x, int y)
+        public TileDefinition(PlatformGame game, CustomTileSetDefinition tileSet, int x, int y)
         {
             this.game = game;
 
