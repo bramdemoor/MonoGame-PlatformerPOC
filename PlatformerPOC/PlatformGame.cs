@@ -1,5 +1,4 @@
 ﻿using GameEngine;
-using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Concept;
@@ -60,27 +59,6 @@ namespace PlatformerPOC
         protected override void RegisterConsoleCommands()
         {
             DebugCommandUI.RegisterCommand("toggle-edit", "Turn level editor mode on or off", LevelEditor.ToggleEditModeCommand);
-        }
-
-        private void HandleUpdatePlayerStateMessage(NetIncomingMessage im)
-        {
-            var message = new UpdatePlayerStateMessage(im);
-
-            //var timeDelay = (float)(NetTime.Now - im.SenderConnection.GetLocalTime(message.MessageTime));
-
-            //Player player = this.playerManager.GetPlayer(message.Id)
-            //                ??
-            //                this.playerManager.AddPlayer(
-            //                    message.Id, message.Position, message.Velocity, message.Rotation, false);
-
-            //if (player.LastUpdateTime < message.MessageTime)
-            //{
-            //    player.SimulationState.Position = message.Position += message.Velocity * timeDelay;
-            //    player.SimulationState.Velocity = message.Velocity;
-            //    player.SimulationState.Rotation = message.Rotation;
-
-            //    player.LastUpdateTime = message.MessageTime;
-            //}
         }
 
         public void HostStartGame()
