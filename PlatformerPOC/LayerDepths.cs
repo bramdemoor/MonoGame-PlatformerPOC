@@ -10,9 +10,9 @@
         public const float GAMEOBJECTS = -0.2f;
         public const float FOREGROUND_PARTICLE = -0.4f;
 
-        public const float OVERLAY = 20f;       // HUD
-        public const float DEBUG_OVERLAY = -10f;
+        public const float OVERLAY = -0.9f;       // HUD
+        public const float DEBUG_OVERLAY = -0.92f;
 
-        public const float TEXT = -20f;
+        public const float TEXT = -0.91f;
     }
 }
