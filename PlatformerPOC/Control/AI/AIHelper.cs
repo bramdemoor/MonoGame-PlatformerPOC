@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameEngine.Helpers;
+using PlatformerPOC.Helpers;
 
 namespace PlatformerPOC.Control.AI
 {

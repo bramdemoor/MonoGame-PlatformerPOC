@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GameEngine.Collision;
-using GameEngine.Tiles;
 using Microsoft.Xna.Framework;
 using PlatformerPOC.GameObjects;
 using PlatformerPOC.GameObjects.Powerup;
+using PlatformerPOC.Helpers;
 
 namespace PlatformerPOC.Level
 {

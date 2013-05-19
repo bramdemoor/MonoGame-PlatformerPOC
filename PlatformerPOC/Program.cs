@@ -1,13 +1,17 @@
-﻿namespace PlatformerPOC
+﻿using System;
+
+namespace PlatformerPOC
 {
     public static class Program
     {
-        public static void Main(string[] args)
+        [STAThread]
+        public static void Main()
         {
-            var platformGame = new PlatformGame();
-
-            platformGame.Run();
-            platformGame.StartGame(); 
-        } 
+            using (var platformGame = new PlatformGame())
+            {
+                platformGame.Run();
+              //  platformGame.StartGame();
+            }
+        }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
-using GameEngine.GameObjects;
-using GameEngine.Timing;
 using Microsoft.Xna.Framework.Input;
 using PlatformerPOC.Concept;
+using PlatformerPOC.Concept.Gamemodes;
+using PlatformerPOC.Concept.Teams;
 using PlatformerPOC.Control;
 using PlatformerPOC.Control.AI;
 using PlatformerPOC.GameObjects;
 using System.Linq;
+using PlatformerPOC.Helpers;
 
 namespace PlatformerPOC
 {

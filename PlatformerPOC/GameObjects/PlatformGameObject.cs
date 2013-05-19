@@ -1,8 +1,7 @@
-﻿using GameEngine;
-using GameEngine.GameObjects;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using PlatformerPOC.Drawing;
 
 namespace PlatformerPOC.GameObjects
 {
@@ -32,7 +31,7 @@ namespace PlatformerPOC.GameObjects
             this.game = game;
         }
 
-        public GameEngine.ViewPort ViewPort
+        public ViewPort ViewPort
         {
             get { return game.ViewPort; }
         }

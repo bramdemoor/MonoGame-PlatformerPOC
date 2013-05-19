@@ -1,5 +1,4 @@
-﻿using GameEngine.Network;
-using Lidgren.Network;
+﻿using Lidgren.Network;
 
 namespace PlatformerPOC.Network.Messages
 {

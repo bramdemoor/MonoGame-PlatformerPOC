@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using GameEngine.Collision;
 using Microsoft.Xna.Framework;
+using PlatformerPOC.Helpers;
 
 namespace PlatformerPOC.GameObjects
 {

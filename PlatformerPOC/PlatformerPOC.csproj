@@ -6,14 +6,14 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{1F48AEBA-B580-43E6-9C0D-538416A96D4D}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PlatformerPOC</RootNamespace>
     <AssemblyName>PlatformerPOC</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -21,7 +21,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\WindowsGL\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -83,17 +83,36 @@
     <Compile Include="Control\AI\DummyAIController.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Control\IPlayerControlState.cs" />
+    <Compile Include="CoreConfig.cs" />
+    <Compile Include="Drawing\CustomSpriteSheetDefinition.cs" />
+    <Compile Include="Drawing\CustomSpriteSheetInstance.cs" />
+    <Compile Include="Drawing\CustomTileSetDefinition.cs" />
+    <Compile Include="Drawing\GraphicsHelper.cs" />
+    <Compile Include="Drawing\TileDefinition.cs" />
+    <Compile Include="Drawing\ViewPort.cs" />
     <Compile Include="Editor\Editor.cs" />
     <Compile Include="EventArgs\PlayerStateChangedArgs.cs" />
+    <Compile Include="GameObjects\BaseGameObject.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="Concept\Character.cs" />
     <Compile Include="Concept\Gamemodes\GameMode.cs" />
+    <Compile Include="GameObjects\GameObjectState.cs" />
     <Compile Include="GameObjects\Pistol.cs" />
     <Compile Include="Concept\Score.cs" />
     <Compile Include="GameObjects\Powerup\BasePowerup.cs" />
     <Compile Include="GameObjects\Powerup\Coin.cs" />
     <Compile Include="GameObjects\SolidWall.cs" />
     <Compile Include="Concept\Teams\Team.cs" />
+    <Compile Include="Helpers\CollisionHelper.cs" />
+    <Compile Include="Helpers\Console.cs" />
+    <Compile Include="Helpers\CoreCommands.cs" />
+    <Compile Include="Helpers\CustomBoundingBox.cs" />
+    <Compile Include="Helpers\DebugDrawHelper.cs" />
+    <Compile Include="Helpers\EnumerableExtensions.cs" />
+    <Compile Include="Helpers\FPSCounter.cs" />
+    <Compile Include="Helpers\GameTimer.cs" />
+    <Compile Include="Helpers\IDebugCommandHost.cs" />
+    <Compile Include="Helpers\KeyboardUtils.cs" />
     <Compile Include="Hud\Hud.cs" />
     <Compile Include="LayerDepths.cs" />
     <Compile Include="Level\BgLayer.cs" />
@@ -102,9 +121,16 @@
     <Compile Include="GameObjects\PlatformGameObject.cs" />
     <Compile Include="Level\LevelManager.cs" />
     <Compile Include="Level\LevelTileConcept.cs" />
+    <Compile Include="Network\ClientNetworkManager.cs" />
+    <Compile Include="Network\IGameMessage.cs" />
+    <Compile Include="Network\IMessageDistributor.cs" />
+    <Compile Include="Network\INetworkManager.cs" />
     <Compile Include="Network\MessageDistributor.cs" />
     <Compile Include="Network\Messages\HostStartGameMessage.cs" />
     <Compile Include="Network\Messages\JoinGameMessage.cs" />
+    <Compile Include="Network\NetPeerConfigurationFactory.cs" />
+    <Compile Include="Network\ServerNetworkManager.cs" />
+    <Compile Include="Network\XNAExtensions.cs" />
     <Compile Include="PlatformGame.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="Control\PlayerKeyboardState.cs" />
@@ -115,33 +141,20 @@
     <Compile Include="ResourcesHelper.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\LobbyScreen.cs" />
+    <Compile Include="SimpleGame.cs" />
+    <Compile Include="SimpleScreenBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Lidgren.Network.Windows, Version=2011.3.12.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\Lidgren.Network.Windows.dll</HintPath>
-    </Reference>
+    <Reference Include="Lidgren.Network, Version=2011.3.12.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="MonoGame.Framework.Windows, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\MonoGame.Framework.Windows.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\OpenTK.dll</HintPath>
-    </Reference>
+    <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL" />
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tao.Sdl, Version=1.2.13.0, Culture=neutral, PublicKeyToken=9c7a200e36c0094e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\Tao.Sdl.dll</HintPath>
-    </Reference>
+    <Reference Include="Tao.Sdl, Version=1.2.13.0, Culture=neutral, PublicKeyToken=9c7a200e36c0094e, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\Levels\doubleforest.txt" />
@@ -186,6 +199,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
+    <Content Include="C:\Program Files %28x86%29\MonoGame\v3.0\Assemblies\WindowsGL\SDL.dll">
+      <Link>SDL.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -196,12 +213,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GameEngine\GameEngine.csproj">
-      <Project>{FC85B328-B30F-4C88-80C1-EFCA531165E2}</Project>
-      <Name>GameEngine</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

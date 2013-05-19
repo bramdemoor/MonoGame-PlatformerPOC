@@ -1,7 +1,8 @@
-﻿using GameEngine;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Concept;
+using PlatformerPOC.Concept.Gamemodes;
+using PlatformerPOC.Drawing;
 using PlatformerPOC.Level;
 using PlatformerPOC.Network;
 using PlatformerPOC.Network.Messages;

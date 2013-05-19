@@ -1,12 +1,12 @@
 ﻿using System.Linq;
-using GameEngine.Collision;
-using GameEngine.GameObjects;
-using GameEngine.Spritesheet;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Concept;
+using PlatformerPOC.Concept.Teams;
 using PlatformerPOC.Control;
 using PlatformerPOC.Control.AI;
+using PlatformerPOC.Drawing;
+using PlatformerPOC.Helpers;
 
 namespace PlatformerPOC.GameObjects
 {

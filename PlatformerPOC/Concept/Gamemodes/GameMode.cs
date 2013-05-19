@@ -1,4 +1,4 @@
-﻿namespace PlatformerPOC.Concept
+﻿namespace PlatformerPOC.Concept.Gamemodes
 {
     /// <summary>
     /// Collection of game rules
