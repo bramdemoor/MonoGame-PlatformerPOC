@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PlatformerPOC.Concept;
 using PlatformerPOC.Concept.Gamemodes;
 using PlatformerPOC.Drawing;
 using PlatformerPOC.GameObjects;
@@ -75,7 +74,7 @@ namespace PlatformerPOC
 
             DebugDrawHelper = new DebugDrawHelper(this);
 
-            IsMouseVisible = CoreConfig.DebugModeEnabled;
+            IsMouseVisible = Config.DebugModeEnabled;
         }
 
         protected override void Initialize()
@@ -109,7 +108,6 @@ namespace PlatformerPOC
 
             LevelEditor = new Editor.Editor(this);
 
-            //ShowMenuScreen();
             StartGame();
         }
 

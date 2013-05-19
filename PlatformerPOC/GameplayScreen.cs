@@ -22,7 +22,7 @@ namespace PlatformerPOC.Screens
         {
             game.LevelManager.CurrentLevel.Draw();
 
-            if (CoreConfig.DebugModeEnabled)
+            if (Config.DebugModeEnabled)
             {
                 game.ViewPort.DrawDebug();                
             }
@@ -33,7 +33,7 @@ namespace PlatformerPOC.Screens
                 {
                     gameObject.Draw();
 
-                    if (CoreConfig.DebugModeEnabled)
+                    if (Config.DebugModeEnabled)
                     {
                         gameObject.DrawDebug();
                     }

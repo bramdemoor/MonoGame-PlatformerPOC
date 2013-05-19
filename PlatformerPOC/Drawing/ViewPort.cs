@@ -25,7 +25,7 @@ namespace PlatformerPOC.Drawing
         {
             this.game = game;
 
-            ViewArea = new Rectangle(0, 0, CoreConfig.ScreenResolutionWidth - 280, CoreConfig.ScreenResolutionHeight);
+            ViewArea = new Rectangle(0, 0, Config.ScreenResolutionWidth - 280, Config.ScreenResolutionHeight);
         }
 
         public void DrawDebug()

@@ -4,12 +4,12 @@
     {
         public static void ToggleDebugCommand(IDebugCommandHost host, string command, params string[] arguments)
         {
-            CoreConfig.DebugModeEnabled = !CoreConfig.DebugModeEnabled;
+            Config.DebugModeEnabled = !Config.DebugModeEnabled;
         }
 
         public static void ToggleSoundCommand(IDebugCommandHost host, string command, params string[] arguments)
         {
-            CoreConfig.SoundEnabled = !CoreConfig.SoundEnabled;
+            Config.SoundEnabled = !Config.SoundEnabled;
         }
     }
 }

@@ -62,11 +62,11 @@ namespace PlatformerPOC.GameObjects
 
         public void PlaySound(SoundEffect spawnSound)
         {
-            if (!CoreConfig.SoundEnabled) return;
+            if (!Config.SoundEnabled) return;
 
             SoundEffectInstance soundEffectInstance = spawnSound.CreateInstance();
 
-            soundEffectInstance.Volume = CoreConfig.SoundVolume;
+            soundEffectInstance.Volume = Config.SoundVolume;
 
             soundEffectInstance.Play();
         }

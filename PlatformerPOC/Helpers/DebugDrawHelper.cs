@@ -33,7 +33,7 @@ namespace PlatformerPOC.Helpers
         {
             fpsCounter.IncreaseFrames();
 
-            if(CoreConfig.DebugModeEnabled)
+            if (Config.DebugModeEnabled)
             {
                 var fps = string.Format("fps: {0} mem : {1}", fpsCounter.frameRate, GC.GetTotalMemory(false));
 

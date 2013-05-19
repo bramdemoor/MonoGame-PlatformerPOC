@@ -18,14 +18,8 @@ namespace PlatformerPOC.GameObjects
         public long Id { get; set; }
 
         public Vector2 Position { get; set; }
-        public Vector2 Velocity { get; set; }
-        public float Rotation { get; set; }
-        public double LastUpdateTime { get; set; }
-
-        public GameObjectState PrevDisplayState { get; set; }
-        public GameObjectState DisplayState { get; set; }
-        public GameObjectState SimulationState { get; set; }
-
+        public Vector2 Velocity { get; set; }                
+        
         public CustomBoundingBox BoundingBox { get; set; }
 
         public abstract bool InView { get; }
@@ -36,29 +30,11 @@ namespace PlatformerPOC.GameObjects
 
         public virtual void Update(GameTime gameTime)
         {
-            //var elapsedSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            //SimulationState.Position += SimulationState.Velocity * elapsedSeconds;
-
-            //PrevDisplayState.Position += PrevDisplayState.Velocity * elapsedSeconds;
-
-            //ApplySmoothing(1 / 12f);
         }
 
         public void DestroyEntity()
         {
             game.DeleteObject(this);
-        }
-
-        private void ApplySmoothing(float delta)
-        {
-            DisplayState.Position = Vector2.Lerp(PrevDisplayState.Position, SimulationState.Position, delta);
-
-            DisplayState.Velocity = Vector2.Lerp(PrevDisplayState.Velocity, SimulationState.Velocity, delta);
-
-            DisplayState.Rotation = MathHelper.Lerp(PrevDisplayState.Rotation, SimulationState.Rotation, delta);
-
-            PrevDisplayState = (GameObjectState)DisplayState.Clone();
         }
     }
 }

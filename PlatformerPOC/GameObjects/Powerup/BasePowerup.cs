@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace PlatformerPOC.GameObjects.Powerup
+﻿namespace PlatformerPOC.GameObjects.Powerup
 {
     public abstract class BasePowerup : PlatformGameObject
     {

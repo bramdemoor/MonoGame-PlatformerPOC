@@ -1,21 +1,17 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
-using PlatformerPOC.Concept;
 using PlatformerPOC.Concept.Gamemodes;
 using PlatformerPOC.Concept.Teams;
 using PlatformerPOC.Control;
 using PlatformerPOC.Control.AI;
 using PlatformerPOC.GameObjects;
 using System.Linq;
-using PlatformerPOC.Helpers;
 
 namespace PlatformerPOC
 {
     public class PlayerManagerNew
     {
         private readonly PlatformGame game;
-
-        private GameTimer hearbeatTimer;
 
         private readonly AIHelper _aiHelper;
 
@@ -68,7 +64,7 @@ namespace PlatformerPOC
 
         private void AddLocalPlayer(Team team)
         {
-            LocalPlayer = new Player(game, "Player 1", 1, new GameObjectState(), game.ResourcesHelper.Characters.First());
+            LocalPlayer = new Player(game, "Player 1", 1, game.ResourcesHelper.Characters.First());
             LocalPlayer.SwitchTeam(team);
             Players.Add(LocalPlayer);
             game.AddObject(LocalPlayer);
@@ -76,7 +72,7 @@ namespace PlatformerPOC
 
         private void AddBot(int i, Team team)
         {
-            var botPlayer = new Player(game, string.Format("{0} [Bot]", _aiHelper.GetRandomName()), i, null, game.ResourcesHelper.GetRandomCharacter());
+            var botPlayer = new Player(game, string.Format("{0} [Bot]", _aiHelper.GetRandomName()), i, game.ResourcesHelper.GetRandomCharacter());
             botPlayer.SwitchTeam(team);
             botPlayer.AI = new DummyAIController();            
             Players.Add(botPlayer);
@@ -106,11 +102,6 @@ namespace PlatformerPOC
 
                 player.Update();    
             }
-        }
-
-        public void AddPlayer(string name)
-        {
-            Players.Add(new Player(game, name, 989, null, game.ResourcesHelper.Characters.First()));
         }
     }
 }

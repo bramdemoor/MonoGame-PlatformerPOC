@@ -50,7 +50,7 @@ namespace PlatformerPOC.GameObjects
             get { return playerInputState.IsMoveLeftPressed || playerInputState.IsMoveRightPressed; }
         }
 
-        public Player(PlatformGame game, string name, long id, GameObjectState gameObjectState, Character character): base(game)
+        public Player(PlatformGame game, string name, int id, Character character): base(game)
         {
             HorizontalDirection = 1;
 
