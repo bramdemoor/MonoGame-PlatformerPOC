@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace PlatformerPOC.Screens
 {
-    public class GameplayScreen : SimpleScreenBase
+    public class GameplayScreen
     {
         private readonly PlatformGame game;
 
@@ -18,7 +18,7 @@ namespace PlatformerPOC.Screens
             hud = new Hud.Hud(game);
         }
 
-        public override void Draw(GameTime gameTime)
+        public void Draw(GameTime gameTime)
         {
             game.LevelManager.CurrentLevel.Draw();
 
@@ -44,7 +44,7 @@ namespace PlatformerPOC.Screens
             hud.Draw();            
         }
         
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {

@@ -32,7 +32,7 @@ namespace PlatformerPOC
 
         public SpriteBatch SpriteBatch { get; private set; }
 
-        public SimpleScreenBase ActiveScreen { get; set; }
+        public GameplayScreen GameScreen { get; set; }
 
         public PlayerManagerNew PlayerManager { get; private set; }
 
@@ -121,7 +121,7 @@ namespace PlatformerPOC
         {   
             DebugDrawHelper.Update(gameTime);
        
-            ActiveScreen.Update(gameTime);
+            GameScreen.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -130,7 +130,7 @@ namespace PlatformerPOC
         {
             graphicsHelper.StartDrawing();
 
-            ActiveScreen.Draw(gameTime);
+            GameScreen.Draw(gameTime);
 
             DebugDrawHelper.DrawFps();
 
@@ -138,12 +138,7 @@ namespace PlatformerPOC
 
             base.Draw(gameTime);
         }
-
-        public void SwitchScreen(SimpleScreenBase screen)
-        {
-            ActiveScreen = screen;
-        }
-
+        
         /// <summary>
         /// Logging based on http://weblogs.asp.net/psteele/archive/2010/01/25/live-capture-of-log4net-logging.aspx
         /// </summary>        
@@ -179,7 +174,7 @@ namespace PlatformerPOC
 
             PlayerManager.CreatePlayers();
 
-            SwitchScreen(new GameplayScreen(this));
+            GameScreen = new GameplayScreen(this);
         }        
 
         public void GeneralUpdate()
