@@ -79,7 +79,6 @@
   <ItemGroup>
     <Compile Include="Domain\Gamemodes\EliminationGameMode.cs" />
     <Compile Include="Domain\Gamemodes\TeamEliminationGameMode.cs" />
-    <Compile Include="Control\AIHelper.cs" />
     <Compile Include="Control\DummyAIController.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Control\IPlayerControlState.cs" />

@@ -40,7 +40,7 @@ namespace PlatformerPOC
         public readonly FPSCounter fpsCounter;
         private readonly Renderer renderer;
 
-        public readonly AIHelper _aiHelper = new AIHelper();
+        public Random Randomizer { get; private set; }
 
         public List<Player> Players { get; set; }
         public Player LocalPlayer { get; set; }
@@ -82,6 +82,8 @@ namespace PlatformerPOC
             IsMouseVisible = Config.DebugModeEnabled;
 
             Players = new List<Player>();
+
+            Randomizer = new Random();
         }
 
         protected override void Initialize()
@@ -139,7 +141,7 @@ namespace PlatformerPOC
             {
                 if(player.AI != null)
                 {
-                    player.AI.Evaluate(player.Position, LocalPlayer.Position, _aiHelper.Randomizer);
+                    player.AI.Evaluate(player.Position, LocalPlayer.Position, Randomizer);
                     player.HandleInput(player.AI);
                 }
 
