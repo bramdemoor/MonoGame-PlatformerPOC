@@ -11,7 +11,7 @@ namespace PlatformerPOC.Domain.Powerup
 
         public override void Draw()
         {
-            game.SpriteBatch.Draw(game.ResourcesHelper.Coin, PositionRelativeToView, Color.White);
+            game.SpriteBatch.Draw(game.ResourcePreloader.Coin, PositionRelativeToView, Color.White);
         }
     }
 }

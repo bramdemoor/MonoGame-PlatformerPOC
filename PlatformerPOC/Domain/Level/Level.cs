@@ -98,11 +98,11 @@ namespace PlatformerPOC.Domain.Level
 
                     if (c == 'G')
                     {
-                        game.AddObject(new SolidWall(game, levelPos, game.ResourcesHelper.TileGround));
+                        game.AddObject(new SolidWall(game, levelPos, game.ResourcePreloader.TileGround));
                     }
                     else if (c == 'x')
                     {
-                        game.AddObject(new SolidWall(game, levelPos, game.ResourcesHelper.TileWall));
+                        game.AddObject(new SolidWall(game, levelPos, game.ResourcePreloader.TileWall));
                     }
                     else if (c == 'S')
                     {
@@ -118,8 +118,8 @@ namespace PlatformerPOC.Domain.Level
 
         public void SetBgLayers()
         {
-            bgLayers.Add(new BgLayer(game, LayerType.First, game.ResourcesHelper.BgLayer1Texture));
-            bgLayers.Add(new BgLayer(game, LayerType.Second, game.ResourcesHelper.BgLayer2Texture));
+            bgLayers.Add(new BgLayer(game, LayerType.First, game.ResourcePreloader.BgLayer1Texture));
+            bgLayers.Add(new BgLayer(game, LayerType.Second, game.ResourcePreloader.BgLayer2Texture));
         }
 
         public void SetTile(int x, int y, char c)

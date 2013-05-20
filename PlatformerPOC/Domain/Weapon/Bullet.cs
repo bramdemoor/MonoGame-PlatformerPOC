@@ -42,7 +42,7 @@ namespace PlatformerPOC.Domain.Weapon
 
         private void UpdateBoundingBox()
         {
-            BoundingBox.SetFullRectangle(Position, game.ResourcesHelper.BulletTexture.Bounds, Velocity);
+            BoundingBox.SetFullRectangle(Position, game.ResourcePreloader.BulletTexture.Bounds, Velocity);
         }
 
         private bool CheckPlayerCollision()
@@ -70,7 +70,7 @@ namespace PlatformerPOC.Domain.Weapon
 
         public override void Draw()
         {
-            SpriteBatch.Draw(game.ResourcesHelper.BulletTexture, PositionRelativeToView, null, Color.White, 0, Vector2.Zero, 1, DrawEffect, 1f);                    
+            SpriteBatch.Draw(game.ResourcePreloader.BulletTexture, PositionRelativeToView, null, Color.White, 0, Vector2.Zero, 1, DrawEffect, 1f);                    
         }
 
         public override void DrawDebug()

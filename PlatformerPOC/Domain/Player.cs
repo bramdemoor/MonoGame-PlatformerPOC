@@ -14,14 +14,14 @@ namespace PlatformerPOC.Domain
         private const int MOVE_SPEED = 5;
         private const float JUMP_FORCE = 6.2f;
 
-        private Pistol weapon;
-        private readonly CustomSpriteSheetInstance spriteSheetInstance;
+        private Pistol weapon;        
         
         public string Name { get; set; }
         public int Life { get; private set; }
         public Team Team { get; private set; }
         public Score Score { get; private set; }
-        public Character Character { get; set; }
+        
+        private CustomSpriteSheetInstance spriteSheetInstance;
 
         // Optional. An AI controller attached to this player instance, for bots only.
         public DummyAIController AI { get; set; }
@@ -48,7 +48,7 @@ namespace PlatformerPOC.Domain
             get { return playerInputState.IsMoveLeftPressed || playerInputState.IsMoveRightPressed; }
         }
 
-        public Player(PlatformGame game, string name, int id, Character character): base(game)
+        public Player(PlatformGame game, string name, CustomSpriteSheetDefinition spriteSheetDefinition): base(game)
         {
             HorizontalDirection = 1;
 
@@ -59,9 +59,7 @@ namespace PlatformerPOC.Domain
             Score = new Score();
             Team = new NeutralTeam();
 
-            Character = character;
-
-            spriteSheetInstance = new CustomSpriteSheetInstance(game, Character.PlayerSpriteSheet, 3);
+            spriteSheetInstance = new CustomSpriteSheetInstance(game, spriteSheetDefinition, 3);
         }
 
 
@@ -75,7 +73,7 @@ namespace PlatformerPOC.Domain
 
             Life = MAX_LIFE;
 
-            PlaySound(game.ResourcesHelper.SpawnSound);
+            PlaySound(game.ResourcePreloader.SpawnSound);
         }
 
         public void DoDamage(int damage)
@@ -241,7 +239,7 @@ namespace PlatformerPOC.Domain
 
             var displayText = string.Format("{0}", Name);
 
-            game.SpriteBatch.DrawString(game.ResourcesHelper.DefaultFont, displayText, PositionRelativeToView, TextColor, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.TEXT);
+            game.SpriteBatch.DrawString(game.ResourcePreloader.DefaultFont, displayText, PositionRelativeToView, TextColor, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.TEXT);
         }
 
         public override void DrawDebug()

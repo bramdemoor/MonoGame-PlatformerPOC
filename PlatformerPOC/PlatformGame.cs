@@ -34,7 +34,7 @@ namespace PlatformerPOC
 
         public PlayerManagerNew PlayerManager { get; private set; }
 
-        public ResourcesHelper ResourcesHelper { get; private set; }
+        public ResourcePreloader ResourcePreloader { get; private set; }
 
         public LevelManager LevelManager { get; private set; }
 
@@ -50,12 +50,12 @@ namespace PlatformerPOC
 
         public SpriteFont DefaultFont
         {
-            get { return ResourcesHelper.DefaultFont; }
+            get { return ResourcePreloader.DefaultFont; }
         }
 
         public PlatformGame()
         {
-            ResourcesHelper = new ResourcesHelper(this);
+            ResourcePreloader = new ResourcePreloader(this);
             PlayerManager = new PlayerManagerNew(this);
             LevelManager = new LevelManager(this);
             ViewPort = new ViewPort(this);
@@ -98,7 +98,7 @@ namespace PlatformerPOC
             DebugCommandUI = new DebugCommandUI(this, DefaultFont);
             Components.Add(DebugCommandUI);
 
-            ResourcesHelper.LoadContent(Content);
+            ResourcePreloader.LoadContent(Content);
 
             LevelManager.PreloadLevels();
 

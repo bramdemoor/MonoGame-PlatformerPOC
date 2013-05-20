@@ -21,7 +21,7 @@ namespace PlatformerPOC.Domain.Level
         public void PreloadLevels()
         {
             allLevels.Clear();
-            foreach (var levelFilename in game.ResourcesHelper.GetAllLevelFilenames())
+            foreach (var levelFilename in game.ResourcePreloader.GetAllLevelFilenames())
             {
                 allLevels.Add(PreLoadLevel(levelFilename));
             }
@@ -37,7 +37,7 @@ namespace PlatformerPOC.Domain.Level
             level.Clear();
 
             var rowIndex = 0;
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(string.Format(ResourcesHelper.levelResourceString, levelFilename)))
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(string.Format(ResourcePreloader.levelResourceString, levelFilename)))
             using (var reader = new StreamReader(stream))
             {
                 while (!reader.EndOfStream)

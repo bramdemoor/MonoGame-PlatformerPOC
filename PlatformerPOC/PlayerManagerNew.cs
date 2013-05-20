@@ -39,7 +39,7 @@ namespace PlatformerPOC
             {
                 AddLocalPlayer(Team.Neutral);
 
-                for (int i = 2; i < 17; i++)
+                for (int i = 2; i < 4; i++)
                 {
                     AddBot(i, Team.Neutral);
                 }                
@@ -63,7 +63,7 @@ namespace PlatformerPOC
 
         private void AddLocalPlayer(Team team)
         {
-            LocalPlayer = new Player(game, "Player 1", 1, game.ResourcesHelper.Characters.First());
+            LocalPlayer = new Player(game, "Player 1", game.ResourcePreloader.Character1Sheet);
             LocalPlayer.SwitchTeam(team);
             Players.Add(LocalPlayer);
             game.AddObject(LocalPlayer);
@@ -71,7 +71,7 @@ namespace PlatformerPOC
 
         private void AddBot(int i, Team team)
         {
-            var botPlayer = new Player(game, string.Format("{0} [Bot]", _aiHelper.GetRandomName()), i, game.ResourcesHelper.GetRandomCharacter());
+            var botPlayer = new Player(game, string.Format("{0} [Bot]", _aiHelper.GetRandomName()), game.ResourcePreloader.Character2Sheet);
             botPlayer.SwitchTeam(team);
             botPlayer.AI = new DummyAIController();            
             Players.Add(botPlayer);

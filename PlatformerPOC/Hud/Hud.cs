@@ -22,11 +22,11 @@ namespace PlatformerPOC.Hud
             const int vTextSpace = 18;
 
             // Msg (center)
-            _game.SpriteBatch.Draw(_game.ResourcesHelper.HudMsg, new Vector2(280, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
+            _game.SpriteBatch.Draw(_game.ResourcePreloader.HudMsg, new Vector2(280, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
             _game.SpriteBatch.DrawString(_game.DefaultFont, "This is just a test message", new Vector2(300, 20), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, LayerDepths.OVERLAY);
 
 
-            _game.SpriteBatch.Draw(_game.ResourcesHelper.HudText, new Vector2(1000, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
+            _game.SpriteBatch.Draw(_game.ResourcePreloader.HudText, new Vector2(1000, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
 
             const int topSTart = 60;
 
@@ -45,7 +45,7 @@ namespace PlatformerPOC.Hud
 
             // player info section
             _game.SpriteBatch.DrawString(_game.DefaultFont, "Player 1", new Vector2(leftTextStart, 550), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, LayerDepths.OVERLAY);
-            _game.SpriteBatch.Draw(_game.ResourcesHelper.Pistol, new Vector2(1068, 662), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
+            _game.SpriteBatch.Draw(_game.ResourcePreloader.Pistol, new Vector2(1068, 662), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
             //_game.SpriteBatch.Draw(_game.ResourcesHelper.PlayerAvatar, new Vector2(1058, 582), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.OVERLAY);
         }
     }

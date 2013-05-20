@@ -4,13 +4,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System.Linq;
-using PlatformerPOC.Domain;
 using PlatformerPOC.Drawing;
 
 namespace PlatformerPOC
 {
-    public class ResourcesHelper
+    public class ResourcePreloader
     {
         public const string levelResourceString = "PlatformerPOC.Content.Levels.{0}.txt";
 
@@ -23,8 +21,6 @@ namespace PlatformerPOC
         public Texture2D HudText { get; private set; }
         public Texture2D HudMsg { get; private set; }     
    
-        public List<Character> Characters { get; set; }
-
         public Texture2D Pistol { get; private set; }        
 
         public Texture2D BulletTexture { get; private set; }
@@ -38,19 +34,18 @@ namespace PlatformerPOC
         public TileDefinition TileGround { get; private set; }
         public Texture2D Coin { get; set; }
 
-        private Random random = new Random();
-
+        public CustomSpriteSheetDefinition Character1Sheet { get; set; }
+        public CustomSpriteSheetDefinition Character2Sheet { get; set; }
+        
         public IEnumerable<string> GetAllLevelFilenames()
         {
             yield return "miniforest";
             yield return "doubleforest";
         }
 
-        public ResourcesHelper(PlatformGame game)
+        public ResourcePreloader(PlatformGame game)
         {
-            this.game = game;
-
-            Characters = new List<Character>();            
+            this.game = game;         
         }
 
         public void LoadContent(ContentManager content)
@@ -74,20 +69,16 @@ namespace PlatformerPOC
             HudText = content.Load<Texture2D>("Hud/hud");
             HudMsg = content.Load<Texture2D>("Hud/hud-msg");
 
-            Characters.Add(Character.Create(content, CharacterKeys.Blue));
-            Characters.Add(Character.Create(content, CharacterKeys.Pink));
-            Characters.Add(Character.Create(content, CharacterKeys.Yellow));            
-            
             // Sounds
             SpawnSound = content.Load<SoundEffect>("Sound/testsound");
 
             // Fonts
             DefaultFont = content.Load<SpriteFont>("Fonts/spriteFont1");
+
+            Character1Sheet = new CustomSpriteSheetDefinition(content, "Characters/chara1", new Rectangle(0, 0, 32, 32), 3);
+            Character2Sheet = new CustomSpriteSheetDefinition(content, "Characters/player-blue", new Rectangle(0, 0, 32, 32), 8);
         }
 
-        public Character GetRandomCharacter()
-        {
-            return Characters.ElementAt(random.Next(Characters.Count));
-        }
+
     }
 }
