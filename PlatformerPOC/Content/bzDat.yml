@@ -5,6 +5,35 @@
 BotNames:
   ["Seth", "Aryss", "Zenith", "Athena", "Necroth", "Sphinx", "Imhotep", "Avalanche", "Hydra", "Brutus", "Thor", "Harbinger", "Medusa", "Bulldog", "Vengeance", "Viper", "Wyvern", "Ghoul", "Incisor"]
 
+Tilesets:
+  - Name: 'Forest1'
+    Author: 'Bram'
+    SourceFile: 'forest-tileset.png'
+    TileSize: 32
+    Tiles:
+      - Name: 'Wall'
+        X: 0
+        Y: 1
+        Type: 'Solid'
+      - Name: 'Grass'
+        X: 0
+        Y: 2
+        Type: 'Solid'
+      - Name: 'Mud'
+        X: 0
+        Y: 1
+        Type: 'Solid'
+
+  - Name: 'Objects1'
+    Author: 'Bram'
+    SourceFile: 'icon0.png'
+    TileSize: 16
+    Tiles:
+      - Name: 'Diamond'
+        X: 0
+        Y: 4
+        Type: 'PowerUp'        
+        
 Spritesheets:
   - Name: 'Bear1'
     Author: 'Bram'

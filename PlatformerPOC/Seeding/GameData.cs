@@ -8,6 +8,30 @@ namespace PlatformerPOC.Seeding
         public List<Spritesheet> Spritesheets { get; set; }
         public List<string> BotNames { get; set; }
         public List<LevelData> Levels { get; set; }
+        public List<Tileset> Tilesets { get; set; }
+    }
+
+    public class Tileset
+    {
+        public string Name { get; set; }
+        public string Author { get; set; }
+        public string SourceFile { get; set; }
+        public int TileSize { get; set; }
+        public List<Tile> Tiles { get; set; }
+    }
+
+    public class Tile
+    {
+        public string Name { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public TileType Type { get; set; }
+    }
+
+    public enum TileType
+    {
+        Solid,
+        PowerUp
     }
 
     public class Spritesheet

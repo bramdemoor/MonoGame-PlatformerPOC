@@ -56,16 +56,19 @@ namespace PlatformerPOC.Seeding
 
             foreach (var bgToLoad in gameData.Levels.SelectMany(l => l.Parallax).Select(p => p.SourceFile).Distinct())
             {
-                DynamicTextures.Add(bgToLoad, content.Load<Texture2D>(bgToLoad));                
+                DynamicTextures.Add(bgToLoad, content.Load<Texture2D>(bgToLoad));
+            }   
+         
+            foreach (var tilesetToLoad in gameData.Tilesets.Select(t => t.SourceFile).Distinct())
+            {
+                DynamicTextures.Add(tilesetToLoad, content.Load<Texture2D>(tilesetToLoad));
             }
                         
-            //MainTileSet = new CustomTileSetDefinition(content, "Levels/forest-tileset", new Rectangle(0, 0, 32, 32));
             //TileWall = new TileDefinition(MainTileSet, 0, 1);
             //TileGround = new TileDefinition(MainTileSet, 0, 3);
 
-            //BulletImpactSpriteSheet = new CustomSpriteSheetDefinition(content, "Weapons/bullet-impact", new Rectangle(0, 0, 42, 29), 6);
-            //BulletTexture = content.Load<Texture2D>("Weapons/bullet");
-            //ObjectTiles = new CustomTileSetDefinition(content, "icon0.png", new Rectangle(0,0,16,16));
+            // TODO BDM: Fix
+            //BulletImpactSpriteSheet = new CustomSpriteSheetDefinition(content, "Weapons/bullet-impact", new Rectangle(0, 0, 42, 29), 6);            
         }
 
         public List<string> GetBotNames()
