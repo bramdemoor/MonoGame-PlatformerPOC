@@ -92,12 +92,13 @@
     <Compile Include="Domain\Gamemodes\GameMode.cs" />
     <Compile Include="Domain\Weapon\Pistol.cs" />
     <Compile Include="Domain\Score.cs" />
-    <Compile Include="Domain\Powerup\Coin.cs" />
+    <Compile Include="Domain\Powerup\Powerup.cs" />
     <Compile Include="Domain\Level\SolidWall.cs" />
     <Compile Include="Domain\Teams\Team.cs" />
     <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Events\CheckGameStateHandler.cs" />
     <Compile Include="Events\GoreFactory.cs" />
+    <Compile Include="Events\PowerupPickedUpHandler.cs" />
     <Compile Include="Events\ShootHandler.cs" />
     <Compile Include="Events\SpawnPlayersHandler.cs" />
     <Compile Include="Events\StartGameHandler.cs" />
@@ -110,7 +111,6 @@
     <Compile Include="Helpers\GameTimer.cs" />
     <Compile Include="Helpers\IDebugCommandHost.cs" />
     <Compile Include="Helpers\KeyboardUtils.cs" />
-    <Compile Include="Domain\Level\BgLayer.cs" />
     <Compile Include="Domain\Level\Level.cs" />
     <Compile Include="Domain\Particle.cs" />
     <Compile Include="Domain\Level\LevelManager.cs" />
@@ -118,6 +118,7 @@
     <Compile Include="Helpers\XNAExtensions.cs" />
     <Compile Include="Messages\CheckGameStateMessage.cs" />
     <Compile Include="Messages\PlayerHitMessage.cs" />
+    <Compile Include="Messages\PowerupPickedUpMessage.cs" />
     <Compile Include="Messages\ShootMessage.cs" />
     <Compile Include="Messages\SpawnPlayersMessage.cs" />
     <Compile Include="Messages\StartGameMessage.cs" />

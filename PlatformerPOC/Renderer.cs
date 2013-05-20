@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Domain;
-using PlatformerPOC.Domain.Level;
-using PlatformerPOC.Drawing;
 
 namespace PlatformerPOC
 {
@@ -76,9 +74,8 @@ namespace PlatformerPOC
             
             foreach(var layer in level.bgLayers)
             {
-                // TODO BDM: Use speed per layer
-                var myPos = new Vector2(-ViewArea.X*BgLayer.PARALLAX_LAYER1_SPEED);
-                spriteBatch.Draw(layer.texture, myPos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                var myPos = new Vector2(-ViewArea.X*layer.Speed, 0);
+                spriteBatch.Draw(layer.Texture, myPos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
 
             foreach(var tile in level.Walls)
@@ -209,11 +206,13 @@ namespace PlatformerPOC
         }
 
         /// <summary>
-        /// Block V scrolling
+        /// Scroll the view to a specified horizontal coordinate.
+        /// FYI V-scrolling is blocked
         /// </summary>
         public void ScrollToHorizontal(float x)
         {
-            Vector2 position = new Vector2(x, 0);
+            var position = new Vector2(x, 0);
+
             var potentialX = (int)position.X - (ViewArea.Width / 2);
 
             var potentialY = (int)position.Y - (ViewArea.Height / 2);
@@ -223,8 +222,6 @@ namespace PlatformerPOC
 
             if (potentialY < LevelArea.Y) potentialY = LevelArea.Y;
             if (potentialY > LevelArea.Bottom - ViewArea.Height) potentialY = LevelArea.Bottom - ViewArea.Height;
-
-            // TODO BDM: Checks on 'level out of bounds'
 
             ViewArea = new Rectangle(potentialX, potentialY, ViewArea.Width, ViewArea.Height);
         }

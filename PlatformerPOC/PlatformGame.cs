@@ -101,11 +101,12 @@ namespace PlatformerPOC
 
             LevelEditor = new Editor.Editor(this);
 
-            eventAggregationManager.AddListener(new GoreFactory(this));
-            eventAggregationManager.AddListener(new SpawnPlayersHandler(this));     
-            eventAggregationManager.AddListener(new StartGameHandler(this));     
-            eventAggregationManager.AddListener(new CheckGameStateHandler(this));     
-            eventAggregationManager.AddListener(new ShootHandler(this));     
+            eventAggregationManager.AddListener(new GoreFactory(this), true);
+            eventAggregationManager.AddListener(new SpawnPlayersHandler(this), true);
+            eventAggregationManager.AddListener(new StartGameHandler(this), true);     
+            eventAggregationManager.AddListener(new CheckGameStateHandler(this), true);
+            eventAggregationManager.AddListener(new ShootHandler(this), true);
+            eventAggregationManager.AddListener(new PowerupPickedUpHandler(this), true);     
 
             eventAggregationManager.SendMessage(new StartGameMessage());            
         }

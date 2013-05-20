@@ -4,6 +4,7 @@ using PlatformerPOC.Domain.Teams;
 using PlatformerPOC.Domain.Weapon;
 using PlatformerPOC.Drawing;
 using PlatformerPOC.Helpers;
+using PlatformerPOC.Messages;
 
 namespace PlatformerPOC.Domain
 {
@@ -130,12 +131,19 @@ namespace PlatformerPOC.Domain
             }
 
             UpdateBoundingBox();
+
+            foreach (var powerup in game.LevelManager.CurrentLevel.Coins)
+            {
+                if (CollisionHelper.RectangleCollision(BoundingBox.FullRectangle, powerup.BoundingBox.FullRectangle))
+                {
+                    PlatformGame.eventAggregationManager.SendMessage(new PowerupPickedUpMessage(powerup.Id, Name));
+                }
+            }
         }
 
         private void UpdateBoundingBox()
         {
-            BoundingBox.SetFullRectangle(Position, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions, Velocity,
-                                         4, 4, 4, 0);
+            BoundingBox.SetFullRectangle(Position, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions, Velocity, 4, 4, 4, 0);
         }
 
         private void HorizontalMovement()
@@ -159,7 +167,6 @@ namespace PlatformerPOC.Domain
 
         private void VerticalMovement()
         {
-            // TOP CHECK
             if (Velocity.Y < 0)
             {
                 if (!game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(BoundingBox.TopRectangle))

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Domain.Powerup;
 using PlatformerPOC.Helpers;
 
@@ -10,12 +11,12 @@ namespace PlatformerPOC.Domain.Level
     {
         private readonly PlatformGame game;
 
-        public readonly List<BgLayer> bgLayers = new List<BgLayer>();
+        public readonly List<ParallaxLayer> bgLayers = new List<ParallaxLayer>();
         
         private readonly List<Vector2> spawnPointPositions = new List<Vector2>();
 
         public List<SolidWall> Walls { get; set; }
-        public List<Coin> Coins { get; set; }
+        public List<Powerup.Powerup> Coins { get; set; }
 
         private char[,] tiles;
 
@@ -36,7 +37,7 @@ namespace PlatformerPOC.Domain.Level
             this.game = game;
 
             Walls = new List<SolidWall>();
-            Coins = new List<Coin>();
+            Coins = new List<Powerup.Powerup>();
         }
 
         public void SetMetaInformation(string name, string description, string size, string author)
@@ -108,7 +109,7 @@ namespace PlatformerPOC.Domain.Level
                     }
                     else if(c == '*')
                     {
-                        Coins.Add(new Coin(game, levelPos));                        
+                        Coins.Add(new Powerup.Powerup(game, levelPos));                        
                     }
                 }
             }
@@ -116,13 +117,25 @@ namespace PlatformerPOC.Domain.Level
 
         public void SetBgLayers()
         {
-            bgLayers.Add(new BgLayer(game, LayerType.First, game.ResourcePreloader.BgLayer1Texture));
-            bgLayers.Add(new BgLayer(game, LayerType.Second, game.ResourcePreloader.BgLayer2Texture));
+            bgLayers.Add(new ParallaxLayer(0.6f, game.ResourcePreloader.BgLayer1Texture));
+            bgLayers.Add(new ParallaxLayer(0.9f, game.ResourcePreloader.BgLayer2Texture));
         }
 
         public void SetTile(int x, int y, char c)
         {
             tiles[x, y] = c;
+        }
+    }
+
+    public class ParallaxLayer
+    {
+        public float Speed { get; set; }
+        public Texture2D Texture { get; set; }
+
+        public ParallaxLayer(float speed, Texture2D texture)
+        {
+            Speed = speed;
+            Texture = texture;
         }
     }
 }
