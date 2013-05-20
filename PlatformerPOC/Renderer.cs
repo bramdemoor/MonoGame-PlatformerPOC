@@ -79,10 +79,10 @@ namespace PlatformerPOC
 
             foreach (var tile in game.gameWorld.Walls)
             {
-                //if(IsObjectInView(tile))
-                //{                                                
+                if(IsObjectInView(tile))
+                {                                                
                 //    spriteBatch.Draw(tile.TileDefinition.TileSet.TilesetTexture, GetRelativeCoords(tile.Position),tile.TileDefinition.graphicsRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
-                //}                
+                }                
             }
 
             foreach (var coin in game.gameWorld.Coins)

@@ -15,7 +15,8 @@ namespace PlatformerPOC.Seeding
         private readonly PlatformGame game;
 
         public readonly List<CustomSpriteSheetDefinition> CharacterSheets = new List<CustomSpriteSheetDefinition>();
-        public readonly Dictionary<string, Texture2D> DynamicTextures = new Dictionary<string, Texture2D>();
+
+        private readonly Dictionary<string, Texture2D> DynamicTextures = new Dictionary<string, Texture2D>();
 
         public Texture2D HudText { get; private set; }
         public Texture2D HudMsg { get; private set; }        
@@ -77,6 +78,24 @@ namespace PlatformerPOC.Seeding
             var demoLevel = gameData.Levels.First();
 
             demoLevel.LevelObjects = new Dictionary<Vector2, string>();
+
+            var ls = demoLevel.Content.Split('\n');
+
+            demoLevel.TilesArea = new Rectangle(0,0,ls.Max(l => l.Length), ls.Count());
+
+            var lineIndex = 0;
+            foreach(var line in ls)
+            {
+                var chars = line.ToCharArray();
+                for(int i = 0; i<chars.Length; i++)
+                {
+                    if(chars[i] != ' ')
+                    {
+                        demoLevel.LevelObjects.Add(new Vector2(i, lineIndex), chars[i].ToString());
+                    }
+                }
+                lineIndex++;
+            }
 
             return demoLevel;
         }
