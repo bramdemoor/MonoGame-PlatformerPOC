@@ -97,11 +97,11 @@
     <Compile Include="Domain\Level\SolidWall.cs" />
     <Compile Include="Domain\Teams\Team.cs" />
     <Compile Include="Events\EventAggregator.cs" />
-    <Compile Include="Handlers\CheckGameStateHandler.cs" />
-    <Compile Include="Handlers\GoreFactory.cs" />
-    <Compile Include="Handlers\ShootHandler.cs" />
-    <Compile Include="Handlers\SpawnPlayersHandler.cs" />
-    <Compile Include="Handlers\StartGameHandler.cs" />
+    <Compile Include="Events\CheckGameStateHandler.cs" />
+    <Compile Include="Events\GoreFactory.cs" />
+    <Compile Include="Events\ShootHandler.cs" />
+    <Compile Include="Events\SpawnPlayersHandler.cs" />
+    <Compile Include="Events\StartGameHandler.cs" />
     <Compile Include="Helpers\CollisionHelper.cs" />
     <Compile Include="Helpers\Console.cs" />
     <Compile Include="Helpers\CoreCommands.cs" />

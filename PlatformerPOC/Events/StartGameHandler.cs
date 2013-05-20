@@ -4,11 +4,10 @@ using PlatformerPOC.Control;
 using PlatformerPOC.Domain;
 using PlatformerPOC.Domain.Gamemodes;
 using PlatformerPOC.Domain.Teams;
-using PlatformerPOC.Events;
 using PlatformerPOC.Helpers;
 using PlatformerPOC.Messages;
 
-namespace PlatformerPOC.Handlers
+namespace PlatformerPOC.Events
 {
     public class StartGameHandler : IListener<StartGameMessage>
     {

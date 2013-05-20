@@ -1,7 +1,6 @@
-﻿using PlatformerPOC.Events;
-using PlatformerPOC.Messages;
+﻿using PlatformerPOC.Messages;
 
-namespace PlatformerPOC.Handlers
+namespace PlatformerPOC.Events
 {
     public class GoreFactory : IListener<PlayerHitMessage>
     {

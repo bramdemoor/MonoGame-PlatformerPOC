@@ -1,8 +1,7 @@
 ﻿using System.Linq;
-using PlatformerPOC.Events;
 using PlatformerPOC.Messages;
 
-namespace PlatformerPOC.Handlers
+namespace PlatformerPOC.Events
 {
     public class CheckGameStateHandler: IListener<CheckGameStateMessage>
     {

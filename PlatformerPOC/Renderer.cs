@@ -64,8 +64,15 @@ namespace PlatformerPOC
                 game.SpriteBatch.Draw(layer.texture, layer.Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
 
-            // foreach "tile"
-            //TileDefinition.DrawTile(PositionRelativeToView, 0);   
+            foreach(var tile in level.Walls)
+            {
+                tile.TileDefinition.DrawTile(tile.PositionRelativeToView, 0);     
+            }
+
+            foreach(var coin in level.Coins)
+            {
+                game.SpriteBatch.Draw(game.ResourcePreloader.ObjectTiles.TilesetTexture, coin.PositionRelativeToView, game.ResourcePreloader.ObjectTiles.GetGraphicsRectangle(0, 4), Color.White);            
+            }
 
             // foreach particle:
             //spriteSheetInstance.Draw(PositionRelativeToView, DrawEffect, LayerDepths.FOREGROUND_PARTICLE);               
@@ -76,10 +83,7 @@ namespace PlatformerPOC
                 var displayText = string.Format("{0}", player.Name);
                 game.SpriteBatch.DrawString(game.ResourcePreloader.DefaultFont, displayText, player.PositionRelativeToView, player.TextColor, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, 0f);                
             }
-
-            // foreach coin
-            //game.SpriteBatch.Draw(game.ResourcePreloader.ObjectTiles.TilesetTexture, PositionRelativeToView, game.ResourcePreloader.ObjectTiles.GetGraphicsRectangle(0, 4), Color.White);            
-
+            
             foreach( var bullet in game.Bullets)
             {
                 game.SpriteBatch.Draw(game.ResourcePreloader.BulletTexture, bullet.PositionRelativeToView, null, Color.White, 0, Vector2.Zero, 1, bullet.DrawEffect, 1f);    
@@ -128,8 +132,10 @@ namespace PlatformerPOC
 
             DrawBorder(new Rectangle(0, 0, game.ViewPort.ViewArea.Width, game.ViewPort.ViewArea.Height), 5, Color.Yellow);
 
-            // foreach tile/solidwall
-            //game.DebugDrawHelper.DrawBorder(ViewPort.GetRelativeCoords(BoundingBox.FullRectangle), 2, Color.DarkRed);
+            foreach(var tile in game.LevelManager.CurrentLevel.Walls)
+            {
+                DrawBorder(game.ViewPort.GetRelativeCoords(tile.BoundingBox.FullRectangle), 2, Color.DarkRed);
+            }
 
             foreach(var player in game.Players)
             {

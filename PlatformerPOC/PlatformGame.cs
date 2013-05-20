@@ -11,7 +11,6 @@ using PlatformerPOC.Domain.Level;
 using PlatformerPOC.Domain.Weapon;
 using PlatformerPOC.Drawing;
 using PlatformerPOC.Events;
-using PlatformerPOC.Handlers;
 using PlatformerPOC.Helpers;
 using PlatformerPOC.Messages;
 using log4net;

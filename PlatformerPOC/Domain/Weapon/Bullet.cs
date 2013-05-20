@@ -9,7 +9,7 @@ namespace PlatformerPOC.Domain.Weapon
     {
         private const int horizontalMaxSpeed = 15;
 
-        private string shooterName;
+        private readonly string shooterName;
 
         public Bullet(PlatformGame game, string shooterName, Vector2 position, int horizontalDirection) : base(game)
         {

@@ -1,8 +1,7 @@
 ﻿using PlatformerPOC.Domain.Weapon;
-using PlatformerPOC.Events;
 using PlatformerPOC.Messages;
 
-namespace PlatformerPOC.Handlers
+namespace PlatformerPOC.Events
 {
     public class ShootHandler : IListener<ShootMessage>
     {
