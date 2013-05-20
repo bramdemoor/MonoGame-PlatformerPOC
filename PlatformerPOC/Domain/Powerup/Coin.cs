@@ -19,7 +19,7 @@ namespace PlatformerPOC.Domain.Powerup
 
             UpdateBoundingBox();
 
-            foreach (var player in game.PlayerManager.AlivePlayers)
+            foreach (var player in game.AlivePlayers)
             {
                 if (CollisionHelper.RectangleCollision(BoundingBox.FullRectangle, player.BoundingBox.FullRectangle))
                 {

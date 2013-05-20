@@ -4,9 +4,11 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PlatformerPOC.Control;
 using PlatformerPOC.Domain;
 using PlatformerPOC.Domain.Gamemodes;
 using PlatformerPOC.Domain.Level;
+using PlatformerPOC.Domain.Teams;
 using PlatformerPOC.Drawing;
 using PlatformerPOC.Events;
 using PlatformerPOC.Helpers;
@@ -30,13 +32,22 @@ namespace PlatformerPOC
 
         public DebugCommandUI DebugCommandUI { get; private set; }
         public SpriteBatch SpriteBatch { get; private set; }
-        public PlayerManagerNew PlayerManager { get; private set; }
         public ResourcePreloader ResourcePreloader { get; private set; }
         public LevelManager LevelManager { get; private set; }
         public int RoundCounter { get; set; }
         public Editor.Editor LevelEditor { get; set; }
         public readonly FPSCounter fpsCounter;
         private Renderer renderer;
+
+        private AIHelper _aiHelper = new AIHelper();
+
+        public List<Player> Players { get; set; }
+        public Player LocalPlayer { get; private set; }
+
+        public IEnumerable<Player> AlivePlayers
+        {
+            get { return Players.Where(p => p.IsAlive); }
+        }
 
         public GameMode GameMode { get; set; }
         public IEnumerable<BaseGameObject> GameObjects
@@ -53,8 +64,7 @@ namespace PlatformerPOC
         {
             eventAggregationManager.AddListener(new GoreFactory(this));            
 
-            ResourcePreloader = new ResourcePreloader(this);
-            PlayerManager = new PlayerManagerNew(this);
+            ResourcePreloader = new ResourcePreloader(this);            
             LevelManager = new LevelManager(this);
             ViewPort = new ViewPort(this);
             GameMode = new EliminationGameMode();
@@ -71,6 +81,8 @@ namespace PlatformerPOC
             gameObjects = new List<BaseGameObject>();
 
             IsMouseVisible = Config.DebugModeEnabled;
+
+            Players = new List<Player>();
         }
 
         protected override void Initialize()
@@ -118,7 +130,7 @@ namespace PlatformerPOC
                 ShutDown();
             }
 
-            PlayerManager.HandleGameInput();
+            HandleGameInput();
 
             foreach (var gameObject in GameObjects)
             {
@@ -147,16 +159,16 @@ namespace PlatformerPOC
 
         private void CheckGameState()
         {
-            switch (PlayerManager.AlivePlayers.Count())
+            switch (AlivePlayers.Count())
             {
                 case 0:
                     StartNextRound();
                     break;
                 case 1:
                     // Only 1 player? Don't do the checks.
-                    if (PlayerManager.Players.Count() == 1) return;
+                    if (Players.Count() == 1) return;
 
-                    var winner = PlayerManager.AlivePlayers.Single();
+                    var winner = AlivePlayers.Single();
                     winner.Score.MarkWin();
                     StartNextRound();
 
@@ -193,12 +205,12 @@ namespace PlatformerPOC
         {
             RoundCounter = 1;
             LevelManager.StartLevel();
-            PlayerManager.CreatePlayers();
+            CreatePlayers();
         }        
 
         public void GeneralUpdate()
         {
-            var pos = PlayerManager.LocalPlayer.Position;
+            var pos = LocalPlayer.Position;
 
             // WHY: Block V scrolling
             ViewPort.ScrollTo(new Vector2(pos.X, 0));
@@ -206,7 +218,7 @@ namespace PlatformerPOC
 
         public void StartNextRound()
         {
-            PlayerManager.SpawnPlayers();
+            SpawnPlayers();
 
             RoundCounter++;
         }
@@ -245,6 +257,78 @@ namespace PlatformerPOC
             }
 
             gameObjectsToDelete.Clear();
+        }
+
+        public void CreatePlayers()
+        {
+            _aiHelper.Reset();
+
+            if(GameMode is EliminationGameMode)
+            {
+                AddLocalPlayer(Team.Neutral);
+
+                for (int i = 2; i < 4; i++)
+                {
+                    AddBot(i, Team.Neutral);
+                }                
+            }
+            else
+            {
+                AddLocalPlayer(Team.Red);
+
+                for (int i = 2; i < 9; i++)
+                {
+                    AddBot(i,Team.Red);
+                }
+                for (int i = 9; i < 17; i++)
+                {
+                    AddBot(i, Team.Blue);
+                }  
+            }
+
+            SpawnPlayers();
+        }
+
+        private void AddLocalPlayer(Team team)
+        {
+            LocalPlayer = new Player(this, "Player 1", ResourcePreloader.Character1Sheet);
+            LocalPlayer.SwitchTeam(team);
+            Players.Add(LocalPlayer);
+            AddObject(LocalPlayer);
+        }
+
+        private void AddBot(int i, Team team)
+        {
+            var botPlayer = new Player(this, string.Format("{0} [Bot]", _aiHelper.GetRandomName()), ResourcePreloader.Character2Sheet);
+            botPlayer.SwitchTeam(team);
+            botPlayer.AI = new DummyAIController();            
+            Players.Add(botPlayer);
+            AddObject(botPlayer);
+        }
+
+        public void SpawnPlayers()
+        {
+            for (int playerIndex = 0; playerIndex < Players.Count; playerIndex++)
+            {
+                var player = Players[playerIndex];
+                player.Spawn(LevelManager.CurrentLevel.GetSpawnPointForPlayerIndex(playerIndex + 1));
+            }
+        }
+
+        public void HandleGameInput()
+        {
+            LocalPlayer.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
+
+            foreach (var player in Players)
+            {
+                if(player.AI != null)
+                {
+                    player.AI.Evaluate(player.Position, LocalPlayer.Position, _aiHelper.Randomizer);
+                    player.HandleInput(player.AI);
+                }
+
+                player.Update();    
+            }
         }
     }
 }

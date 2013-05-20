@@ -118,7 +118,6 @@
     <Compile Include="PlatformGame.cs" />
     <Compile Include="Domain\Player.cs" />
     <Compile Include="Control\PlayerKeyboardState.cs" />
-    <Compile Include="PlayerManagerNew.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderer.cs" />
     <Compile Include="ResourcePreloader.cs" />

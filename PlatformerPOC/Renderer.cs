@@ -106,9 +106,9 @@ namespace PlatformerPOC
 
             const int playersStart = 220;
             // Players section
-            for (int index = 0; index < game.PlayerManager.Players.Count; index++)
+            for (int index = 0; index < game.Players.Count; index++)
             {
-                var player = game.PlayerManager.Players[index];
+                var player = game.Players[index];
                 game.SpriteBatch.DrawString(game.DefaultFont, player.Name, new Vector2(leftTextStart, playersStart + (index * vTextSpace)), player.TextColor, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
                 game.SpriteBatch.DrawString(game.DefaultFont, player.Score.ToString(), new Vector2(1170, playersStart + (index * vTextSpace)), player.TextColor, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
             }
