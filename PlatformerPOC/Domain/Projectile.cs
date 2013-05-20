@@ -47,7 +47,7 @@ namespace PlatformerPOC.Domain
 
         private void UpdateBoundingBox()
         {
-            BoundingBox.SetFullRectangle(Position, game.ResourcePreloader.BulletTexture.Bounds, Velocity);
+            BoundingBox.SetFullRectangle(Position, new Rectangle(0,0,8,4), Velocity);
         }
 
         private bool CheckPlayerCollision()

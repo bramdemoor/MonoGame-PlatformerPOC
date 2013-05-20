@@ -61,34 +61,36 @@ namespace PlatformerPOC.Domain
         {
             CurrentLevelData = data;
 
-            for (int x = 0; x < data.tiles.GetUpperBound(0); x++)
+            foreach (var levelObject in data.LevelObjects)
             {
-                for (int y = 0; y < data.tiles.GetUpperBound(1); y++)
-                {
-                    var levelPos = TilesToPixels(x, y);
-                    var c = data.tiles[x, y];
+                var levelPos = TilesToPixels(levelObject.Key);
 
-                    if (c == 'G')
-                    {
-                        Walls.Add(new StaticTile(levelPos, game.ResourcePreloader.TileGround));
-                    }
-                    else if (c == 'x')
-                    {
-                        Walls.Add(new StaticTile(levelPos, game.ResourcePreloader.TileWall));
-                    }
-                    else if (c == 'S')
-                    {
-                        spawnPointPositions.Add(levelPos);
-                    }
-                    else if (c == '*')
-                    {
-                        Coins.Add(new Powerup(levelPos));
-                    }
+                if(levelObject.Value == "G")
+                {
+                    Walls.Add(new StaticTile(levelPos, "G"));
+                }
+
+                if(levelObject.Value == "x")
+                {
+                    Walls.Add(new StaticTile(levelPos, "x"));
+                }
+
+                if (levelObject.Value == "S")
+                {
+                    spawnPointPositions.Add(levelPos);
+                }
+
+                if (levelObject.Value == "*")
+                {
+                    Coins.Add(new Powerup(levelPos));
                 }
             }
 
-            bgLayers.Add(new ParallaxLayer(0.6f, game.ResourcePreloader.BgLayer1Texture));
-            bgLayers.Add(new ParallaxLayer(0.9f, game.ResourcePreloader.BgLayer2Texture));
+            foreach (var parallaxLayer in data.Parallax)
+            {
+                bgLayers.Add(new ParallaxLayer(parallaxLayer.Speed, parallaxLayer.SourceFile));    
+            }
+            
             game.renderer.LevelArea = TilesToPixels(data.TilesArea);
         }
 

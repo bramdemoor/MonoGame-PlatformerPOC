@@ -11,10 +11,7 @@ namespace PlatformerPOC.Events
     public class StartGameHandler : IListener<StartGameMessage>
     {
         private readonly PlatformGame _game;
-
-        // TODO BDM: Move to config!
-        private readonly string[] aiNames = new[] { "Seth", "Aryss", "Zenith", "Athena", "Necroth", "Sphinx", "Imhotep", "Avalanche", "Hydra", "Brutus", "Thor", "Harbinger", "Medusa", "Bulldog", "Vengeance", "Viper", "Wyvern", "Ghoul", "Incisor" };
-
+        
         private List<string> AvailableNames = new List<string>();
 
         public StartGameHandler(PlatformGame game)
@@ -24,22 +21,21 @@ namespace PlatformerPOC.Events
 
         public void Handle(StartGameMessage message)
         {
-            AvailableNames = aiNames.Shuffle().ToList();
+            AvailableNames = _game.GameDataLoader.GetBotNames().Shuffle().ToList();
 
-            var lvlData = _game.ResourcePreloader.LoadLevelData(_game.ResourcePreloader.GetAllLevelFilenames().First());
-            _game.gameWorld.BuildWorld(lvlData);
+            _game.gameWorld.BuildWorld(_game.GameDataLoader.GetDemoLevel());
 
             _game.RoundCounter = 1;
 
             if (_game.GameMode is EliminationGameMode)
             {
-                _game.gameWorld.LocalPlayer = new Player(_game, "Player 1", _game.ResourcePreloader.CharacterSheets.First());
+                _game.gameWorld.LocalPlayer = new Player(_game, "Player 1", _game.GameDataLoader.CharacterSheets.First());
                 _game.gameWorld.LocalPlayer.SwitchTeam(Team.Neutral);
                 _game.gameWorld.Players.Add(_game.gameWorld.LocalPlayer);
 
                 for (int i = 2; i < 4; i++)
                 {
-                    var botPlayer = new Player(_game, string.Format("{0} [Bot]", GetRandomName()), _game.ResourcePreloader.CharacterSheets.First());
+                    var botPlayer = new Player(_game, string.Format("{0} [Bot]", GetRandomName()), _game.GameDataLoader.CharacterSheets.First());
                     botPlayer.SwitchTeam(Team.Neutral);
                     botPlayer.AI = new DummyAIController();
                     _game.gameWorld.Players.Add(botPlayer);
@@ -47,20 +43,20 @@ namespace PlatformerPOC.Events
             }
             else
             {
-                _game.gameWorld.LocalPlayer = new Player(_game, "Player 1", _game.ResourcePreloader.CharacterSheets.First());
+                _game.gameWorld.LocalPlayer = new Player(_game, "Player 1", _game.GameDataLoader.CharacterSheets.First());
                 _game.gameWorld.LocalPlayer.SwitchTeam(Team.Red);
                 _game.gameWorld.Players.Add(_game.gameWorld.LocalPlayer);
 
                 for (int i = 2; i < 9; i++)
                 {
-                    var botPlayer = new Player(_game, string.Format("{0} [Bot]", GetRandomName()), _game.ResourcePreloader.CharacterSheets.First());
+                    var botPlayer = new Player(_game, string.Format("{0} [Bot]", GetRandomName()), _game.GameDataLoader.CharacterSheets.First());
                     botPlayer.SwitchTeam(Team.Red);
                     botPlayer.AI = new DummyAIController();
                     _game.gameWorld.Players.Add(botPlayer);
                 }
                 for (int i = 9; i < 17; i++)
                 {
-                    var botPlayer = new Player(_game, string.Format("{0} [Bot]", GetRandomName()), _game.ResourcePreloader.CharacterSheets.First());
+                    var botPlayer = new Player(_game, string.Format("{0} [Bot]", GetRandomName()), _game.GameDataLoader.CharacterSheets.First());
                     botPlayer.SwitchTeam(Team.Blue);
                     botPlayer.AI = new DummyAIController();
                     _game.gameWorld.Players.Add(botPlayer);

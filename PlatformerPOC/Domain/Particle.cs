@@ -10,7 +10,7 @@ namespace PlatformerPOC.Domain
 
         public Particle(PlatformGame game, Vector2 position, int horizontalDirection)
         {
-            spriteSheetInstance = new CustomSpriteSheetInstance(game.ResourcePreloader.BulletImpactSpriteSheet, 2);
+            //spriteSheetInstance = new CustomSpriteSheetInstance(game.GameDataLoader.BulletImpactSpriteSheet, 2);
 
             Position = position;
             HorizontalDirection = horizontalDirection;

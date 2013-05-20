@@ -73,22 +73,23 @@ namespace PlatformerPOC
             foreach(var layer in game.gameWorld.bgLayers)
             {
                 var myPos = new Vector2(-ViewArea.X*layer.Speed, 0);
-                spriteBatch.Draw(layer.Texture, myPos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                var tex = game.GameDataLoader.GetTextureByKey(layer.BgKey);
+                spriteBatch.Draw(tex, myPos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
 
             foreach (var tile in game.gameWorld.Walls)
             {
-                if(IsObjectInView(tile))
-                {                                                
-                    spriteBatch.Draw(tile.TileDefinition.TileSet.TilesetTexture, GetRelativeCoords(tile.Position),tile.TileDefinition.graphicsRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
-                }                
+                //if(IsObjectInView(tile))
+                //{                                                
+                //    spriteBatch.Draw(tile.TileDefinition.TileSet.TilesetTexture, GetRelativeCoords(tile.Position),tile.TileDefinition.graphicsRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                //}                
             }
 
             foreach (var coin in game.gameWorld.Coins)
             {
                 if(IsObjectInView(coin))
                 {
-                    spriteBatch.Draw(game.ResourcePreloader.ObjectTiles.TilesetTexture, GetRelativeCoords(coin.Position), game.ResourcePreloader.ObjectTiles.GetGraphicsRectangle(0, 4), Color.White);                
+                    //spriteBatch.Draw(game.GameDataLoader.ObjectTiles.TilesetTexture, GetRelativeCoords(coin.Position), game.GameDataLoader.ObjectTiles.GetGraphicsRectangle(0, 4), Color.White);                
                 }                
             }
 
@@ -104,7 +105,7 @@ namespace PlatformerPOC
                     spriteBatch.Draw(player.spriteSheetInstance.SpriteSheetDefinition.SpriteSheetTexture, playerPos, player.spriteSheetInstance.CurrentDrawRectangle, Color.White, 0f, Vector2.Zero, 1f, dir, 0f);
                     
                     var displayText = string.Format("{0}", player.Name);
-                    spriteBatch.DrawString(game.ResourcePreloader.DefaultFont, displayText, playerPos, player.TextColor, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, 0f);                                    
+                    spriteBatch.DrawString(game.GameDataLoader.DefaultFont, displayText, playerPos, player.TextColor, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, 0f);                                    
                 }                
             }
 
@@ -113,7 +114,7 @@ namespace PlatformerPOC
                 if(IsObjectInView(bullet))
                 {
                     var dir = bullet.HorizontalDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                    spriteBatch.Draw(game.ResourcePreloader.BulletTexture, GetRelativeCoords(bullet.Position), null, Color.White, 0, Vector2.Zero, 1, dir, 0f);        
+                    //spriteBatch.Draw(game.GameDataLoader.BulletTexture, GetRelativeCoords(bullet.Position), null, Color.White, 0, Vector2.Zero, 1, dir, 0f);        
                 }                
             }
         }
@@ -128,11 +129,11 @@ namespace PlatformerPOC
             const int vTextSpace = 18;
 
             // Msg (center)
-            spriteBatch.Draw(game.ResourcePreloader.HudMsg, new Vector2(280, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+            spriteBatch.Draw(game.GameDataLoader.HudMsg, new Vector2(280, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
             spriteBatch.DrawString(game.DefaultFont, "This is just a test message", new Vector2(300, 20), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
 
 
-            spriteBatch.Draw(game.ResourcePreloader.HudText, new Vector2(1000, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+            spriteBatch.Draw(game.GameDataLoader.HudText, new Vector2(1000, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
 
             const int topSTart = 60;
 
@@ -150,8 +151,7 @@ namespace PlatformerPOC
             }
 
             // player info section
-            spriteBatch.DrawString(game.DefaultFont, "Player 1", new Vector2(leftTextStart, 550), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(game.ResourcePreloader.Pistol, new Vector2(1068, 662), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);            
+            spriteBatch.DrawString(game.DefaultFont, "Player 1", new Vector2(leftTextStart, 550), Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);            
         }
 
         private void DrawDebug()
@@ -192,10 +192,10 @@ namespace PlatformerPOC
         /// </summary>
         private void DrawBorder(Rectangle rectangleToDraw, int thicknessOfBorder, Color borderColor)
         {            
-            spriteBatch.Draw(game.ResourcePreloader.pixel, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, rectangleToDraw.Width, thicknessOfBorder), borderColor);
-            spriteBatch.Draw(game.ResourcePreloader.pixel, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, thicknessOfBorder, rectangleToDraw.Height), borderColor);
-            spriteBatch.Draw(game.ResourcePreloader.pixel, new Rectangle((rectangleToDraw.X + rectangleToDraw.Width - thicknessOfBorder), rectangleToDraw.Y, thicknessOfBorder, rectangleToDraw.Height), borderColor);
-            spriteBatch.Draw(game.ResourcePreloader.pixel, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y + rectangleToDraw.Height - thicknessOfBorder, rectangleToDraw.Width, thicknessOfBorder), borderColor);
+            spriteBatch.Draw(game.GameDataLoader.pixelForLines, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, rectangleToDraw.Width, thicknessOfBorder), borderColor);
+            spriteBatch.Draw(game.GameDataLoader.pixelForLines, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, thicknessOfBorder, rectangleToDraw.Height), borderColor);
+            spriteBatch.Draw(game.GameDataLoader.pixelForLines, new Rectangle((rectangleToDraw.X + rectangleToDraw.Width - thicknessOfBorder), rectangleToDraw.Y, thicknessOfBorder, rectangleToDraw.Height), borderColor);
+            spriteBatch.Draw(game.GameDataLoader.pixelForLines, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y + rectangleToDraw.Height - thicknessOfBorder, rectangleToDraw.Width, thicknessOfBorder), borderColor);
         }
 
         public void LoadContent()

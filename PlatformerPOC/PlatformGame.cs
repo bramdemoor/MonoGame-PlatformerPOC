@@ -22,7 +22,7 @@ namespace PlatformerPOC
 
         public DebugCommandUI DebugCommandUI { get; private set; }
         
-        public ResourcePreloader ResourcePreloader { get; private set; }
+        public GameDataLoader GameDataLoader { get; private set; }
         public int RoundCounter { get; set; }
         private Editor.Editor LevelEditor { get; set; }
         public readonly FPSCounter fpsCounter;
@@ -38,7 +38,7 @@ namespace PlatformerPOC
 
         public SpriteFont DefaultFont
         {
-            get { return ResourcePreloader.DefaultFont; }
+            get { return GameDataLoader.DefaultFont; }
         }
 
         public PlatformGame()
@@ -47,7 +47,7 @@ namespace PlatformerPOC
             log = LogManager.GetLogger(typeof(PlatformGame));
             ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetLoggerRepository()).Root.AddAppender(this);
 
-            ResourcePreloader = new ResourcePreloader(this);          
+            GameDataLoader = new GameDataLoader(this);          
             GameMode = new EliminationGameMode();
             fpsCounter = new FPSCounter();
             renderer = new Renderer(this);
@@ -77,7 +77,7 @@ namespace PlatformerPOC
             DebugCommandUI = new DebugCommandUI(this, DefaultFont);
             Components.Add(DebugCommandUI);
 
-            ResourcePreloader.LoadContent(Content);
+            GameDataLoader.LoadContent(Content);
 
             base.LoadContent();
 

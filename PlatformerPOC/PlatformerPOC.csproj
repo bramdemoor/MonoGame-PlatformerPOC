@@ -86,7 +86,6 @@
     <Compile Include="Drawing\CustomSpriteSheetDefinition.cs" />
     <Compile Include="Drawing\CustomSpriteSheetInstance.cs" />
     <Compile Include="Drawing\CustomTileSetDefinition.cs" />
-    <Compile Include="Seeding\Data\LevelData.cs" />
     <Compile Include="Domain\ParallaxLayer.cs" />
     <Compile Include="Editor\Editor.cs" />
     <Compile Include="Domain\BaseGameObject.cs" />
@@ -126,8 +125,8 @@
     <Compile Include="Control\PlayerKeyboardState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderer.cs" />
-    <Compile Include="Seeding\ResourcePreloader.cs" />
-    <Compile Include="Seeding\Data\SpriteSheetData.cs" />
+    <Compile Include="Seeding\GameDataLoader.cs" />
+    <Compile Include="Seeding\GameData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Lidgren.Network, Version=2011.3.12.0, Culture=neutral, processorArchitecture=MSIL" />
@@ -151,51 +150,40 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Content\Levels\doubleforest.txt" />
-    <Content Include="Content\Characters\chara1.png">
+    <Content Include="Content\bullet-impact.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Characters\player-blue.png">
+    <Content Include="Content\chara1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Characters\player-pink.png">
+    <Content Include="Content\forest-tileset.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Characters\player-yellow.png">
+    <Content Include="Content\hud-msg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Content\Levels\miniforest.txt" />
-    <Content Include="Content\Hud\hud-msg.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Hud\hud.png">
+    <Content Include="Content\hud.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\icon0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Levels\parallax-layer1.png">
+    <Content Include="Content\map2.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Levels\parallax-layer2.png">
+    <Content Include="Content\parallax-layer1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Levels\forest-tileset.png">
+    <Content Include="Content\parallax-layer2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Characters\player-avatar.png">
+    <Content Include="Content\player-blue.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Powerup\coin.png">
+    <Content Include="Content\player-pink.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Weapons\bullet-impact.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Weapons\bullet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Weapons\pistol.png">
+    <Content Include="Content\player-yellow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
@@ -206,15 +194,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Content\Characters\Spritesheets.yml">
+    <Content Include="Content\bzDat.yml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\Fonts\spriteFont1.xnb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Content\Sound\testsound.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Content\spriteFont1.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

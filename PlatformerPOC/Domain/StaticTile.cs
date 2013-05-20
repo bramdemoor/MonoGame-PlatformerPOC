@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using PlatformerPOC.Drawing;
 using PlatformerPOC.Helpers;
 
 namespace PlatformerPOC.Domain
@@ -9,15 +8,16 @@ namespace PlatformerPOC.Domain
     /// </summary>
     public class StaticTile : BaseGameObject
     {
-        public TileDefinition TileDefinition { get; private set; }
+        public string TileKey { get; set; }
 
-        public StaticTile(Vector2 position, TileDefinition tileDefinition)
+        public StaticTile(Vector2 position, string tileKey)
         {
+            TileKey = tileKey;
+
             Position = position;
-            TileDefinition = tileDefinition;
 
             BoundingBox = new CustomBoundingBox();
-            BoundingBox.SetFullRectangle(Position, TileDefinition.TileSet.TileSize, Vector2.Zero);
+            BoundingBox.SetFullRectangle(Position, new Rectangle(0, 0, 32, 32), Vector2.Zero);
         }
     }
 }
