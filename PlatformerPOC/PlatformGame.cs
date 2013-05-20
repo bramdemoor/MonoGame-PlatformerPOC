@@ -25,9 +25,9 @@ namespace PlatformerPOC
 
         public ViewPort ViewPort { get; set; }
                 
-        private readonly List<BaseGameObject> gameObjects;
-        private readonly List<BaseGameObject> gameObjectsToAdd = new List<BaseGameObject>();
-        private readonly List<BaseGameObject> gameObjectsToDelete = new List<BaseGameObject>();
+        //private readonly List<BaseGameObject> gameObjects;
+        //private readonly List<BaseGameObject> gameObjectsToAdd = new List<BaseGameObject>();
+        //private readonly List<BaseGameObject> gameObjectsToDelete = new List<BaseGameObject>();
 
         private readonly ILog log;                
 
@@ -51,10 +51,10 @@ namespace PlatformerPOC
         }
 
         public GameMode GameMode { get; set; }
-        public IEnumerable<BaseGameObject> GameObjects
-        {
-            get { return gameObjects; }
-        }
+        //public IEnumerable<BaseGameObject> GameObjects
+        //{
+        //    get { return gameObjects; }
+        //}
 
         public SpriteFont DefaultFont
         {
@@ -77,7 +77,7 @@ namespace PlatformerPOC
             ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetLoggerRepository()).Root.AddAppender(this);
 
             Content.RootDirectory = "Content";            
-            gameObjects = new List<BaseGameObject>();
+            //gameObjects = new List<BaseGameObject>();
 
             IsMouseVisible = Config.DebugModeEnabled;
 
@@ -121,7 +121,7 @@ namespace PlatformerPOC
         }
 
         protected override void UnloadContent()
-        {
+        {            
         }
 
         protected override void Update(GameTime gameTime)
@@ -146,17 +146,17 @@ namespace PlatformerPOC
                 player.Update();    
             }
 
-            foreach (var gameObject in GameObjects)
-            {
-                gameObject.Update(gameTime);
-            }
+            //foreach (var gameObject in GameObjects)
+            //{
+            //    gameObject.Update(gameTime);
+            //}
 
             // WHY: Block V scrolling
             ViewPort.ScrollTo(new Vector2(LocalPlayer.Position.X, 0));
 
             eventAggregationManager.SendMessage(new CheckGameStateMessage());            
 
-            DoHouseKeeping();
+            //DoHouseKeeping();
 
             if (Config.EditMode)
             {
@@ -195,40 +195,40 @@ namespace PlatformerPOC
             DebugCommandUI.RegisterCommand("toggle-edit", "Turn level editor mode on or off", LevelEditor.ToggleEditModeCommand);
         }
 
-        /// <summary>
-        /// Add object to the update/draw list
-        /// </summary>        
-        public void AddObject(BaseGameObject baseGameObject)
-        {
-            gameObjectsToAdd.Add(baseGameObject);
-        }
+        ///// <summary>
+        ///// Add object to the update/draw list
+        ///// </summary>        
+        //public void AddObject(BaseGameObject baseGameObject)
+        //{
+        //    gameObjectsToAdd.Add(baseGameObject);
+        //}
 
-        /// <summary>
-        /// Delete object from the update/draw list
-        /// </summary>
-        public void DeleteObject(BaseGameObject baseGameObject)
-        {
-            gameObjectsToDelete.Add(baseGameObject);
-        }
+        ///// <summary>
+        ///// Delete object from the update/draw list
+        ///// </summary>
+        //public void DeleteObject(BaseGameObject baseGameObject)
+        //{
+        //    gameObjectsToDelete.Add(baseGameObject);
+        //}
 
-        /// <summary>
-        /// Clean up objects to delete, and introduce new objects
-        /// </summary>
-        private void DoHouseKeeping()
-        {
-            foreach (var baseGameObject in gameObjectsToAdd)
-            {
-                gameObjects.Add(baseGameObject);
-            }
+        ///// <summary>
+        ///// Clean up objects to delete, and introduce new objects
+        ///// </summary>
+        //private void DoHouseKeeping()
+        //{
+        //    foreach (var baseGameObject in gameObjectsToAdd)
+        //    {
+        //        gameObjects.Add(baseGameObject);
+        //    }
 
-            gameObjectsToAdd.Clear();
+        //    gameObjectsToAdd.Clear();
 
-            foreach (var baseGameObject in gameObjectsToDelete)
-            {
-                gameObjects.Remove(baseGameObject);
-            }
+        //    foreach (var baseGameObject in gameObjectsToDelete)
+        //    {
+        //        gameObjects.Remove(baseGameObject);
+        //    }
 
-            gameObjectsToDelete.Clear();
-        }
+        //    gameObjectsToDelete.Clear();
+        //}
     }
 }

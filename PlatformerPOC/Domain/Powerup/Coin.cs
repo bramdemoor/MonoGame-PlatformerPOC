@@ -13,10 +13,8 @@ namespace PlatformerPOC.Domain.Powerup
             UpdateBoundingBox();
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-
+        public void Update(GameTime gameTime)
+        {            
             UpdateBoundingBox();
 
             foreach (var player in game.AlivePlayers)

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using PlatformerPOC.Drawing;
 using PlatformerPOC.Helpers;
 
 namespace PlatformerPOC.Domain
@@ -32,46 +31,32 @@ namespace PlatformerPOC.Domain
             }
         }
 
-
-        public ViewPort ViewPort
-        {
-            get { return game.ViewPort; }
-        }
-
-        public SpriteBatch SpriteBatch
-        {
-            get { return game.SpriteBatch; }
-        }
-
         public bool InView
         {
             get
             {
                 if (BoundingBox == null) return true;   // Otherwise, objects without bounding box can never be drawn!
-                return ViewPort.IsObjectInArea(BoundingBox.FullRectangle);
+                return game.ViewPort.IsObjectInArea(BoundingBox.FullRectangle);
             }
         }
 
         public Vector2 PositionRelativeToView
         {
-            get { return ViewPort.GetRelativeCoords(Position); }
-        }       
+            get { return game.ViewPort.GetRelativeCoords(Position); }
+        }
 
-        public BaseGameObject(PlatformGame game)
+        protected BaseGameObject(PlatformGame game)
         {
             this.game = game;
         }
 
-        public virtual void Update(GameTime gameTime)
+        protected void DestroyEntity()
         {
+            // TODO BDM: Fix
+            //game.DeleteObject(this);
         }
 
-        public void DestroyEntity()
-        {
-            game.DeleteObject(this);
-        }
-
-        public void PlaySound(SoundEffect spawnSound)
+        protected void PlaySound(SoundEffect spawnSound)
         {
             if (!Config.SoundEnabled) return;
 

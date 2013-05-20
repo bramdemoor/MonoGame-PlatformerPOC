@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using PlatformerPOC.Messages;
 
 namespace PlatformerPOC.Domain.Weapon
 {
@@ -11,11 +12,10 @@ namespace PlatformerPOC.Domain.Weapon
 
         public Pistol(PlatformGame game, Player owner) : base(game)
         {
-            this.owner = owner;
-            game.AddObject(this);
+            this.owner = owner;            
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             if (intervalCounter > 0)
             {
@@ -30,9 +30,10 @@ namespace PlatformerPOC.Domain.Weapon
         {
             if (intervalCounter > 0) return;
 
-            var bullet = new Bullet(game, owner, Position + new Vector2(30 * HorizontalDirection, 12), HorizontalDirection);
-            game.AddObject(bullet);
+            var shotPosition = Position + new Vector2(30 * HorizontalDirection, 12);
 
+            PlatformGame.eventAggregationManager.SendMessage(new ShootMessage(owner.Name, shotPosition, HorizontalDirection));
+            
             intervalCounter = interval;
         }        
     }

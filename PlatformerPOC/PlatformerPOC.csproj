@@ -100,6 +100,7 @@
     <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Handlers\CheckGameStateHandler.cs" />
     <Compile Include="Handlers\GoreFactory.cs" />
+    <Compile Include="Handlers\ShootHandler.cs" />
     <Compile Include="Handlers\SpawnPlayersHandler.cs" />
     <Compile Include="Handlers\StartGameHandler.cs" />
     <Compile Include="Helpers\CollisionHelper.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Helpers\XNAExtensions.cs" />
     <Compile Include="Messages\CheckGameStateMessage.cs" />
     <Compile Include="Messages\PlayerHitMessage.cs" />
+    <Compile Include="Messages\ShootMessage.cs" />
     <Compile Include="Messages\SpawnPlayersMessage.cs" />
     <Compile Include="Messages\StartGameMessage.cs" />
     <Compile Include="PlatformGame.cs" />

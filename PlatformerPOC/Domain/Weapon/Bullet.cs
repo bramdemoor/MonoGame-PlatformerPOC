@@ -9,19 +9,19 @@ namespace PlatformerPOC.Domain.Weapon
     {
         private const int horizontalMaxSpeed = 15;
 
-        private readonly Player shooter;
+        private string shooterName;
 
-        public Bullet(PlatformGame game, Player shooter, Vector2 position, int horizontalDirection) : base(game)
+        public Bullet(PlatformGame game, string shooterName, Vector2 position, int horizontalDirection) : base(game)
         {
             Position = position;
-            this.shooter = shooter;
+            this.shooterName = shooterName;
             HorizontalDirection = horizontalDirection;
 
             BoundingBox = new CustomBoundingBox();
             UpdateBoundingBox();
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             if (!game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(BoundingBox.FullRectangle))
             {
@@ -48,7 +48,7 @@ namespace PlatformerPOC.Domain.Weapon
 
         private bool CheckPlayerCollision()
         {
-            foreach (var player in game.AlivePlayers.Where(p => p != shooter))
+            foreach (var player in game.AlivePlayers.Where(p => p.Name != shooterName))
             {
                 if (CollisionHelper.RectangleCollision(BoundingBox.FullRectangle, player.BoundingBox.FullRectangle))
                 {

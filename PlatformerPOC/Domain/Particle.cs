@@ -19,7 +19,7 @@ namespace PlatformerPOC.Domain
             UpdateBoundingBox();
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             spriteSheetInstance.LoopUntilEnd();
 

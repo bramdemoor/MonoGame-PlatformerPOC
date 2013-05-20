@@ -27,7 +27,6 @@ namespace PlatformerPOC.Handlers
                 _game.LocalPlayer = new Player(_game, "Player 1", _game.ResourcePreloader.Character1Sheet);
                 _game.LocalPlayer.SwitchTeam(Team.Neutral);
                 _game.Players.Add(_game.LocalPlayer);
-                _game.AddObject(_game.LocalPlayer);
 
                 for (int i = 2; i < 4; i++)
                 {
@@ -35,7 +34,6 @@ namespace PlatformerPOC.Handlers
                     botPlayer.SwitchTeam(Team.Neutral);
                     botPlayer.AI = new DummyAIController();
                     _game.Players.Add(botPlayer);
-                    _game.AddObject(botPlayer);
                 }
             }
             else
@@ -43,7 +41,6 @@ namespace PlatformerPOC.Handlers
                 _game.LocalPlayer = new Player(_game, "Player 1", _game.ResourcePreloader.Character1Sheet);
                 _game.LocalPlayer.SwitchTeam(Team.Red);
                 _game.Players.Add(_game.LocalPlayer);
-                _game.AddObject(_game.LocalPlayer);
 
                 for (int i = 2; i < 9; i++)
                 {
@@ -51,7 +48,6 @@ namespace PlatformerPOC.Handlers
                     botPlayer.SwitchTeam(Team.Red);
                     botPlayer.AI = new DummyAIController();
                     _game.Players.Add(botPlayer);
-                    _game.AddObject(botPlayer);
                 }
                 for (int i = 9; i < 17; i++)
                 {
@@ -59,7 +55,6 @@ namespace PlatformerPOC.Handlers
                     botPlayer.SwitchTeam(Team.Blue);
                     botPlayer.AI = new DummyAIController();
                     _game.Players.Add(botPlayer);
-                    _game.AddObject(botPlayer);
                 }
             }
 

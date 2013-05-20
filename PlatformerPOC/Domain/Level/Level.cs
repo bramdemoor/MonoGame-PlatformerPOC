@@ -14,6 +14,9 @@ namespace PlatformerPOC.Domain.Level
         
         private readonly List<Vector2> spawnPointPositions = new List<Vector2>();
 
+        public List<SolidWall> Walls { get; set; }
+        public List<Coin> Coins { get; set; }
+
         private char[,] tiles;
 
         public string Name { get; private set; }
@@ -31,6 +34,9 @@ namespace PlatformerPOC.Domain.Level
         public Level(PlatformGame game)
         {
             this.game = game;
+
+            Walls = new List<SolidWall>();
+            Coins = new List<Coin>();
         }
 
         public void SetMetaInformation(string name, string description, string size, string author)
@@ -71,7 +77,7 @@ namespace PlatformerPOC.Domain.Level
 
         public bool IsPlaceFreeOfWalls(Rectangle collisionRectangle)
         {
-            return game.GameObjects.OfType<SolidWall>().All(wall => !CollisionHelper.RectangleCollision(collisionRectangle, wall.BoundingBox.FullRectangle));
+            return Walls.All(wall => !CollisionHelper.RectangleCollision(collisionRectangle, wall.BoundingBox.FullRectangle));
         }
 
         public void Clear()
@@ -90,11 +96,11 @@ namespace PlatformerPOC.Domain.Level
 
                     if (c == 'G')
                     {
-                        game.AddObject(new SolidWall(game, levelPos, game.ResourcePreloader.TileGround));
+                        Walls.Add(new SolidWall(game, levelPos, game.ResourcePreloader.TileGround));                        
                     }
                     else if (c == 'x')
                     {
-                        game.AddObject(new SolidWall(game, levelPos, game.ResourcePreloader.TileWall));
+                        Walls.Add(new SolidWall(game, levelPos, game.ResourcePreloader.TileWall));                        
                     }
                     else if (c == 'S')
                     {
@@ -102,7 +108,7 @@ namespace PlatformerPOC.Domain.Level
                     }
                     else if(c == '*')
                     {
-                        game.AddObject(new Coin(game, levelPos));
+                        Coins.Add(new Coin(game, levelPos));                        
                     }
                 }
             }
