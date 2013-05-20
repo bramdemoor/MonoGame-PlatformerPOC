@@ -28,13 +28,6 @@ namespace PlatformerPOC.Drawing
             ViewArea = new Rectangle(0, 0, Config.ScreenResolutionWidth - 280, Config.ScreenResolutionHeight);
         }
 
-        public void DrawDebug()
-        {            
-            var rectangleToDraw = new Rectangle(0, 0, ViewArea.Width, ViewArea.Height);
-
-             game.DebugDrawHelper.DrawBorder(rectangleToDraw, 5, Color.Yellow);
-        }
-
         /// <summary>
         /// Simple check for objects
         /// </summary>

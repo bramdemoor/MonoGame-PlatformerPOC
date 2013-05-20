@@ -17,7 +17,7 @@ namespace PlatformerPOC.Domain.Level
         private readonly PlatformGame game;
 
         private readonly LayerType layer;
-        private readonly Texture2D texture;
+        public readonly Texture2D texture;
 
         private float Speed
         {
@@ -35,23 +35,7 @@ namespace PlatformerPOC.Domain.Level
             }
         }
 
-        private float LayerDepth
-        {
-            get
-            {
-                switch (layer)
-                {
-                    case LayerType.First:
-                        return LayerDepths.BG_PARALLAX_1;
-                    case LayerType.Second:
-                        return LayerDepths.BG_PARALLAX_2;
-                    default:
-                        return 200f;
-                }                
-            }
-        }
-
-        private Vector2 Pos
+        public Vector2 Pos
         {
             get { return new Vector2(-game.ViewPort.ViewPos.X*Speed, 0); }
         }
@@ -62,10 +46,5 @@ namespace PlatformerPOC.Domain.Level
             layer = type;
             this.texture = texture;
         }
-
-        public void Draw()
-        {
-            game.SpriteBatch.Draw(texture, Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepth);
-        } 
     }
 }

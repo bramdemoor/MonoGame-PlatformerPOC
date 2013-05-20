@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Control;
 using PlatformerPOC.Domain.Teams;
 using PlatformerPOC.Domain.Weapon;
@@ -226,27 +225,6 @@ namespace PlatformerPOC.Domain
             {
                 weapon.Shoot();
             }
-        }
-
-        #endregion
-
-
-        #region Drawing
-
-        public override void Draw()
-        {
-            spriteSheetInstance.Draw(PositionRelativeToView, DrawEffect, LayerDepths.GAMEOBJECTS);
-
-            var displayText = string.Format("{0}", Name);
-
-            game.SpriteBatch.DrawString(game.ResourcePreloader.DefaultFont, displayText, PositionRelativeToView, TextColor, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.TEXT);
-        }
-
-        public override void DrawDebug()
-        {
-            var rel = ViewPort.GetRelativeCoords(BoundingBox.FullRectangle);
-
-            game.DebugDrawHelper.DrawBorder(rel, 1, Color.Pink);
         }
 
         #endregion

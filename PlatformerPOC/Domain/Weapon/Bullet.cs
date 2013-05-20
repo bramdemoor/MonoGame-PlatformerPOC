@@ -67,16 +67,5 @@ namespace PlatformerPOC.Domain.Weapon
         {
             game.AddObject(new Particle(game, new Vector2(Position.X + (HorizontalDirection*40), Position.Y), HorizontalDirection));
         }
-
-        public override void Draw()
-        {
-            SpriteBatch.Draw(game.ResourcePreloader.BulletTexture, PositionRelativeToView, null, Color.White, 0, Vector2.Zero, 1, DrawEffect, 1f);                    
-        }
-
-        public override void DrawDebug()
-        {
-            var rel = ViewPort.GetRelativeCoords(BoundingBox.FullRectangle);
-            game.DebugDrawHelper.DrawBorder(rel, 1, Color.Lime);
-        }
     }
 }

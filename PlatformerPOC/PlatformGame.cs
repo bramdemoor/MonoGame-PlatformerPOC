@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using PlatformerPOC.Domain;
 using PlatformerPOC.Domain.Gamemodes;
 using PlatformerPOC.Domain.Level;
@@ -14,12 +16,9 @@ using log4net.Core;
 namespace PlatformerPOC
 {
     public class PlatformGame : Game, IAppender
-    {
-         public DebugDrawHelper DebugDrawHelper { get; private set; }
+    {         
         public ViewPort ViewPort { get; set; }
-        
-        private readonly GraphicsHelper graphicsHelper;
-
+                
         private readonly List<BaseGameObject> gameObjects;
         private readonly List<BaseGameObject> gameObjectsToAdd = new List<BaseGameObject>();
         private readonly List<BaseGameObject> gameObjectsToDelete = new List<BaseGameObject>();
@@ -27,20 +26,14 @@ namespace PlatformerPOC
         private readonly ILog log;                
 
         public DebugCommandUI DebugCommandUI { get; private set; }
-
         public SpriteBatch SpriteBatch { get; private set; }
-
-        public GameplayScreen GameScreen { get; set; }
-
         public PlayerManagerNew PlayerManager { get; private set; }
-
         public ResourcePreloader ResourcePreloader { get; private set; }
-
         public LevelManager LevelManager { get; private set; }
-
         public int RoundCounter { get; set; }
-
         public Editor.Editor LevelEditor { get; set; }
+        public readonly FPSCounter fpsCounter;
+        private Renderer renderer;
 
         public GameMode GameMode { get; set; }
         public IEnumerable<BaseGameObject> GameObjects
@@ -61,17 +54,16 @@ namespace PlatformerPOC
             ViewPort = new ViewPort(this);
             GameMode = new EliminationGameMode();
 
+            fpsCounter = new FPSCounter();
+
+            renderer = new Renderer(this);
+
             log4net.Config.BasicConfigurator.Configure();
             log = LogManager.GetLogger(typeof(PlatformGame));
             ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetLoggerRepository()).Root.AddAppender(this);
 
-            Content.RootDirectory = "Content";
-
-            graphicsHelper = new GraphicsHelper(this);
-
+            Content.RootDirectory = "Content";            
             gameObjects = new List<BaseGameObject>();
-
-            DebugDrawHelper = new DebugDrawHelper(this);
 
             IsMouseVisible = Config.DebugModeEnabled;
         }
@@ -93,8 +85,6 @@ namespace PlatformerPOC
         {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            DebugDrawHelper.LoadContent();
-
             DebugCommandUI = new DebugCommandUI(this, DefaultFont);
             Components.Add(DebugCommandUI);
 
@@ -115,25 +105,61 @@ namespace PlatformerPOC
         }
 
         protected override void Update(GameTime gameTime)
-        {   
-            DebugDrawHelper.Update(gameTime);
-       
-            GameScreen.Update(gameTime);
+        {
+            fpsCounter.Update(gameTime);            
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                ShutDown();
+            }
+
+            PlayerManager.HandleGameInput();
+
+            foreach (var gameObject in GameObjects)
+            {
+                gameObject.Update(gameTime);
+            }
+
+            GeneralUpdate();
+
+            CheckGameState();
+
+            DoHouseKeeping();
+
+            if (Config.EditMode)
+            {
+                LevelEditor.Update();
+            }
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            graphicsHelper.StartDrawing();
-
-            GameScreen.Draw(gameTime);
-
-            DebugDrawHelper.DrawFps();
-
-            graphicsHelper.EndDrawing();
-
+            renderer.Draw();
             base.Draw(gameTime);
+        }
+
+        private void CheckGameState()
+        {
+            switch (PlayerManager.AlivePlayers.Count())
+            {
+                case 0:
+                    StartNextRound();
+                    break;
+                case 1:
+                    // Only 1 player? Don't do the checks.
+                    if (PlayerManager.Players.Count() == 1) return;
+
+                    var winner = PlayerManager.AlivePlayers.Single();
+                    winner.Score.MarkWin();
+                    StartNextRound();
+
+                    break;
+                default:
+                    // continue game
+                    break;
+            }
         }
         
         /// <summary>
@@ -161,12 +187,8 @@ namespace PlatformerPOC
         public void StartGame()
         {
             RoundCounter = 1;
-
             LevelManager.StartLevel();
-
             PlayerManager.CreatePlayers();
-
-            GameScreen = new GameplayScreen(this);
         }        
 
         public void GeneralUpdate()

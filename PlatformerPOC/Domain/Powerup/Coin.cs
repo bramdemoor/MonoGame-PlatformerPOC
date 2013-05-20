@@ -13,13 +13,6 @@ namespace PlatformerPOC.Domain.Powerup
             UpdateBoundingBox();
         }
 
-        public override void Draw()
-        {
-            var rect = game.ResourcePreloader.ObjectTiles.GetGraphicsRectangle(0, 4);
-            
-            game.SpriteBatch.Draw(game.ResourcePreloader.ObjectTiles.TilesetTexture, PositionRelativeToView, rect, Color.White);            
-        }
-
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

@@ -34,11 +34,6 @@ namespace PlatformerPOC.Domain.Weapon
             game.AddObject(bullet);
 
             intervalCounter = interval;
-        }
-
-        public override void Draw()
-        {
-            
-        }
+        }        
     }
 }

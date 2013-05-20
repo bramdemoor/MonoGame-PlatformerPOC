@@ -8,12 +8,10 @@ namespace PlatformerPOC.Domain
 {
     /// <summary>
     /// Base Game object    
-    /// </summary>public abstract void Draw();
+    /// </summary>
     public abstract class BaseGameObject
     {
         protected readonly PlatformGame game;
-
-        public long Id { get; set; }
 
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
@@ -73,12 +71,6 @@ namespace PlatformerPOC.Domain
             game.DeleteObject(this);
         }
 
-
-        public virtual void DrawDebug()
-        {
-
-        }
-
         public void PlaySound(SoundEffect spawnSound)
         {
             if (!Config.SoundEnabled) return;
@@ -89,7 +81,5 @@ namespace PlatformerPOC.Domain
 
             soundEffectInstance.Play();
         }
-
-        public abstract void Draw();
     }
 }

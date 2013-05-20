@@ -10,7 +10,7 @@ namespace PlatformerPOC.Domain.Level
     {
         private readonly PlatformGame game;
 
-        private readonly List<BgLayer> bgLayers = new List<BgLayer>();
+        public readonly List<BgLayer> bgLayers = new List<BgLayer>();
         
         private readonly List<Vector2> spawnPointPositions = new List<Vector2>();
 
@@ -47,14 +47,6 @@ namespace PlatformerPOC.Domain.Level
             {
                 tiles = new char[65, 25];
             } 
-        }
-
-        public void Draw()
-        {
-            foreach (var bgLayer in bgLayers)
-            {
-                bgLayer.Draw();
-            }
         }
 
         public bool IsInBoundsLeft(Vector2 position)

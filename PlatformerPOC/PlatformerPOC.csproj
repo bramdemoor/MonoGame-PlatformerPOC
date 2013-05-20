@@ -86,7 +86,6 @@
     <Compile Include="Drawing\CustomSpriteSheetDefinition.cs" />
     <Compile Include="Drawing\CustomSpriteSheetInstance.cs" />
     <Compile Include="Drawing\CustomTileSetDefinition.cs" />
-    <Compile Include="Drawing\GraphicsHelper.cs" />
     <Compile Include="Drawing\TileDefinition.cs" />
     <Compile Include="Drawing\ViewPort.cs" />
     <Compile Include="Editor\Editor.cs" />
@@ -102,14 +101,11 @@
     <Compile Include="Helpers\Console.cs" />
     <Compile Include="Helpers\CoreCommands.cs" />
     <Compile Include="Helpers\CustomBoundingBox.cs" />
-    <Compile Include="Helpers\DebugDrawHelper.cs" />
     <Compile Include="Helpers\EnumerableExtensions.cs" />
     <Compile Include="Helpers\FPSCounter.cs" />
     <Compile Include="Helpers\GameTimer.cs" />
     <Compile Include="Helpers\IDebugCommandHost.cs" />
     <Compile Include="Helpers\KeyboardUtils.cs" />
-    <Compile Include="Hud\Hud.cs" />
-    <Compile Include="LayerDepths.cs" />
     <Compile Include="Domain\Level\BgLayer.cs" />
     <Compile Include="Domain\Level\Level.cs" />
     <Compile Include="Domain\Particle.cs" />
@@ -121,8 +117,8 @@
     <Compile Include="Control\PlayerKeyboardState.cs" />
     <Compile Include="PlayerManagerNew.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderer.cs" />
     <Compile Include="ResourcePreloader.cs" />
-    <Compile Include="GameplayScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Lidgren.Network, Version=2011.3.12.0, Culture=neutral, processorArchitecture=MSIL" />

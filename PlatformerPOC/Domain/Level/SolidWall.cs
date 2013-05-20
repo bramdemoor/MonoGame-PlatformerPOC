@@ -19,17 +19,5 @@ namespace PlatformerPOC.Domain.Level
             BoundingBox = new CustomBoundingBox();
             BoundingBox.SetFullRectangle(Position, TileDefinition.TileSet.TileSize, Vector2.Zero);
         }
-
-        public override void Draw()
-        {
-            TileDefinition.DrawTile(PositionRelativeToView, 0);                      
-        }
-
-        public override void DrawDebug()
-        {
-            var rel = ViewPort.GetRelativeCoords(BoundingBox.FullRectangle);
-
-            game.DebugDrawHelper.DrawBorder(rel, 2, Color.DarkRed);
-        }
     }
 }

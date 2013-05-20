@@ -35,10 +35,5 @@ namespace PlatformerPOC.Domain
         {
             BoundingBox.SetFullRectangle(Position, game.ResourcePreloader.BulletImpactSpriteSheet.SpriteDimensions, Velocity);
         }
-
-        public override void Draw()
-        {
-            spriteSheetInstance.Draw(PositionRelativeToView, DrawEffect, LayerDepths.FOREGROUND_PARTICLE);               
-        }
     }
 }

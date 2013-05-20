@@ -39,6 +39,9 @@ namespace PlatformerPOC
 
         public CustomTileSetDefinition ObjectTiles { get; private set; }
 
+        // For rectangle drawing
+        public Texture2D pixel;
+
         public IEnumerable<string> GetAllLevelFilenames()
         {
             yield return "miniforest";
@@ -78,6 +81,9 @@ namespace PlatformerPOC
             Character2Sheet = new CustomSpriteSheetDefinition(content, "Characters/player-blue", new Rectangle(0, 0, 32, 32), 8);
 
             ObjectTiles = new CustomTileSetDefinition(content, "icon0.png", new Rectangle(0,0,16,16));
+
+            pixel = new Texture2D(game.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            pixel.SetData(new[] { Color.White }); // so that we can draw whatever color we want on top of it 
         }
 
 
