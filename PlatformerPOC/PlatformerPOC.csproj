@@ -85,7 +85,6 @@
     <Compile Include="Control\IPlayerControlState.cs" />
     <Compile Include="Drawing\CustomSpriteSheetDefinition.cs" />
     <Compile Include="Drawing\CustomSpriteSheetInstance.cs" />
-    <Compile Include="Drawing\CustomTileSetDefinition.cs" />
     <Compile Include="Domain\ParallaxLayer.cs" />
     <Compile Include="Editor\Editor.cs" />
     <Compile Include="Domain\BaseGameObject.cs" />

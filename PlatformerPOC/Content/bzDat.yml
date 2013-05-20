@@ -52,6 +52,43 @@ Spritesheets:
         StartX: 0
         EndX: 2        
         LoopWithReverse: true
+      - Name: 'Die'
+        Y: 0
+        StartX: 3
+        EndX: 3      
+        LoopWithReverse: false 
+
+  - Name: 'White bear'
+    Author: 'Bram'
+    SourceFile: 'chara1.png'
+    TileSize: 32
+    Animations:
+      - Name: 'Walk'
+        Y: 1
+        StartX: 0
+        EndX: 2        
+        LoopWithReverse: true
+      - Name: 'Die'
+        Y: 1
+        StartX: 3
+        EndX: 3      
+        LoopWithReverse: false   
+
+  - Name: 'Female bear'
+    Author: 'Bram'
+    SourceFile: 'chara1.png'
+    TileSize: 32
+    Animations:
+      - Name: 'Walk'
+        Y: 2
+        StartX: 0
+        EndX: 2        
+        LoopWithReverse: true
+      - Name: 'Die'
+        Y: 2
+        StartX: 3
+        EndX: 3      
+        LoopWithReverse: false           
         
   - Name: 'Blue alien'
     Author: 'Bram'
