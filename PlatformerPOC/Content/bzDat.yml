@@ -33,6 +33,11 @@ Tilesets:
         X: 0
         Y: 4
         Type: 'PowerUp'        
+    Tiles:
+      - Name: 'Spawner'
+        X: 11
+        Y: 2
+        Type: 'Spawner' 
         
 Spritesheets:
   - Name: 'Bear1'
@@ -84,7 +89,19 @@ Levels:
     Description: 'A medium map, suitable for up to sixteen players.'
     Author: 'Bram'
     Width: 2
-    Height: 2    
+    Height: 2 
+    TilesetImports: ['Forest1', 'Objects1']
+    TileImports:
+      - Alias: 'x'
+        Key: 'Wall'
+      - Alias: 'G'
+        Key: 'Grass'
+      - Alias: 'M'
+        Key: 'Mud'
+      - Alias: 'S'
+        Key: 'Spawner'
+      - Alias: '*'
+        Key: 'Bonus'    
     Parallax:
       - SourceFile: 'parallax-layer1.png'
         Speed: 0.9
@@ -113,4 +130,4 @@ Levels:
       x       xxxx  xxxxxxxx      S        S        xxxxxx           x
       xxxxx                                                          x
       x               x xxx        *      xx           ****          x
-      GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG    
+      GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGMMMMGGGGGGGGGGGGGGGGGGGG    

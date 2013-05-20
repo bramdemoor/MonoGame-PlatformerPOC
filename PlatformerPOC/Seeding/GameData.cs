@@ -31,7 +31,8 @@ namespace PlatformerPOC.Seeding
     public enum TileType
     {
         Solid,
-        PowerUp
+        PowerUp,
+        Spawner
     }
 
     public class Spritesheet
@@ -59,12 +60,20 @@ namespace PlatformerPOC.Seeding
         public string Author { get; private set; }
         public int Width { get; set; }
         public int Height { get; set; }
+        public List<string> TilesetImports { get; set; }
+        public List<AliasImport> TileImports { get; set; }
         public List<ParallaxLayer> Parallax { get; set; }
         public string Content { get; set; }
 
         // This gets filled in by our code
         public Dictionary<Vector2, string> LevelObjects { get; set; }
         public Rectangle TilesArea { get; set; }
+    }
+
+    public class AliasImport
+    {
+        public string Alias { get; set; }
+        public string Key { get; set; }
     }
 
     public class ParallaxLayer
