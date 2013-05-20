@@ -28,11 +28,13 @@ namespace PlatformerPOC.Seeding
         public TileType Type { get; set; }
     }
 
+    // Note: This includes the objects!
     public enum TileType
     {
         Solid,
         PowerUp,
-        Spawner
+        Spawner,
+        PistolBullet
     }
 
     public class Spritesheet

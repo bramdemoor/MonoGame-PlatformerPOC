@@ -21,7 +21,7 @@ Tilesets:
         Type: 'Solid'
       - Name: 'Mud'
         X: 0
-        Y: 1
+        Y: 3
         Type: 'Solid'
 
   - Name: 'Objects1'
@@ -37,7 +37,10 @@ Tilesets:
         X: 11
         Y: 2
         Type: 'Spawner' 
-        
+      - Name: 'PistolBullet'  
+        X: 6
+        Y: 3
+        Type: 'PistolBullet'
 Spritesheets:
   - Name: 'Bear1'
     Author: 'Bram'

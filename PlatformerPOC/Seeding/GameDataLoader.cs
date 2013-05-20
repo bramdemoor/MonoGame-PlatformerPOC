@@ -65,9 +65,6 @@ namespace PlatformerPOC.Seeding
                 DynamicTextures.Add(tilesetToLoad, content.Load<Texture2D>(tilesetToLoad));
             }
                         
-            //TileWall = new TileDefinition(MainTileSet, 0, 1);
-            //TileGround = new TileDefinition(MainTileSet, 0, 3);
-
             // TODO BDM: Fix
             //BulletImpactSpriteSheet = new CustomSpriteSheetDefinition(content, "Weapons/bullet-impact", new Rectangle(0, 0, 42, 29), 6);            
         }

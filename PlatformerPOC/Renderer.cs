@@ -119,8 +119,11 @@ namespace PlatformerPOC
             {
                 if(IsObjectInView(bullet))
                 {
+                    var tex = game.GameDataLoader.GetTextureByTileKey("PistolBullet");
+                    var rect = game.GameDataLoader.GetRectangleByTileKey("PistolBullet");
+
                     var dir = bullet.HorizontalDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                    //spriteBatch.Draw(game.GameDataLoader.BulletTexture, GetRelativeCoords(bullet.Position), null, Color.White, 0, Vector2.Zero, 1, dir, 0f);        
+                    spriteBatch.Draw(tex, GetRelativeCoords(bullet.Position), rect, Color.White, 0, Vector2.Zero, 1, dir, 0f);        
                 }                
             }
         }

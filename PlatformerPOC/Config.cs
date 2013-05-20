@@ -23,7 +23,7 @@ namespace PlatformerPOC
 
         // Global config flags
         public static bool EditMode = false;
-        public static bool DebugModeEnabled = true;
+        public static bool DebugModeEnabled = false;
         public static bool VerboseDebugOutput = true;
         public static bool SoundEnabled = false;
         public static float SoundVolume = 1f;
