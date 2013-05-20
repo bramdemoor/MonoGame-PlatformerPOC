@@ -11,7 +11,9 @@ using PlatformerPOC.Domain.Level;
 using PlatformerPOC.Domain.Teams;
 using PlatformerPOC.Drawing;
 using PlatformerPOC.Events;
+using PlatformerPOC.Handlers;
 using PlatformerPOC.Helpers;
+using PlatformerPOC.Messages;
 using log4net;
 using log4net.Appender;
 using log4net.Core;
@@ -62,7 +64,7 @@ namespace PlatformerPOC
 
         public PlatformGame()
         {
-            eventAggregationManager.AddListener(new GoreFactory(this));            
+       
 
             ResourcePreloader = new ResourcePreloader(this);            
             LevelManager = new LevelManager(this);
@@ -114,6 +116,9 @@ namespace PlatformerPOC
 
             LevelEditor = new Editor.Editor(this);
 
+            eventAggregationManager.AddListener(new GoreFactory(this));
+            eventAggregationManager.AddListener(new SpawnPlayersHandler(this));     
+
             StartGame();
         }
 
@@ -130,14 +135,28 @@ namespace PlatformerPOC
                 ShutDown();
             }
 
-            HandleGameInput();
+            LocalPlayer.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
+
+            foreach (var player in Players)
+            {
+                if(player.AI != null)
+                {
+                    player.AI.Evaluate(player.Position, LocalPlayer.Position, _aiHelper.Randomizer);
+                    player.HandleInput(player.AI);
+                }
+
+                player.Update();    
+            }
 
             foreach (var gameObject in GameObjects)
             {
                 gameObject.Update(gameTime);
             }
 
-            GeneralUpdate();
+            var pos = LocalPlayer.Position;
+
+            // WHY: Block V scrolling
+            ViewPort.ScrollTo(new Vector2(pos.X, 0));
 
             CheckGameState();
 
@@ -163,7 +182,9 @@ namespace PlatformerPOC
             switch (AlivePlayers.Count())
             {
                 case 0:
-                    StartNextRound();
+                    eventAggregationManager.SendMessage(new SpawnPlayersMessage());
+
+                    RoundCounter++;
                     break;
                 case 1:
                     // Only 1 player? Don't do the checks.
@@ -171,7 +192,9 @@ namespace PlatformerPOC
 
                     var winner = AlivePlayers.Single();
                     winner.Score.MarkWin();
-                    StartNextRound();
+                    eventAggregationManager.SendMessage(new SpawnPlayersMessage());
+
+                    RoundCounter++;
 
                     break;
                 default:
@@ -192,12 +215,12 @@ namespace PlatformerPOC
 
         public void Close() { }
 
-        public void ShutDown()
+        private void ShutDown()
         {
             Exit();
         }
 
-        protected void RegisterConsoleCommands()
+        private void RegisterConsoleCommands()
         {
             DebugCommandUI.RegisterCommand("toggle-edit", "Turn level editor mode on or off", LevelEditor.ToggleEditModeCommand);
         }
@@ -206,22 +229,50 @@ namespace PlatformerPOC
         {
             RoundCounter = 1;
             LevelManager.StartLevel();
-            CreatePlayers();
-        }        
+            _aiHelper.Reset();
 
-        public void GeneralUpdate()
-        {
-            var pos = LocalPlayer.Position;
+            if(GameMode is EliminationGameMode)
+            {
+                LocalPlayer = new Player(this, "Player 1", ResourcePreloader.Character1Sheet);
+                LocalPlayer.SwitchTeam(Team.Neutral);
+                Players.Add(LocalPlayer);
+                AddObject(LocalPlayer);
 
-            // WHY: Block V scrolling
-            ViewPort.ScrollTo(new Vector2(pos.X, 0));
-        }
+                for (int i = 2; i < 4; i++)
+                {
+                    var botPlayer = new Player(this, string.Format("{0} [Bot]", _aiHelper.GetRandomName()), ResourcePreloader.Character2Sheet);
+                    botPlayer.SwitchTeam(Team.Neutral);
+                    botPlayer.AI = new DummyAIController();            
+                    Players.Add(botPlayer);
+                    AddObject(botPlayer);
+                }                
+            }
+            else
+            {
+                LocalPlayer = new Player(this, "Player 1", ResourcePreloader.Character1Sheet);
+                LocalPlayer.SwitchTeam(Team.Red);
+                Players.Add(LocalPlayer);
+                AddObject(LocalPlayer);
 
-        public void StartNextRound()
-        {
-            SpawnPlayers();
+                for (int i = 2; i < 9; i++)
+                {
+                    var botPlayer = new Player(this, string.Format("{0} [Bot]", _aiHelper.GetRandomName()), ResourcePreloader.Character2Sheet);
+                    botPlayer.SwitchTeam(Team.Red);
+                    botPlayer.AI = new DummyAIController();            
+                    Players.Add(botPlayer);
+                    AddObject(botPlayer);
+                }
+                for (int i = 9; i < 17; i++)
+                {
+                    var botPlayer = new Player(this, string.Format("{0} [Bot]", _aiHelper.GetRandomName()), ResourcePreloader.Character2Sheet);
+                    botPlayer.SwitchTeam(Team.Blue);
+                    botPlayer.AI = new DummyAIController();            
+                    Players.Add(botPlayer);
+                    AddObject(botPlayer);
+                }  
+            }
 
-            RoundCounter++;
+            eventAggregationManager.SendMessage(new SpawnPlayersMessage());
         }
 
         /// <summary>
@@ -243,7 +294,7 @@ namespace PlatformerPOC
         /// <summary>
         /// Clean up objects to delete, and introduce new objects
         /// </summary>
-        public void DoHouseKeeping()
+        private void DoHouseKeeping()
         {
             foreach (var baseGameObject in gameObjectsToAdd)
             {
@@ -258,78 +309,6 @@ namespace PlatformerPOC
             }
 
             gameObjectsToDelete.Clear();
-        }
-
-        public void CreatePlayers()
-        {
-            _aiHelper.Reset();
-
-            if(GameMode is EliminationGameMode)
-            {
-                AddLocalPlayer(Team.Neutral);
-
-                for (int i = 2; i < 4; i++)
-                {
-                    AddBot(i, Team.Neutral);
-                }                
-            }
-            else
-            {
-                AddLocalPlayer(Team.Red);
-
-                for (int i = 2; i < 9; i++)
-                {
-                    AddBot(i,Team.Red);
-                }
-                for (int i = 9; i < 17; i++)
-                {
-                    AddBot(i, Team.Blue);
-                }  
-            }
-
-            SpawnPlayers();
-        }
-
-        private void AddLocalPlayer(Team team)
-        {
-            LocalPlayer = new Player(this, "Player 1", ResourcePreloader.Character1Sheet);
-            LocalPlayer.SwitchTeam(team);
-            Players.Add(LocalPlayer);
-            AddObject(LocalPlayer);
-        }
-
-        private void AddBot(int i, Team team)
-        {
-            var botPlayer = new Player(this, string.Format("{0} [Bot]", _aiHelper.GetRandomName()), ResourcePreloader.Character2Sheet);
-            botPlayer.SwitchTeam(team);
-            botPlayer.AI = new DummyAIController();            
-            Players.Add(botPlayer);
-            AddObject(botPlayer);
-        }
-
-        public void SpawnPlayers()
-        {
-            for (int playerIndex = 0; playerIndex < Players.Count; playerIndex++)
-            {
-                var player = Players[playerIndex];
-                player.Spawn(LevelManager.CurrentLevel.GetSpawnPointForPlayerIndex(playerIndex + 1));
-            }
-        }
-
-        public void HandleGameInput()
-        {
-            LocalPlayer.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
-
-            foreach (var player in Players)
-            {
-                if(player.AI != null)
-                {
-                    player.AI.Evaluate(player.Position, LocalPlayer.Position, _aiHelper.Randomizer);
-                    player.HandleInput(player.AI);
-                }
-
-                player.Update();    
-            }
         }
     }
 }
