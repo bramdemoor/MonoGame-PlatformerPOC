@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace PlatformerPOC.Seeding
 {
-    public class LevelDataLoader
+    public class DataSeeder
     {
         public LevelData LoadLevelData(string levelFilename)
         {

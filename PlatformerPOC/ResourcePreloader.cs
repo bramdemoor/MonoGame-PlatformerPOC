@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Drawing;
+using PlatformerPOC.Seeding;
+using YamlDotNet.RepresentationModel.Serialization;
 
 namespace PlatformerPOC
 {
@@ -13,6 +16,8 @@ namespace PlatformerPOC
         public const string levelResourceString = "PlatformerPOC.Content.Levels.{0}.txt";
 
         private readonly PlatformGame game;
+
+        public List<CustomSpriteSheetDefinition> CharacterSheets = new List<CustomSpriteSheetDefinition>();
 
         public CustomSpriteSheetDefinition BulletImpactSpriteSheet { get; private set; }
 
@@ -34,9 +39,6 @@ namespace PlatformerPOC
         public TileDefinition TileWall { get; private set; }
         public TileDefinition TileGround { get; private set; }
 
-        public CustomSpriteSheetDefinition Character1Sheet { get; set; }
-        public CustomSpriteSheetDefinition Character2Sheet { get; set; }
-
         public CustomTileSetDefinition ObjectTiles { get; private set; }
 
         // For rectangle drawing
@@ -55,6 +57,15 @@ namespace PlatformerPOC
 
         public void LoadContent(ContentManager content)
         {
+            
+            var s = new YamlSerializer<SpriteSheetData>();
+            using(var sr = new StreamReader(content.RootDirectory + @"\Characters\Spritesheets.yml"))
+            {
+                var temp = s.Deserialize(sr);
+                CharacterSheets.Add(new CustomSpriteSheetDefinition(content, "Characters/chara1", new Rectangle(0, 0, 32, 32), 3));
+                CharacterSheets.Add(new CustomSpriteSheetDefinition(content, "Characters/player-blue", new Rectangle(0, 0, 32, 32), 8));
+            }
+                        
             // Weapons
             Pistol = content.Load<Texture2D>("Weapons/pistol");
             BulletImpactSpriteSheet = new CustomSpriteSheetDefinition(content, "Weapons/bullet-impact", new Rectangle(0, 0, 42, 29), 6);
@@ -76,9 +87,6 @@ namespace PlatformerPOC
 
             // Fonts
             DefaultFont = content.Load<SpriteFont>("Fonts/spriteFont1");
-
-            Character1Sheet = new CustomSpriteSheetDefinition(content, "Characters/chara1", new Rectangle(0, 0, 32, 32), 3);
-            Character2Sheet = new CustomSpriteSheetDefinition(content, "Characters/player-blue", new Rectangle(0, 0, 32, 32), 8);
 
             ObjectTiles = new CustomTileSetDefinition(content, "icon0.png", new Rectangle(0,0,16,16));
 

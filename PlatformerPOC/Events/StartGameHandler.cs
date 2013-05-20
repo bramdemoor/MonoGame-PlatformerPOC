@@ -27,20 +27,20 @@ namespace PlatformerPOC.Events
         {
             AvailableNames = aiNames.Shuffle().ToList();
 
-            var lvlData = new LevelDataLoader().LoadLevelData(_game.ResourcePreloader.GetAllLevelFilenames().First());
+            var lvlData = new DataSeeder().LoadLevelData(_game.ResourcePreloader.GetAllLevelFilenames().First());
             _game.gameWorld.BuildWorld(lvlData);
 
             _game.RoundCounter = 1;
 
             if (_game.GameMode is EliminationGameMode)
             {
-                _game.gameWorld.LocalPlayer = new Player(_game, "Player 1", _game.ResourcePreloader.Character1Sheet);
+                _game.gameWorld.LocalPlayer = new Player(_game, "Player 1", _game.ResourcePreloader.CharacterSheets.First());
                 _game.gameWorld.LocalPlayer.SwitchTeam(Team.Neutral);
                 _game.gameWorld.Players.Add(_game.gameWorld.LocalPlayer);
 
                 for (int i = 2; i < 4; i++)
                 {
-                    var botPlayer = new Player(_game, string.Format("{0} [Bot]", GetRandomName()), _game.ResourcePreloader.Character2Sheet);
+                    var botPlayer = new Player(_game, string.Format("{0} [Bot]", GetRandomName()), _game.ResourcePreloader.CharacterSheets.First());
                     botPlayer.SwitchTeam(Team.Neutral);
                     botPlayer.AI = new DummyAIController();
                     _game.gameWorld.Players.Add(botPlayer);
@@ -48,20 +48,20 @@ namespace PlatformerPOC.Events
             }
             else
             {
-                _game.gameWorld.LocalPlayer = new Player(_game, "Player 1", _game.ResourcePreloader.Character1Sheet);
+                _game.gameWorld.LocalPlayer = new Player(_game, "Player 1", _game.ResourcePreloader.CharacterSheets.First());
                 _game.gameWorld.LocalPlayer.SwitchTeam(Team.Red);
                 _game.gameWorld.Players.Add(_game.gameWorld.LocalPlayer);
 
                 for (int i = 2; i < 9; i++)
                 {
-                    var botPlayer = new Player(_game, string.Format("{0} [Bot]", GetRandomName()), _game.ResourcePreloader.Character2Sheet);
+                    var botPlayer = new Player(_game, string.Format("{0} [Bot]", GetRandomName()), _game.ResourcePreloader.CharacterSheets.First());
                     botPlayer.SwitchTeam(Team.Red);
                     botPlayer.AI = new DummyAIController();
                     _game.gameWorld.Players.Add(botPlayer);
                 }
                 for (int i = 9; i < 17; i++)
                 {
-                    var botPlayer = new Player(_game, string.Format("{0} [Bot]", GetRandomName()), _game.ResourcePreloader.Character2Sheet);
+                    var botPlayer = new Player(_game, string.Format("{0} [Bot]", GetRandomName()), _game.ResourcePreloader.CharacterSheets.First());
                     botPlayer.SwitchTeam(Team.Blue);
                     botPlayer.AI = new DummyAIController();
                     _game.gameWorld.Players.Add(botPlayer);

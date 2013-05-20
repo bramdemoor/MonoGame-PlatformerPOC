@@ -1,0 +1,44 @@
+Spritesheets:
+  - Name: 'Bear1'
+    Author: 'Bram'
+    SourceFile: 'chara1.png'
+    TileSize: 32
+    Animations:
+      - Name: 'Walk'
+        Y: 0
+        StartX: 0
+        EndX: 2        
+        LoopWithReverse: true
+        
+  - Name: 'Blue alien'
+    Author: 'Bram'
+    SourceFile: 'player-blue.png'
+    TileSize: 32
+    Animations:
+      - Name: 'Walk'
+        Y: 0
+        StartX: 0
+        EndX: 7        
+        LoopWithReverse: true        
+        
+  - Name: 'Pink alien'
+    Author: 'Bram'
+    SourceFile: 'player-pink.png'
+    TileSize: 32
+    Animations:
+      - Name: 'Walk'
+        Y: 0
+        StartX: 0
+        EndX: 7
+        LoopWithReverse: true        
+
+  - Name: 'Yellow alien'
+    Author: 'Bram'
+    SourceFile: 'player-yellow.png'
+    TileSize: 32
+    Animations:
+      - Name: 'Walk'
+        Y: 0
+        StartX: 0
+        EndX: 7
+        LoopWithReverse: true        
