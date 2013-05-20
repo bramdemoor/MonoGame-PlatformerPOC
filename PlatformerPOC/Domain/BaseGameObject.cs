@@ -23,28 +23,6 @@ namespace PlatformerPOC.Domain
         /// </summary>
         public int HorizontalDirection { get; set; }
 
-        public SpriteEffects DrawEffect
-        {
-            get
-            {
-                return HorizontalDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            }
-        }
-
-        public bool InView
-        {
-            get
-            {
-                if (BoundingBox == null) return true;   // Otherwise, objects without bounding box can never be drawn!
-                return game.ViewPort.IsObjectInArea(BoundingBox.FullRectangle);
-            }
-        }
-
-        public Vector2 PositionRelativeToView
-        {
-            get { return game.ViewPort.GetRelativeCoords(Position); }
-        }
-
         protected BaseGameObject(PlatformGame game)
         {
             this.game = game;

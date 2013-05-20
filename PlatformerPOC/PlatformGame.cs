@@ -21,20 +21,18 @@ namespace PlatformerPOC
 {
     public class PlatformGame : Game, IAppender
     {      
-        public static readonly EventAggregator eventAggregationManager = new EventAggregator();
-
-        public ViewPort ViewPort { get; set; }
-                
+        public static readonly EventAggregator eventAggregationManager = new EventAggregator();           
+    
         private readonly ILog log;                
 
         public DebugCommandUI DebugCommandUI { get; private set; }
-        public SpriteBatch SpriteBatch { get; private set; }
+        
         public ResourcePreloader ResourcePreloader { get; private set; }
         public LevelManager LevelManager { get; private set; }
         public int RoundCounter { get; set; }
         private Editor.Editor LevelEditor { get; set; }
         public readonly FPSCounter fpsCounter;
-        private readonly Renderer renderer;
+        public readonly Renderer renderer;
 
         public Random Randomizer { get; private set; }
 
@@ -63,8 +61,7 @@ namespace PlatformerPOC
             ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetLoggerRepository()).Root.AddAppender(this);
 
             ResourcePreloader = new ResourcePreloader(this);
-            LevelManager = new LevelManager(this);
-            ViewPort = new ViewPort(this);
+            LevelManager = new LevelManager(this);            
             GameMode = new EliminationGameMode();
             fpsCounter = new FPSCounter();
             renderer = new Renderer(this);
@@ -91,8 +88,8 @@ namespace PlatformerPOC
 
         protected override void LoadContent()
         {
-            SpriteBatch = new SpriteBatch(GraphicsDevice);
-
+            renderer.LoadContent();
+            
             DebugCommandUI = new DebugCommandUI(this, DefaultFont);
             Components.Add(DebugCommandUI);
 
@@ -143,9 +140,8 @@ namespace PlatformerPOC
             {
                 bullet.Update(gameTime);
             }
-
-            // WHY: Block V scrolling
-            ViewPort.ScrollTo(new Vector2(LocalPlayer.Position.X, 0));
+            
+            renderer.ScrollToHorizontal(LocalPlayer.Position.X);
 
             eventAggregationManager.SendMessage(new CheckGameStateMessage());            
 

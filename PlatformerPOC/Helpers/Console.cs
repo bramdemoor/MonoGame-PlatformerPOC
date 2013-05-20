@@ -517,15 +517,15 @@ namespace PlatformerPOC.Helpers
             Matrix mtx = Matrix.CreateTranslation(
                         new Vector3(0, -rect.Height * (1.0f - stateTransition), 0));
 
-            SimpleGame.SpriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, mtx);
+            SimpleGame.renderer.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, mtx);
 
-            SimpleGame.SpriteBatch.Draw(WhiteTexture, rect, new Color(0, 0, 0, 200));
+            SimpleGame.renderer.spriteBatch.Draw(WhiteTexture, rect, new Color(0, 0, 0, 200));
 
             // Draw each lines.
             Vector2 pos = new Vector2(leftMargin, topMargin);
             foreach (string line in lines)
             {
-                SimpleGame.SpriteBatch.DrawString(Font, line, pos, Color.White);
+                SimpleGame.renderer.spriteBatch.DrawString(Font, line, pos, Color.White);
                 pos.Y += Font.LineSpacing;
             }
 
@@ -534,11 +534,11 @@ namespace PlatformerPOC.Helpers
             Vector2 cursorPos = pos + Font.MeasureString(leftPart);
             cursorPos.Y = pos.Y;
 
-            SimpleGame.SpriteBatch.DrawString(Font,
+            SimpleGame.renderer.spriteBatch.DrawString(Font,
                 String.Format("{0}{1}", Prompt, commandLine), pos, Color.White);
-            SimpleGame.SpriteBatch.DrawString(Font, Cursor, cursorPos, Color.White);
+            SimpleGame.renderer.spriteBatch.DrawString(Font, Cursor, cursorPos, Color.White);
 
-            SimpleGame.SpriteBatch.End();
+            SimpleGame.renderer.spriteBatch.End();
         }
 
         #endregion

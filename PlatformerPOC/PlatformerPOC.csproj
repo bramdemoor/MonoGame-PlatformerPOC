@@ -86,7 +86,6 @@
     <Compile Include="Drawing\CustomSpriteSheetInstance.cs" />
     <Compile Include="Drawing\CustomTileSetDefinition.cs" />
     <Compile Include="Drawing\TileDefinition.cs" />
-    <Compile Include="Drawing\ViewPort.cs" />
     <Compile Include="Editor\Editor.cs" />
     <Compile Include="Domain\BaseGameObject.cs" />
     <Compile Include="Domain\Weapon\Bullet.cs" />

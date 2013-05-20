@@ -9,7 +9,7 @@ namespace PlatformerPOC.Drawing
 
         public CustomTileSetDefinition TileSet { get; private set; }
 
-        private readonly Rectangle graphicsRectangle;
+        public readonly Rectangle graphicsRectangle;
 
         public TileDefinition(PlatformGame game, CustomTileSetDefinition tileSet, int x, int y)
         {
@@ -18,11 +18,6 @@ namespace PlatformerPOC.Drawing
             TileSet = tileSet;
 
             graphicsRectangle = tileSet.GetGraphicsRectangle(x, y);
-        }
-
-        public void DrawTile(Vector2 pos, float depth)
-        {                        
-            game.SpriteBatch.Draw(TileSet.TilesetTexture, pos, graphicsRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, depth);
         }
     }
 }

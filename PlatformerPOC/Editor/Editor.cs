@@ -43,7 +43,7 @@ namespace PlatformerPOC.Editor
             {
                 var pos = new Vector2(mouseStateCurrent.X, mouseStateCurrent.Y);
 
-                var worldCoords = game.ViewPort.GetWorldCoords(pos);
+                var worldCoords = game.renderer.GetWorldCoords(pos);
 
                 var tiles = LevelTileConcept.PixelsToTiles(worldCoords);                
 

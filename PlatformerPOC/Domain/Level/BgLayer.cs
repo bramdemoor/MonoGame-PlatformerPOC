@@ -11,8 +11,8 @@ namespace PlatformerPOC.Domain.Level
 
     public class BgLayer
     {
-        private const float PARALLAX_LAYER1_SPEED = 0.6f;
-        private const float PARALLAX_LAYER2_SPEED = 0.9f;
+        public const float PARALLAX_LAYER1_SPEED = 0.6f;
+        public const float PARALLAX_LAYER2_SPEED = 0.9f;
 
         private readonly PlatformGame game;
 
@@ -33,11 +33,6 @@ namespace PlatformerPOC.Domain.Level
                         return 1f;
                 }
             }
-        }
-
-        public Vector2 Pos
-        {
-            get { return new Vector2(-game.ViewPort.ViewPos.X*Speed, 0); }
         }
 
         public BgLayer(PlatformGame game, LayerType type, Texture2D texture)

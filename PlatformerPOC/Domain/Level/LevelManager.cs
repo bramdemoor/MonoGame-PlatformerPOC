@@ -65,7 +65,7 @@ namespace PlatformerPOC.Domain.Level
                 }
             }
             
-            game.ViewPort.LevelArea = LevelTileConcept.TilesToPixels(level.TilesArea);
+            game.renderer.LevelArea = LevelTileConcept.TilesToPixels(level.TilesArea);
 
             return level;
         }

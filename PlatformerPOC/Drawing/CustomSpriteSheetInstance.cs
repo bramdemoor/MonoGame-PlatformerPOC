@@ -15,7 +15,7 @@ namespace PlatformerPOC.Drawing
 
         private int animationFrame;
 
-        private Rectangle CurrentDrawRectangle
+        public Rectangle CurrentDrawRectangle
         {
             get { return SpriteSheetDefinition.Sprites.ElementAt(animationFrame); }
         }
@@ -30,12 +30,6 @@ namespace PlatformerPOC.Drawing
             this.game = game;
             SpriteSheetDefinition = spriteSheetDefinition;
             FramesToSkip = framesToSkip;
-        }
-
-        public virtual void Draw(Vector2 position, SpriteEffects drawEffect, float layerDepth)
-        {
-            layerDepth = 0;     // TODO BDM: Remove hack!
-            game.SpriteBatch.Draw(SpriteSheetDefinition.SpriteSheetTexture, position, CurrentDrawRectangle, Color.White, 0f, Vector2.Zero, 1f, drawEffect, layerDepth);
         }
 
         public void LoopUntilEnd()
