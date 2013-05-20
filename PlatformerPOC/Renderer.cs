@@ -70,10 +70,12 @@ namespace PlatformerPOC
             // foreach particle:
             //spriteSheetInstance.Draw(PositionRelativeToView, DrawEffect, LayerDepths.FOREGROUND_PARTICLE);               
 
-            // foreach player
-            //spriteSheetInstance.Draw(PositionRelativeToView, DrawEffect, LayerDepths.GAMEOBJECTS);
-            //var displayText = string.Format("{0}", Name);
-            //game.SpriteBatch.DrawString(game.ResourcePreloader.DefaultFont, displayText, PositionRelativeToView, TextColor, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, LayerDepths.TEXT);
+            foreach (var player in game.Players)
+            {
+                player.spriteSheetInstance.Draw(player.PositionRelativeToView, player.DrawEffect, 0f);
+                var displayText = string.Format("{0}", player.Name);
+                game.SpriteBatch.DrawString(game.ResourcePreloader.DefaultFont, displayText, player.PositionRelativeToView, player.TextColor, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, 0f);                
+            }
 
             // foreach coin
             //game.SpriteBatch.Draw(game.ResourcePreloader.ObjectTiles.TilesetTexture, PositionRelativeToView, game.ResourcePreloader.ObjectTiles.GetGraphicsRectangle(0, 4), Color.White);            

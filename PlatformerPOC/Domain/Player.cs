@@ -19,8 +19,8 @@ namespace PlatformerPOC.Domain
         public int Life { get; private set; }
         public Team Team { get; private set; }
         public Score Score { get; private set; }
-        
-        private CustomSpriteSheetInstance spriteSheetInstance;
+
+        public CustomSpriteSheetInstance spriteSheetInstance;
 
         // Optional. An AI controller attached to this player instance, for bots only.
         public DummyAIController AI { get; set; }
