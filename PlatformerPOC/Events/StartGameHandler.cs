@@ -5,7 +5,6 @@ using PlatformerPOC.Domain;
 using PlatformerPOC.Gamemodes;
 using PlatformerPOC.Helpers;
 using PlatformerPOC.Messages;
-using PlatformerPOC.Seeding;
 
 namespace PlatformerPOC.Events
 {
@@ -27,7 +26,7 @@ namespace PlatformerPOC.Events
         {
             AvailableNames = aiNames.Shuffle().ToList();
 
-            var lvlData = new DataSeeder().LoadLevelData(_game.ResourcePreloader.GetAllLevelFilenames().First());
+            var lvlData = _game.ResourcePreloader.LoadLevelData(_game.ResourcePreloader.GetAllLevelFilenames().First());
             _game.gameWorld.BuildWorld(lvlData);
 
             _game.RoundCounter = 1;

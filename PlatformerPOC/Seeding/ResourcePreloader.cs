@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Drawing;
-using PlatformerPOC.Seeding;
 using YamlDotNet.RepresentationModel.Serialization;
 
-namespace PlatformerPOC
+namespace PlatformerPOC.Seeding
 {
     public class ResourcePreloader
     {
@@ -17,7 +17,7 @@ namespace PlatformerPOC
 
         private readonly PlatformGame game;
 
-        public List<CustomSpriteSheetDefinition> CharacterSheets = new List<CustomSpriteSheetDefinition>();
+        public readonly List<CustomSpriteSheetDefinition> CharacterSheets = new List<CustomSpriteSheetDefinition>();
 
         public CustomSpriteSheetDefinition BulletImpactSpriteSheet { get; private set; }
 
@@ -57,13 +57,15 @@ namespace PlatformerPOC
 
         public void LoadContent(ContentManager content)
         {
-            
-            var s = new YamlSerializer<SpriteSheetData>();
             using(var sr = new StreamReader(content.RootDirectory + @"\Characters\Spritesheets.yml"))
             {
-                var temp = s.Deserialize(sr);
-                CharacterSheets.Add(new CustomSpriteSheetDefinition(content, "Characters/chara1", new Rectangle(0, 0, 32, 32), 3));
-                CharacterSheets.Add(new CustomSpriteSheetDefinition(content, "Characters/player-blue", new Rectangle(0, 0, 32, 32), 8));
+                foreach (var sheet in new YamlSerializer<SpriteSheetData>().Deserialize(sr).Spritesheets)
+                {
+                    var src = ("Characters/" + sheet.SourceFile);
+                    var rect = new Rectangle(0, 0, sheet.TileSize, sheet.TileSize);
+                    var length = (sheet.Animations.First().EndX - sheet.Animations.First().StartX + 1);
+                    CharacterSheets.Add(new CustomSpriteSheetDefinition(content, src, rect, length));    
+                }
             }
                         
             // Weapons
@@ -94,6 +96,38 @@ namespace PlatformerPOC
             pixel.SetData(new[] { Color.White }); // so that we can draw whatever color we want on top of it 
         }
 
+        public LevelData LoadLevelData(string levelFilename)
+        {
+            var level = new LevelData();
 
+            var rowIndex = 0;
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(string.Format(ResourcePreloader.levelResourceString, levelFilename)))
+            using (var reader = new StreamReader(stream))
+            {
+                while (!reader.EndOfStream)
+                {
+                    if (rowIndex == 0)
+                    {
+                        // Meta-line
+                        var parts = reader.ReadLine().Split('|');
+                        level.SetMetaInformation(parts.ElementAt(0), parts.ElementAt(1), parts.ElementAt(2), parts.ElementAt(3));
+                    }
+                    else
+                    {
+                        var line = reader.ReadLine();
+                        var chars = line.ToCharArray();
+
+                        for (var colIndex = 0; colIndex < chars.Length; colIndex++)
+                        {
+                            level.SetTile(colIndex, rowIndex - 1, chars.ElementAt(colIndex));
+                        }
+                    }
+
+                    rowIndex++;
+                }
+            }
+
+            return level;
+        } 
     }
 }

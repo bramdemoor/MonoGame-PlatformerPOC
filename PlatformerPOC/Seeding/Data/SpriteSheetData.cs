@@ -22,6 +22,6 @@ namespace PlatformerPOC.Seeding
         public bool LoopWithReverse { get; set; }
         public int Y { get; set; }
         public int StartX { get; set; }
-        public int EndX { get; set; }
+        public int EndX { get; set; }        
     }
 }
