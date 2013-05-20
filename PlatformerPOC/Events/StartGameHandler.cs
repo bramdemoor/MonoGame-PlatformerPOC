@@ -4,8 +4,8 @@ using PlatformerPOC.Control;
 using PlatformerPOC.Domain;
 using PlatformerPOC.Gamemodes;
 using PlatformerPOC.Helpers;
-using PlatformerPOC.Level;
 using PlatformerPOC.Messages;
+using PlatformerPOC.Seeding;
 
 namespace PlatformerPOC.Events
 {

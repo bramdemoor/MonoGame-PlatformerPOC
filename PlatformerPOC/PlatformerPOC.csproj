@@ -85,11 +85,10 @@
     <Compile Include="Control\IPlayerControlState.cs" />
     <Compile Include="Drawing\CustomSpriteSheetDefinition.cs" />
     <Compile Include="Drawing\CustomSpriteSheetInstance.cs" />
-    <Compile Include="Level\CustomTileSetDefinition.cs" />
-    <Compile Include="Level\LevelData.cs" />
-    <Compile Include="Level\LevelDataLoader.cs" />
+    <Compile Include="Drawing\CustomTileSetDefinition.cs" />
+    <Compile Include="Seeding\LevelData.cs" />
+    <Compile Include="Seeding\LevelDataLoader.cs" />
     <Compile Include="Domain\ParallaxLayer.cs" />
-    <Compile Include="Level\TileDefinition.cs" />
     <Compile Include="Editor\Editor.cs" />
     <Compile Include="Domain\BaseGameObject.cs" />
     <Compile Include="Domain\Projectile.cs" />
@@ -116,7 +115,6 @@
     <Compile Include="Helpers\IDebugCommandHost.cs" />
     <Compile Include="Helpers\KeyboardUtils.cs" />
     <Compile Include="Domain\Particle.cs" />
-    <Compile Include="Level\LevelTileConcept.cs" />
     <Compile Include="Helpers\XNAExtensions.cs" />
     <Compile Include="Messages\CheckGameStateMessage.cs" />
     <Compile Include="Messages\PlayerHitMessage.cs" />

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using PlatformerPOC.Drawing;
 using PlatformerPOC.Helpers;
-using PlatformerPOC.Level;
 
 namespace PlatformerPOC.Domain
 {

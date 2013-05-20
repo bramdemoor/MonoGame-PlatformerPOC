@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace PlatformerPOC.Level
+namespace PlatformerPOC.Seeding
 {
     public class LevelData
     {

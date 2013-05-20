@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace PlatformerPOC.Level
+namespace PlatformerPOC.Seeding
 {
     public class LevelDataLoader
     {

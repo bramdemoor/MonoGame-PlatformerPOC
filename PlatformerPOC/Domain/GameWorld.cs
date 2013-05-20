@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using PlatformerPOC.Control;
 using PlatformerPOC.Helpers;
-using PlatformerPOC.Level;
+using PlatformerPOC.Seeding;
 
 namespace PlatformerPOC.Domain
 {
@@ -13,7 +14,9 @@ namespace PlatformerPOC.Domain
     /// </summary>
     public class GameWorld
     {
-        private PlatformGame game;
+        public const int SquareSize = 32;
+
+        private readonly PlatformGame game;
 
         public List<Player> Players { get; set; }
         public List<Projectile> Bullets { get; set; }
@@ -25,14 +28,14 @@ namespace PlatformerPOC.Domain
 
         public LevelData CurrentLevelData { get; private set; }
 
-        public bool IsInBoundsLeft(Vector2 position)
+        private bool IsInBoundsLeft(Vector2 position)
         {
-            return position.X > LevelTileConcept.TilesToPixels(0);
+            return position.X > TilesToPixels(0);
         }
 
-        public bool IsInBoundsRight(Vector2 position)
+        private bool IsInBoundsRight(Vector2 position)
         {
-            return position.X < LevelTileConcept.TilesToPixels(19);
+            return position.X < TilesToPixels(19);
         }
 
         public bool IsInBounds(Vector2 position)
@@ -62,7 +65,7 @@ namespace PlatformerPOC.Domain
             {
                 for (int y = 0; y < data.tiles.GetUpperBound(1); y++)
                 {
-                    var levelPos = LevelTileConcept.TilesToPixels(x, y);
+                    var levelPos = TilesToPixels(x, y);
                     var c = data.tiles[x, y];
 
                     if (c == 'G')
@@ -86,7 +89,7 @@ namespace PlatformerPOC.Domain
 
             bgLayers.Add(new ParallaxLayer(0.6f, game.ResourcePreloader.BgLayer1Texture));
             bgLayers.Add(new ParallaxLayer(0.9f, game.ResourcePreloader.BgLayer2Texture));
-            game.renderer.LevelArea = LevelTileConcept.TilesToPixels(data.TilesArea);
+            game.renderer.LevelArea = TilesToPixels(data.TilesArea);
         }
 
         public void Update(GameTime gameTime)
@@ -114,6 +117,30 @@ namespace PlatformerPOC.Domain
         {
             return Walls.All(wall => !CollisionHelper.RectangleCollision(collisionRectangle, wall.BoundingBox.FullRectangle));
         }
+        
+        private static Vector2 TilesToPixels(int tileX, int tileY)
+        {
+            return new Vector2(tileX * SquareSize, tileY * SquareSize);
+        }
 
+        private static int TilesToPixels(int tiles)
+        {
+            return tiles * SquareSize;
+        }
+
+        public static Vector2 TilesToPixels(Vector2 tiles)
+        {
+            return tiles * SquareSize;
+        }
+
+        public static Vector2 PixelsToTiles(Vector2 worldCoords)
+        {
+            return new Vector2((float)Math.Floor(worldCoords.X / SquareSize), (float)Math.Floor(worldCoords.Y / SquareSize));
+        }
+
+        private static Rectangle TilesToPixels(Rectangle tilesRectangle)
+        {
+            return new Rectangle(TilesToPixels(tilesRectangle.X), TilesToPixels(tilesRectangle.Y), TilesToPixels(tilesRectangle.Width), TilesToPixels(tilesRectangle.Height));
+        }
     }
 }

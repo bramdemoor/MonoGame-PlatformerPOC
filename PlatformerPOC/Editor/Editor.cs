@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using PlatformerPOC.Domain;
 using PlatformerPOC.Helpers;
-using PlatformerPOC.Level;
 
 namespace PlatformerPOC.Editor
 {
@@ -45,7 +45,7 @@ namespace PlatformerPOC.Editor
 
                 var worldCoords = game.renderer.GetWorldCoords(pos);
 
-                var tiles = LevelTileConcept.PixelsToTiles(worldCoords);                
+                var tiles = GameWorld.PixelsToTiles(worldCoords);                
 
                 game.DebugCommandUI.Echo(string.Format("FYI: Tile modify at {0}", tiles));
             }            

@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Drawing;
-using PlatformerPOC.Level;
 
 namespace PlatformerPOC
 {
@@ -65,8 +64,8 @@ namespace PlatformerPOC
             BgLayer1Texture = content.Load<Texture2D>("Levels/parallax-layer1");
             BgLayer2Texture = content.Load<Texture2D>("Levels/parallax-layer2");
             MainTileSet = new CustomTileSetDefinition(content, "Levels/forest-tileset", new Rectangle(0, 0, 32, 32));
-            TileWall = new TileDefinition(game, MainTileSet, 0, 1);
-            TileGround = new TileDefinition(game, MainTileSet, 0, 3);
+            TileWall = new TileDefinition(MainTileSet, 0, 1);
+            TileGround = new TileDefinition(MainTileSet, 0, 3);
 
             // Hud
             HudText = content.Load<Texture2D>("Hud/hud");

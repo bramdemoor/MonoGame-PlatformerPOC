@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PlatformerPOC.Level
+namespace PlatformerPOC.Drawing
 {
     public class CustomTileSetDefinition
     {
@@ -18,6 +18,20 @@ namespace PlatformerPOC.Level
         public Rectangle GetGraphicsRectangle(int x, int y)
         {
             return new Rectangle(x * TileSize.Width, y * TileSize.Height, TileSize.Width, TileSize.Height);
+        }
+    }
+
+    public class TileDefinition
+    {
+        public CustomTileSetDefinition TileSet { get; private set; }
+
+        public readonly Rectangle graphicsRectangle;
+
+        public TileDefinition(CustomTileSetDefinition tileSet, int x, int y)
+        {
+            TileSet = tileSet;
+
+            graphicsRectangle = tileSet.GetGraphicsRectangle(x, y);
         }
     }
 }
