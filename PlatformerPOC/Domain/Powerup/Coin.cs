@@ -15,7 +15,9 @@ namespace PlatformerPOC.Domain.Powerup
 
         public override void Draw()
         {
-            game.SpriteBatch.Draw(game.ResourcePreloader.Coin, PositionRelativeToView, Color.White);
+            var rect = game.ResourcePreloader.ObjectTiles.GetGraphicsRectangle(0, 4);
+            
+            game.SpriteBatch.Draw(game.ResourcePreloader.ObjectTiles.TilesetTexture, PositionRelativeToView, rect, Color.White);            
         }
 
         public override void Update(GameTime gameTime)
@@ -35,7 +37,7 @@ namespace PlatformerPOC.Domain.Powerup
 
         private void UpdateBoundingBox()
         {
-            BoundingBox.SetFullRectangle(Position, game.ResourcePreloader.Coin.Bounds, Velocity);
+            BoundingBox.SetFullRectangle(Position, new Rectangle(0,0,16,16), Velocity);
         }
     }
 }

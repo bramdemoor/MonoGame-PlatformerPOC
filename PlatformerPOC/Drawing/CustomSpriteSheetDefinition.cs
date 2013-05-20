@@ -27,6 +27,6 @@ namespace PlatformerPOC.Drawing
             {
                 sprites.Add(new Rectangle(i * spriteDimensions.Width, 0, spriteDimensions.Width, spriteDimensions.Height));                
             }
-        }        
+        }
     }
 }

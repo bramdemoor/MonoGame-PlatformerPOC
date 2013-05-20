@@ -30,13 +30,15 @@ namespace PlatformerPOC
         public SpriteFont DefaultFont { get; private set; }
 
         public CustomTileSetDefinition MainTileSet { get; private set; }
+        
         public TileDefinition TileWall { get; private set; }
         public TileDefinition TileGround { get; private set; }
-        public Texture2D Coin { get; set; }
 
         public CustomSpriteSheetDefinition Character1Sheet { get; set; }
         public CustomSpriteSheetDefinition Character2Sheet { get; set; }
-        
+
+        public CustomTileSetDefinition ObjectTiles { get; private set; }
+
         public IEnumerable<string> GetAllLevelFilenames()
         {
             yield return "miniforest";
@@ -62,9 +64,6 @@ namespace PlatformerPOC
             TileWall = new TileDefinition(game, MainTileSet, 0, 1);
             TileGround = new TileDefinition(game, MainTileSet, 0, 3);
 
-            // Powerups
-            Coin = content.Load<Texture2D>("Powerup/coin"); 
-
             // Hud
             HudText = content.Load<Texture2D>("Hud/hud");
             HudMsg = content.Load<Texture2D>("Hud/hud-msg");
@@ -77,6 +76,8 @@ namespace PlatformerPOC
 
             Character1Sheet = new CustomSpriteSheetDefinition(content, "Characters/chara1", new Rectangle(0, 0, 32, 32), 3);
             Character2Sheet = new CustomSpriteSheetDefinition(content, "Characters/player-blue", new Rectangle(0, 0, 32, 32), 8);
+
+            ObjectTiles = new CustomTileSetDefinition(content, "icon0.png", new Rectangle(0,0,16,16));
         }
 
 
