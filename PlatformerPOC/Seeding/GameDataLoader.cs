@@ -81,7 +81,7 @@ namespace PlatformerPOC.Seeding
         {
             var demoLevel = gameData.Levels.First();
 
-            demoLevel.LevelObjects = new Dictionary<Vector2, LevelObject>();
+            demoLevel.LevelObjects = new Dictionary<Vector2, LevelObjectWrapper>();
 
             var ls = demoLevel.Content.Split('\n');
 
@@ -112,7 +112,7 @@ namespace PlatformerPOC.Seeding
                             if (tileDefinition == null)
                                 throw new ArgumentException("Tile definition not found: " + tileMapping.Key);
 
-                            demoLevel.LevelObjects.Add(new Vector2(i, lineIndex), new LevelObject(tileMapping.Key, tileDefinition.Type));
+                            demoLevel.LevelObjects.Add(new Vector2(i, lineIndex), new LevelObjectWrapper(tileMapping.Key, tileDefinition.Type));
                         }
                         else
                         {
@@ -127,18 +127,46 @@ namespace PlatformerPOC.Seeding
             return demoLevel;
         }
 
-        public Texture2D GetTextureByKey(string bgKey)
+        public Texture2D GetTextureByKey(string textureKey)
         {
-            return DynamicTextures[bgKey];
+            return DynamicTextures[textureKey];
+        }
+
+        public Texture2D GetTextureByTileKey(string tileKey)
+        {
+            var set = gameData.Tilesets.FirstOrDefault(s => s.Tiles.Any(t => t.Name == tileKey));
+            if(set != null)
+            {
+                return GetTextureByKey(set.SourceFile);
+            }
+            else
+            {
+                throw new ArgumentException("Tileset/Texture not found for tile key: " + tileKey);
+            }            
+        }
+
+        public Rectangle? GetRectangleByTileKey(string tileKey)
+        {
+            var set = gameData.Tilesets.FirstOrDefault(s => s.Tiles.Any(t => t.Name == tileKey));
+            if (set != null)
+            {
+                var def = set.Tiles.FirstOrDefault(t => t.Name == tileKey);
+                if(def != null)
+                {
+                    return new Rectangle(def.X * set.TileSize, def.Y * set.TileSize, set.TileSize, set.TileSize);
+                }                
+            }
+
+            throw new ArgumentException("Tileset coords not found for tile key: " + tileKey);
         }
     }
 
-    public class LevelObject
+    public class LevelObjectWrapper
     {
         public string Key { get; set; }
         public TileType Type { get; set; }
 
-        public LevelObject(string key, TileType type)
+        public LevelObjectWrapper(string key, TileType type)
         {
             Key = key;
             Type = type;

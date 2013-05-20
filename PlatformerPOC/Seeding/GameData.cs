@@ -66,7 +66,7 @@ namespace PlatformerPOC.Seeding
         public string Content { get; set; }
 
         // This gets filled in by our code
-        public Dictionary<Vector2, LevelObject> LevelObjects { get; set; }
+        public Dictionary<Vector2, LevelObjectWrapper> LevelObjects { get; set; }
         public Rectangle TilesArea { get; set; }
     }
 

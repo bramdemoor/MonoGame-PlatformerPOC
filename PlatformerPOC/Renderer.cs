@@ -80,8 +80,11 @@ namespace PlatformerPOC
             foreach (var tile in game.gameWorld.Walls)
             {
                 if(IsObjectInView(tile))
-                {                                                
-                //    spriteBatch.Draw(tile.TileDefinition.TileSet.TilesetTexture, GetRelativeCoords(tile.Position),tile.TileDefinition.graphicsRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                {
+                    var tex = game.GameDataLoader.GetTextureByTileKey(tile.TileKey);
+                    var rect = game.GameDataLoader.GetRectangleByTileKey(tile.TileKey);
+
+                    spriteBatch.Draw(tex, GetRelativeCoords(tile.Position), rect, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
                 }                
             }
 
@@ -89,7 +92,10 @@ namespace PlatformerPOC
             {
                 if(IsObjectInView(coin))
                 {
-                    //spriteBatch.Draw(game.GameDataLoader.ObjectTiles.TilesetTexture, GetRelativeCoords(coin.Position), game.GameDataLoader.ObjectTiles.GetGraphicsRectangle(0, 4), Color.White);                
+                    var tex = game.GameDataLoader.GetTextureByTileKey("Bonus");
+                    var rect = game.GameDataLoader.GetRectangleByTileKey("Bonus");
+
+                    spriteBatch.Draw(tex, GetRelativeCoords(coin.Position), rect, Color.White);                
                 }                
             }
 
