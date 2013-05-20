@@ -20,8 +20,7 @@ namespace PlatformerPOC.Client
         {
             using (var game = new PlatformGame())
             {
-                game.Run();
-                game.StartGame();
+                game.Run();                
             }
         }
     }

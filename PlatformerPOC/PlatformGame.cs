@@ -8,7 +8,6 @@ using PlatformerPOC.Control;
 using PlatformerPOC.Domain;
 using PlatformerPOC.Domain.Gamemodes;
 using PlatformerPOC.Domain.Level;
-using PlatformerPOC.Domain.Teams;
 using PlatformerPOC.Drawing;
 using PlatformerPOC.Events;
 using PlatformerPOC.Handlers;
@@ -37,14 +36,14 @@ namespace PlatformerPOC
         public ResourcePreloader ResourcePreloader { get; private set; }
         public LevelManager LevelManager { get; private set; }
         public int RoundCounter { get; set; }
-        public Editor.Editor LevelEditor { get; set; }
+        private Editor.Editor LevelEditor { get; set; }
         public readonly FPSCounter fpsCounter;
-        private Renderer renderer;
+        private readonly Renderer renderer;
 
-        private AIHelper _aiHelper = new AIHelper();
+        public readonly AIHelper _aiHelper = new AIHelper();
 
         public List<Player> Players { get; set; }
-        public Player LocalPlayer { get; private set; }
+        public Player LocalPlayer { get; set; }
 
         public IEnumerable<Player> AlivePlayers
         {
@@ -63,9 +62,7 @@ namespace PlatformerPOC
         }
 
         public PlatformGame()
-        {
-       
-
+        {       
             ResourcePreloader = new ResourcePreloader(this);            
             LevelManager = new LevelManager(this);
             ViewPort = new ViewPort(this);
@@ -111,15 +108,16 @@ namespace PlatformerPOC
 
             LevelManager.PreloadLevels();
 
-            // Important!
             base.LoadContent();
 
             LevelEditor = new Editor.Editor(this);
 
             eventAggregationManager.AddListener(new GoreFactory(this));
             eventAggregationManager.AddListener(new SpawnPlayersHandler(this));     
+            eventAggregationManager.AddListener(new StartGameHandler(this));     
+            eventAggregationManager.AddListener(new CheckGameStateHandler(this));     
 
-            StartGame();
+            eventAggregationManager.SendMessage(new StartGameMessage());            
         }
 
         protected override void UnloadContent()
@@ -153,12 +151,10 @@ namespace PlatformerPOC
                 gameObject.Update(gameTime);
             }
 
-            var pos = LocalPlayer.Position;
-
             // WHY: Block V scrolling
-            ViewPort.ScrollTo(new Vector2(pos.X, 0));
+            ViewPort.ScrollTo(new Vector2(LocalPlayer.Position.X, 0));
 
-            CheckGameState();
+            eventAggregationManager.SendMessage(new CheckGameStateMessage());            
 
             DoHouseKeeping();
 
@@ -177,32 +173,6 @@ namespace PlatformerPOC
             base.Draw(gameTime);
         }
 
-        private void CheckGameState()
-        {
-            switch (AlivePlayers.Count())
-            {
-                case 0:
-                    eventAggregationManager.SendMessage(new SpawnPlayersMessage());
-
-                    RoundCounter++;
-                    break;
-                case 1:
-                    // Only 1 player? Don't do the checks.
-                    if (Players.Count() == 1) return;
-
-                    var winner = AlivePlayers.Single();
-                    winner.Score.MarkWin();
-                    eventAggregationManager.SendMessage(new SpawnPlayersMessage());
-
-                    RoundCounter++;
-
-                    break;
-                default:
-                    // continue game
-                    break;
-            }
-        }
-        
         /// <summary>
         /// Logging based on http://weblogs.asp.net/psteele/archive/2010/01/25/live-capture-of-log4net-logging.aspx
         /// </summary>        
@@ -223,56 +193,6 @@ namespace PlatformerPOC
         private void RegisterConsoleCommands()
         {
             DebugCommandUI.RegisterCommand("toggle-edit", "Turn level editor mode on or off", LevelEditor.ToggleEditModeCommand);
-        }
-
-        public void StartGame()
-        {
-            RoundCounter = 1;
-            LevelManager.StartLevel();
-            _aiHelper.Reset();
-
-            if(GameMode is EliminationGameMode)
-            {
-                LocalPlayer = new Player(this, "Player 1", ResourcePreloader.Character1Sheet);
-                LocalPlayer.SwitchTeam(Team.Neutral);
-                Players.Add(LocalPlayer);
-                AddObject(LocalPlayer);
-
-                for (int i = 2; i < 4; i++)
-                {
-                    var botPlayer = new Player(this, string.Format("{0} [Bot]", _aiHelper.GetRandomName()), ResourcePreloader.Character2Sheet);
-                    botPlayer.SwitchTeam(Team.Neutral);
-                    botPlayer.AI = new DummyAIController();            
-                    Players.Add(botPlayer);
-                    AddObject(botPlayer);
-                }                
-            }
-            else
-            {
-                LocalPlayer = new Player(this, "Player 1", ResourcePreloader.Character1Sheet);
-                LocalPlayer.SwitchTeam(Team.Red);
-                Players.Add(LocalPlayer);
-                AddObject(LocalPlayer);
-
-                for (int i = 2; i < 9; i++)
-                {
-                    var botPlayer = new Player(this, string.Format("{0} [Bot]", _aiHelper.GetRandomName()), ResourcePreloader.Character2Sheet);
-                    botPlayer.SwitchTeam(Team.Red);
-                    botPlayer.AI = new DummyAIController();            
-                    Players.Add(botPlayer);
-                    AddObject(botPlayer);
-                }
-                for (int i = 9; i < 17; i++)
-                {
-                    var botPlayer = new Player(this, string.Format("{0} [Bot]", _aiHelper.GetRandomName()), ResourcePreloader.Character2Sheet);
-                    botPlayer.SwitchTeam(Team.Blue);
-                    botPlayer.AI = new DummyAIController();            
-                    Players.Add(botPlayer);
-                    AddObject(botPlayer);
-                }  
-            }
-
-            eventAggregationManager.SendMessage(new SpawnPlayersMessage());
         }
 
         /// <summary>

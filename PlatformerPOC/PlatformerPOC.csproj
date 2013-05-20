@@ -98,8 +98,10 @@
     <Compile Include="Domain\Level\SolidWall.cs" />
     <Compile Include="Domain\Teams\Team.cs" />
     <Compile Include="Events\EventAggregator.cs" />
+    <Compile Include="Handlers\CheckGameStateHandler.cs" />
     <Compile Include="Handlers\GoreFactory.cs" />
     <Compile Include="Handlers\SpawnPlayersHandler.cs" />
+    <Compile Include="Handlers\StartGameHandler.cs" />
     <Compile Include="Helpers\CollisionHelper.cs" />
     <Compile Include="Helpers\Console.cs" />
     <Compile Include="Helpers\CoreCommands.cs" />
@@ -115,8 +117,10 @@
     <Compile Include="Domain\Level\LevelManager.cs" />
     <Compile Include="Domain\Level\LevelTileConcept.cs" />
     <Compile Include="Helpers\XNAExtensions.cs" />
+    <Compile Include="Messages\CheckGameStateMessage.cs" />
     <Compile Include="Messages\PlayerHitMessage.cs" />
     <Compile Include="Messages\SpawnPlayersMessage.cs" />
+    <Compile Include="Messages\StartGameMessage.cs" />
     <Compile Include="PlatformGame.cs" />
     <Compile Include="Domain\Player.cs" />
     <Compile Include="Control\PlayerKeyboardState.cs" />
