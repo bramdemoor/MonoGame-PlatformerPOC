@@ -84,7 +84,7 @@ namespace PlatformerPOC
             //SpriteBatch.Draw(game.ResourcePreloader.BulletTexture, PositionRelativeToView, null, Color.White, 0, Vector2.Zero, 1, DrawEffect, 1f);                    
         }
 
-        public void DrawHud()
+        private void DrawHud()
         {
             var str = string.Format("Round: {0}", game.RoundCounter);
             string modeAndLevelText = string.Format("{0} in {1}", "Elimination", game.LevelManager.CurrentLevel.Name);
@@ -120,7 +120,7 @@ namespace PlatformerPOC
             game.SpriteBatch.Draw(game.ResourcePreloader.Pistol, new Vector2(1068, 662), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);            
         }
 
-        public void DrawDebug()
+        private void DrawDebug()
         {
             DrawBorder(new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), 1, Color.Purple);
 
@@ -129,25 +129,20 @@ namespace PlatformerPOC
             // foreach tile/solidwall
             //game.DebugDrawHelper.DrawBorder(ViewPort.GetRelativeCoords(BoundingBox.FullRectangle), 2, Color.DarkRed);
 
-            // foreach player:
-            //game.DebugDrawHelper.DrawBorder(ViewPort.GetRelativeCoords(BoundingBox.FullRectangle), 1, Color.Pink);
+            foreach(var player in game.Players)
+            {
+                DrawBorder(game.ViewPort.GetRelativeCoords(player.BoundingBox.FullRectangle), 1, Color.Pink);    
+            }
 
             // foreach bullet:
             //game.DebugDrawHelper.DrawBorder(ViewPort.GetRelativeCoords(BoundingBox.FullRectangle), 1, Color.Lime);
-        }
-
-
-
-        public void DrawFps()
-        {
-            game.fpsCounter.IncreaseFrames();
 
             if (Config.DebugModeEnabled)
             {
                 var fps = string.Format("fps: {0} mem : {1}", game.fpsCounter.frameRate, GC.GetTotalMemory(false));
 
-                game.SpriteBatch.DrawString(game.DefaultFont, fps, new Vector2(40, 10), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, -999);                
-            }            
+                game.SpriteBatch.DrawString(game.DefaultFont, fps, new Vector2(40, 10), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, -999);
+            }    
         }
 
         /// <summary>
@@ -157,7 +152,7 @@ namespace PlatformerPOC
         ///
         /// By Sean Colombo, from http://bluelinegamestudios.com/blog
         /// </summary>
-        public void DrawBorder(Rectangle rectangleToDraw, int thicknessOfBorder, Color borderColor)
+        private void DrawBorder(Rectangle rectangleToDraw, int thicknessOfBorder, Color borderColor)
         {            
             game.SpriteBatch.Draw(game.ResourcePreloader.pixel, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, rectangleToDraw.Width, thicknessOfBorder), borderColor);
             game.SpriteBatch.Draw(game.ResourcePreloader.pixel, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, thicknessOfBorder, rectangleToDraw.Height), borderColor);

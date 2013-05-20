@@ -153,6 +153,7 @@ namespace PlatformerPOC
 
         protected override void Draw(GameTime gameTime)
         {
+            fpsCounter.IncreaseFrames();
             renderer.Draw();
             base.Draw(gameTime);
         }
