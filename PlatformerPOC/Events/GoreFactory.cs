@@ -1,4 +1,5 @@
-﻿using PlatformerPOC.Messages;
+﻿using PlatformerPOC.Helpers;
+using PlatformerPOC.Messages;
 
 namespace PlatformerPOC.Events
 {
@@ -12,7 +13,10 @@ namespace PlatformerPOC.Events
         }
 
         public void Handle(PlayerHitMessage message)
-        {            
+        {        
+            // TODO BDM: Temp test for cam shake
+            CamShaker.StartShaking(10f, 1f);
+
             //throw new NotImplementedException("Implement me plz!");
 
             //game.AddObject(new Particle(game, new Vector2(Position.X + (HorizontalDirection * 40), Position.Y), HorizontalDirection));

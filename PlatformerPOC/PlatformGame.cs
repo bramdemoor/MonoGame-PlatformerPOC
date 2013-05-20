@@ -107,7 +107,7 @@ namespace PlatformerPOC
 
             gameWorld.Update(gameTime);
 
-            renderer.ScrollToHorizontal(gameWorld.LocalPlayer.Position.X);
+            renderer.UpdateCameraPosition(gameWorld.LocalPlayer.Position.X, gameTime);
 
             eventAggregationManager.SendMessage(new CheckGameStateMessage());            
 

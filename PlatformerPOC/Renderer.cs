@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Domain;
+using PlatformerPOC.Helpers;
 
 namespace PlatformerPOC
 {
@@ -219,14 +220,16 @@ namespace PlatformerPOC
 
         /// <summary>
         /// Scroll the view to a specified horizontal coordinate.
+        /// Optionally, apply camera shake effect
         /// FYI V-scrolling is blocked
         /// </summary>
-        public void ScrollToHorizontal(float x)
+        public void UpdateCameraPosition(float x, GameTime gameTime)
         {
             var position = new Vector2(x, 0);
 
-            var potentialX = (int)position.X - (ViewArea.Width / 2);
+            position = CamShaker.ShakeIfShaking(position, gameTime);
 
+            var potentialX = (int)position.X - (ViewArea.Width / 2);
             var potentialY = (int)position.Y - (ViewArea.Height / 2);
 
             if (potentialX < LevelArea.X) potentialX = LevelArea.X;

@@ -78,6 +78,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Domain\GameWorld.cs" />
+    <Compile Include="Domain\Particle.cs" />
+    <Compile Include="Helpers\CamShaker.cs" />
     <Compile Include="Helpers\EliminationGameMode.cs" />
     <Compile Include="Helpers\TeamEliminationGameMode.cs" />
     <Compile Include="AI\DummyAIController.cs" />
@@ -111,7 +113,6 @@
     <Compile Include="Helpers\GameTimer.cs" />
     <Compile Include="Helpers\IDebugCommandHost.cs" />
     <Compile Include="Helpers\KeyboardUtils.cs" />
-    <Compile Include="Domain\Particle.cs" />
     <Compile Include="Helpers\XNAExtensions.cs" />
     <Compile Include="Messages\CheckGameStateMessage.cs" />
     <Compile Include="Messages\PlayerHitMessage.cs" />
