@@ -16,6 +16,7 @@ namespace PlatformerPOC.Handlers
         public void Handle(ShootMessage message)
         {
             var bullet = new Bullet(_game, message.ShooterName, message.ShotPosition, message.HorizontalDirection);
+            _game.Bullets.Add(bullet);
         }
     }
 }

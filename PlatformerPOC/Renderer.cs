@@ -80,8 +80,10 @@ namespace PlatformerPOC
             // foreach coin
             //game.SpriteBatch.Draw(game.ResourcePreloader.ObjectTiles.TilesetTexture, PositionRelativeToView, game.ResourcePreloader.ObjectTiles.GetGraphicsRectangle(0, 4), Color.White);            
 
-            // foreach bullet
-            //SpriteBatch.Draw(game.ResourcePreloader.BulletTexture, PositionRelativeToView, null, Color.White, 0, Vector2.Zero, 1, DrawEffect, 1f);                    
+            foreach( var bullet in game.Bullets)
+            {
+                game.SpriteBatch.Draw(game.ResourcePreloader.BulletTexture, bullet.PositionRelativeToView, null, Color.White, 0, Vector2.Zero, 1, bullet.DrawEffect, 1f);    
+            }
         }
 
         private void DrawHud()
@@ -134,8 +136,10 @@ namespace PlatformerPOC
                 DrawBorder(game.ViewPort.GetRelativeCoords(player.BoundingBox.FullRectangle), 1, Color.Pink);    
             }
 
-            // foreach bullet:
-            //game.DebugDrawHelper.DrawBorder(ViewPort.GetRelativeCoords(BoundingBox.FullRectangle), 1, Color.Lime);
+            foreach(var bullet in game.Bullets)
+            {
+                DrawBorder(game.ViewPort.GetRelativeCoords(bullet.BoundingBox.FullRectangle), 1, Color.Lime);    
+            }
 
             if (Config.DebugModeEnabled)
             {

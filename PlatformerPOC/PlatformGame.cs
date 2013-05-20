@@ -8,6 +8,7 @@ using PlatformerPOC.Control;
 using PlatformerPOC.Domain;
 using PlatformerPOC.Domain.Gamemodes;
 using PlatformerPOC.Domain.Level;
+using PlatformerPOC.Domain.Weapon;
 using PlatformerPOC.Drawing;
 using PlatformerPOC.Events;
 using PlatformerPOC.Handlers;
@@ -25,10 +26,6 @@ namespace PlatformerPOC
 
         public ViewPort ViewPort { get; set; }
                 
-        //private readonly List<BaseGameObject> gameObjects;
-        //private readonly List<BaseGameObject> gameObjectsToAdd = new List<BaseGameObject>();
-        //private readonly List<BaseGameObject> gameObjectsToDelete = new List<BaseGameObject>();
-
         private readonly ILog log;                
 
         public DebugCommandUI DebugCommandUI { get; private set; }
@@ -43,7 +40,10 @@ namespace PlatformerPOC
         public Random Randomizer { get; private set; }
 
         public List<Player> Players { get; set; }
+        public List<Bullet> Bullets { get; set; }
         public Player LocalPlayer { get; set; }
+
+        public string Name { get; set; }
 
         public IEnumerable<Player> AlivePlayers
         {
@@ -51,10 +51,6 @@ namespace PlatformerPOC
         }
 
         public GameMode GameMode { get; set; }
-        //public IEnumerable<BaseGameObject> GameObjects
-        //{
-        //    get { return gameObjects; }
-        //}
 
         public SpriteFont DefaultFont
         {
@@ -63,33 +59,28 @@ namespace PlatformerPOC
 
         public PlatformGame()
         {       
-            ResourcePreloader = new ResourcePreloader(this);            
-            LevelManager = new LevelManager(this);
-            ViewPort = new ViewPort(this);
-            GameMode = new EliminationGameMode();
-
-            fpsCounter = new FPSCounter();
-
-            renderer = new Renderer(this);
-
             log4net.Config.BasicConfigurator.Configure();
             log = LogManager.GetLogger(typeof(PlatformGame));
             ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetLoggerRepository()).Root.AddAppender(this);
 
+            ResourcePreloader = new ResourcePreloader(this);
+            LevelManager = new LevelManager(this);
+            ViewPort = new ViewPort(this);
+            GameMode = new EliminationGameMode();
+            fpsCounter = new FPSCounter();
+            renderer = new Renderer(this);
+            Randomizer = new Random();
+
             Content.RootDirectory = "Content";            
-            //gameObjects = new List<BaseGameObject>();
 
             IsMouseVisible = Config.DebugModeEnabled;
 
-            Players = new List<Player>();
-
-            Randomizer = new Random();
+            Players = new List<Player>();            
+            Bullets = new List<Bullet>();
         }
 
         protected override void Initialize()
         {
-            // Remember: Executed BEFORE LoadContent!
-
             log.Info("Initializing game engine...");
 
             base.Initialize();
@@ -132,7 +123,7 @@ namespace PlatformerPOC
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                ShutDown();
+                Exit();
             }
 
             LocalPlayer.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
@@ -148,17 +139,15 @@ namespace PlatformerPOC
                 player.Update();    
             }
 
-            //foreach (var gameObject in GameObjects)
-            //{
-            //    gameObject.Update(gameTime);
-            //}
+            foreach (var bullet in Bullets)
+            {
+                bullet.Update(gameTime);
+            }
 
             // WHY: Block V scrolling
             ViewPort.ScrollTo(new Vector2(LocalPlayer.Position.X, 0));
 
             eventAggregationManager.SendMessage(new CheckGameStateMessage());            
-
-            //DoHouseKeeping();
 
             if (Config.EditMode)
             {
@@ -182,55 +171,15 @@ namespace PlatformerPOC
         {
             Console.WriteLine("{2}: {0}: {1}\r\n", loggingEvent.Level.Name, loggingEvent.MessageObject, loggingEvent.LoggerName);
         }
-
-        public string Name { get; set; }
-
-        public void Close() { }
-
-        private void ShutDown()
+        
+        public void Close()
         {
-            Exit();
+            
         }
 
         private void RegisterConsoleCommands()
         {
             DebugCommandUI.RegisterCommand("toggle-edit", "Turn level editor mode on or off", LevelEditor.ToggleEditModeCommand);
         }
-
-        ///// <summary>
-        ///// Add object to the update/draw list
-        ///// </summary>        
-        //public void AddObject(BaseGameObject baseGameObject)
-        //{
-        //    gameObjectsToAdd.Add(baseGameObject);
-        //}
-
-        ///// <summary>
-        ///// Delete object from the update/draw list
-        ///// </summary>
-        //public void DeleteObject(BaseGameObject baseGameObject)
-        //{
-        //    gameObjectsToDelete.Add(baseGameObject);
-        //}
-
-        ///// <summary>
-        ///// Clean up objects to delete, and introduce new objects
-        ///// </summary>
-        //private void DoHouseKeeping()
-        //{
-        //    foreach (var baseGameObject in gameObjectsToAdd)
-        //    {
-        //        gameObjects.Add(baseGameObject);
-        //    }
-
-        //    gameObjectsToAdd.Clear();
-
-        //    foreach (var baseGameObject in gameObjectsToDelete)
-        //    {
-        //        gameObjects.Remove(baseGameObject);
-        //    }
-
-        //    gameObjectsToDelete.Clear();
-        //}
     }
 }
