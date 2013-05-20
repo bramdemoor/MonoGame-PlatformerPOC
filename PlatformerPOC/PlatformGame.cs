@@ -72,10 +72,7 @@ namespace PlatformerPOC
         protected override void LoadContent()
         {
             renderer.LoadContent();
-            
-            DebugCommandUI = new DebugCommandUI(this, DefaultFont);
-            Components.Add(DebugCommandUI);
-
+                        
             GameDataLoader.LoadContent(Content);
 
             base.LoadContent();
@@ -89,7 +86,10 @@ namespace PlatformerPOC
             eventAggregationManager.AddListener(new ShootHandler(this), true);
             eventAggregationManager.AddListener(new PowerupPickedUpHandler(this), true);     
 
-            eventAggregationManager.SendMessage(new StartGameMessage());            
+            eventAggregationManager.SendMessage(new StartGameMessage());
+
+            DebugCommandUI = new DebugCommandUI(this, DefaultFont);
+            Components.Add(DebugCommandUI);
         }
 
         protected override void UnloadContent()

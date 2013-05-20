@@ -21,13 +21,20 @@ namespace PlatformerPOC
         public static int Port = 6666;
         public const int MaxPlayers = 16;
 
-        // Global config flags
+        // Editor
         public static bool EditMode = false;
+
+        // Debug mode
         public static bool DebugModeEnabled = true;
         public static bool VerboseDebugOutput = true;
-        public static bool SoundEnabled = false;
-        public static float SoundVolume = 1f;
+
+        // Graphics
         public static int ScreenResolutionWidth = 1280;
         public static int ScreenResolutionHeight = 720;
+
+        // Sound & effects:
+        public static bool SoundEnabled = false;
+        public static float SoundVolume = 1f;
+        public static bool ScreenShakeEnabled = true;
     }
 }
