@@ -134,7 +134,7 @@ namespace PlatformerPOC.Domain
 
             UpdateBoundingBox();
 
-            foreach (var powerup in game.gameWorld.Coins)
+            foreach (var powerup in game.gameWorld.Powerups)
             {
                 if (CollisionHelper.RectangleCollision(BoundingBox.FullRectangle, powerup.BoundingBox.FullRectangle))
                 {

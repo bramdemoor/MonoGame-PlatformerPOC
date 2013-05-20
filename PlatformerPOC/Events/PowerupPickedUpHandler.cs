@@ -14,7 +14,7 @@ namespace PlatformerPOC.Events
 
         public void Handle(PowerupPickedUpMessage message)
         {
-            _game.gameWorld.Coins = _game.gameWorld.Coins.Where(c => c.Id != message.PowerUpObjectId).ToList();
+            _game.gameWorld.Powerups = _game.gameWorld.Powerups.Where(c => c.Id != message.PowerUpObjectId).ToList();
         }
     }
 }

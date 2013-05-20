@@ -22,7 +22,7 @@ namespace PlatformerPOC.Domain
         public List<Projectile> Bullets { get; set; }
         public Player LocalPlayer { get; set; }
         public List<StaticTile> Walls { get; set; }
-        public List<Powerup> Coins { get; set; }
+        public List<Powerup> Powerups { get; set; }
         public readonly List<Vector2> spawnPointPositions = new List<Vector2>();
         public readonly List<ParallaxLayer> bgLayers = new List<ParallaxLayer>();
 
@@ -54,7 +54,7 @@ namespace PlatformerPOC.Domain
             Players = new List<Player>();
             Bullets = new List<Projectile>();
             Walls = new List<StaticTile>();
-            Coins = new List<Powerup>();
+            Powerups = new List<Powerup>();
         }
 
         public void BuildWorld(LevelData data)
@@ -71,7 +71,7 @@ namespace PlatformerPOC.Domain
                         Walls.Add(new StaticTile(levelPos, levelObject.Value.Key));
                         break;
                     case TileType.PowerUp:
-                        Coins.Add(new Powerup(levelPos));
+                        Powerups.Add(new Powerup(levelPos));
                         break;
                     case TileType.Spawner:
                         spawnPointPositions.Add(levelPos);

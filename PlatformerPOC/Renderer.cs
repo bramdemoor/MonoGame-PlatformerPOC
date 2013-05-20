@@ -88,7 +88,7 @@ namespace PlatformerPOC
                 }                
             }
 
-            foreach (var coin in game.gameWorld.Coins)
+            foreach (var coin in game.gameWorld.Powerups)
             {
                 if(IsObjectInView(coin))
                 {
