@@ -22,7 +22,6 @@ namespace PlatformerPOC.Domain.Level
 
         public override void Draw()
         {
-            // TODO BDM: Remove layerdepth hack!
             TileDefinition.DrawTile(PositionRelativeToView, 0);                      
         }
 

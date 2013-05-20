@@ -47,8 +47,6 @@ namespace PlatformerPOC.Domain.Level
                         // Meta-line
                         var parts = reader.ReadLine().Split('|');
                         level.SetMetaInformation(parts.ElementAt(0), parts.ElementAt(1), parts.ElementAt(2), parts.ElementAt(3));
-
-                        // TODO BDM: Make bg-layers dynamic too!
                         level.SetBgLayers();
 
                     }

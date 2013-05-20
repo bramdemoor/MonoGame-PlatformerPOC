@@ -65,14 +65,7 @@ namespace PlatformerPOC.Domain.Level
 
         public void Draw()
         {
-            // TODO BDM: Remove layerdepth hack!
             game.SpriteBatch.Draw(texture, Pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, LayerDepth);
-
-            // TODO BDM (Backlog): Fix debug drawing for bg layers
-            //if (CoreConfig.DebugModeEnabled)
-            //{
-            //    game.DebugDrawHelper.DrawDebugString(string.Format("L: {0}", Pos), new Vector2(640, 30));                
-            //}
         } 
     }
 }
