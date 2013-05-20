@@ -29,11 +29,10 @@ Tilesets:
     SourceFile: 'icon0.png'
     TileSize: 16
     Tiles:
-      - Name: 'Diamond'
+      - Name: 'Bonus'
         X: 0
         Y: 4
         Type: 'PowerUp'        
-    Tiles:
       - Name: 'Spawner'
         X: 11
         Y: 2

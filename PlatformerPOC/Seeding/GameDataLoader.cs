@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -80,7 +81,7 @@ namespace PlatformerPOC.Seeding
         {
             var demoLevel = gameData.Levels.First();
 
-            demoLevel.LevelObjects = new Dictionary<Vector2, string>();
+            demoLevel.LevelObjects = new Dictionary<Vector2, LevelObject>();
 
             var ls = demoLevel.Content.Split('\n');
 
@@ -94,7 +95,30 @@ namespace PlatformerPOC.Seeding
                 {
                     if(chars[i] != ' ')
                     {
-                        demoLevel.LevelObjects.Add(new Vector2(i, lineIndex), chars[i].ToString());
+                        var tileAlias = chars[i].ToString();
+
+                        var tileMapping = demoLevel.TileImports.FirstOrDefault(imp => imp.Alias == tileAlias);
+
+                        if (tileMapping != null)
+                        {
+                            var importedTileSets =
+                                gameData.Tilesets.Where(t => demoLevel.TilesetImports.Contains(t.Name)).ToArray();
+
+                            if (!importedTileSets.Any())
+                                throw new ArgumentException("Please import at least 1 tileset!");
+
+                            var tileDefinition = importedTileSets.SelectMany(t => t.Tiles).FirstOrDefault(tile => tile.Name == tileMapping.Key);
+
+                            if (tileDefinition == null)
+                                throw new ArgumentException("Tile definition not found: " + tileMapping.Key);
+
+                            demoLevel.LevelObjects.Add(new Vector2(i, lineIndex), new LevelObject(tileMapping.Key, tileDefinition.Type));
+                        }
+                        else
+                        {
+                            // Ignore for now
+                            //throw new ArgumentException("Tile alias not found: " + tileAlias);
+                        }
                     }
                 }
                 lineIndex++;
@@ -106,6 +130,18 @@ namespace PlatformerPOC.Seeding
         public Texture2D GetTextureByKey(string bgKey)
         {
             return DynamicTextures[bgKey];
+        }
+    }
+
+    public class LevelObject
+    {
+        public string Key { get; set; }
+        public TileType Type { get; set; }
+
+        public LevelObject(string key, TileType type)
+        {
+            Key = key;
+            Type = type;
         }
     }
 }

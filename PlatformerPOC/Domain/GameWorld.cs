@@ -65,24 +65,19 @@ namespace PlatformerPOC.Domain
             {
                 var levelPos = TilesToPixels(levelObject.Key);
 
-                if(levelObject.Value == "G")
+                switch (levelObject.Value.Type)
                 {
-                    Walls.Add(new StaticTile(levelPos, "G"));
-                }
-
-                if(levelObject.Value == "x")
-                {
-                    Walls.Add(new StaticTile(levelPos, "x"));
-                }
-
-                if (levelObject.Value == "S")
-                {
-                    spawnPointPositions.Add(levelPos);
-                }
-
-                if (levelObject.Value == "*")
-                {
-                    Coins.Add(new Powerup(levelPos));
+                    case TileType.Solid:
+                        Walls.Add(new StaticTile(levelPos, levelObject.Value.Key));
+                        break;
+                    case TileType.PowerUp:
+                        Coins.Add(new Powerup(levelPos));
+                        break;
+                    case TileType.Spawner:
+                        spawnPointPositions.Add(levelPos);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("Tile type not supported!");
                 }
             }
 
