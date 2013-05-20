@@ -6,12 +6,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PlatformerPOC.Control;
 using PlatformerPOC.Domain;
-using PlatformerPOC.Domain.Gamemodes;
-using PlatformerPOC.Domain.Level;
-using PlatformerPOC.Domain.Weapon;
-using PlatformerPOC.Drawing;
 using PlatformerPOC.Events;
+using PlatformerPOC.Gamemodes;
 using PlatformerPOC.Helpers;
+using PlatformerPOC.Level;
 using PlatformerPOC.Messages;
 using log4net;
 using log4net.Appender;
@@ -37,7 +35,7 @@ namespace PlatformerPOC
         public Random Randomizer { get; private set; }
 
         public List<Player> Players { get; set; }
-        public List<Bullet> Bullets { get; set; }
+        public List<Projectile> Bullets { get; set; }
         public Player LocalPlayer { get; set; }
 
         public string Name { get; set; }
@@ -72,7 +70,7 @@ namespace PlatformerPOC
             IsMouseVisible = Config.DebugModeEnabled;
 
             Players = new List<Player>();            
-            Bullets = new List<Bullet>();
+            Bullets = new List<Projectile>();
         }
 
         protected override void Initialize()

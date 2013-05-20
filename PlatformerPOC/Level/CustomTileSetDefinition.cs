@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PlatformerPOC.Drawing
+namespace PlatformerPOC.Level
 {
     public class CustomTileSetDefinition
     {

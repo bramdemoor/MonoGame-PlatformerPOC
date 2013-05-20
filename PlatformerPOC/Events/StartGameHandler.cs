@@ -2,8 +2,7 @@
 using System.Linq;
 using PlatformerPOC.Control;
 using PlatformerPOC.Domain;
-using PlatformerPOC.Domain.Gamemodes;
-using PlatformerPOC.Domain.Teams;
+using PlatformerPOC.Gamemodes;
 using PlatformerPOC.Helpers;
 using PlatformerPOC.Messages;
 

@@ -2,10 +2,10 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PlatformerPOC.Domain.Powerup;
+using PlatformerPOC.Domain;
 using PlatformerPOC.Helpers;
 
-namespace PlatformerPOC.Domain.Level
+namespace PlatformerPOC.Level
 {
     public class Level
     {
@@ -15,8 +15,8 @@ namespace PlatformerPOC.Domain.Level
         
         private readonly List<Vector2> spawnPointPositions = new List<Vector2>();
 
-        public List<SolidWall> Walls { get; set; }
-        public List<Powerup.Powerup> Coins { get; set; }
+        public List<StaticTile> Walls { get; set; }
+        public List<Powerup> Coins { get; set; }
 
         private char[,] tiles;
 
@@ -36,8 +36,8 @@ namespace PlatformerPOC.Domain.Level
         {
             this.game = game;
 
-            Walls = new List<SolidWall>();
-            Coins = new List<Powerup.Powerup>();
+            Walls = new List<StaticTile>();
+            Coins = new List<Powerup>();
         }
 
         public void SetMetaInformation(string name, string description, string size, string author)
@@ -97,11 +97,11 @@ namespace PlatformerPOC.Domain.Level
 
                     if (c == 'G')
                     {
-                        Walls.Add(new SolidWall(game, levelPos, game.ResourcePreloader.TileGround));                        
+                        Walls.Add(new StaticTile(game, levelPos, game.ResourcePreloader.TileGround));                        
                     }
                     else if (c == 'x')
                     {
-                        Walls.Add(new SolidWall(game, levelPos, game.ResourcePreloader.TileWall));                        
+                        Walls.Add(new StaticTile(game, levelPos, game.ResourcePreloader.TileWall));                        
                     }
                     else if (c == 'S')
                     {
@@ -109,7 +109,7 @@ namespace PlatformerPOC.Domain.Level
                     }
                     else if(c == '*')
                     {
-                        Coins.Add(new Powerup.Powerup(game, levelPos));                        
+                        Coins.Add(new Powerup(game, levelPos));                        
                     }
                 }
             }

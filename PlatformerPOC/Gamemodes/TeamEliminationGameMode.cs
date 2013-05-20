@@ -1,4 +1,4 @@
-﻿namespace PlatformerPOC.Domain.Gamemodes
+﻿namespace PlatformerPOC.Gamemodes
 {
     public class TeamEliminationGameMode : GameMode
     {

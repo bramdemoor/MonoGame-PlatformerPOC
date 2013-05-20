@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace PlatformerPOC.Domain.Teams
+namespace PlatformerPOC.Domain
 {
     public class RedTeam : Team
     {
@@ -47,7 +47,10 @@ namespace PlatformerPOC.Domain.Teams
 
         public override Color TeamColorDark
         {
-            get { return Color.FromNonPremultiplied(30, 30, 30, 255); }
+            get
+            {                
+                return Color.FromNonPremultiplied(30, 30, 30, 255);
+            }
         }
 
         public override string TeamName

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace PlatformerPOC.Domain.Level
+namespace PlatformerPOC.Level
 {
     public static class LevelTileConcept
     {

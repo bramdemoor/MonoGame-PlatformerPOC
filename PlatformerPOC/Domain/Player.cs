@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using PlatformerPOC.Control;
-using PlatformerPOC.Domain.Teams;
-using PlatformerPOC.Domain.Weapon;
 using PlatformerPOC.Drawing;
 using PlatformerPOC.Helpers;
 using PlatformerPOC.Messages;
@@ -14,7 +12,7 @@ namespace PlatformerPOC.Domain
         private const int MOVE_SPEED = 5;
         private const float JUMP_FORCE = 6.2f;
 
-        private Pistol weapon;        
+        private Weapon weapon;        
         
         public string Name { get; set; }
         public int Life { get; private set; }
@@ -69,7 +67,7 @@ namespace PlatformerPOC.Domain
         {
             Position = spawnPoint;
 
-            weapon = new Pistol(game, this);
+            weapon = new Weapon(game, this);
 
             Life = MAX_LIFE;
 

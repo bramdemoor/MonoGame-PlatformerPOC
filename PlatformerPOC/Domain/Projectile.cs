@@ -3,15 +3,15 @@ using Microsoft.Xna.Framework;
 using PlatformerPOC.Helpers;
 using PlatformerPOC.Messages;
 
-namespace PlatformerPOC.Domain.Weapon
+namespace PlatformerPOC.Domain
 {
-    public class Bullet : BaseGameObject
+    public class Projectile : BaseGameObject
     {
         private const int horizontalMaxSpeed = 15;
 
         private readonly string shooterName;
 
-        public Bullet(PlatformGame game, string shooterName, Vector2 position, int horizontalDirection) : base(game)
+        public Projectile(PlatformGame game, string shooterName, Vector2 position, int horizontalDirection) : base(game)
         {
             Position = position;
             this.shooterName = shooterName;

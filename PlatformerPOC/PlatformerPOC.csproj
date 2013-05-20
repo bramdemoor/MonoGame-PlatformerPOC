@@ -77,24 +77,24 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Domain\Gamemodes\EliminationGameMode.cs" />
-    <Compile Include="Domain\Gamemodes\TeamEliminationGameMode.cs" />
+    <Compile Include="Gamemodes\EliminationGameMode.cs" />
+    <Compile Include="Gamemodes\TeamEliminationGameMode.cs" />
     <Compile Include="Control\DummyAIController.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Control\IPlayerControlState.cs" />
     <Compile Include="Drawing\CustomSpriteSheetDefinition.cs" />
     <Compile Include="Drawing\CustomSpriteSheetInstance.cs" />
-    <Compile Include="Drawing\CustomTileSetDefinition.cs" />
-    <Compile Include="Drawing\TileDefinition.cs" />
+    <Compile Include="Level\CustomTileSetDefinition.cs" />
+    <Compile Include="Level\TileDefinition.cs" />
     <Compile Include="Editor\Editor.cs" />
     <Compile Include="Domain\BaseGameObject.cs" />
-    <Compile Include="Domain\Weapon\Bullet.cs" />
-    <Compile Include="Domain\Gamemodes\GameMode.cs" />
-    <Compile Include="Domain\Weapon\Pistol.cs" />
+    <Compile Include="Domain\Projectile.cs" />
+    <Compile Include="Gamemodes\GameMode.cs" />
+    <Compile Include="Domain\Weapon.cs" />
     <Compile Include="Domain\Score.cs" />
-    <Compile Include="Domain\Powerup\Powerup.cs" />
-    <Compile Include="Domain\Level\SolidWall.cs" />
-    <Compile Include="Domain\Teams\Team.cs" />
+    <Compile Include="Domain\Powerup.cs" />
+    <Compile Include="Domain\StaticTile.cs" />
+    <Compile Include="Domain\Team.cs" />
     <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Events\CheckGameStateHandler.cs" />
     <Compile Include="Events\GoreFactory.cs" />
@@ -111,10 +111,10 @@
     <Compile Include="Helpers\GameTimer.cs" />
     <Compile Include="Helpers\IDebugCommandHost.cs" />
     <Compile Include="Helpers\KeyboardUtils.cs" />
-    <Compile Include="Domain\Level\Level.cs" />
+    <Compile Include="Level\Level.cs" />
     <Compile Include="Domain\Particle.cs" />
-    <Compile Include="Domain\Level\LevelManager.cs" />
-    <Compile Include="Domain\Level\LevelTileConcept.cs" />
+    <Compile Include="Level\LevelManager.cs" />
+    <Compile Include="Level\LevelTileConcept.cs" />
     <Compile Include="Helpers\XNAExtensions.cs" />
     <Compile Include="Messages\CheckGameStateMessage.cs" />
     <Compile Include="Messages\PlayerHitMessage.cs" />

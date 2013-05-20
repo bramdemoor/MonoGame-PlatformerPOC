@@ -1,17 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using PlatformerPOC.Drawing;
 using PlatformerPOC.Helpers;
+using PlatformerPOC.Level;
 
-namespace PlatformerPOC.Domain.Level
+namespace PlatformerPOC.Domain
 {
     /// <summary>
     /// "Solid" object (wall, floor,...)
     /// </summary>
-    public class SolidWall : BaseGameObject
+    public class StaticTile : BaseGameObject
     {
         public TileDefinition TileDefinition { get; private set; }
 
-        public SolidWall(PlatformGame game, Vector2 position, TileDefinition tileDefinition) : base(game)
+        public StaticTile(PlatformGame game, Vector2 position, TileDefinition tileDefinition) : base(game)
         {
             Position = position;
             TileDefinition = tileDefinition;

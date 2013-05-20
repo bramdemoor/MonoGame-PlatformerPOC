@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using PlatformerPOC.Helpers;
 
-namespace PlatformerPOC.Domain.Powerup
+namespace PlatformerPOC.Domain
 {
     public enum PowerupType
     {

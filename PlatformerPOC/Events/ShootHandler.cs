@@ -1,4 +1,4 @@
-﻿using PlatformerPOC.Domain.Weapon;
+﻿using PlatformerPOC.Domain;
 using PlatformerPOC.Messages;
 
 namespace PlatformerPOC.Events
@@ -14,7 +14,7 @@ namespace PlatformerPOC.Events
 
         public void Handle(ShootMessage message)
         {
-            var bullet = new Bullet(_game, message.ShooterName, message.ShotPosition, message.HorizontalDirection);
+            var bullet = new Projectile(_game, message.ShooterName, message.ShotPosition, message.HorizontalDirection);
             _game.Bullets.Add(bullet);
         }
     }

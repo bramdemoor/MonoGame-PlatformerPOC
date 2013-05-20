@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace PlatformerPOC.Domain.Level
+namespace PlatformerPOC.Level
 {
     public class LevelManager
     {

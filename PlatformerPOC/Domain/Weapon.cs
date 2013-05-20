@@ -1,16 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using PlatformerPOC.Messages;
 
-namespace PlatformerPOC.Domain.Weapon
+namespace PlatformerPOC.Domain
 {
-    public class Pistol : BaseGameObject
+    public class Weapon : BaseGameObject
     {
         private readonly Player owner;
 
         private int intervalCounter = 0;
         private const int interval = 15;
 
-        public Pistol(PlatformGame game, Player owner) : base(game)
+        public Weapon(PlatformGame game, Player owner) : base(game)
         {
             this.owner = owner;            
         }

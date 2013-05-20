@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
-namespace PlatformerPOC.Drawing
+namespace PlatformerPOC.Level
 {
     public class TileDefinition
     {
