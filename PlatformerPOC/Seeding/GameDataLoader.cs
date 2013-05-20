@@ -50,9 +50,13 @@ namespace PlatformerPOC.Seeding
 
             foreach (var sheet in gameData.Spritesheets)
             {
+                //TODO BDM: Clean up very brittle and hacky code!!!
+                var anim = sheet.Animations.First();
                 var rect = new Rectangle(0, 0, sheet.TileSize, sheet.TileSize);
                 var length = (sheet.Animations.First().EndX - sheet.Animations.First().StartX + 1);
-                CharacterSheets.Add(new CustomSpriteSheetDefinition(content, sheet.SourceFile, rect, length));
+                var def = new CustomSpriteSheetDefinition(content, sheet.SourceFile, rect, length);
+                def.Y = anim.Y;
+                CharacterSheets.Add(def);
             }
 
             foreach (var bgToLoad in gameData.Levels.SelectMany(l => l.Parallax).Select(p => p.SourceFile).Distinct())
@@ -98,8 +102,7 @@ namespace PlatformerPOC.Seeding
 
                         if (tileMapping != null)
                         {
-                            var importedTileSets =
-                                gameData.Tilesets.Where(t => demoLevel.TilesetImports.Contains(t.Name)).ToArray();
+                            var importedTileSets = gameData.Tilesets.Where(t => demoLevel.TilesetImports.Contains(t.Name)).ToArray();
 
                             if (!importedTileSets.Any())
                                 throw new ArgumentException("Please import at least 1 tileset!");

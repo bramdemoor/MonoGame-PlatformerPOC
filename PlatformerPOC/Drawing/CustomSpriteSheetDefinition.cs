@@ -16,6 +16,8 @@ namespace PlatformerPOC.Drawing
         public IEnumerable<Rectangle> Sprites { get { return sprites;  } }
 
         public Rectangle SpriteDimensions { get; set; }
+
+        public int Y { get; set; }
         
         public CustomSpriteSheetDefinition(ContentManager content, string spriteTextureName, Rectangle spriteDimensions, int spriteCount)
         {
@@ -25,7 +27,7 @@ namespace PlatformerPOC.Drawing
             
             for (int i = 0; i < spriteCount; i++)
             {
-                sprites.Add(new Rectangle(i * spriteDimensions.Width, 0, spriteDimensions.Width, spriteDimensions.Height));                
+                sprites.Add(new Rectangle(i * spriteDimensions.Width, Y * spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height));                
             }
         }
     }

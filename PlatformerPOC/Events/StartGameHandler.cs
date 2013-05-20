@@ -29,7 +29,7 @@ namespace PlatformerPOC.Events
 
             if (_game.GameMode is EliminationGameMode)
             {
-                _game.gameWorld.LocalPlayer = new Player(_game, "Player 1", _game.GameDataLoader.CharacterSheets.First());
+                _game.gameWorld.LocalPlayer = new Player(_game, "Player 1", _game.GameDataLoader.CharacterSheets.ElementAt(2));
                 _game.gameWorld.LocalPlayer.SwitchTeam(Team.Neutral);
                 _game.gameWorld.Players.Add(_game.gameWorld.LocalPlayer);
 
