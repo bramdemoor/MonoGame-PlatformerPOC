@@ -8,6 +8,7 @@ using PlatformerPOC.Domain;
 using PlatformerPOC.Domain.Gamemodes;
 using PlatformerPOC.Domain.Level;
 using PlatformerPOC.Drawing;
+using PlatformerPOC.Events;
 using PlatformerPOC.Helpers;
 using log4net;
 using log4net.Appender;
@@ -16,7 +17,9 @@ using log4net.Core;
 namespace PlatformerPOC
 {
     public class PlatformGame : Game, IAppender
-    {         
+    {      
+        public static readonly EventAggregator eventAggregationManager = new EventAggregator();
+
         public ViewPort ViewPort { get; set; }
                 
         private readonly List<BaseGameObject> gameObjects;
@@ -48,6 +51,8 @@ namespace PlatformerPOC
 
         public PlatformGame()
         {
+            eventAggregationManager.AddListener(new GoreFactory(this));            
+
             ResourcePreloader = new ResourcePreloader(this);
             PlayerManager = new PlayerManagerNew(this);
             LevelManager = new LevelManager(this);

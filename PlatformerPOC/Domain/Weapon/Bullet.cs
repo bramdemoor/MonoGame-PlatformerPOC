@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using PlatformerPOC.Helpers;
+using PlatformerPOC.Messages;
 
 namespace PlatformerPOC.Domain.Weapon
 {
@@ -51,7 +52,7 @@ namespace PlatformerPOC.Domain.Weapon
             {
                 if (CollisionHelper.RectangleCollision(BoundingBox.FullRectangle, player.BoundingBox.FullRectangle))
                 {
-                    SpawnBloodParticle();
+                    PlatformGame.eventAggregationManager.SendMessage(new PlayerHitMessage());
 
                     player.DoDamage(25);
 
@@ -61,11 +62,6 @@ namespace PlatformerPOC.Domain.Weapon
                 }
             }
             return false;
-        }
-
-        private void SpawnBloodParticle()
-        {
-            game.AddObject(new Particle(game, new Vector2(Position.X + (HorizontalDirection*40), Position.Y), HorizontalDirection));
         }
     }
 }
