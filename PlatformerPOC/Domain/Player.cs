@@ -74,7 +74,7 @@ namespace PlatformerPOC.Domain
 
             Life = MAX_LIFE;
 
-            PlaySound(game.GameDataLoader.SpawnSound);
+            this.game.PlaySound(game.GameDataLoader.SpawnSound);
         }
 
         public void DoDamage(int damage)

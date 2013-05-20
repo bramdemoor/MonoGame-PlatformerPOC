@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PlatformerPOC.Domain;
@@ -142,6 +143,17 @@ namespace PlatformerPOC
         private void RegisterConsoleCommands()
         {
             DebugCommandUI.RegisterCommand("toggle-edit", "Turn level editor mode on or off", LevelEditor.ToggleEditModeCommand);
+        }
+
+        public void PlaySound(SoundEffect sound)
+        {
+            if (!Config.SoundEnabled) return;
+
+            SoundEffectInstance soundEffectInstance = sound.CreateInstance();
+
+            soundEffectInstance.Volume = Config.SoundVolume;
+
+            soundEffectInstance.Play();
         }
     }
 }

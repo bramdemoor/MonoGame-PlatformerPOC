@@ -33,7 +33,7 @@ namespace PlatformerPOC
         public static int ScreenResolutionHeight = 720;
 
         // Sound & effects:
-        public static bool SoundEnabled = false;
+        public static bool SoundEnabled = true;
         public static float SoundVolume = 1f;
         public static bool ScreenShakeEnabled = true;
     }

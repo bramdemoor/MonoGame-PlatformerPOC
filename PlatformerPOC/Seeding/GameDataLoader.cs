@@ -22,6 +22,7 @@ namespace PlatformerPOC.Seeding
         public Texture2D HudText { get; private set; }
         public Texture2D HudMsg { get; private set; }        
         public SoundEffect SpawnSound { get; private set; }
+        public SoundEffect ShotSound { get; private set; }
         public SpriteFont DefaultFont { get; private set; }
 
         public Texture2D pixelForLines;
@@ -41,6 +42,7 @@ namespace PlatformerPOC.Seeding
             HudText = content.Load<Texture2D>("hud");
             HudMsg = content.Load<Texture2D>("hud-msg");
             SpawnSound = content.Load<SoundEffect>("Sound/testsound");
+            ShotSound = content.Load<SoundEffect>("Sound/shot");
             DefaultFont = content.Load<SpriteFont>("spriteFont1");
 
             using(var sr = new StreamReader(content.RootDirectory + @"\bzDat.yml"))

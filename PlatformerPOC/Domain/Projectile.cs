@@ -60,6 +60,7 @@ namespace PlatformerPOC.Domain
 
                     player.DoDamage(25);
 
+                    // TODO BDM: Find a way of doing this without *-ing up the loop!
                     DestroyEntity();
 
                     return true;

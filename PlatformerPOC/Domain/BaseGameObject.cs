@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using PlatformerPOC.Helpers;
 
 namespace PlatformerPOC.Domain
@@ -27,17 +26,6 @@ namespace PlatformerPOC.Domain
         {
             // TODO BDM: Fix
             //game.DeleteObject(this);
-        }
-
-        protected void PlaySound(SoundEffect spawnSound)
-        {
-            if (!Config.SoundEnabled) return;
-
-            SoundEffectInstance soundEffectInstance = spawnSound.CreateInstance();
-
-            soundEffectInstance.Volume = Config.SoundVolume;
-
-            soundEffectInstance.Play();
         }
     }
 }

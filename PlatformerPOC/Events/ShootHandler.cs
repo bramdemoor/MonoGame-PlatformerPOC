@@ -16,6 +16,7 @@ namespace PlatformerPOC.Events
         {
             var bullet = new Projectile(_game, message.ShooterName, message.ShotPosition, message.HorizontalDirection);
             _game.gameWorld.Bullets.Add(bullet);
+            _game.PlaySound(_game.GameDataLoader.ShotSound);
         }
     }
 }
