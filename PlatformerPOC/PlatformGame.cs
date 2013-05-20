@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using PlatformerPOC.Control;
 using PlatformerPOC.Domain;
 using PlatformerPOC.Events;
 using PlatformerPOC.Gamemodes;
 using PlatformerPOC.Helpers;
-using PlatformerPOC.Level;
 using PlatformerPOC.Messages;
 using log4net;
 using log4net.Appender;
@@ -26,26 +22,18 @@ namespace PlatformerPOC
         public DebugCommandUI DebugCommandUI { get; private set; }
         
         public ResourcePreloader ResourcePreloader { get; private set; }
-        public LevelManager LevelManager { get; private set; }
         public int RoundCounter { get; set; }
         private Editor.Editor LevelEditor { get; set; }
         public readonly FPSCounter fpsCounter;
         public readonly Renderer renderer;
 
-        public Random Randomizer { get; private set; }
-
-        public List<Player> Players { get; set; }
-        public List<Projectile> Bullets { get; set; }
-        public Player LocalPlayer { get; set; }
+        public static Random Randomizer = new Random();
 
         public string Name { get; set; }
 
-        public IEnumerable<Player> AlivePlayers
-        {
-            get { return Players.Where(p => p.IsAlive); }
-        }
-
         public GameMode GameMode { get; set; }
+
+        public readonly GameWorld gameWorld;
 
         public SpriteFont DefaultFont
         {
@@ -58,19 +46,16 @@ namespace PlatformerPOC
             log = LogManager.GetLogger(typeof(PlatformGame));
             ((log4net.Repository.Hierarchy.Hierarchy)LogManager.GetLoggerRepository()).Root.AddAppender(this);
 
-            ResourcePreloader = new ResourcePreloader(this);
-            LevelManager = new LevelManager(this);            
+            ResourcePreloader = new ResourcePreloader(this);          
             GameMode = new EliminationGameMode();
             fpsCounter = new FPSCounter();
             renderer = new Renderer(this);
-            Randomizer = new Random();
+            gameWorld = new GameWorld(this);
 
+            // TODO BDM: Move to preloader
             Content.RootDirectory = "Content";            
 
             IsMouseVisible = Config.DebugModeEnabled;
-
-            Players = new List<Player>();            
-            Bullets = new List<Projectile>();
         }
 
         protected override void Initialize()
@@ -92,8 +77,6 @@ namespace PlatformerPOC
             Components.Add(DebugCommandUI);
 
             ResourcePreloader.LoadContent(Content);
-
-            LevelManager.PreloadLevels();
 
             base.LoadContent();
 
@@ -122,25 +105,9 @@ namespace PlatformerPOC
                 Exit();
             }
 
-            LocalPlayer.HandleInput(new PlayerKeyboardState(Keyboard.GetState()));
+            gameWorld.Update(gameTime);
 
-            foreach (var player in Players)
-            {
-                if(player.AI != null)
-                {
-                    player.AI.Evaluate(player.Position, LocalPlayer.Position, Randomizer);
-                    player.HandleInput(player.AI);
-                }
-
-                player.Update(gameTime);    
-            }
-
-            foreach (var bullet in Bullets)
-            {
-                bullet.Update(gameTime);
-            }
-            
-            renderer.ScrollToHorizontal(LocalPlayer.Position.X);
+            renderer.ScrollToHorizontal(gameWorld.LocalPlayer.Position.X);
 
             eventAggregationManager.SendMessage(new CheckGameStateMessage());            
 

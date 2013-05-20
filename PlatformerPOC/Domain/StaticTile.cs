@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using PlatformerPOC.Drawing;
 using PlatformerPOC.Helpers;
 using PlatformerPOC.Level;
 
@@ -12,7 +11,7 @@ namespace PlatformerPOC.Domain
     {
         public TileDefinition TileDefinition { get; private set; }
 
-        public StaticTile(PlatformGame game, Vector2 position, TileDefinition tileDefinition) : base(game)
+        public StaticTile(Vector2 position, TileDefinition tileDefinition)
         {
             Position = position;
             TileDefinition = tileDefinition;

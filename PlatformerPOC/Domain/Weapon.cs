@@ -10,7 +10,7 @@ namespace PlatformerPOC.Domain
         private int intervalCounter = 0;
         private const int interval = 15;
 
-        public Weapon(PlatformGame game, Player owner) : base(game)
+        public Weapon(Player owner)
         {
             this.owner = owner;            
         }

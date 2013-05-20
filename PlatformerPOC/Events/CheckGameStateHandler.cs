@@ -14,7 +14,7 @@ namespace PlatformerPOC.Events
 
         public void Handle(CheckGameStateMessage message)
         {
-            switch (_game.AlivePlayers.Count())
+            switch (_game.gameWorld.AlivePlayers.Count())
             {
                 case 0:
                     PlatformGame.eventAggregationManager.SendMessage(new SpawnPlayersMessage());
@@ -23,9 +23,9 @@ namespace PlatformerPOC.Events
                     break;
                 case 1:
                     // Only 1 player? Don't do the checks.
-                    if (_game.Players.Count() == 1) return;
+                    if (_game.gameWorld.Players.Count() == 1) return;
 
-                    var winner = _game.AlivePlayers.Single();
+                    var winner = _game.gameWorld.AlivePlayers.Single();
                     winner.Score.MarkWin();
                     PlatformGame.eventAggregationManager.SendMessage(new SpawnPlayersMessage());
 

@@ -15,7 +15,7 @@ namespace PlatformerPOC.Domain
 
         public int Id { get; private set; } 
 
-        public Powerup(PlatformGame game, Vector2 pos) : base(game)
+        public Powerup(Vector2 pos)
         {
             Id = powerUpIdCounter++;
             Position = pos;

@@ -1,4 +1,6 @@
-﻿using PlatformerPOC.Messages;
+﻿using System.Linq;
+using Microsoft.Xna.Framework;
+using PlatformerPOC.Messages;
 
 namespace PlatformerPOC.Events
 {
@@ -13,11 +15,16 @@ namespace PlatformerPOC.Events
 
         public void Handle(SpawnPlayersMessage message)
         {
-            for (int playerIndex = 0; playerIndex < _game.Players.Count; playerIndex++)
+            for (int playerIndex = 0; playerIndex < _game.gameWorld.Players.Count; playerIndex++)
             {
-                var player = _game.Players[playerIndex];
-                player.Spawn(_game.LevelManager.CurrentLevel.GetSpawnPointForPlayerIndex(playerIndex + 1));
+                var player = _game.gameWorld.Players[playerIndex];
+                player.Spawn(GetSpawnPointForPlayerIndex(playerIndex + 1));
             }
+        }
+
+        private Vector2 GetSpawnPointForPlayerIndex(int i)
+        {
+            return _game.gameWorld.spawnPointPositions.ElementAtOrDefault(i - 1);
         }
     }
 }

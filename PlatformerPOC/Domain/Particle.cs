@@ -8,9 +8,9 @@ namespace PlatformerPOC.Domain
     {
         private readonly CustomSpriteSheetInstance spriteSheetInstance;
 
-        public Particle(PlatformGame game, Vector2 position, int horizontalDirection) : base(game)
+        public Particle(PlatformGame game, Vector2 position, int horizontalDirection)
         {
-            spriteSheetInstance = new CustomSpriteSheetInstance(game, game.ResourcePreloader.BulletImpactSpriteSheet, 2);
+            spriteSheetInstance = new CustomSpriteSheetInstance(game.ResourcePreloader.BulletImpactSpriteSheet, 2);
 
             Position = position;
             HorizontalDirection = horizontalDirection;
@@ -33,7 +33,7 @@ namespace PlatformerPOC.Domain
 
         private void UpdateBoundingBox()
         {
-            BoundingBox.SetFullRectangle(Position, game.ResourcePreloader.BulletImpactSpriteSheet.SpriteDimensions, Velocity);
+            BoundingBox.SetFullRectangle(Position, spriteSheetInstance.SpriteSheetDefinition.SpriteDimensions, Velocity);
         }
     }
 }

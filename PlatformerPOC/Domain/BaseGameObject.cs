@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
 using PlatformerPOC.Helpers;
 
 namespace PlatformerPOC.Domain
@@ -10,8 +9,6 @@ namespace PlatformerPOC.Domain
     /// </summary>
     public abstract class BaseGameObject
     {
-        protected readonly PlatformGame game;
-
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
 
@@ -22,11 +19,6 @@ namespace PlatformerPOC.Domain
         /// 1: right        
         /// </summary>
         public int HorizontalDirection { get; set; }
-
-        protected BaseGameObject(PlatformGame game)
-        {
-            this.game = game;
-        }
 
         protected void DestroyEntity()
         {

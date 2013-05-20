@@ -77,6 +77,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Domain\GameWorld.cs" />
     <Compile Include="Gamemodes\EliminationGameMode.cs" />
     <Compile Include="Gamemodes\TeamEliminationGameMode.cs" />
     <Compile Include="Control\DummyAIController.cs" />
@@ -85,6 +86,9 @@
     <Compile Include="Drawing\CustomSpriteSheetDefinition.cs" />
     <Compile Include="Drawing\CustomSpriteSheetInstance.cs" />
     <Compile Include="Level\CustomTileSetDefinition.cs" />
+    <Compile Include="Level\LevelData.cs" />
+    <Compile Include="Level\LevelDataLoader.cs" />
+    <Compile Include="Domain\ParallaxLayer.cs" />
     <Compile Include="Level\TileDefinition.cs" />
     <Compile Include="Editor\Editor.cs" />
     <Compile Include="Domain\BaseGameObject.cs" />
@@ -111,9 +115,7 @@
     <Compile Include="Helpers\GameTimer.cs" />
     <Compile Include="Helpers\IDebugCommandHost.cs" />
     <Compile Include="Helpers\KeyboardUtils.cs" />
-    <Compile Include="Level\Level.cs" />
     <Compile Include="Domain\Particle.cs" />
-    <Compile Include="Level\LevelManager.cs" />
     <Compile Include="Level\LevelTileConcept.cs" />
     <Compile Include="Helpers\XNAExtensions.cs" />
     <Compile Include="Messages\CheckGameStateMessage.cs" />

@@ -19,6 +19,8 @@ namespace PlatformerPOC.Domain
         public Team Team { get; private set; }
         public Score Score { get; private set; }
 
+        private PlatformGame game;
+
         public CustomSpriteSheetInstance spriteSheetInstance;
 
         // Optional. An AI controller attached to this player instance, for bots only.
@@ -38,7 +40,7 @@ namespace PlatformerPOC.Domain
 
         public bool IsStandingOnSolid
         {
-            get { return !game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(BoundingBox.BottomRectangle); }
+            get { return !game.gameWorld.IsPlaceFreeOfWalls(BoundingBox.BottomRectangle); }
         }
 
         private bool WantsToMoveHorizontally
@@ -46,8 +48,10 @@ namespace PlatformerPOC.Domain
             get { return playerInputState.IsMoveLeftPressed || playerInputState.IsMoveRightPressed; }
         }
 
-        public Player(PlatformGame game, string name, CustomSpriteSheetDefinition spriteSheetDefinition): base(game)
+        public Player(PlatformGame game, string name, CustomSpriteSheetDefinition spriteSheetDefinition)
         {
+            this.game = game;
+
             HorizontalDirection = 1;
 
             BoundingBox = new CustomBoundingBox();
@@ -57,7 +61,7 @@ namespace PlatformerPOC.Domain
             Score = new Score();
             Team = new NeutralTeam();
 
-            spriteSheetInstance = new CustomSpriteSheetInstance(game, spriteSheetDefinition, 3);
+            spriteSheetInstance = new CustomSpriteSheetInstance(spriteSheetDefinition, 3);
         }
 
 
@@ -67,7 +71,7 @@ namespace PlatformerPOC.Domain
         {
             Position = spawnPoint;
 
-            weapon = new Weapon(game, this);
+            weapon = new Weapon(this);
 
             Life = MAX_LIFE;
 
@@ -109,7 +113,7 @@ namespace PlatformerPOC.Domain
                 ApplyInput();
             }
 
-            if (!game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(BoundingBox.FullRectangle))
+            if (!game.gameWorld.IsPlaceFreeOfWalls(BoundingBox.FullRectangle))
             {
                 Velocity = new Vector2(Velocity.X, 0);
             }
@@ -130,7 +134,7 @@ namespace PlatformerPOC.Domain
 
             UpdateBoundingBox();
 
-            foreach (var powerup in game.LevelManager.CurrentLevel.Coins)
+            foreach (var powerup in game.gameWorld.Coins)
             {
                 if (CollisionHelper.RectangleCollision(BoundingBox.FullRectangle, powerup.BoundingBox.FullRectangle))
                 {
@@ -148,7 +152,7 @@ namespace PlatformerPOC.Domain
         {
             if (Velocity.X > 0)
             {
-                if (game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(BoundingBox.RightRectangle))
+                if (game.gameWorld.IsPlaceFreeOfWalls(BoundingBox.RightRectangle))
                 {
                     Position = new Vector2(Position.X + Velocity.X, Position.Y);
                 }
@@ -156,7 +160,7 @@ namespace PlatformerPOC.Domain
 
             if (Velocity.X < 0)
             {
-                if (game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(BoundingBox.LeftRectangle))
+                if (game.gameWorld.IsPlaceFreeOfWalls(BoundingBox.LeftRectangle))
                 {
                     Position = new Vector2(Position.X + Velocity.X, Position.Y);
                 }
@@ -167,7 +171,7 @@ namespace PlatformerPOC.Domain
         {
             if (Velocity.Y < 0)
             {
-                if (!game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(BoundingBox.TopRectangle))
+                if (!game.gameWorld.IsPlaceFreeOfWalls(BoundingBox.TopRectangle))
                 {
                     Velocity = new Vector2(Velocity.X, 0);
                 }
@@ -247,7 +251,7 @@ namespace PlatformerPOC.Domain
                 //Offset(0,-10)
                 var newRect = new Rectangle(BoundingBox.TopRectangle.X, BoundingBox.TopRectangle.Y - 7,
                                             BoundingBox.TopRectangle.Width, 1);
-                if (game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(newRect))
+                if (game.gameWorld.IsPlaceFreeOfWalls(newRect))
                 {
                     Velocity = new Vector2(Velocity.X, -JUMP_FORCE);
                 }

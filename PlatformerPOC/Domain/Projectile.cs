@@ -11,8 +11,12 @@ namespace PlatformerPOC.Domain
 
         private readonly string shooterName;
 
-        public Projectile(PlatformGame game, string shooterName, Vector2 position, int horizontalDirection) : base(game)
+        private PlatformGame game;
+
+        public Projectile(PlatformGame game, string shooterName, Vector2 position, int horizontalDirection)
         {
+            this.game = game;
+
             Position = position;
             this.shooterName = shooterName;
             HorizontalDirection = horizontalDirection;
@@ -23,7 +27,7 @@ namespace PlatformerPOC.Domain
 
         public void Update(GameTime gameTime)
         {
-            if (!game.LevelManager.CurrentLevel.IsPlaceFreeOfWalls(BoundingBox.FullRectangle))
+            if (!game.gameWorld.IsPlaceFreeOfWalls(BoundingBox.FullRectangle))
             {
                 DestroyEntity();
                 return;                
@@ -48,7 +52,7 @@ namespace PlatformerPOC.Domain
 
         private bool CheckPlayerCollision()
         {
-            foreach (var player in game.AlivePlayers.Where(p => p.Name != shooterName))
+            foreach (var player in game.gameWorld.AlivePlayers.Where(p => p.Name != shooterName))
             {
                 if (CollisionHelper.RectangleCollision(BoundingBox.FullRectangle, player.BoundingBox.FullRectangle))
                 {

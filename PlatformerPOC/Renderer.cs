@@ -69,16 +69,14 @@ namespace PlatformerPOC
         }
 
         private void DrawAll()
-        {
-            var level = game.LevelManager.CurrentLevel;
-            
-            foreach(var layer in level.bgLayers)
+        {            
+            foreach(var layer in game.gameWorld.bgLayers)
             {
                 var myPos = new Vector2(-ViewArea.X*layer.Speed, 0);
                 spriteBatch.Draw(layer.Texture, myPos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
 
-            foreach(var tile in level.Walls)
+            foreach (var tile in game.gameWorld.Walls)
             {
                 if(IsObjectInView(tile))
                 {                                                
@@ -86,7 +84,7 @@ namespace PlatformerPOC
                 }                
             }
 
-            foreach(var coin in level.Coins)
+            foreach (var coin in game.gameWorld.Coins)
             {
                 if(IsObjectInView(coin))
                 {
@@ -97,7 +95,7 @@ namespace PlatformerPOC
             // TODO BDM: foreach particle:
             //spriteSheetInstance.Draw(PositionRelativeToView, DrawEffect, LayerDepths.FOREGROUND_PARTICLE);               
 
-            foreach (var player in game.Players)
+            foreach (var player in game.gameWorld.Players)
             {
                 if(IsObjectInView(player))
                 {
@@ -109,8 +107,8 @@ namespace PlatformerPOC
                     spriteBatch.DrawString(game.ResourcePreloader.DefaultFont, displayText, playerPos, player.TextColor, 0, new Vector2(0, 30), 0.65f, SpriteEffects.None, 0f);                                    
                 }                
             }
-            
-            foreach( var bullet in game.Bullets)
+
+            foreach (var bullet in game.gameWorld.Bullets)
             {
                 if(IsObjectInView(bullet))
                 {
@@ -123,7 +121,7 @@ namespace PlatformerPOC
         private void DrawHud()
         {
             var str = string.Format("Round: {0}", game.RoundCounter);
-            string modeAndLevelText = string.Format("{0} in {1}", "Elimination", game.LevelManager.CurrentLevel.Name);
+            string modeAndLevelText = string.Format("{0} in {1}", "Elimination", game.gameWorld.CurrentLevelData.Name);
             string limitsText = "Score limit: 10 | Time limit: 10:00";
 
             const int leftTextStart = 1020;
@@ -144,9 +142,9 @@ namespace PlatformerPOC
 
             const int playersStart = 220;
             // Players section
-            for (int index = 0; index < game.Players.Count; index++)
+            for (int index = 0; index < game.gameWorld.Players.Count; index++)
             {
-                var player = game.Players[index];
+                var player = game.gameWorld.Players[index];
                 spriteBatch.DrawString(game.DefaultFont, player.Name, new Vector2(leftTextStart, playersStart + (index * vTextSpace)), player.TextColor, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
                 spriteBatch.DrawString(game.DefaultFont, player.Score.ToString(), new Vector2(1170, playersStart + (index * vTextSpace)), player.TextColor, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
             }
@@ -162,17 +160,17 @@ namespace PlatformerPOC
 
             DrawBorder(new Rectangle(0, 0, ViewArea.Width, ViewArea.Height), 5, Color.Yellow);
 
-            foreach(var tile in game.LevelManager.CurrentLevel.Walls)
+            foreach(var tile in game.gameWorld.Walls)
             {
                 DrawBorder(GetRelativeCoords(tile.BoundingBox.FullRectangle), 2, Color.DarkRed);
             }
 
-            foreach(var player in game.Players)
+            foreach(var player in game.gameWorld.Players)
             {
                 DrawBorder(GetRelativeCoords(player.BoundingBox.FullRectangle), 1, Color.Pink);    
             }
 
-            foreach(var bullet in game.Bullets)
+            foreach(var bullet in game.gameWorld.Bullets)
             {
                 DrawBorder(GetRelativeCoords(bullet.BoundingBox.FullRectangle), 1, Color.Lime);    
             }
