@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using PlatformerPOC.Control;
-using PlatformerPOC.Drawing;
+using PlatformerPOC.AI;
 using PlatformerPOC.Helpers;
 using PlatformerPOC.Messages;
 
@@ -248,9 +247,7 @@ namespace PlatformerPOC.Domain
             if (IsStandingOnSolid)
             {
                 // if enough space above to jump
-                //Offset(0,-10)
-                var newRect = new Rectangle(BoundingBox.TopRectangle.X, BoundingBox.TopRectangle.Y - 7,
-                                            BoundingBox.TopRectangle.Width, 1);
+                var newRect = new Rectangle(BoundingBox.TopRectangle.X, BoundingBox.TopRectangle.Y - 7, BoundingBox.TopRectangle.Width, 1);
                 if (game.gameWorld.IsPlaceFreeOfWalls(newRect))
                 {
                     Velocity = new Vector2(Velocity.X, -JUMP_FORCE);
@@ -265,11 +262,6 @@ namespace PlatformerPOC.Domain
 
             if (Velocity.Y < 0) Velocity = new Vector2(Velocity.X, 0);
         }
-
-        #endregion
-
-
-        #region Meta actions
 
         public void SwitchTeam(Team newTeam)
         {

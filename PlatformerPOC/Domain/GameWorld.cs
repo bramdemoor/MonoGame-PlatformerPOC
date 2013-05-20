@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using PlatformerPOC.Control;
 using PlatformerPOC.Helpers;
 using PlatformerPOC.Seeding;
 

@@ -1,4 +1,4 @@
-﻿namespace PlatformerPOC.Gamemodes
+﻿namespace PlatformerPOC.Helpers
 {
     public class EliminationGameMode : GameMode
     {

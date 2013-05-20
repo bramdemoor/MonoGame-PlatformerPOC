@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PlatformerPOC.Domain;
 using PlatformerPOC.Events;
-using PlatformerPOC.Gamemodes;
 using PlatformerPOC.Helpers;
 using PlatformerPOC.Messages;
 using PlatformerPOC.Seeding;

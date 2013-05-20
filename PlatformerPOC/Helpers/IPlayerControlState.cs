@@ -1,4 +1,4 @@
-﻿namespace PlatformerPOC.Control
+﻿namespace PlatformerPOC.Helpers
 {
     public interface IPlayerControlState
     {

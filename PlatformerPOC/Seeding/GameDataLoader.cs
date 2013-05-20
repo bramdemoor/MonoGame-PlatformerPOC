@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using PlatformerPOC.Drawing;
+using PlatformerPOC.Helpers;
 using YamlDotNet.RepresentationModel.Serialization;
 
 namespace PlatformerPOC.Seeding

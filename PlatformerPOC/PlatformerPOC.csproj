@@ -78,18 +78,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Domain\GameWorld.cs" />
-    <Compile Include="Gamemodes\EliminationGameMode.cs" />
-    <Compile Include="Gamemodes\TeamEliminationGameMode.cs" />
-    <Compile Include="Control\DummyAIController.cs" />
+    <Compile Include="Helpers\EliminationGameMode.cs" />
+    <Compile Include="Helpers\TeamEliminationGameMode.cs" />
+    <Compile Include="AI\DummyAIController.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="Control\IPlayerControlState.cs" />
-    <Compile Include="Drawing\CustomSpriteSheetDefinition.cs" />
-    <Compile Include="Drawing\CustomSpriteSheetInstance.cs" />
+    <Compile Include="Helpers\IPlayerControlState.cs" />
+    <Compile Include="Helpers\CustomSpriteSheetDefinition.cs" />
+    <Compile Include="Helpers\CustomSpriteSheetInstance.cs" />
     <Compile Include="Domain\ParallaxLayer.cs" />
     <Compile Include="Editor\Editor.cs" />
     <Compile Include="Domain\BaseGameObject.cs" />
     <Compile Include="Domain\Projectile.cs" />
-    <Compile Include="Gamemodes\GameMode.cs" />
+    <Compile Include="Helpers\GameMode.cs" />
     <Compile Include="Domain\Weapon.cs" />
     <Compile Include="Domain\Score.cs" />
     <Compile Include="Domain\Powerup.cs" />
@@ -121,7 +121,7 @@
     <Compile Include="Messages\StartGameMessage.cs" />
     <Compile Include="PlatformGame.cs" />
     <Compile Include="Domain\Player.cs" />
-    <Compile Include="Control\PlayerKeyboardState.cs" />
+    <Compile Include="Helpers\PlayerKeyboardState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderer.cs" />
     <Compile Include="Seeding\GameDataLoader.cs" />
@@ -201,7 +201,9 @@
     </Content>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Network\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

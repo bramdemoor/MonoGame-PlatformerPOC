@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PlatformerPOC.Drawing
+namespace PlatformerPOC.Helpers
 {
     public class CustomSpriteSheetDefinition
     {

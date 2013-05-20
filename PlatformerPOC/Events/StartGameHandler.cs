@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using PlatformerPOC.Control;
+using PlatformerPOC.AI;
 using PlatformerPOC.Domain;
-using PlatformerPOC.Gamemodes;
 using PlatformerPOC.Helpers;
 using PlatformerPOC.Messages;
 

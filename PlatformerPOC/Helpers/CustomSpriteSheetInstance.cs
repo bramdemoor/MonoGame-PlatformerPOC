@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.Xna.Framework;
 
-namespace PlatformerPOC.Drawing
+namespace PlatformerPOC.Helpers
 {
     public class CustomSpriteSheetInstance
     {

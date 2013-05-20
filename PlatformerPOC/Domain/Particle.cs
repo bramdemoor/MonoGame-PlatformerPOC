@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using PlatformerPOC.Drawing;
 using PlatformerPOC.Helpers;
 
 namespace PlatformerPOC.Domain
