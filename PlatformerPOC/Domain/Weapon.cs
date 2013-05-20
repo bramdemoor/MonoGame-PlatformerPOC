@@ -30,7 +30,7 @@ namespace PlatformerPOC.Domain
         {
             if (intervalCounter > 0) return;
 
-            var shotPosition = Position + new Vector2(30 * HorizontalDirection, 12);
+            var shotPosition = Position + new Vector2(30 * (int) HorizontalDirection, 12);
 
             PlatformGame.eventAggregationManager.SendMessage(new ShootMessage(owner.Name, shotPosition, HorizontalDirection));
             

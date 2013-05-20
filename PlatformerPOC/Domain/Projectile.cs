@@ -13,7 +13,7 @@ namespace PlatformerPOC.Domain
 
         private PlatformGame game;
 
-        public Projectile(PlatformGame game, string shooterName, Vector2 position, int horizontalDirection)
+        public Projectile(PlatformGame game, string shooterName, Vector2 position, HorizontalDirection horizontalDirection)
         {
             this.game = game;
 
@@ -42,7 +42,7 @@ namespace PlatformerPOC.Domain
 
         private void MoveHorizontal()
         {
-            Position = new Vector2(Position.X + (HorizontalDirection*horizontalMaxSpeed), Position.Y);
+            Position = new Vector2(Position.X + ((int) HorizontalDirection*horizontalMaxSpeed), Position.Y);
         }
 
         private void UpdateBoundingBox()

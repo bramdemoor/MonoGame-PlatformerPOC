@@ -106,7 +106,7 @@ namespace PlatformerPOC
             {
                 if(IsObjectInView(player))
                 {
-                    var dir = player.HorizontalDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                    var dir = GetSpriteEffects(player.HorizontalDirection);
                     var playerPos = GetRelativeCoords(player.Position);
                     spriteBatch.Draw(player.spriteSheetInstance.SpriteSheetDefinition.SpriteSheetTexture, playerPos, player.spriteSheetInstance.CurrentDrawRectangle, Color.White, 0f, Vector2.Zero, 1f, dir, 0f);
                     
@@ -122,10 +122,15 @@ namespace PlatformerPOC
                     var tex = game.GameDataLoader.GetTextureByTileKey("PistolBullet");
                     var rect = game.GameDataLoader.GetRectangleByTileKey("PistolBullet");
 
-                    var dir = bullet.HorizontalDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                    var dir = GetSpriteEffects(bullet.HorizontalDirection);
                     spriteBatch.Draw(tex, GetRelativeCoords(bullet.Position), rect, Color.White, 0, Vector2.Zero, 1, dir, 0f);        
                 }                
             }
+        }
+
+        private static SpriteEffects GetSpriteEffects(HorizontalDirection horizontalDirection)
+        {
+            return horizontalDirection == HorizontalDirection.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         }
 
         private void DrawHud()

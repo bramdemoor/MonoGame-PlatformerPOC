@@ -4,6 +4,13 @@ using PlatformerPOC.Helpers;
 
 namespace PlatformerPOC.Domain
 {
+    public enum HorizontalDirection
+    {
+        None = 0,
+        Left = -1,
+        Right = 1
+    }
+
     /// <summary>
     /// Base Game object    
     /// </summary>
@@ -14,11 +21,7 @@ namespace PlatformerPOC.Domain
 
         public CustomBoundingBox BoundingBox { get; set; }
 
-        /// <summary>
-        /// -1: left
-        /// 1: right        
-        /// </summary>
-        public int HorizontalDirection { get; set; }
+        public HorizontalDirection HorizontalDirection { get; set; }
 
         protected void DestroyEntity()
         {

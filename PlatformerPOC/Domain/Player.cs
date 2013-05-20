@@ -52,7 +52,7 @@ namespace PlatformerPOC.Domain
         {
             this.game = game;
 
-            HorizontalDirection = 1;
+            HorizontalDirection = HorizontalDirection.None;
 
             BoundingBox = new CustomBoundingBox();
 
@@ -207,14 +207,14 @@ namespace PlatformerPOC.Domain
             if (playerInputState.IsMoveLeftPressed)
             {
                 Velocity = new Vector2(- MOVE_SPEED, Velocity.Y);
-                HorizontalDirection = -1;
+                HorizontalDirection = HorizontalDirection.Left;
             }
             else
             {
                 if (playerInputState.IsMoveRightPressed)
                 {
                     Velocity = new Vector2(MOVE_SPEED, Velocity.Y);
-                    HorizontalDirection = 1;
+                    HorizontalDirection = HorizontalDirection.Right;
                 }
                 else
                 {

@@ -8,7 +8,7 @@ namespace PlatformerPOC.Domain
     {
         private readonly CustomSpriteSheetInstance spriteSheetInstance;
 
-        public Particle(PlatformGame game, Vector2 position, int horizontalDirection)
+        public Particle(PlatformGame game, Vector2 position, HorizontalDirection horizontalDirection)
         {
             //spriteSheetInstance = new CustomSpriteSheetInstance(game.GameDataLoader.BulletImpactSpriteSheet, 2);
 
