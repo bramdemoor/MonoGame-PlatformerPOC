@@ -97,8 +97,10 @@ namespace PlatformerPOC.Domain
 
         #region Loop
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
+            weapon.Update(gameTime);
+
             // FYI: UpdateBoundingBox called multiple times to prevent some nasty bugs
 
             UpdateBoundingBox();

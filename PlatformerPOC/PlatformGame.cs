@@ -109,6 +109,7 @@ namespace PlatformerPOC
             eventAggregationManager.AddListener(new SpawnPlayersHandler(this));     
             eventAggregationManager.AddListener(new StartGameHandler(this));     
             eventAggregationManager.AddListener(new CheckGameStateHandler(this));     
+            eventAggregationManager.AddListener(new ShootHandler(this));     
 
             eventAggregationManager.SendMessage(new StartGameMessage());            
         }
@@ -136,7 +137,7 @@ namespace PlatformerPOC
                     player.HandleInput(player.AI);
                 }
 
-                player.Update();    
+                player.Update(gameTime);    
             }
 
             foreach (var bullet in Bullets)
